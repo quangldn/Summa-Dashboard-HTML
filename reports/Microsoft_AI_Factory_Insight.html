@@ -1,0 +1,407 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Microsoft AI Superfactory — Scale-Across / DCI Briefing</title>
+<style>
+:root{--bg:#0a1122;--panel:#111b30;--panel2:#0e1728;--line:#22304d;--ink:#e6edf7;
+--mut:#93a4c0;--dim:#6c7d9c;--acc:#4a90ff;--blue:#4a90ff;--amber:#f3b73b;--red:#ef5a5a;
+--purple:#8a6bff;--green:#2ec16b;--cyan:#33c6e8}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:15px;line-height:1.62}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+header.top{padding:26px 30px 18px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#0d1830,#0a1122)}
+header.top h1{margin:0;font-size:26px;letter-spacing:.3px}
+header.top .sub{color:var(--blue);font-weight:600;margin-top:4px;font-size:14px;letter-spacing:.4px}
+header.top .meta{color:var(--dim);font-size:12.5px;margin-top:8px}
+header.top .xlink{margin-top:10px;font-size:13px;display:flex;gap:8px;flex-wrap:wrap}
+header.top .xlink a{background:#132039;border:1px solid var(--line);padding:5px 11px;border-radius:8px;color:var(--acc);display:inline-block}
+nav.tabs{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;gap:4px;padding:10px 22px;background:rgba(10,17,34,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav.tabs button{background:transparent;border:1px solid transparent;color:var(--mut);padding:8px 13px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:600;transition:.15s;white-space:nowrap}
+nav.tabs button:hover{color:var(--ink);background:#132039}
+nav.tabs button.active{color:#04101f;background:var(--blue)}
+nav.tabs button .n{opacity:.6;font-weight:700;margin-right:6px}
+main{max-width:1140px;margin:0 auto;padding:26px 22px 90px}
+.tab{display:none;animation:fade .25s ease}.tab.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+h2.tt{font-size:22px;margin:2px 0 4px}.tt-sub{color:var(--mut);margin:0 0 20px;font-size:14px}
+.sec{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:0 0 18px}
+.sec h3{margin:0 0 12px;font-size:15px;letter-spacing:.4px;text-transform:uppercase;display:flex;align-items:center;gap:9px}
+.sec h3 .dot{width:9px;height:9px;border-radius:3px;display:inline-block;background:var(--blue)}
+.sec p{margin:0 0 11px}.sec ul{margin:4px 0 6px;padding-left:20px}.sec li{margin:6px 0}
+.sec.take{background:linear-gradient(180deg,#0f2036,#0e1a2c);border-color:#25457a}
+.sec.take h3 .dot{background:var(--acc)}
+.sec.warn h3 .dot{background:var(--amber)}
+table{width:100%;border-collapse:collapse;margin:6px 0 4px;font-size:13px}
+th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--mut);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.4px;background:#0f1a2e;position:sticky}
+td.c{white-space:nowrap}
+.kd{color:var(--acc);font-weight:700}
+.grid{display:grid;gap:14px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr 1fr 1fr}.g4{grid-template-columns:repeat(4,1fr)}
+.mini{background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:14px 16px}
+.mini h4{margin:0 0 6px;font-size:12.5px;color:var(--blue);text-transform:uppercase;letter-spacing:.4px}
+.mini .big{font-size:23px;font-weight:800}.mini .lbl{color:var(--dim);font-size:11.5px}
+.pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px;letter-spacing:.3px}
+.p-live{background:rgba(46,193,107,.16);color:#5fe09a;border:1px solid #226b45}
+.p-plan{background:rgba(243,183,59,.15);color:#f3c869;border:1px solid #6d5622}
+.p-hi{background:rgba(239,90,90,.14);color:#f18b8b;border:1px solid #6d2b2b}
+.p-inf{background:rgba(138,107,255,.16);color:#b6a4ff;border:1px solid #4a3b8a}
+.chip{display:inline-block;background:#132039;border:1px solid var(--line);color:var(--mut);padding:6px 12px;border-radius:20px;font-size:12.5px;font-weight:600;margin:0 6px 6px 0}
+.ccard{background:var(--panel2);border:1px solid var(--line);border-radius:13px;padding:16px 18px;margin:0 0 14px;border-left:4px solid var(--blue)}
+.ccard.hi{border-left-color:var(--red)}.ccard.med{border-left-color:var(--amber)}.ccard.inf{border-left-color:var(--purple)}
+.ccard h4{margin:0 0 3px;font-size:17px}.ccard .role{color:var(--blue);font-size:12.5px;font-weight:600;margin-bottom:10px}
+.ccard .r{display:grid;grid-template-columns:130px 1fr;gap:4px 12px;font-size:13.3px;margin:4px 0}
+.ccard .r b{color:var(--mut);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.3px;padding-top:2px}
+.flag{border-left:3px solid var(--amber);background:#151d2c;padding:10px 14px;border-radius:0 8px 8px 0;margin:10px 0}.flag b{color:var(--amber)}
+.good{border-left:3px solid var(--green);background:#101f22;padding:10px 14px;border-radius:0 8px 8px 0;margin:10px 0}.good b{color:var(--green)}
+.inf{border-left:3px solid var(--purple);background:#161528;padding:10px 14px;border-radius:0 8px 8px 0;margin:10px 0}.inf b{color:#b6a4ff}
+.callout{background:linear-gradient(180deg,#0e1e33,#0e1830);border:1px solid #234a63;border-radius:12px;padding:16px 18px;margin:16px 0}
+.callout .ttl{color:var(--blue);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin:14px 0}
+.flow .node{flex:1;min-width:150px;background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:13px 14px;position:relative;margin-right:26px;margin-bottom:12px}
+.flow .node:last-child{margin-right:0}
+.flow .node:not(:last-child):after{content:"\2192";position:absolute;right:-20px;top:50%;transform:translateY(-50%);color:var(--blue);font-size:20px;font-weight:700}
+.flow .node .st{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--dim);margin-bottom:4px}
+.flow .node .ti{font-weight:700;font-size:14px;margin-bottom:4px}
+.flow .node .ds{font-size:12px;color:var(--mut)}
+.flow .node.nk{border-color:#2a5a9e;background:linear-gradient(180deg,#0f2036,#0e1c2c)}
+.flow .node.nk .ti{color:var(--acc)}
+.talk{margin:6px 0}.talk .row{display:flex;gap:14px;padding:13px 0;border-bottom:1px solid var(--line)}.talk .row:last-child{border-bottom:none}
+.talk .num{flex:0 0 30px;height:30px;border-radius:9px;background:var(--acc);color:#04101f;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:14px}
+.talk .qt{font-size:14.5px}
+.q{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.q:last-child{border-bottom:none}
+.q .qn{flex:0 0 26px;height:26px;border-radius:8px;background:#1a2740;color:var(--blue);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:13px}
+.q .qb b{color:var(--ink)}.q .qb{font-size:13.6px}
+/* --- inline citation system --- */
+.cite{color:var(--acc);border-bottom:1px dotted rgba(74,144,255,.65);cursor:help;text-decoration:none;font-weight:inherit;white-space:nowrap}
+.cite:hover{border-bottom-style:solid;text-decoration:none}
+.cite.calc{color:#b6a4ff;border-bottom-color:rgba(138,107,255,.55)}
+.mini .big .cite{border-bottom-width:2px}
+#tip{position:fixed;z-index:100;max-width:344px;background:#0c1526;border:1px solid #2d3f63;border-radius:10px;padding:11px 13px;font-size:12.5px;line-height:1.5;box-shadow:0 10px 34px rgba(0,0,0,.55);pointer-events:none;display:none}
+#tip .q{color:var(--ink);font-style:italic}
+#tip .src{margin-top:7px;color:var(--blue);font-size:11.5px;font-weight:700;letter-spacing:.2px}
+#tip .src.est{color:#b6a4ff}
+.cite-hint{display:inline-block;margin-top:4px;color:var(--dim);font-size:12px}
+.cite-hint b{color:var(--acc)}
+@media(max-width:760px){.g2,.g3,.g4{grid-template-columns:1fr}main{padding:20px 14px 80px}.ccard .r{grid-template-columns:1fr}}
+</style></head><body>
+<header class="top">
+<h1>Microsoft AI Superfactory — Scale-Across &amp; DCI Briefing</h1>
+<div class="sub">Fairwater, the AI-WAN, and what "connecting data centers" means for the optical layer</div>
+<div class="meta">Research brief from the Microsoft AI Factory Notion page (news.microsoft.com + blogs.microsoft.com, Sep–Nov 2025) · cross-checked against Data Center Frontier, GeekWire, Interesting Engineering · web-verified Aug 2026 · engineer framing · <b>optics implications are analyst interpretation, flagged as such</b></div>
+<div class="meta cite-hint">💡 <b>Figures are cited</b> — hover any <span class="cite" data-q="Like this — every underlined figure shows its supporting quote and source on hover, and clicks through to the article.">underlined number</span> for the supporting quote &amp; source; click it to open the source.</div>
+<div class="xlink"><a href="ASEAN_DC_Insight.html">↩ ASEAN Data Center Insight</a><a href="ASEAN_Subsea_Insight.html">↩ ASEAN Subsea Insight</a></div>
+</header>
+<nav class="tabs">
+<button class="active" onclick="show('overview',this)"><span class="n">1</span>Overview</button>
+<button onclick="show('build',this)"><span class="n">2</span>The Build</button>
+<button onclick="show('tiers',this)"><span class="n">3</span>Scale Up / Out / Across</button>
+<button onclick="show('aiwan',this)"><span class="n">4</span>AI-WAN Deep Dive</button>
+<button onclick="show('compete',this)"><span class="n">5</span>Competition</button>
+<button onclick="show('optics',this)"><span class="n">6</span>Optics / DCI Read</button>
+<button onclick="show('agenda',this)"><span class="n">7</span>Research Agenda</button>
+<button onclick="show('sources',this)"><span class="n">8</span>Sources</button>
+</nav>
+<main>
+
+<!-- 1 OVERVIEW -->
+<section id="overview" class="tab active">
+<div class="callout" style="border-color:#2e6b4a;background:linear-gradient(180deg,#0f2417,#0e1a1c)"><div class="ttl" style="color:#5fe09a">🔄 Update — checked Aug 2026</div>
+<b>The architecture stands; no third node yet.</b> As of the latest trusted coverage (Data Center Frontier, Apr 2026; SDxCentral), the superfactory is still the two-site pair — <a class="cite" data-q="Data Center Frontier (Apr 2026): Wisconsin phase one $3.3B + phase two $4B, total regional investment beyond $7 billion; the superfactory remains a distributed architecture linking campuses via a dedicated AI-WAN, with no Fairwater 3 announced." href="https://www.datacenterfrontier.com/hyperscale/article/55371352/microsoft-builds-for-two-worlds-sovereign-cloud-and-ai-factories" target="_blank" rel="noopener">Wisconsin (now &gt;$7B committed) + Atlanta</a> — with Microsoft reiterating it will fold <i>future</i> Fairwater campuses into the same AI-WAN. <a class="cite" data-q="SDxCentral: Microsoft details the AI-WAN connecting the distributed Fairwater superfactory, confirming the dedicated fiber backbone and the MRC (Multi-Path Reliable Connected) transport co-developed with NVIDIA and OpenAI." href="https://www.sdxcentral.com/news/microsoft-details-ai-wan-connecting-distributed-fairwater-ai-superfactory/" target="_blank" rel="noopener">SDxCentral confirms the AI-WAN + MRC detail</a>. Net: the DCI thesis below is unchanged — the news since is <b>competitors racing the same scale-across problem</b> (new tab 5).</div>
+<h2 class="tt">The first "AI superfactory"</h2>
+<p class="tt-sub">On 12 Nov 2025 Microsoft announced it had linked two purpose-built AI data centers — Fairwater 1 (Mount Pleasant, Wisconsin) and Fairwater 2 (Atlanta, Georgia), <a class="cite" data-q="GeekWire: the facilities are 'roughly 700 miles and five states apart,' linked by an AI Wide Area Network to share computing tasks in real time." href="https://www.geekwire.com/2025/what-is-an-ai-superfactory-microsoft-unveils-new-approach-to-building-and-linking-datacenters/" target="_blank" rel="noopener">~700 miles and five states apart</a> — into a single distributed training system over a dedicated optical backbone it calls the <b>AI-WAN</b>. This is the reference architecture for the "scale-across" era: training jobs that no longer fit in one building, one campus, or even one power grid.</p>
+<div class="grid g4">
+<div class="mini"><h4>Site separation</h4><div class="big"><a class="cite" data-q="GeekWire: 'roughly 700 miles and five states apart,' linked by the AI-WAN." href="https://www.geekwire.com/2025/what-is-an-ai-superfactory-microsoft-unveils-new-approach-to-building-and-linking-datacenters/" target="_blank" rel="noopener">~700 mi</a></div><div class="lbl">Fairwater 1 (WI) ↔ Fairwater 2 (GA), 5 states</div></div>
+<div class="mini"><h4>Fiber added / yr</h4><div class="big"><a class="cite" data-q="Microsoft: deployed ~120,000 miles of dedicated fiber in the past year, expanding its AI-networking footprint by more than 25%." href="https://news.microsoft.com/source/features/ai/from-wisconsin-to-atlanta-microsoft-connects-datacenters-to-build-its-first-ai-superfactory/" target="_blank" rel="noopener">~120,000</a></div><div class="lbl">fiber-miles lit in the US in the past year; ≈+25% AI-network footprint</div></div>
+<div class="mini"><h4>GPUs / site</h4><div class="big"><a class="cite" data-q="Microsoft / Data Center Frontier: each Fairwater site runs hundreds of thousands of NVIDIA GB200 (Blackwell) GPUs in NVL72 rack-scale systems." href="https://www.datacenterfrontier.com/machine-learning/article/55330039/microsofts-fairwater-atlanta-and-the-rise-of-the-distributed-ai-supercomputer" target="_blank" rel="noopener">100,000s</a></div><div class="lbl">NVIDIA GB200 NVL72 (Blackwell); GB300 next</div></div>
+<div class="mini"><h4>Multi-site power</h4><div class="big"><a class="cite" data-q="NextBigFuture: reports Microsoft's multi-site AI data center system at roughly 2 gigawatts combined." href="https://www.nextbigfuture.com/2025/11/microsoft-has-largest-multi-site-ai-data-center-at-2-gigawatts.html" target="_blank" rel="noopener">~2 GW</a></div><div class="lbl">combined, headed higher (est.)</div></div>
+</div>
+<div class="callout"><div class="ttl">The thesis in one line</div>
+<b>Scale-across turns the wide-area network into part of the computer.</b> Once a training job spans data centers 700 miles apart, the interconnect between them stops being "connectivity" and becomes a first-class tier of the supercomputer — a dedicated, low-jitter, massive-capacity optical backbone. For an optical SE, this is the continental-scale, terrestrial cousin of the DCI / dark-fiber demand the ASEAN reports already track: <i>the AI build-out is now buying long-haul coherent transport, not just intra-DC fabric.</i></div>
+
+<div class="sec"><h3><span class="dot"></span>Why Microsoft is doing this (the real driver)</h3>
+<ul>
+<li><b>One building can't hold a frontier training run anymore.</b> GPU counts, power and cooling for a single job now exceed what any one campus can deliver — so the job is spread across sites and stitched back together.</li>
+<li><b>Power and grid arbitrage.</b> Spreading load across states and time zones lets Microsoft place work where power, cooling and (increasingly) renewable/firmed energy are available, instead of forcing a single multi-GW draw onto one grid interconnect.</li>
+<li><b>Fungibility.</b> With a fast backbone, training, fine-tuning, reinforcement learning, synthetic-data generation, evaluation and inference can be shifted to wherever capacity is free — the fleet behaves as one pool.</li>
+<li><b>Speed.</b> Microsoft's framing: <a class="cite" data-q="Microsoft: sites working together as one system cut large training jobs from months to weeks (vendor claim)." href="https://news.microsoft.com/source/features/ai/from-wisconsin-to-atlanta-microsoft-connects-datacenters-to-build-its-first-ai-superfactory/" target="_blank" rel="noopener">training jobs that took months now run in weeks</a> because the sites work as one system.</li>
+</ul></div>
+
+<div class="sec"><h3><span class="dot"></span>The two source articles (on the Notion page)</h3>
+<table><thead><tr><th>Article</th><th>What it covers</th></tr></thead><tbody>
+<tr><td><b><a href="https://news.microsoft.com/source/features/ai/from-wisconsin-to-atlanta-microsoft-connects-datacenters-to-build-its-first-ai-superfactory/" target="_blank" rel="noopener">From Wisconsin to Atlanta: Microsoft connects datacenters to build its first AI superfactory</a></b><br><span style="color:var(--dim);font-size:12px">news.microsoft.com, Nov 2025</span></td><td>The superfactory concept, the AI-WAN, ~120,000 fiber-miles / +25% footprint, the "months → weeks" claim, and the workload types the backbone carries.</td></tr>
+<tr><td><b><a href="https://blogs.microsoft.com/blog/2025/09/18/inside-the-worlds-most-powerful-ai-datacenter/" target="_blank" rel="noopener">Made in Wisconsin / Inside the world's most powerful AI datacenter</a></b><br><span style="color:var(--dim);font-size:12px">blogs.microsoft.com, Sep 2025</span></td><td>The Fairwater 1 site: GB200 NVL72 racks, NVLink scale-up, 800G Ethernet scale-out, two-story layout, closed-loop liquid cooling, storage and power.</td></tr>
+<tr><td><b><a href="https://blogs.microsoft.com/blog/2025/11/12/infinite-scale-the-architecture-behind-the-azure-ai-superfactory/" target="_blank" rel="noopener">Infinite scale: the architecture behind the Azure AI superfactory</a></b><br><span style="color:var(--dim);font-size:12px">blogs.microsoft.com, Nov 2025 — linked from the above</span></td><td>The three-tier model (scale-up / scale-out / scale-across) and the MRC transport protocol. The key architecture read for this brief.</td></tr>
+</tbody></table></div>
+</section>
+
+<!-- 2 THE BUILD -->
+<section id="build" class="tab">
+<h2 class="tt">The Build — sites &amp; physical scale</h2>
+<p class="tt-sub">"Fairwater" is a family of near-identical AI data centers Microsoft is stamping out as a repeatable template. Numbers below are cited to Microsoft's own posts and Data Center Frontier's teardown; treat vendor performance claims as marketing until independently benchmarked.</p>
+
+<div class="ccard"><h4>🇺🇸 Fairwater 1 — Mount Pleasant, Wisconsin</h4><div class="role">The first site / the template</div>
+<div class="r"><b>Footprint</b><span><a class="cite" data-q="Data Center Frontier: the Wisconsin campus spans ~315 acres across three buildings with ~1.2 million sq ft of floor space." href="https://www.datacenterfrontier.com/hyperscale/article/55317925/inside-microsofts-global-ai-infrastructure-the-fairwater-blueprint-for-distributed-supercomputing" target="_blank" rel="noopener">3 buildings, ~315 acres, ~1.2M sq ft</a> of floor</span></div>
+<div class="r"><b>Power</b><span><a class="cite" data-q="Data Center Frontier: peak demand ~400 MW in phase 1, approaching ~900 MW at full build-out; 250 MW solar PPA in Portage County; Brookfield framework for >10.5 GW renewables; 50 MW Helion fusion targeted 2028." href="https://www.datacenterfrontier.com/hyperscale/article/55317925/inside-microsofts-global-ai-infrastructure-the-fairwater-blueprint-for-distributed-supercomputing" target="_blank" rel="noopener">~400 MW phase 1 → ~900 MW full build</a>; 250 MW solar PPA; Brookfield &gt;10.5 GW renewables; 50 MW Helion fusion (2028)</span></div>
+<div class="r"><b>Cooling</b><span>Facility-scale closed-loop liquid cooling; near-zero operational water; <a class="cite" data-q="Data Center Frontier: cooling uses ~172 twenty-foot fans on the heat-exchanger fins, with over 90% of the site on a near-zero-water closed loop; initial fill ≈ 20 homes/yr, recirculated ~6 years." href="https://www.datacenterfrontier.com/hyperscale/article/55317925/inside-microsofts-global-ai-infrastructure-the-fairwater-blueprint-for-distributed-supercomputing" target="_blank" rel="noopener">~172 fans, &gt;90% on the zero-water loop</a></span></div>
+<div class="r"><b>Storage</b><span><a class="cite" data-q="Data Center Frontier: a dedicated storage building the length of five football fields; Azure Blob quoted at more than 2 million operations per second." href="https://www.datacenterfrontier.com/hyperscale/article/55317925/inside-microsofts-global-ai-infrastructure-the-fairwater-blueprint-for-distributed-supercomputing" target="_blank" rel="noopener">storage building ~5 football fields; &gt;2M ops/sec Blob</a></span></div>
+<div class="r"><b>Claim</b><span><a class="cite" data-q="Microsoft: the Fairwater campus will deliver up to 10x the performance of today's fastest supercomputers — a vendor claim, not independently benchmarked." href="https://blogs.microsoft.com/blog/2025/09/18/inside-the-worlds-most-powerful-ai-datacenter/" target="_blank" rel="noopener">up to 10× today's fastest supercomputer</a> (Microsoft — unbenchmarked)</span></div></div>
+
+<div class="ccard"><h4>🇺🇸 Fairwater 2 — Atlanta, Georgia</h4><div class="role">The second node — what made it a "superfactory"</div>
+<div class="r"><b>Status</b><span><a class="cite" data-q="GeekWire: Atlanta is 'Fairwater 2,' announced as the AI-WAN partner site on 12 November 2025." href="https://www.geekwire.com/2025/what-is-an-ai-superfactory-microsoft-unveils-new-approach-to-building-and-linking-datacenters/" target="_blank" rel="noopener">Online late 2025; AI-WAN partner announced 12 Nov 2025</a></span></div>
+<div class="r"><b>Design</b><span>Two-story building for higher GPU density and shorter cable runs; same Fairwater template as WI</span></div>
+<div class="r"><b>Role</b><span>Not a backup or a separate region — a co-participant in the same training jobs as Wisconsin, over the AI-WAN</span></div></div>
+
+<div class="ccard inf"><h4>🌍 Global Fairwater pipeline</h4><div class="role">The template is going international</div>
+<div class="r"><b>UK — Loughton</b><span><a class="cite" data-q="Data Center Frontier: the UK Fairwater (Loughton) has more than 23,000 NVIDIA GPUs and is part of a ~$30B UK investment through 2028." href="https://www.datacenterfrontier.com/hyperscale/article/55317925/inside-microsofts-global-ai-infrastructure-the-fairwater-blueprint-for-distributed-supercomputing" target="_blank" rel="noopener">&gt;23,000 GPUs; part of ~$30B UK investment to 2028</a></span></div>
+<div class="r"><b>Norway — Narvik</b><span><a class="cite" data-q="Data Center Frontier: the Norway Fairwater (Narvik) is hydropower-backed, with services expected in 2026." href="https://www.datacenterfrontier.com/hyperscale/article/55317925/inside-microsofts-global-ai-infrastructure-the-fairwater-blueprint-for-distributed-supercomputing" target="_blank" rel="noopener">Hydropower-backed; services 2026</a></span></div>
+<div class="r"><b>Silicon</b><span>GB200 today; GB300 (extended pooled memory / coherence) for the newer UK &amp; Norway sites</span></div></div>
+
+<div class="sec take"><h3><span class="dot"></span>What matters here</h3>
+<p>The physical story is impressive but familiar (dense GPUs + liquid cooling + huge power). The <b>genuinely new</b> thing is that Microsoft stopped treating these as independent regions and started treating geographically separate campuses as <b>one machine</b>. That decision is what created the AI-WAN — and the optical demand behind it.</p></div>
+</section>
+
+<!-- 3 TIERS -->
+<section id="tiers" class="tab">
+<h2 class="tt">Scale Up → Scale Out → Scale Across</h2>
+<p class="tt-sub">The core mental model. Microsoft (and NVIDIA) describe AI infrastructure as three concentric network tiers, each an order of magnitude larger in distance and looser in latency than the one inside it. Your question — DC connectivity — lives in tiers 2 and 3.</p>
+
+<div class="flow">
+<div class="node"><div class="st">Tier 1 · inside the rack</div><div class="ti">SCALE-UP</div><div class="ds">NVLink — 72 GPUs act as one big GPU</div></div>
+<div class="node"><div class="st">Tier 2 · inside the site</div><div class="ti">SCALE-OUT</div><div class="ds">800G Ethernet fabric — 100,000s of GPUs, one campus</div></div>
+<div class="node nk"><div class="st">Tier 3 · between sites</div><div class="ti">SCALE-ACROSS</div><div class="ds">AI-WAN — dedicated optical backbone, 100s of miles</div></div>
+</div>
+
+<div class="grid g3">
+<div class="sec"><h3><span class="dot"></span>Scale-Up</h3>
+<p style="font-size:13.5px">Within one rack, NVIDIA <b>GB200 NVL72</b> ties <a class="cite" data-q="Data Center Frontier: GB200 NVL72 ties 72 Blackwell GPUs into a single NVLink/NVSwitch shared-memory domain." href="https://www.datacenterfrontier.com/machine-learning/article/55330039/microsofts-fairwater-atlanta-and-the-rise-of-the-distributed-ai-supercomputer" target="_blank" rel="noopener">72 Blackwell GPUs</a> together with NVLink/NVSwitch into a single shared-memory domain.</p>
+<ul style="font-size:13px">
+<li><a class="cite" data-q="Data Center Frontier / NVIDIA: NVLink provides roughly 1.8 TB/s of GPU-to-GPU scale-up bandwidth per GPU." href="https://www.datacenterfrontier.com/machine-learning/article/55330039/microsofts-fairwater-atlanta-and-the-rise-of-the-distributed-ai-supercomputer" target="_blank" rel="noopener"><span class="kd">1.8 TB/s</span></a> per-GPU NVLink bandwidth</li>
+<li><a class="cite" data-q="Data Center Frontier: about 14 TB of pooled memory per NVL72 rack." href="https://www.datacenterfrontier.com/machine-learning/article/55330039/microsofts-fairwater-atlanta-and-the-rise-of-the-distributed-ai-supercomputer" target="_blank" rel="noopener"><span class="kd">~14 TB</span></a> pooled fast memory per rack</li>
+<li>up to <a class="cite" data-q="Data Center Frontier: one NVL72 can process up to about 865,000 tokens per second." href="https://www.datacenterfrontier.com/machine-learning/article/55330039/microsofts-fairwater-atlanta-and-the-rise-of-the-distributed-ai-supercomputer" target="_blank" rel="noopener"><span class="kd">~865,000</span></a> tokens/s per NVL72</li>
+<li><a class="cite" data-q="Coverage of Microsoft's Infinite Scale post: about 140 kW per rack and roughly 1,360 kW per row." href="https://blogs.microsoft.com/blog/2025/11/12/infinite-scale-the-architecture-behind-the-azure-ai-superfactory/" target="_blank" rel="noopener"><span class="kd">~140 kW</span> per rack; ~1,360 kW per row</a></li>
+</ul>
+<p style="font-size:12.5px;color:var(--dim)">Copper/NVLink domain — no optics here. This is "one giant GPU."</p></div>
+
+<div class="sec"><h3><span class="dot"></span>Scale-Out</h3>
+<p style="font-size:13.5px">Across racks within a campus, a <b>two-tier, non-blocking fat-tree</b> connects hundreds of thousands of GPUs at <a class="cite" data-q="Microsoft / Data Center Frontier: an 800 Gbps GPU-to-GPU scale-out fabric (Ethernet + InfiniBand) in a non-blocking fat-tree topology." href="https://www.datacenterfrontier.com/machine-learning/article/55330039/microsofts-fairwater-atlanta-and-the-rise-of-the-distributed-ai-supercomputer" target="_blank" rel="noopener"><span class="kd">800 Gbps</span></a> GPU-to-GPU.</p>
+<ul style="font-size:13px">
+<li><a class="cite" data-q="Data Center Frontier: SONiC-based open Ethernet switching on the commodity ecosystem, avoiding vendor lock-in." href="https://www.datacenterfrontier.com/machine-learning/article/55330039/microsofts-fairwater-atlanta-and-the-rise-of-the-distributed-ai-supercomputer" target="_blank" rel="noopener">Ethernet-led (SONiC / open switching)</a> + InfiniBand; avoids single-vendor lock-in</li>
+<li>Packet trimming, packet spray, high-frequency telemetry, AI-tuned congestion control</li>
+<li><b>Two-story building</b> used as a latency tool — shorter, more uniform fiber runs</li>
+</ul>
+<p style="font-size:12.5px;color:var(--dim)">Intra-DC optics: short-reach pluggables (DR/FR/2xFR 800G) over campus fiber.</p></div>
+
+<div class="sec" style="border-color:#2a5a9e"><h3><span class="dot" style="background:var(--acc)"></span>Scale-Across</h3>
+<p style="font-size:13.5px">Between campuses, the <b>AI-WAN</b> carries the traffic that no longer fits in one site — over hundreds of miles of dedicated fiber.</p>
+<ul style="font-size:13px">
+<li>Dedicated lanes isolated from general cloud traffic (a "carpool lane" for AI)</li>
+<li>Routes engineered as straight as feasible; minimise optical↔electrical conversions</li>
+<li>Higher latency, <b>massive capacity</b> — for cross-site training, checkpoint replication, RL, eval, inference</li>
+</ul>
+<p style="font-size:12.5px;color:var(--dim)"><b>This is the optical / DWDM / DCI tier — the subject of this brief.</b></p></div>
+</div>
+
+<div class="sec"><h3><span class="dot"></span>The three tiers, side by side</h3>
+<table><thead><tr><th>Property</th><th>Scale-Up</th><th>Scale-Out</th><th>Scale-Across (AI-WAN)</th></tr></thead><tbody>
+<tr><td>Domain</td><td>Inside a rack</td><td>Inside a campus</td><td>Between campuses / regions</td></tr>
+<tr><td>Distance</td><td>~1 m</td><td>~100 m – ~1 km</td><td>~10s – ~700+ miles</td></tr>
+<tr><td>Interconnect</td><td>NVLink / NVSwitch</td><td>800G Ethernet (+IB), fat-tree</td><td>Dedicated optical backbone (DWDM/coherent)</td></tr>
+<tr><td>Latency</td><td>Nanoseconds</td><td>Low microseconds</td><td>Milliseconds (governed by fiber length)</td></tr>
+<tr><td>Physical layer</td><td>Copper / NVLink</td><td>Short-reach pluggables + MMF/SMF</td><td>Coherent DWDM over long-haul / dark fiber</td></tr>
+<tr><td>Optics play?</td><td class="c"><span class="pill p-hi">None</span></td><td class="c"><span class="pill p-plan">Pluggables</span></td><td class="c"><span class="pill p-live">Line systems + coherent</span></td></tr>
+</tbody></table></div>
+</section>
+
+<!-- 4 AI-WAN -->
+<section id="aiwan" class="tab">
+<h2 class="tt">AI-WAN — the scale-across layer up close</h2>
+<p class="tt-sub">The AI Wide-Area Network is the part of this project that is genuinely a networking story. What Microsoft has disclosed, and what it implies for the optical layer.</p>
+
+<div class="sec"><h3><span class="dot"></span>What Microsoft has stated</h3>
+<ul>
+<li><b>A dedicated, private optical backbone</b> — not the public internet, not shared with general Azure traffic. Purpose-built for AI synchronization.</li>
+<li><b>Scale of fiber:</b> <a class="cite" data-q="Microsoft: deployed roughly 120,000 miles of dedicated fiber across the US in the past year, expanding its AI-networking footprint by more than 25%; a mix of new and repurposed routes." href="https://news.microsoft.com/source/features/ai/from-wisconsin-to-atlanta-microsoft-connects-datacenters-to-build-its-first-ai-superfactory/" target="_blank" rel="noopener">~120,000 fiber-miles deployed/lit across the US in the past year, +25% footprint</a>. A mix of newly built and repurposed routes.</li>
+<li><b>"Congestion-free, near the speed of light":</b> routes engineered to minimise hops, jitter and burst congestion; kept as physically straight as feasible to cut "route inflation."</li>
+<li><b>Minimise O-E-O conversions:</b> the protocol stack and path are tuned to avoid unnecessary optical↔electrical hops end-to-end.</li>
+<li><b>MRC (Multi-Path Reliable Connected):</b> <a class="cite" data-q="Analyst coverage (Data Center Frontier / others): MRC is a transport protocol co-developed by Microsoft, NVIDIA and OpenAI — packet trimming/spray, agile multi-path load-balancing, fast retransmit, AI-tuned congestion control; not yet an open/RFC standard." href="https://www.datacenterfrontier.com/machine-learning/article/55330039/microsofts-fairwater-atlanta-and-the-rise-of-the-distributed-ai-supercomputer" target="_blank" rel="noopener">a transport protocol co-developed by Microsoft, NVIDIA and OpenAI</a> — packet trimming/spray, agile multi-path load-balancing, fast retransmit, AI-tuned congestion control. <span class="pill p-plan">Not yet an open/RFC standard</span></li>
+<li><b>Workload split (phase-aware placement):</b> <a class="cite" data-q="Data Center Frontier: latency-sensitive pre-training anchors within a single site; reinforcement learning, synthetic-data generation and evaluation spill across campuses; checkpoints replicate over the WAN." href="https://www.datacenterfrontier.com/machine-learning/article/55330039/microsofts-fairwater-atlanta-and-the-rise-of-the-distributed-ai-supercomputer" target="_blank" rel="noopener">latency-sensitive pre-training anchors in one site</a>; reinforcement learning, synthetic-data generation and evaluation spill across campuses; checkpoints replicate over the WAN.</li>
+</ul></div>
+
+<div class="flag"><b>Number to handle carefully:</b> the "~120,000 fiber-miles" figure is quoted by different outlets as either <i>new fiber in the past year</i> or <i>total dedicated fiber</i>, and Microsoft's own wording ("expanding … by more than 25%") reads as an <i>annual addition</i>. Treat it as "≈120,000 fiber-miles added in the last year, ~+25% footprint" and verify against the primary post before quoting a customer.</div>
+
+<div class="sec"><h3><span class="dot"></span>The physics Microsoft doesn't spell out (but the numbers force)</h3>
+<p>Microsoft has <b>not</b> named an optical vendor, a line rate, a baud rate, or whether the backbone is dark fiber vs leased spectrum. But the requirements it <i>does</i> state constrain the physical layer hard:</p>
+<ul>
+<li><b>Latency is fiber-length-bound.</b> Light in fiber travels ~5 µs/km. ~700 miles ≈ <a class="cite calc" data-q="Author's estimate (not a Microsoft figure): fiber propagation ≈ 5 µs/km one-way; ~700 mi ≈ 1,127 km → ~5.6 ms one-way, ~11–12 ms round-trip in glass, before switching/regeneration." href="#" onclick="return false">~11–12 ms round-trip</a> just in glass, before switching/regen. That's why pre-training stays in-site and only latency-tolerant phases cross the WAN — you cannot hide 11 ms inside a tight gradient-sync loop.</li>
+<li><b>"Minimise O-E-O" = maximise optical reach per span.</b> That is the textbook argument for <b>high-baud coherent</b> transport (fewer regen sites, lower cost and power per bit) — 400G/800G ZR/ZR+ pluggables for shorter metro hops, and long-haul coherent (≈130–160 GBaud, 800G–1.2T/wavelength class) for the 700-mile leg.</li>
+<li><b>"Dedicated lanes" over "repurposed fiber" = an open line system</b> the operator provisions and prioritises itself — consistent with the same open, disaggregated philosophy Microsoft applies to SONiC Ethernet.</li>
+</ul>
+<div class="inf"><b>Interpretation, not disclosure:</b> everything in this section about coherent baud, ZR+/long-haul mix and open line systems is <b>inference from the stated requirements</b>, not something Microsoft published. Flagged so you never present it to a customer as a Microsoft fact. Purple links are estimates, not sourced quotes.</div></div>
+
+<div class="sec"><h3><span class="dot"></span>Full traffic path — where each tier's optics live</h3>
+<div class="flow">
+<div class="node"><div class="st">Tier 1</div><div class="ti">GPU / rack</div><div class="ds">NVLink — copper, no optics</div></div>
+<div class="node nk"><div class="st">Tier 2</div><div class="ti">Campus fabric</div><div class="ds">800G short-reach pluggables (DR/FR) — <b>optics</b></div></div>
+<div class="node nk"><div class="st">Tier 3a</div><div class="ti">Metro / regional DCI</div><div class="ds">400/800ZR+ coherent pluggables — <b>optics</b></div></div>
+<div class="node nk"><div class="st">Tier 3b</div><div class="ti">Long-haul AI-WAN</div><div class="ds">High-baud coherent DWDM + line system — <b>optics</b></div></div>
+</div>
+<p style="font-size:12.5px;color:var(--dim)">Blue = an optical opportunity. The value in the WAN concentrates in Tier 3b: the coherent transponders and the line system that light hundreds of miles of dedicated fiber.</p></div>
+</section>
+
+<!-- 5 COMPETITION -->
+<section id="compete" class="tab">
+<h2 class="tt">What the other clouds are doing</h2>
+<p class="tt-sub">Microsoft did not invent scale-across — every frontier lab hit the same wall (one campus can't power or cool a frontier training run) and each answered it differently. The split that matters for optics: <b>distributed across sites</b> (Microsoft, Google) vs <b>one giant campus</b> (Meta, Oracle/OpenAI, xAI). Both generate optical demand — but different shapes of it.</p>
+
+<div class="sec"><h3><span class="dot"></span>Scale-across scoreboard</h3>
+<table><thead><tr><th>Player</th><th>Flagship build</th><th>Model</th><th>Scale-out fabric</th><th>Cross-site (scale-across) approach</th></tr></thead><tbody>
+<tr><td><b>Microsoft</b> + OpenAI</td><td>Fairwater WI ↔ Atlanta</td><td class="c"><span class="pill p-live">Distributed</span></td><td>800G Ethernet / SONiC</td><td><b>Dedicated long-haul AI-WAN</b> over ~700 mi of fiber; MRC transport</td></tr>
+<tr><td><b>Google</b></td><td>Gemini on TPU / Cloud WAN</td><td class="c"><span class="pill p-live">Distributed</span></td><td>OCS + Jupiter, 47 Pbit/s/pod</td><td><b>Cross-region training</b> on a 10M-km global fiber backbone; AI-native interconnect</td></tr>
+<tr><td><b>AWS</b> + Anthropic</td><td>Project Rainier (New Carlisle, IN)</td><td class="c"><span class="pill p-plan">Campus</span></td><td>EFA Gen3 "10P10U" Ethernet</td><td>Multi-building on <b>one campus</b>; EFA across "multiple mammoth DCs" — metro, not cross-state (yet)</td></tr>
+<tr><td><b>Meta</b></td><td>Prometheus (OH) · Hyperion (LA)</td><td class="c"><span class="pill p-plan">Campus</span></td><td>Disaggregated Ethernet / RoCE</td><td>Giant single-campus multi-GW; multi-building fabric; less public on cross-site</td></tr>
+<tr><td><b>Oracle</b> + OpenAI · <b>xAI</b></td><td>Stargate (Abilene) · Colossus (Memphis)</td><td class="c"><span class="pill p-plan">Campus</span></td><td>NVIDIA Ethernet / IB</td><td>Mega single-site clusters; intra-campus fabric first</td></tr>
+</tbody></table></div>
+
+<div class="ccard"><h4>🟧 AWS — Project Rainier (training Anthropic's Claude)</h4><div class="role">Campus-scale distributed, Ethernet-fabric-led</div>
+<div class="r"><b>Scale</b><span><a class="cite" data-q="DCD / Data Center Knowledge: AWS activated Project Rainier with nearly 500,000 Trainium2 chips, built for Anthropic to train Claude." href="https://www.datacenterdynamics.com/en/news/aws-activates-project-rainier-cluster-of-nearly-500000-trainium2-chips/" target="_blank" rel="noopener">~500,000 Trainium2 chips</a>, across multiple buildings at New Carlisle, Indiana</span></div>
+<div class="r"><b>Scale-up</b><span><a class="cite" data-q="SDxCentral: an UltraServer is 64 Trainium2 chips (up to 83.2 FP8 petaflops) tied by NeuronLink-v2 over copper at 2 TB/s and ~1 microsecond per hop." href="https://www.sdxcentral.com/analysis/the-network-engine-behind-aws-massive-rainier-supercluster/" target="_blank" rel="noopener">64-chip UltraServer, NeuronLink 2 TB/s</a> (copper)</span></div>
+<div class="r"><b>Scale-out / across</b><span><a class="cite" data-q="SDxCentral: EFA Generation 3 uses a 10P10U fabric — tens of petabytes/sec of bisection bandwidth and ~10 microseconds latency between any pair — connecting UltraServers across multiple mammoth data centers, with millisecond rerouting." href="https://www.sdxcentral.com/analysis/the-network-engine-behind-aws-massive-rainier-supercluster/" target="_blank" rel="noopener">EFA Gen3 "10P10U" — tens of PB/s, 10 µs</a> across DCs</span></div>
+<div class="r"><b>Optics read</b><span>Ethernet EFA across a <b>campus</b>, not a 700-mile WAN → heavy <b>intra-campus + metro fiber and pluggables</b>, little long-haul coherent so far</span></div></div>
+
+<div class="ccard"><h4>🔵 Google — Gemini / Cloud WAN</h4><div class="role">The most mature distributed optical operator</div>
+<div class="r"><b>Backbone</b><span><a class="cite" data-q="Google Cloud (2026): 10+ million km of terrestrial and subsea fiber, 43 cloud regions, 200+ edge locations, and 10x WAN traffic growth from 2020 to 2025." href="https://cloud.google.com/blog/products/networking/data-center-and-global-networks-built-for-ai-era" target="_blank" rel="noopener">10M+ km fiber, 43 regions, 200+ edge</a></span></div>
+<div class="r"><b>AI interconnect</b><span><a class="cite" data-q="Google Cloud: an AI-native Cloud Interconnect starting at 400 Gbps and scaling in 3.2 Tbps increments to petabit-per-second capacity, with private connectivity for cross-cloud AI training." href="https://cloud.google.com/blog/products/networking/data-center-and-global-networks-built-for-ai-era" target="_blank" rel="noopener">400G base → 3.2 Tbps increments → petabit</a></span></div>
+<div class="r"><b>Fabric</b><span><a class="cite" data-q="DCD: Google trained Gemini Ultra across multiple sites and clusters, using its custom optical circuit switching (OCS, formerly Mission Apollo) to reconfigure 4x4x4 chip cubes into 3D torus topologies in ~10 seconds." href="https://www.datacenterdynamics.com/en/news/training-gemini-tpus-multiple-data-centers-and-risks-of-cosmic-rays/" target="_blank" rel="noopener">OCS optical switching; Gemini trained across multiple sites</a></span></div>
+<div class="r"><b>Optics read</b><span><b>Owns</b> its long-haul + subsea optical layer — the incumbent benchmark. Least likely to buy 3rd-party DWDM, but proves the distributed-training-over-optics model at global scale</span></div></div>
+
+<div class="ccard"><h4>🟣 Meta — Prometheus &amp; Hyperion</h4><div class="role">The "one giant campus" extreme</div>
+<div class="r"><b>Prometheus</b><span><a class="cite" data-q="Data Center Frontier: Prometheus in New Albany, Ohio is Meta's first titan AI supercluster, a multi-gigawatt campus due online in 2026, with 400 MW of behind-the-meter gas generation and tent-like rapid-deploy buildings." href="https://www.datacenterfrontier.com/hyperscale/article/55310441/ownership-and-power-challenges-in-metas-hyperion-and-prometheus-data-centers" target="_blank" rel="noopener">first 1GW+ supercluster, online 2026 (Ohio)</a></span></div>
+<div class="r"><b>Hyperion</b><span><a class="cite" data-q="Data Center Frontier / Tom's Hardware: Hyperion in Richland Parish, Louisiana scales toward 5 GW over time (1.5 GW by end 2027), ~2,250 acres and 4 million sq ft — nearly the footprint of Manhattan." href="https://www.datacenterfrontier.com/hyperscale/article/55310441/ownership-and-power-challenges-in-metas-hyperion-and-prometheus-data-centers" target="_blank" rel="noopener">scaling toward 5 GW; ~Manhattan-sized (LA)</a></span></div>
+<div class="r"><b>Optics read</b><span>Concentrates compute in one place → enormous <b>intra-campus / metro DCI + pluggable</b> volume; Meta is also a major <b>subsea</b> investor, but says little publicly about cross-site long-haul training</span></div></div>
+
+<div class="sec take"><h3><span class="dot"></span>The read for a DWDM SE — two architectures, two optical shapes</h3>
+<ul>
+<li><b>Distributed camp (Microsoft AI-WAN, Google cross-region)</b> → the richest <b>long-haul coherent DWDM / DCI</b> demand. This is the camp that validates the exact story you sell.</li>
+<li><b>Campus camp (Meta, Oracle/OpenAI Stargate, xAI)</b> → less long-haul, but <b>huge intra-campus + metro DCI and very high pluggable (DR/FR, 400/800ZR+) volume</b>. Still optical money, just shorter reach.</li>
+<li><b>Google is the incumbent to benchmark</b> — it owns its backbone and subsea, so it buys less merchant optics; treat it as the proof-of-concept, not a customer.</li>
+<li><b>AWS &amp; Meta are Ethernet-fabric-led at campus scale</b> — the near-term optics there is components and metro DCI, not turnkey long-haul.</li>
+<li><b>Bottom line:</b> whichever camp your regional accounts copy, the optical layer grows — distributed pulls coherent long-haul, campus pulls metro + pluggables. Know which model an account is chasing before you pitch.</li>
+</ul></div>
+</section>
+
+<!-- 6 OPTICS READ -->
+<section id="optics" class="tab">
+<h2 class="tt">Optics / DCI Read</h2>
+<p class="tt-sub">What the superfactory means for the optical market and for Nokia ON specifically. This whole tab is analyst interpretation built on the disclosed architecture — the SE layer, not a Microsoft statement.</p>
+
+<div class="callout"><div class="ttl">The one connection to your world</div>
+<b>"Scale-across" is a new, large, self-generated demand class for long-haul coherent DWDM.</b> Hyperscalers used to buy DCI mostly to connect a metro of availability zones. The superfactory model makes them buy <b>continental long-haul coherent transport to train a single model</b> — the same product family Nokia sells (coherent transponders + optical line systems + ZR/ZR+ pluggables), now pulled by AI training rather than by internet backbone growth.</div>
+
+<div class="sec"><h3><span class="dot"></span>Where the optical money sits in this architecture</h3>
+<table><thead><tr><th>Layer</th><th>Optical content</th><th>Who typically supplies</th></tr></thead><tbody>
+<tr><td>Scale-up (NVLink)</td><td class="c"><span class="pill p-hi">None</span></td><td>NVIDIA (copper)</td></tr>
+<tr><td>Scale-out (campus fabric)</td><td>800G short-reach pluggables (DR/FR/2×FR)</td><td>Merchant optics / switch vendors</td></tr>
+<tr><td><b>Metro / regional DCI</b></td><td>400ZR / 800ZR+ coherent pluggables in routers/switches</td><td>Merchant + <b>Nokia (IPoWDM, 1830)</b></td></tr>
+<tr><td><b>Long-haul AI-WAN</b></td><td>High-baud coherent transponders + DWDM line system over dedicated/dark fiber</td><td><b>Nokia 1830 GX/PSS + PSE-6s, Infinera ICE6/ICE-X</b>, Ciena, Cisco/Acacia</td></tr>
+</tbody></table></div>
+
+<div class="sec"><h3><span class="dot"></span>The Nokia ON angle — honest read</h3>
+<div class="good"><b>Tailwind:</b> Nokia's optical portfolio post-Infinera (1830 GX/PSS line systems, PSE-6s / high-baud coherent, ICE6, and 400/800ZR+ pluggables) is aimed squarely at exactly Tier 3 — metro DCI and long-haul coherent. Scale-across is a structural new driver for that portfolio.</div>
+<div class="flag"><b>Reality check:</b> Microsoft's US AI-WAN is almost certainly built with a mix of self-integration, merchant optics and incumbent line-system vendors — Nokia is <b>not</b> confirmed in it, and you should never imply otherwise. The value of this project to you is as a <b>reference architecture and demand signal</b>, not a named win.</div>
+<div class="inf"><b>Where it becomes a Nokia deal:</b> the ASEAN operators and hyperscalers your reports already track (Viettel/VNPT/FPT/CMC; regional cloud/DC builders in SG/Johor/Batam/HCMC) will replicate the scale-across pattern — connecting their own AI campuses with dedicated coherent DWDM. That regional DCI/long-haul build is where a Nokia line system + coherent story is directly winnable.</div>
+</div>
+
+<div class="sec take"><h3><span class="dot"></span>Five lines for a Sales / exec conversation</h3>
+<div class="talk">
+<div class="row"><div class="num">1</div><div class="qt">"Microsoft just redefined an AI data center as <b>multiple</b> data centers wired together — and the wire is a dedicated coherent optical backbone. Training now buys long-haul DWDM."</div></div>
+<div class="row"><div class="num">2</div><div class="qt">"There are three network tiers: NVLink in the rack, 800G Ethernet in the campus, and <b>the AI-WAN across states</b>. Tier three is our layer — coherent transport and line systems."</div></div>
+<div class="row"><div class="num">3</div><div class="qt">"They lit ~120,000 fiber-miles in a year and engineered routes to <b>minimise optical-electrical conversions</b> — that's the high-baud coherent, fewer-regens efficiency argument we already lead with."</div></div>
+<div class="row"><div class="num">4</div><div class="qt">"We're not in Microsoft's US build, but this is the <b>template our accounts will copy</b>. Every regional AI campus that wants to pool with another will need this DCI layer."</div></div>
+<div class="row"><div class="num">5</div><div class="qt">"Post-Infinera, our 1830 + PSE-6s and 400/800ZR+ hit exactly the metro-DCI and long-haul coherent slots this architecture creates. It's the same play as our subsea CLS-to-DC story, one tier up."</div></div>
+</div></div>
+</section>
+
+<!-- 6 AGENDA -->
+<section id="agenda" class="tab">
+<h2 class="tt">Research Agenda — where to dig next</h2>
+<p class="tt-sub">The open questions this brief surfaces, to turn "read the articles" into real depth. Ordered by how much they'd sharpen the optical/DCI angle.</p>
+
+<div class="q"><div class="qn">1</div><div class="qb"><b>What optical layer actually underpins the AI-WAN?</b> Microsoft names no coherent vendor, baud rate, line rate, or dark-fiber-vs-leased split. Hunt for teardown/supply-chain reporting (Data Center Frontier, TeleGeography, LightCounting, Cignal AI) and any FCC/permit filings on the routes. This is the single highest-value unknown.</div></div>
+<div class="q"><div class="qn">2</div><div class="qb"><b>Synchronous or asynchronous training across the WAN?</b> Sources conflict — some say "synchronous GPU-to-GPU," Microsoft's own framing implies latency-tolerant phases only. Read the "Infinite scale" post in full + the distributed-training literature (e.g. DiLoCo / async data-parallel) to understand what 11–12 ms RTT actually permits.</div></div>
+<div class="q"><div class="qn">3</div><div class="qb"><b>What is MRC, and how does it relate to Ultra Ethernet / RoCE?</b> Is the AI-WAN transport Ethernet-based? Where does it sit vs the Ultra Ethernet Consortium work? Interop and lock-in implications for anyone selling into these networks.</div></div>
+<div class="q"><div class="qn">4</div><div class="qb"><b>The real driver: power &amp; grid arbitrage.</b> Quantify why multi-site beats single-site — interconnect queue times, per-grid MW caps, time-zone load-shifting. This is the business case that makes scale-across permanent, not a phase.</div></div>
+<div class="q"><div class="qn">5</div><div class="qb"><b>ASEAN read-across.</b> Which regional corridors would replicate this? Map the scale-across idea onto Johor↔SG, Batam↔SG, HCMC↔Bình Dương and any cross-border AI-campus pairing — the DCI demand your accounts would actually issue.</div></div>
+<div class="q"><div class="qn">6</div><div class="qb"><b>Competitive optical positioning.</b> Who is publicly winning hyperscale long-haul coherent DCI (Ciena, Infinera-now-Nokia, Cisco/Acacia, Coherent/Lumentum on components)? Build the battlecard for "AI-WAN-class" DCI before an account asks.</div></div>
+
+<div class="sec"><h3><span class="dot"></span>Related links worth reading (from the articles)</h3>
+<ul style="font-size:13.5px">
+<li><b><a href="https://blogs.microsoft.com/blog/2025/11/12/infinite-scale-the-architecture-behind-the-azure-ai-superfactory/" target="_blank" rel="noopener">Infinite scale: the architecture behind the Azure AI superfactory</a></b> — the primary architecture piece.</li>
+<li><b><a href="https://blogs.microsoft.com/blog/2025/09/18/inside-the-worlds-most-powerful-ai-datacenter/" target="_blank" rel="noopener">Inside the world's most powerful AI datacenter</a></b> — the Fairwater 1 site deep-dive.</li>
+<li><b><a href="https://microsoft.ai/news/towards-humanist-superintelligence/" target="_blank" rel="noopener">Microsoft AI Superintelligence Team</a></b> — the workload driving the build.</li>
+<li><b><a href="https://news.microsoft.com/source/features/ai/west-des-moines-iowa-ai-supercomputer/" target="_blank" rel="noopener">West Des Moines Iowa AI supercomputer</a></b> — the lineage of Azure AI supercomputers before Fairwater.</li>
+<li><b><a href="https://www.datacenterfrontier.com/machine-learning/article/55330039/microsofts-fairwater-atlanta-and-the-rise-of-the-distributed-ai-supercomputer" target="_blank" rel="noopener">Data Center Frontier — Fairwater Atlanta &amp; the distributed AI supercomputer</a></b> — the best independent teardown of the three-tier model.</li>
+</ul></div>
+</section>
+
+<!-- 7 SOURCES -->
+<section id="sources" class="tab">
+<h2 class="tt">Sources &amp; Confidence</h2>
+<p class="tt-sub">What this brief is built on, and how much to trust each part. Every figure in the brief is hyperlinked to one of these — hover it for the supporting quote.</p>
+<div class="sec"><h3><span class="dot"></span>Primary sources</h3>
+<ul>
+<li><b><a href="https://news.microsoft.com/source/features/ai/from-wisconsin-to-atlanta-microsoft-connects-datacenters-to-build-its-first-ai-superfactory/" target="_blank" rel="noopener">Microsoft Source — From Wisconsin to Atlanta</a></b> (Nov 2025). AI-WAN, ~120,000 fiber-miles/+25%, workload types, "months→weeks."</li>
+<li><b><a href="https://blogs.microsoft.com/blog/2025/09/18/inside-the-worlds-most-powerful-ai-datacenter/" target="_blank" rel="noopener">Microsoft Blog — Inside the world's most powerful AI datacenter</a></b> (18 Sep 2025) &amp; <b><a href="https://blogs.microsoft.com/blog/2025/11/12/infinite-scale-the-architecture-behind-the-azure-ai-superfactory/" target="_blank" rel="noopener">Infinite scale</a></b> (12 Nov 2025). Site build + three-tier model + MRC.</li>
+<li><b><a href="https://www.geekwire.com/2025/what-is-an-ai-superfactory-microsoft-unveils-new-approach-to-building-and-linking-datacenters/" target="_blank" rel="noopener">GeekWire</a></b> — "roughly 700 miles and five states apart"; Atlanta = "Fairwater 2"; AI-WAN "share computing tasks in real time"; announced 12 Nov 2025.</li>
+<li><b><a href="https://www.datacenterfrontier.com/machine-learning/article/55330039/microsofts-fairwater-atlanta-and-the-rise-of-the-distributed-ai-supercomputer" target="_blank" rel="noopener">Data Center Frontier — Fairwater Atlanta</a></b> &amp; <b><a href="https://www.datacenterfrontier.com/hyperscale/article/55317925/inside-microsofts-global-ai-infrastructure-the-fairwater-blueprint-for-distributed-supercomputing" target="_blank" rel="noopener">The Fairwater blueprint</a></b>. Scale-up/out/across detail, 1.8 TB/s, 14 TB, 800G fat-tree/SONiC, 400/900 MW, cooling, storage, UK/Norway.</li>
+<li><b><a href="https://interestingengineering.com/innovation/microsoft-ai-superfactory" target="_blank" rel="noopener">Interesting Engineering</a></b> / <b><a href="https://www.nextbigfuture.com/2025/11/microsoft-has-largest-multi-site-ai-data-center-at-2-gigawatts.html" target="_blank" rel="noopener">NextBigFuture</a></b> — cross-checks on 700 miles, ~2 GW multi-site, launch framing.</li>
+</ul></div>
+<div class="sec"><h3><span class="dot"></span>Update &amp; competitor sources (added Aug 2026)</h3>
+<ul>
+<li><b><a href="https://www.datacenterfrontier.com/hyperscale/article/55371352/microsoft-builds-for-two-worlds-sovereign-cloud-and-ai-factories" target="_blank" rel="noopener">Data Center Frontier — Microsoft Builds for Two Worlds</a></b> (Apr 2026) &amp; <b><a href="https://www.sdxcentral.com/news/microsoft-details-ai-wan-connecting-distributed-fairwater-ai-superfactory/" target="_blank" rel="noopener">SDxCentral — Microsoft details AI-WAN</a></b>. Update check: still WI + Atlanta, &gt;$7B Wisconsin, no Fairwater 3 announced.</li>
+<li><b><a href="https://www.sdxcentral.com/analysis/the-network-engine-behind-aws-massive-rainier-supercluster/" target="_blank" rel="noopener">SDxCentral — The network engine behind AWS Rainier</a></b> &amp; <b><a href="https://www.datacenterdynamics.com/en/news/aws-activates-project-rainier-cluster-of-nearly-500000-trainium2-chips/" target="_blank" rel="noopener">DCD — Rainier ~500k Trainium2</a></b>. AWS EFA "10P10U", NeuronLink, Anthropic.</li>
+<li><b><a href="https://cloud.google.com/blog/products/networking/data-center-and-global-networks-built-for-ai-era" target="_blank" rel="noopener">Google Cloud — Networks built for the AI era</a></b> &amp; <b><a href="https://www.datacenterdynamics.com/en/news/training-gemini-tpus-multiple-data-centers-and-risks-of-cosmic-rays/" target="_blank" rel="noopener">DCD — Training Gemini across multiple data centers</a></b>. Cloud WAN, OCS, 10M-km fiber.</li>
+<li><b><a href="https://www.datacenterfrontier.com/hyperscale/article/55310441/ownership-and-power-challenges-in-metas-hyperion-and-prometheus-data-centers" target="_blank" rel="noopener">Data Center Frontier — Meta's Hyperion &amp; Prometheus</a></b>. Multi-GW campus builds.</li>
+</ul></div>
+<div class="sec warn"><h3><span class="dot" style="background:var(--amber)"></span>Confidence &amp; caveats</h3>
+<ul>
+<li><b>Performance claims are Microsoft's</b> ("10× fastest supercomputer," "months→weeks," 865k tokens/s) — vendor marketing, not independently benchmarked. Use as narrative, not spec.</li>
+<li><b>The "~120,000 fiber-miles" figure</b> is reported inconsistently as new-in-year vs total. Phrase as annual addition / +25% footprint; verify against the primary post.</li>
+<li><b>No optical vendor, baud, line rate or dark-vs-leased split is disclosed.</b> All coherent/ZR+/line-system detail in the "AI-WAN Deep Dive" and "Optics / DCI Read" tabs is <b>analyst inference from stated requirements</b>, flagged in purple. Never present it as a Microsoft fact or a Nokia win.</li>
+<li><b>Purple citation links are author estimates</b> (e.g. the ~11–12 ms latency), not sourced quotes — they carry the calculation, not a Microsoft number.</li>
+<li><b>Sync-vs-async training over the WAN is unresolved</b> in the public sources — see Research Agenda #2.</li>
+<li><b>Competitor rows are directional.</b> AWS/Google/Meta figures are cited; the Oracle-OpenAI (Stargate) and xAI (Colossus) row is qualitative — deliberately no hard numbers, as their interconnect detail is less publicly verified. "Campus vs distributed" labels are an analytical read, not vendor statements.</li>
+</ul></div>
+<div class="callout"><div class="ttl">Companion reports</div>
+This brief sits alongside <b>ASEAN Data Center Insight</b> and <b>ASEAN Subsea Insight</b> in the SUMMA Market Insight library. Same thesis, three altitudes: subsea (inter-region vein) → DCI/scale-across (this brief, continental artery) → data center (the organ). Open <a href="ASEAN_DC_Insight.html">ASEAN_DC_Insight.html</a> · <a href="ASEAN_Subsea_Insight.html">ASEAN_Subsea_Insight.html</a>.</div>
+</section>
+
+</main>
+<div id="tip"></div>
+<footer>Microsoft AI Superfactory brief · sources: Microsoft Source/Blog (Sep–Nov 2025) · GeekWire · Data Center Frontier · Interesting Engineering / NextBigFuture. Performance figures are vendor claims; optics-layer detail is analyst inference flagged in-text. Built for Quang · Nokia ON Sales Engineering · Aug 2026.</footer>
+<script>
+function show(id,btn){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+document.getElementById('tip').style.display='none';
+window.scrollTo({top:0,behavior:'smooth'});}
+(function(){
+ var tip=document.getElementById('tip');
+ function srcName(el){
+  if(el.classList.contains('calc'))return "Author's estimate — not a Microsoft figure";
+  try{return el.getAttribute('href').replace(/^https?:\/\//,'').replace(/^www\./,'').split('/')[0]+' ↗';}catch(e){return '';}
+ }
+ function place(e){var x=e.clientX+14,y=e.clientY+16,w=tip.offsetWidth,h=tip.offsetHeight;
+  if(x+w>window.innerWidth-8)x=e.clientX-w-14; if(x<8)x=8;
+  if(y+h>window.innerHeight-8)y=e.clientY-h-14; if(y<8)y=8;
+  tip.style.left=x+'px';tip.style.top=y+'px';}
+ document.querySelectorAll('.cite').forEach(function(el){
+  el.addEventListener('mouseenter',function(e){
+   var est=el.classList.contains('calc')?' est':'';
+   tip.innerHTML='<div class="q">'+(el.dataset.q||'')+'</div><div class="src'+est+'">'+srcName(el)+'</div>';
+   tip.style.display='block';place(e);
+  });
+  el.addEventListener('mousemove',place);
+  el.addEventListener('mouseleave',function(){tip.style.display='none';});
+ });
+})();
+</script>
+</body></html>

@@ -1,0 +1,368 @@
+/* ============================================================
+   SUMMA — shared styles
+   Nokia-flavored, light theme, system fonts only.
+   ============================================================ */
+
+:root {
+  --nokia-blue: #124191;
+  --nokia-blue-deep: #001F5F;
+  --nokia-blue-light: #2E5BB8;
+  --accent: #00C4B3;
+  --bg: #F6F7FB;
+  --surface: #FFFFFF;
+  --surface-2: #F0F2F8;
+  --border: #E1E5EE;
+  --text: #1A1F36;
+  --text-muted: #5A6072;
+  --text-faint: #8A92A6;
+  --warn: #E8A317;
+  --shadow-sm: 0 1px 2px rgba(18, 65, 145, 0.06);
+  --shadow-md: 0 4px 12px rgba(18, 65, 145, 0.08);
+  --shadow-lg: 0 10px 30px rgba(18, 65, 145, 0.12);
+  --radius: 10px;
+  --radius-sm: 6px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--nokia-blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ============================================================
+   Top bar
+   ============================================================ */
+.topbar {
+  background: var(--nokia-blue-deep);
+  color: #fff;
+  padding: 14px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-md);
+}
+.topbar .brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  font-size: 18px;
+}
+.topbar .brand .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent);
+  display: inline-block;
+  transform: translateY(-1px);
+}
+.topbar .brand .sub {
+  font-weight: 400;
+  color: rgba(255,255,255,0.7);
+  font-size: 13px;
+}
+.topbar nav a {
+  color: rgba(255,255,255,0.85);
+  margin-left: 22px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.topbar nav a:hover { color: #fff; text-decoration: none; }
+.topbar nav a.active {
+  color: #fff;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 4px;
+}
+
+/* ============================================================
+   Layout
+   ============================================================ */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 28px;
+}
+.section {
+  margin-bottom: 36px;
+}
+.section h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--nokia-blue-deep);
+  margin: 0 0 16px 0;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--nokia-blue);
+  display: inline-block;
+}
+
+/* ============================================================
+   Landing portal cards
+   ============================================================ */
+.portal-hero {
+  text-align: center;
+  padding: 48px 20px 24px;
+}
+.portal-hero h1 {
+  font-size: 36px;
+  margin: 0 0 8px 0;
+  color: var(--nokia-blue-deep);
+  letter-spacing: -0.5px;
+}
+.portal-hero p {
+  color: var(--text-muted);
+  font-size: 16px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.portal-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  max-width: 900px;
+  margin: 32px auto 0;
+}
+.portal-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  display: block;
+  color: var(--text);
+}
+.portal-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--nokia-blue);
+  text-decoration: none;
+}
+.portal-card .icon {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--nokia-blue), var(--nokia-blue-light));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+.portal-card h3 {
+  margin: 0 0 8px 0;
+  color: var(--nokia-blue-deep);
+  font-size: 18px;
+}
+.portal-card p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+.portal-card .arrow {
+  margin-top: 14px;
+  color: var(--nokia-blue);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+/* ============================================================
+   Two-column row (Hyperscaler + News)
+   ============================================================ */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+@media (max-width: 900px) {
+  .two-col { grid-template-columns: 1fr; }
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow-sm);
+}
+.panel h3 {
+  margin: 0 0 14px 0;
+  font-size: 18px;
+  color: var(--nokia-blue-deep);
+}
+
+/* Callout (Hyperscaler definition) */
+.callout {
+  background: linear-gradient(180deg, #F1F4FB 0%, #E9EEF8 100%);
+  border-left: 4px solid var(--nokia-blue);
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--text);
+}
+.callout .emoji { font-size: 18px; margin-right: 6px; }
+.callout strong { color: var(--nokia-blue-deep); }
+
+/* ============================================================
+   News feed
+   ============================================================ */
+.news-block { }
+.news-company {
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed var(--border);
+}
+.news-company:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.news-company h4 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  color: var(--nokia-blue);
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.news-company h4 .badge {
+  background: var(--surface-2);
+  color: var(--text-muted);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.news-list { list-style: none; padding: 0; margin: 0; }
+.news-list li {
+  padding: 6px 0;
+  font-size: 14px;
+  line-height: 1.45;
+}
+.news-list li a {
+  color: var(--text);
+  display: block;
+}
+.news-list li a:hover { color: var(--nokia-blue); text-decoration: none; }
+.news-list li .meta {
+  display: block;
+  font-size: 11.5px;
+  color: var(--text-faint);
+  margin-top: 2px;
+}
+.news-empty {
+  color: var(--text-faint);
+  font-size: 13px;
+  font-style: italic;
+}
+.news-loading {
+  color: var(--text-faint);
+  font-size: 13px;
+}
+.news-loading::before {
+  content: "";
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: inline-block;
+  margin-right: 8px;
+  animation: pulse 1.2s ease-in-out infinite;
+  vertical-align: middle;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* ============================================================
+   Map
+   ============================================================ */
+#map {
+  width: 100%;
+  height: 460px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+.map-legend {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.map-legend .swatch {
+  display: inline-block;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.15);
+}
+
+/* ============================================================
+   Portfolio table
+   ============================================================ */
+.portfolio-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+}
+.portfolio-table th,
+.portfolio-table td {
+  text-align: left;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.portfolio-table th {
+  background: var(--nokia-blue-deep);
+  color: #fff;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+.portfolio-table td {
+  font-size: 14px;
+  color: var(--text);
+  min-height: 56px;
+}
+.portfolio-table tr:nth-child(even) td { background: #FBFCFE; }
+.portfolio-table tr:last-child td { border-bottom: none; }
+.portfolio-table .placeholder {
+  color: var(--text-faint);
+  font-style: italic;
+  font-size: 13px;
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+.footer {
+  padding: 24px 28px;
+  text-align: center;
+  color: var(--text-faint);
+  font-size: 12.5px;
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+}

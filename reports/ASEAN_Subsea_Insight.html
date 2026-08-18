@@ -1,0 +1,281 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ASEAN Subsea Insight — DCI / Optics Briefing</title>
+<style>
+:root{--bg:#0a1122;--panel:#111b30;--panel2:#0e1728;--line:#22304d;--ink:#e6edf7;
+--mut:#93a4c0;--dim:#6c7d9c;--acc:#31d0aa;--blue:#4a90ff;--amber:#f3b73b;--red:#ef5a5a;
+--purple:#8a6bff;--green:#2ec16b;--cyan:#33c6e8}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:15px;line-height:1.62}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+header.top{padding:26px 30px 18px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#0d1830,#0a1122)}
+header.top h1{margin:0;font-size:26px;letter-spacing:.3px}
+header.top .sub{color:var(--cyan);font-weight:600;margin-top:4px;font-size:14px;letter-spacing:.4px}
+header.top .meta{color:var(--dim);font-size:12.5px;margin-top:8px}
+header.top .xlink{margin-top:10px;font-size:13px}
+header.top .xlink a{background:#132039;border:1px solid var(--line);padding:5px 11px;border-radius:8px;color:var(--acc);display:inline-block}
+nav.tabs{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;gap:4px;padding:10px 22px;background:rgba(10,17,34,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav.tabs button{background:transparent;border:1px solid transparent;color:var(--mut);padding:8px 13px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:600;transition:.15s;white-space:nowrap}
+nav.tabs button:hover{color:var(--ink);background:#132039}
+nav.tabs button.active{color:#06110b;background:var(--cyan)}
+nav.tabs button .n{opacity:.6;font-weight:700;margin-right:6px}
+main{max-width:1140px;margin:0 auto;padding:26px 22px 90px}
+.tab{display:none;animation:fade .25s ease}.tab.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+h2.tt{font-size:22px;margin:2px 0 4px}.tt-sub{color:var(--mut);margin:0 0 20px;font-size:14px}
+.sec{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:0 0 18px}
+.sec h3{margin:0 0 12px;font-size:15px;letter-spacing:.4px;text-transform:uppercase;display:flex;align-items:center;gap:9px}
+.sec h3 .dot{width:9px;height:9px;border-radius:3px;display:inline-block;background:var(--cyan)}
+.sec p{margin:0 0 11px}.sec ul{margin:4px 0 6px;padding-left:20px}.sec li{margin:6px 0}
+.sec.take{background:linear-gradient(180deg,#0f2430,#0e1c2c);border-color:#1d5145}
+.sec.take h3 .dot{background:var(--acc)}
+.sec.warn h3 .dot{background:var(--amber)}
+table{width:100%;border-collapse:collapse;margin:6px 0 4px;font-size:13px}
+th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--mut);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.4px;background:#0f1a2e;position:sticky}
+td.c{white-space:nowrap}
+.kd{color:var(--acc);font-weight:700}
+.grid{display:grid;gap:14px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr 1fr 1fr}.g4{grid-template-columns:repeat(4,1fr)}
+.mini{background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:14px 16px}
+.mini h4{margin:0 0 6px;font-size:12.5px;color:var(--cyan);text-transform:uppercase;letter-spacing:.4px}
+.mini .big{font-size:23px;font-weight:800}.mini .lbl{color:var(--dim);font-size:11.5px}
+.pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px;letter-spacing:.3px}
+.p-live{background:rgba(46,193,107,.16);color:#5fe09a;border:1px solid #226b45}
+.p-plan{background:rgba(243,183,59,.15);color:#f3c869;border:1px solid #6d5622}
+.p-hi{background:rgba(239,90,90,.14);color:#f18b8b;border:1px solid #6d2b2b}
+.p-med{background:rgba(243,183,59,.15);color:#f3c869;border:1px solid #6d5622}
+.chip{display:inline-block;background:#132039;border:1px solid var(--line);color:var(--mut);padding:6px 12px;border-radius:20px;font-size:12.5px;font-weight:600;cursor:pointer;margin:0 6px 6px 0}
+.chip.on{background:var(--cyan);color:#06110b;border-color:var(--cyan)}
+.ccard{background:var(--panel2);border:1px solid var(--line);border-radius:13px;padding:16px 18px;margin:0 0 14px;border-left:4px solid var(--cyan)}
+.ccard.hi{border-left-color:var(--red)}.ccard.med{border-left-color:var(--amber)}
+.ccard h4{margin:0 0 3px;font-size:17px}.ccard .role{color:var(--cyan);font-size:12.5px;font-weight:600;margin-bottom:10px}
+.ccard .r{display:grid;grid-template-columns:130px 1fr;gap:4px 12px;font-size:13.3px;margin:4px 0}
+.ccard .r b{color:var(--mut);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.3px;padding-top:2px}
+.flag{border-left:3px solid var(--amber);background:#151d2c;padding:10px 14px;border-radius:0 8px 8px 0;margin:10px 0}.flag b{color:var(--amber)}
+.good{border-left:3px solid var(--green);background:#101f22;padding:10px 14px;border-radius:0 8px 8px 0;margin:10px 0}.good b{color:var(--green)}
+.callout{background:linear-gradient(180deg,#0e2233,#0e1830);border:1px solid #234a63;border-radius:12px;padding:16px 18px;margin:16px 0}
+.callout .ttl{color:var(--cyan);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin:14px 0}
+.flow .node{flex:1;min-width:150px;background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:13px 14px;position:relative;margin-right:26px;margin-bottom:12px}
+.flow .node:last-child{margin-right:0}
+.flow .node:not(:last-child):after{content:"→";position:absolute;right:-20px;top:50%;transform:translateY(-50%);color:var(--cyan);font-size:20px;font-weight:700}
+.flow .node .st{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--dim);margin-bottom:4px}
+.flow .node .ti{font-weight:700;font-size:14px;margin-bottom:4px}
+.flow .node .ds{font-size:12px;color:var(--mut)}
+.flow .node.nk{border-color:#1d6b57;background:linear-gradient(180deg,#0f2a24,#0e1c2c)}
+.flow .node.nk .ti{color:var(--acc)}
+.flow .node.no{opacity:.62}
+.talk{margin:6px 0}.talk .row{display:flex;gap:14px;padding:13px 0;border-bottom:1px solid var(--line)}.talk .row:last-child{border-bottom:none}
+.talk .num{flex:0 0 30px;height:30px;border-radius:9px;background:var(--acc);color:#06110b;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:14px}
+.talk .qt{font-size:14.5px}
+footer{border-top:1px solid var(--line);color:var(--dim);font-size:12px;padding:20px 22px;text-align:center}
+@media(max-width:760px){.g2,.g3,.g4{grid-template-columns:1fr}main{padding:20px 14px 80px}.ccard .r{grid-template-columns:1fr}}
+</style></head><body>
+<header class="top">
+<h1>ASEAN Subsea Insight</h1>
+<div class="sub">The vein for the blood — subsea cable inventory, per-country plans, diagnostic & the DC ↔ Subsea join</div>
+<div class="meta">Companion to ASEAN Data Center Insight · scope: ASEAN-6 + Pacific hubs (HK/JP/Guam/US-West) · data web-verified Jul 2026 · engineer framing, planned dates flagged as intent</div>
+<div class="xlink"><a href="ASEAN_DC_Insight.html">↩ Open the companion DC Insight report</a></div>
+</header>
+<nav class="tabs"><button class="active" onclick="show('overview',this)"><span class="n">1</span>Overview</button><button class="" onclick="show('inventory',this)"><span class="n">2</span>Cable Inventory</button><button class="" onclick="show('country',this)"><span class="n">3</span>Country Plans</button><button class="" onclick="show('diag',this)"><span class="n">4</span>Diagnostic</button><button class="" onclick="show('dcx',this)"><span class="n">5</span>DC ↔ Subsea</button><button class="" onclick="show('nokia',this)"><span class="n">6</span>Nokia / Optics Play</button><button class="" onclick="show('sources',this)"><span class="n">7</span>Sources</button></nav>
+<main><section id="overview" class="tab active">
+<h2 class="tt">Subsea: the vein for the blood</h2>
+<p class="tt-sub">If the data center is the organ and terrestrial DCI is the artery, subsea cable is the vein that carries traffic between regions. This layer maps ASEAN + APAC-hub subsea — existing and the wave of new cables being deployed — and connects it back to the DC build-out.</p>
+<div class="grid g4">
+<div class="mini"><h4>SG cables live</h4><div class="big">~28</div><div class="lbl">+13 more underway — the regional hub, but landing-saturated</div></div>
+<div class="mini"><h4>Vietnam live</h4><div class="big">5–6</div><div class="lbl">~34 Tbps → MIC target 15 cables / 350 Tbps by 2030</div></div>
+<div class="mini"><h4>New APAC cable peak</h4><div class="big">570 Tbps</div><div class="lbl">Meta "Candle" (24 fibre-pair), RFS 2028 — AI-driven</div></div>
+<div class="mini"><h4>SG traffic on subsea</h4><div class="big">&gt;99%</div><div class="lbl">Almost all international traffic rides the wet plant</div></div>
+</div>
+<div class="callout"><div class="ttl">The thesis in one line</div>
+<b>Two forces — Singapore's cable-landing saturation and its data-center power moratorium — push both compute and connectivity to Johor and Batam.</b> That single displacement creates the densest new DCI corridor in Asia: new cable landings + terrestrial backhaul from cable landing stations (CLS) to inland AI campuses. The DC report and this subsea report describe the same corridor from two ends.</div>
+
+<div class="sec"><h3><span class="dot"></span>What's happening in the water (2024–2028)</h3>
+<ul>
+<li><b>An AI-driven cable wave.</b> Bifrost, Echo and Apricot (Google/Meta) went live 2024–25; ADC and SJC2 lit Vietnam/SE Asia 2024–25; SEA-ME-WE 6, ALC and SEA-H2X land 2025–26; Meta's <span class="kd">Candle</span> (570 Tbps, 24 fibre-pairs) arrives 2028 as the largest-capacity APAC system. Fibre-pair counts are climbing because AI training clusters need east–west bandwidth on a new scale.</li>
+<li><b>Routes are bending around geopolitics.</b> Bifrost and Echo are the first trans-Pacific systems routed via the Java/Celebes Sea to <b>avoid the South China Sea</b>; SJC2 slipped &gt;1 year on China territorial-water permitting near Hong Kong. Hong Kong is fading as the pivot; the Philippines (Luzon), Japan and Guam are rising.</li>
+<li><b>Singapore is full — so the region spreads.</b> Landing sites are first-come-first-served with no new major sites; overflow lands in Johor (Malaysia) and Batam (Indonesia) — exactly where hyperscale DC capacity is going.</li>
+</ul></div>
+</section><section id="inventory" class="tab ">
+<h2 class="tt">APAC Cable Inventory</h2>
+<p class="tt-sub">The cables that matter for ASEAN DCI — existing and planned. Curated from TeleGeography submarinecablemap.com and cross-checked against submarinenetworks.com, CSIS, and operator announcements (Jul 2026). Not exhaustive; scoped to systems touching ASEAN-6 + Pacific hubs.</p>
+<div id="chips">
+<span class="chip on" onclick="filt('all',this)">All</span>
+<span class="chip" onclick="filt('live',this)">Live only</span>
+<span class="chip" onclick="filt('plan',this)">Planned only</span>
+</div>
+<div class="sec" style="padding:6px 10px">
+<table><thead><tr><th>Cable</th><th>Status</th><th>RFS</th><th>Capacity</th><th>Route (key landings)</th><th>Owners</th><th>Note</th></tr></thead>
+<tbody id="cbody"></tbody></table></div>
+<p class="tt-sub" style="margin-top:10px">Legend: routes use ISO-ish country codes (SG Singapore · MY Malaysia · ID Indonesia · PH Philippines · TH Thailand · VN Vietnam · HK Hong Kong · JP Japan · KR Korea · TW Taiwan · CN China · BN Brunei · US United States). Capacity figures are design/estimated potential, not lit capacity.</p>
+</section><section id="country" class="tab ">
+<h2 class="tt">Per-Country Subsea Plans</h2>
+<p class="tt-sub">Existing footprint, the near-term plan, and the one thing to watch — for each ASEAN-6 market, plus the Pacific hub geographies their traffic transits.</p>
+<div class="ccard hi"><h4>🇸🇬 Singapore</h4><div class="role">The regional brain / cable hub</div>
+        <div class="r"><b>Live</b><span>~28 live (13+ underway)</span></div>
+        <div class="r"><b>Backbone</b><span>>99% of int'l traffic on subsea; ~410+ Tbps potential</span></div>
+        <div class="r"><b>Key cables</b><span>SJC2, Apricot, Bifrost, Echo, SMW5/6, IAX, ADC, ALC</span></div>
+        <div class="r"><b>Plan</b><span>Digital Connectivity Blueprint: double cable landings in ~10 yrs (~US$7.4B). But landing sites (Changi North/Tuas/Tanah Merah/Katong) are first-come-first-served and saturating.</span></div>
+        <div class="r"><b>Watch</b><span>Landing-site saturation + DC power moratorium → capacity overflow to Johor & Batam. This is the single most important structural fact for DCI.</span></div></div><div class="ccard med"><h4>🇲🇾 Malaysia</h4><div class="role">Overflow landing + AI-campus backhaul</div>
+        <div class="r"><b>Live</b><span>~20+ live, rising fast</span></div>
+        <div class="r"><b>Backbone</b><span>Growing; Mersing/Johor landings</span></div>
+        <div class="r"><b>Key cables</b><span>SEA-ME-WE 6, Candle, SEA-H2X, ADC, plus regional trunks</span></div>
+        <div class="r"><b>Plan</b><span>Johor becomes the Singapore-overflow landing point — the same place hyperscale DC capacity is landing. New CLS build to serve Johor AI campuses.</span></div>
+        <div class="r"><b>Watch</b><span>Johor CLS↔DC terrestrial backhaul is the emerging optics opportunity; cross-strait links to Singapore.</span></div></div><div class="ccard med"><h4>🇮🇩 Indonesia</h4><div class="role">Trans-Pacific gateway + Batam overflow</div>
+        <div class="r"><b>Live</b><span>~15+ int'l (Batam, Jakarta, Manado)</span></div>
+        <div class="r"><b>Backbone</b><span>Batam is Singapore's cross-border twin</span></div>
+        <div class="r"><b>Key cables</b><span>Bifrost, Echo, Apricot, Candle, SMW cables</span></div>
+        <div class="r"><b>Plan</b><span>Batam (Nongsa) DC + cable cluster absorbs Singapore overflow; Manado is the Pacific pivot for Bifrost/Echo.</span></div>
+        <div class="r"><b>Watch</b><span>Cabotage law (Indonesian-flagged vessels only) slows repairs; boundary disputes with SG/MY complicate routing.</span></div></div><div class="ccard med"><h4>🇵🇭 Philippines</h4><div class="role">Trans-Pacific transit + rising landing hub</div>
+        <div class="r"><b>Live</b><span>~12+ int'l, growing</span></div>
+        <div class="r"><b>Backbone</b><span>Luzon = trans-Pacific gateway; alternative to Hong Kong</span></div>
+        <div class="r"><b>Key cables</b><span>ADC, SJC2, Apricot, Bifrost, ALC, SEA-H2X, Candle</span></div>
+        <div class="r"><b>Plan</b><span>Positioning as the HK-alternative trans-Pacific pivot; PDSCN domestic backbone; new landings in Batangas/Davao.</span></div>
+        <div class="r"><b>Watch</b><span>Luzon Strait chokepoint & typhoon/seismic exposure; but geopolitically favoured over HK.</span></div></div><div class="ccard med"><h4>🇹🇭 Thailand</h4><div class="role">Intra-Asia + India–SEA junction</div>
+        <div class="r"><b>Live</b><span>~10 int'l (Songkhla, Satun, Sri Racha)</span></div>
+        <div class="r"><b>Backbone</b><span>Gulf + Andaman coasts</span></div>
+        <div class="r"><b>Key cables</b><span>SJC2, ADC, IAX, SEA-H2X, AAE-1, APG</span></div>
+        <div class="r"><b>Plan</b><span>Songkhla as the SE-Asia junction for India-facing (IAX) and China-facing (SEA-H2X) systems; digital-hub ambitions.</span></div>
+        <div class="r"><b>Watch</b><span>Land-bridge concept (Andaman↔Gulf) could reshape routing; execution uncertain.</span></div></div><div class="ccard hi"><h4>🇻🇳 Vietnam</h4><div class="role">Under-cabled, aggressively expanding (home turf)</div>
+        <div class="r"><b>Live</b><span>5–6 live (~34 Tbps)</span></div>
+        <div class="r"><b>Backbone</b><span>AAG, AAE-1, ADC, APG, TGN-IA (+SJC2 2025, VTS)</span></div>
+        <div class="r"><b>Key cables</b><span>ADC (2024) & SJC2 (2025) newest; ALC branch 2026 (FPT)</span></div>
+        <div class="r"><b>Plan</b><span>MIC Digital Infrastructure Master Plan to 2030: build ≥10 new → total ≥15 cables, ≥350 Tbps. By 2027: 4 new, ≥134 Tbps. ≥1 Vietnam-owned per phase.</span></div>
+        <div class="r"><b>Watch</b><span>Chronic outages (few cables, faults near HK/South China Sea). Tripling cable count is national priority — and every one is your accounts (Viettel/VNPT/FPT/CMC).</span></div></div>
+<div class="sec"><h3><span class="dot"></span>Pacific hub context (where ASEAN traffic goes)</h3>
+<table><thead><tr><th>Hub</th><th>Role</th><th>Why it matters</th></tr></thead><tbody><tr><td><b>Hong Kong 🇭🇰</b></td><td class='c'>Declining pivot</td><td>Historic #1 Asian hub, now constrained by China territorial-water permitting and geopolitics. Cables rerouting to PH/JP/SG.</td></tr><tr><td><b>Japan 🇯🇵</b></td><td class='c'>Trans-Pacific anchor</td><td>Chikura/Maruyama/Shima/Toucheng landings anchor most trans-Pacific systems (FASTER, Apricot, Candle, JUPITER).</td></tr><tr><td><b>Guam 🇬🇺</b></td><td class='c'>The Pacific interchange</td><td>Echo & Apricot pivot here; small island, outsized role as the trans-Pacific interconnect avoiding congested routes.</td></tr><tr><td><b>US-West 🇺🇸</b></td><td class='c'>Demand sink</td><td>California/Oregon landings terminate trans-Pacific capacity into the US hyperscale core.</td></tr></tbody></table></div>
+</section><section id="diag" class="tab ">
+<h2 class="tt">Diagnostic — resilience, chokepoints, geopolitics</h2>
+<p class="tt-sub">A subsea network is only as good as its diversity. Where the ASEAN wet plant is fragile, and why.</p>
+
+<div class="sec warn"><h3><span class="dot" style="background:var(--amber)"></span>Chokepoints &amp; physical risk</h3>
+<ul>
+<li><b>Luzon Strait</b> — the trans-Pacific / Hong Kong approach funnels dozens of cables through a narrow, seismically active corridor. A single event can degrade Asia–US capacity broadly.</li>
+<li><b>Malacca &amp; Singapore Strait</b> — 80,000–90,000 vessels/year; anchor-drag and fishing damage are the leading fault cause. Everything into the Singapore hub crosses it.</li>
+<li><b>South China Sea</b> — ~⅓ of global shipping and contested waters; repair permitting is slow. New cables (Bifrost, Echo) deliberately route around it via the Java/Celebes Sea.</li>
+</ul></div>
+
+<div class="sec warn"><h3><span class="dot" style="background:var(--amber)"></span>Geopolitical &amp; regulatory friction</h3>
+<ul>
+<li><b>China territorial-water permitting</b> — delayed SJC2 by &gt;1 year around Hong Kong; a structural reason Hong Kong is losing hub share to Japan/Philippines/Singapore.</li>
+<li><b>Indonesia cabotage law</b> — cable work requires Indonesian-flagged vessels, slowing installation and repair on any system touching Indonesian waters (i.e., most trans-Pacific routes now).</li>
+<li><b>Undelimited maritime boundaries</b> (SG–MY–ID) limit independent route management and add negotiation drag.</li>
+</ul></div>
+
+<div class="sec"><h3><span class="dot"></span>Country resilience read</h3>
+<table><thead><tr><th>Market</th><th>Cable diversity</th><th>Resilience</th><th>Read</th></tr></thead><tbody>
+<tr><td>Singapore</td><td>~28 live</td><td><span class="pill p-live">Strong</span></td><td>Deep diversity, but landing-site saturation caps growth → overflow to neighbours</td></tr>
+<tr><td>Malaysia</td><td>~20+, rising</td><td><span class="pill p-live">Improving</span></td><td>Benefits directly from SG overflow; Johor landing + DC co-location</td></tr>
+<tr><td>Indonesia</td><td>~15+ int'l</td><td><span class="pill p-med">Medium</span></td><td>Good new-route position (Bifrost/Echo) but cabotage slows repair</td></tr>
+<tr><td>Philippines</td><td>~12+, rising</td><td><span class="pill p-med">Medium</span></td><td>Winning HK-alternative transit role; offset by typhoon/seismic exposure</td></tr>
+<tr><td>Thailand</td><td>~10 int'l</td><td><span class="pill p-med">Medium</span></td><td>India–SEA junction (IAX) + China-facing (SEA-H2X); land-bridge optionality</td></tr>
+<tr><td>Vietnam</td><td>5–6 live</td><td><span class="pill p-hi">Fragile</span></td><td>Thinnest diversity of the six → chronic outages → national tripling plan to 2030</td></tr>
+</tbody></table></div>
+
+<div class="sec take"><h3><span class="dot"></span>Diagnostic takeaway</h3>
+<p>The ASEAN wet plant is simultaneously <b>booming and brittle</b>. Capacity is being added fast, but it concentrates on a few chokepoints and one saturated hub. Every resilience move — a new Vietnam-owned cable, a Batam/Johor overflow landing, a South-China-Sea-avoiding route — is a new terrestrial backhaul and DCI requirement. Fragility is the demand signal.</p></div>
+</section><section id="dcx" class="tab ">
+<h2 class="tt">DC ↔ Subsea — the connecting layer</h2>
+<p class="tt-sub">Why the two reports are one system. The data center consumes and produces the traffic; the subsea cable moves it between regions; the terrestrial DCI layer is the join — and the join is where the near-term optics money sits.</p>
+
+<div class="sec"><h3><span class="dot"></span>The full traffic path (and who owns each segment)</h3>
+<div class="flow">
+<div class="node"><div class="st">Compute</div><div class="ti">Data Center</div><div class="ds">AI/cloud campus (Johor, Batam, Jakarta, HCMC, SG)</div></div>
+<div class="node nk"><div class="st">Intra-DC + metro</div><div class="ti">Terrestrial DCI</div><div class="ds">DWDM / 400ZR+ · CLS ↔ DC backhaul — <b>optics play</b></div></div>
+<div class="node"><div class="st">Wet interface</div><div class="ti">Cable Landing Station</div><div class="ds">Where subsea meets land</div></div>
+<div class="node nk"><div class="st">Dry terminal</div><div class="ti">SLTE</div><div class="ds">Coherent terminal that lights the fibre — <b>optics play</b></div></div>
+<div class="node no"><div class="st">Wet plant</div><div class="ti">Subsea cable</div><div class="ds">Repeaters + fibre (built by ASN/SubCom/NEC/HMN — not Nokia)</div></div>
+</div>
+<p style="font-size:12.5px;color:var(--dim)">Green = where Nokia sells. The subsea wet plant itself (cable + repeaters) is a separate market — see the Nokia tab for why that matters post-ASN.</p></div>
+
+<div class="sec"><h3><span class="dot"></span>Three ways the DC boom pulls subsea + DCI</h3>
+<table><thead><tr><th>Mechanism</th><th>What happens</th><th>Optics consequence</th></tr></thead><tbody>
+<tr><td><b>Landing + power overflow</b></td><td>SG cable sites saturate and SG caps DC power → both spill to Johor &amp; Batam</td><td>New CLS in Johor/Batam + terrestrial DWDM backhaul to the AI campuses landing there</td></tr>
+<tr><td><b>AI east-west bandwidth</b></td><td>Training clusters need inter-region model/data sync at new scale → 24-fibre-pair cables (Candle 570 Tbps)</td><td>Higher-capacity SLTE terminals + metro DCI to distribute landed capacity to multiple DCs</td></tr>
+<tr><td><b>Resilience mandates</b></td><td>Vietnam +10 cables, SCS-avoiding routes, HK→PH/JP pivots</td><td>More landings = more CLS→DC backhaul builds, each a terrestrial optical project</td></tr>
+</tbody></table></div>
+
+<div class="callout"><div class="ttl">The corridor map (say this to Sales)</div>
+The three DCI corridors that both reports point to: <b>Johor ↔ Singapore</b> (DC overflow + cable overflow, cross-strait), <b>Batam ↔ Singapore</b> (Indonesia's cross-border twin, trans-Pacific landings), and <b>HCMC ↔ Bình Dương + Vietnam CLS</b> (Quy Nhơn/Đà Nẵng/Vũng Tàu landings back to the southern DC cluster). These are where new cable landings and new DC capacity coincide — the highest-probability terrestrial optical demand in ASEAN.</div>
+
+<div class="sec take"><h3><span class="dot"></span>Why connecting the two reports matters</h3>
+<ul>
+<li>A DC announcement is a <b>leading indicator of a subsea landing + backhaul</b>, and vice versa. Track them together and you see the optical demand before the RFP.</li>
+<li>The near-term, defensible optics revenue is <b>terrestrial</b> — CLS-to-DC backhaul and metro DCI — not the wet plant. The subsea wave is the <i>reason</i> the terrestrial demand exists.</li>
+<li>In Vietnam the cable owners and the DC builders are the <b>same accounts</b> (Viettel/VNPT/FPT/CMC) — one relationship covers both the landing and the backhaul.</li>
+</ul></div>
+</section><section id="nokia" class="tab ">
+<h2 class="tt">Nokia / Optics Play in Subsea</h2>
+<p class="tt-sub">An honest read of where Nokia can and can't sell in the subsea value chain — post the Alcatel Submarine Networks divestiture, and post the Infinera acquisition.</p>
+
+<div class="flag"><b>Reality check:</b> Nokia <b>completed the sale of Alcatel Submarine Networks (ASN)</b> — the wet-plant / cable-and-repeater manufacturing business — to the French State on <b>3 January 2025</b>. Nokia no longer builds submarine cables or repeaters. Don't pitch the wet plant. The Nokia subsea story is now the <b>dry side and the terrestrial side</b> — and, thanks to Infinera, that story is stronger, not weaker.</div>
+
+<div class="sec"><h3><span class="dot"></span>Where Nokia sells in the value chain</h3>
+<table><thead><tr><th>Segment</th><th>Nokia?</th><th>Detail</th></tr></thead><tbody>
+<tr><td>Wet plant (cable + repeaters)</td><td><span class="pill p-hi">No</span></td><td>Divested with ASN (2025). Market now ASN, SubCom, NEC, HMN Tech.</td></tr>
+<tr><td><b>SLTE (submarine line terminal equipment)</b></td><td><span class="pill p-live">Yes</span></td><td>The coherent terminal that lights the fibre. Nokia 1830 + PSE-6s, and especially <b>Infinera's ICE6</b> (strong open-subsea SLTE pedigree). Competes with Ciena GeoMesh Extreme, NEC.</td></tr>
+<tr><td><b>CLS → DC terrestrial backhaul</b></td><td><span class="pill p-live">Yes</span></td><td>DWDM from the cable landing station to inland data centers. Core 1830 GX/PSS. The near-term volume.</td></tr>
+<tr><td><b>Metro / regional DCI</b></td><td><span class="pill p-live">Yes</span></td><td>400ZR/ZR+/800ZR + PSE-6s line systems across the Johor/Batam/HCMC corridors.</td></tr>
+</tbody></table></div>
+
+<div class="sec"><h3><span class="dot"></span>The positioning wedge</h3>
+<ul>
+<li><b>Infinera changes the subsea conversation.</b> Infinera's ICE6 has a real track record as open-cable SLTE on trans-oceanic systems; folded into Nokia, it gives a credible dry-side story that pre-acquisition Nokia lacked. Lead with capability, not specific named wins you can't verify.</li>
+<li><b>Sell the terrestrial join, not the wet plant.</b> Every new landing (and there are many) needs SLTE + backhaul. That's the addressable, winnable scope.</li>
+<li><b>Efficiency into the power gate.</b> Same argument as the DC report: high-baud coherent → fewer regens → lower W/bit, which matters at power-constrained landing/DC sites.</li>
+</ul></div>
+
+<div class="sec take"><h3><span class="dot"></span>Five lines for an executive</h3>
+<div class="talk">
+<div class="row"><div class="num">1</div><div class="qt">"Subsea is the vein — and there's a once-in-a-decade cable wave landing in ASEAN through 2028, AI-driven and routing around old chokepoints."</div></div>
+<div class="row"><div class="num">2</div><div class="qt">"We're out of the wet plant since the ASN sale, but Infinera puts us back in the <b>SLTE</b> conversation — the dry terminal that lights every new cable."</div></div>
+<div class="row"><div class="num">3</div><div class="qt">"The winnable money is the <b>terrestrial join</b>: cable-landing-station-to-data-center backhaul and metro DCI. Every landing pulls one."</div></div>
+<div class="row"><div class="num">4</div><div class="qt">"Singapore is full — cables and DC power both overflow to <b>Johor and Batam</b>. That's our corridor, and it needs new SLTE and backhaul."</div></div>
+<div class="row"><div class="num">5</div><div class="qt">"In Vietnam the cable owners are our accounts — Viettel, VNPT, FPT, CMC — and the country is tripling its cables to 15 by 2030. One relationship, landing plus backhaul."</div></div>
+</div></div>
+</section><section id="sources" class="tab ">
+<h2 class="tt">Sources &amp; Confidence</h2>
+<p class="tt-sub">What this dashboard is built on, and how confident to be in each part.</p>
+<div class="sec"><h3><span class="dot"></span>Primary sources</h3>
+<ul>
+<li><b>TeleGeography — submarinecablemap.com</b> — the canonical interactive reference for cable routes, landings and RFS. Use it for the live map; this dashboard is a curated, analyzed view of the ASEAN-relevant subset.</li>
+<li><b>submarinenetworks.com</b> — per-country landing-station and cable listings (used for Vietnam and Singapore counts and RFS dates).</li>
+<li><b>CSIS</b> — <i>The Strategic Future of Subsea Cables: Singapore Case Study</i> — Singapore hub figures (28 live cables, 13+ underway, &gt;99% traffic, Digital Connectivity Blueprint ~US$7.4B), chokepoint and geopolitics analysis.</li>
+<li><b>Carnegie Endowment</b> — <i>Subsea Communication Cables in Southeast Asia</i> — regional resilience / permitting risk.</li>
+<li><b>Meta &amp; Google engineering blogs</b> — Candle (570 Tbps, 24 FP, 2028), Bifrost, Echo, Apricot routes/capacity.</li>
+<li><b>Vietnam MIC Digital Infrastructure Master Plan to 2030</b> (via Light Reading / Vietnam MIC) — the 15-cable / 350 Tbps target, phase timing, Vietnam-owned requirement.</li>
+<li><b>Nokia newsroom</b> — completion of the ASN sale to the French State (3 Jan 2025).</li>
+</ul></div>
+<div class="sec warn"><h3><span class="dot" style="background:var(--amber)"></span>Confidence &amp; caveats</h3>
+<ul>
+<li><b>Cable counts vary by definition</b> (in-service vs including planned; international vs domestic). Singapore "~28" (CSIS) vs an older "17 active" (2016) reflects growth, not error. Vietnam "5–6" counts in-service international systems; add SJC2/VTS and it's higher.</li>
+<li><b>Capacity figures are design/potential</b>, not lit capacity — treat as ceilings.</li>
+<li><b>RFS dates for planned cables slip</b> routinely (SJC2 slipped &gt;1 yr). Planned = intent, not schedule.</li>
+<li><b>The Nokia/Infinera SLTE positioning</b> is a capability statement — verify specific cable wins against current Nokia references before quoting one to a customer.</li>
+<li>For authoritative, current detail on any single cable, drop back to TeleGeography submarinecablemap.com.</li>
+</ul></div>
+<div class="callout"><div class="ttl">Companion report</div>
+This subsea layer is the companion to <b>ASEAN Data Center Insight</b> (the DC / electronics / power teardown). If both files sit in the same folder, open <a href="ASEAN_DC_Insight.html">ASEAN_DC_Insight.html</a>. The "DC ↔ Subsea" tab is the bridge between them.</div>
+</section></main>
+<footer>Canonical reference: TeleGeography submarinecablemap.com. Cross-checks: submarinenetworks.com · CSIS · Carnegie Endowment · Meta/Google engineering · Vietnam MIC Master Plan to 2030 · Nokia newsroom (ASN sale, Jan 2025). Capacity = design potential; planned RFS dates are intent and slip routinely.</footer>
+<script>
+function show(id,btn){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+window.scrollTo({top:0,behavior:'smooth'});}
+var CABLES=[["Candle", "Planned", "2028", "570 Tbps (24 FP)", "JP\u2013TW\u2013PH\u2013ID\u2013MY\u2013SG", "Meta", "Largest-capacity APAC cable; AI-driven 24 fibre-pair design"], ["SEA-H2X", "Planned", "2026", "est. 160+ Tbps", "HK\u2013Hainan\u2013PH\u2013TH\u2013E.Malaysia\u2013SG", "HMN Tech-led consortium", "Routes via Hainan; intra-Asia diversity"], ["Asia Link Cable (ALC)", "Planned", "2025\u201326", "~18 Tbps init.", "HK\u2013China\u2013PH\u2013Brunei\u2013SG (+VN branch, FPT)", "Singtel, China Telecom, DITO, FPT", "South China Sea route; Vietnam branch via FPT"], ["SEA-ME-WE 6", "Planned", "2025\u201326", "~25 Tbps/dir", "SG\u2013MY\u2013\u2026\u2013Egypt\u2013France", "22-operator consortium", "Primary new Asia\u2013Europe trunk; lands SG + Malaysia"], ["Hawaiki Nui", "Planned", "2026+", "est. 240+ Tbps", "SG\u2013ID\u2013US\u2013NZ\u2013AU", "BW Digital", "Ultra-long trans-Pacific incl. SE Asia leg"], ["Bifrost", "Live", "2025", "260+ Tbps", "SG\u2013ID\u2013PH\u2013Guam\u2013US (\u2013MX 2026)", "Keppel, Meta, Telin", "First trans-Pacific via Java/Celebes Sea \u2014 avoids South China Sea"], ["Echo", "Live", "2025", "260 Tbps", "SG\u2013ID\u2013Guam\u2013US (California)", "Google, Meta", "SCS-avoiding trans-Pacific; Google/Meta"], ["Apricot", "Live", "2024\u201325", "190\u2013290 Tbps", "JP\u2013TW\u2013Guam\u2013PH\u2013ID\u2013SG", "Google, Meta, NTT, Chunghwa, PLDT", "Guam-pivoted trans-Pacific + intra-Asia"], ["SJC2", "Live", "2025", "144 Tbps (8 FP)", "JP\u2013KR\u2013TW\u2013HK\u2013CN\u2013PH\u2013VN\u2013TH\u2013SG", "Consortium (incl. VNPT, Chunghwa, SoftBank)", "Delayed >1yr by China territorial-water permitting"], ["Asia Direct Cable (ADC)", "Live", "2024", "160+ Tbps", "CN\u2013HK\u2013JP\u2013PH\u2013VN\u2013TH\u2013SG", "Consortium (Singtel, SoftBank, Tata, Viettel, China Telecom\u2026)", "Vietnam's newest & largest; Viettel Quy Nhon CLS"], ["India Asia Xpress (IAX)", "Live", "2025", "~200 Tbps (w/ IEX)", "India\u2013TH\u2013MY\u2013SG", "Reliance Jio", "Direct India\u2013SE Asia; feeds Singapore hub"], ["AAE-1", "Live", "2017", "40 Tbps", "HK\u2013VN\u2013TH\u2013MY\u2013SG\u2013\u2026\u2013France", "19-member consortium", "Major Asia\u2013Europe; lands Vietnam (Viettel Vung Tau)"], ["APG (Asia Pacific Gateway)", "Live", "2016", "54+ Tbps", "CN\u2013KR\u2013JP\u2013TW\u2013HK\u2013VN\u2013TH\u2013MY\u2013SG", "China Telecom, NTT, KT, Viettel\u2026", "Core intra-Asia; Vietnam Da Nang CLS"], ["SMW5 (SEA-ME-WE 5)", "Live", "2016", "24 Tbps", "SG\u2013\u2026\u2013Middle East\u2013France", "consortium", "Asia\u2013Europe trunk via Singapore"], ["TGN-Intra Asia (TGN-IA)", "Live", "2009", "est. upgraded", "SG\u2013VN\u2013HK\u2013JP\u2013PH", "Tata Communications", "Intra-Asia; Viettel Vung Tau CLS (Vietnam)"], ["AAG (Asia-America Gateway)", "Live", "2009", "upgraded", "US\u2013Guam\u2013HI\u2013PH\u2013VN\u2013MY\u2013TH\u2013BN\u2013HK", "consortium", "Aging; historically fault-prone (Vietnam outages)"], ["Vietnam\u2013Singapore (VTS)", "Live", "2022", "est.", "VN\u2013SG", "Viettel", "Viettel-led direct VN\u2013SG"], ["PDSCN (Philippine Domestic SCN)", "Live", "2023", "\u2014", "33 landing points across Philippines", "Eastern, Globe, InfiniVAN", "Domestic backbone enabling int'l landings"]];var curFilter='all';
+function renderCables(){
+ var tb=document.getElementById('cbody');var rows='';
+ CABLES.forEach(function(c){
+  if(curFilter==='live'&&c[1]!=='Live')return;
+  if(curFilter==='plan'&&c[1]==='Planned'){}else if(curFilter==='plan'&&c[1]!=='Planned')return;
+  var pc=c[1]==='Live'?'p-live':'p-plan';
+  rows+='<tr><td><b>'+c[0]+'</b></td><td class="c"><span class="pill '+pc+'">'+c[1]+'</span></td>'+
+   '<td class="c">'+c[2]+'</td><td class="c">'+c[3]+'</td><td>'+c[4]+'</td><td>'+c[5]+'</td><td>'+c[6]+'</td></tr>';
+ });
+ document.getElementById('cbody').innerHTML=rows;
+}
+function filt(f,el){curFilter=f;document.querySelectorAll('#chips .chip').forEach(c=>c.classList.remove('on'));el.classList.add('on');renderCables();}
+window.addEventListener('DOMContentLoaded',renderCables);
+</script>
+</body></html>

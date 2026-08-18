@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SUMMA Dashboard — Hyperscaler Intel</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin="" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="dot"></span>
+      SUMMA
+      <span class="sub">Nokia ON · Sales Engineering Workbench</span>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="dashboard.html" class="active">Dashboard</a>
+      <a href="portfolio.html">HS Portfolio</a>
+      <a href="mofn.html">MOFN Deck</a>
+      <a href="market-insight.html">Market Insight</a>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <!-- ============ Hyperscaler + News ============ -->
+    <section class="section">
+      <div class="two-col">
+
+        <!-- Left: definition -->
+        <div class="panel">
+          <h3>Hyperscaler</h3>
+          <div class="callout">
+            <span class="emoji">💡</span>
+            A <strong>hyperscaler</strong> is a cloud and internet infrastructure
+            provider that can rapidly scale compute, storage, and networking to
+            massive, global demand. Key characteristics:
+            <strong>huge data-center footprint</strong>,
+            <strong>high automation and standardization</strong>,
+            <strong>elastic on-demand scaling</strong>,
+            <strong>multi-region global networks</strong>, and
+            <strong>continuous cost and reliability optimization</strong>.
+            The top 5 globally are <strong>Amazon Web Services (AWS)</strong>,
+            <strong>Microsoft Azure</strong>, <strong>Google Cloud</strong>,
+            <strong>Alibaba Cloud</strong>, and <strong>Tencent Cloud</strong>.
+          </div>
+        </div>
+
+        <!-- Right: news -->
+        <div class="panel">
+          <h3>Hyperscaler News
+            <span style="font-size:11px; color:var(--text-faint); font-weight:400; margin-left:8px;">
+              filtered: DC · MOFN · DCI · subsea · fiber
+            </span>
+          </h3>
+          <div id="news-root" class="news-block">
+            <!-- populated by JS -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ Datacenter Map ============ -->
+    <section class="section">
+      <h2>APAC Datacenter Map</h2>
+      <div id="map"></div>
+      <div class="map-legend">
+        <span><span class="swatch" style="background:#FF9900"></span>AWS</span>
+        <span><span class="swatch" style="background:#008AD7"></span>Azure</span>
+        <span><span class="swatch" style="background:#34A853"></span>Google Cloud</span>
+        <span><span class="swatch" style="background:#1877F2"></span>Meta</span>
+        <span><span class="swatch" style="background:#C74634"></span>Oracle</span>
+        <span><span class="swatch" style="background:#FF6A00"></span>Alibaba</span>
+        <span><span class="swatch" style="background:#00A6FB"></span>Tencent</span>
+      </div>
+    </section>
+
+    <!-- Portfolio catalog moved to portfolio.html -->
+    <section class="section" style="text-align:center; padding: 18px; background:var(--surface); border:1px dashed var(--border); border-radius: var(--radius); color: var(--text-muted);">
+      Looking for the Nokia hyperscaler portfolio? It moved to its own page →
+      <a href="portfolio.html" style="font-weight:600;">Open HS Portfolio</a>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    Built for Quang · Nokia ON Sales Engineering · Vietnam (GMT+7) ·
+    News via Google News RSS through rss2json.com
+  </footer>
+
+  <!-- ============ Scripts ============ -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+          crossorigin=""></script>
+  <script src="assets/news.js"></script>
+  <script src="assets/map.js"></script>
+
+</body>
+</html>

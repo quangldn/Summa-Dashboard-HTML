@@ -1,0 +1,1739 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MOFN — HS OLS Configurator v3 · SUMMA</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <style>
+    .mofn-hero { padding: 28px 0 14px 0; }
+    .mofn-hero h1 { margin: 0 0 6px 0; font-size: 28px; color: var(--nokia-blue-deep); }
+    .mofn-hero .sub { color: var(--text-muted); margin: 0; max-width: 760px; }
+    .mofn-hero .meta-pill {
+      display: inline-block; margin-top: 10px; padding: 4px 10px;
+      background: var(--surface-2); color: var(--text-muted);
+      border-radius: 20px; font-size: 12px; letter-spacing: 0.3px;
+    }
+    .mofn-hero .meta-pill.v3 { background: #DFF4F1; color: #0A6E62; font-weight: 600; }
+
+    /* ============ Filters ============ */
+    .filter-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 14px; margin-bottom: 12px;
+    }
+    @media (max-width: 880px) { .filter-grid { grid-template-columns: 1fr 1fr; } }
+    .filter-cell label {
+      display: block; font-size: 11px; text-transform: uppercase;
+      letter-spacing: 0.6px; color: var(--text-faint);
+      font-weight: 600; margin-bottom: 4px;
+    }
+    .filter-cell select, .filter-cell input[type=number] {
+      width: 100%; padding: 8px 10px; border: 1px solid var(--border);
+      border-radius: var(--radius-sm); background: var(--surface);
+      color: var(--text); font-size: 14px; cursor: pointer;
+      font-family: inherit;
+    }
+    .filter-cell select:focus, .filter-cell input:focus {
+      outline: 2px solid var(--nokia-blue-light); outline-offset: -1px;
+    }
+    .fp-slider-wrap { display: flex; align-items: center; gap: 10px;
+      padding: 6px 10px; border: 1px solid var(--border);
+      border-radius: var(--radius-sm); background: var(--surface);
+    }
+    .fp-slider-wrap input[type=range] { flex: 1; accent-color: var(--nokia-blue); height: 4px; }
+    .fp-slider-wrap .fp-val {
+      min-width: 28px; text-align: center; font-weight: 700;
+      color: var(--nokia-blue-deep); font-size: 16px;
+      background: var(--accent); border-radius: 4px; padding: 2px 6px;
+    }
+
+    /* Term type toggle row */
+    .term-type-row {
+      display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+      padding: 10px 14px; background: var(--surface-2);
+      border-radius: var(--radius-sm); margin-bottom: 12px;
+    }
+    .term-type-row > label {
+      font-size: 11px; color: var(--text-faint); font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.6px;
+    }
+    .toggle { display: inline-flex; border: 1px solid var(--border);
+      border-radius: var(--radius-sm); overflow: hidden; }
+    .toggle button {
+      background: var(--surface); border: 0; padding: 7px 14px;
+      font-size: 13px; cursor: pointer; color: var(--text-muted);
+      font-family: inherit; font-weight: 500;
+    }
+    .toggle button.active {
+      background: var(--nokia-blue); color: #fff; font-weight: 700;
+    }
+    .term-type-row .channels-wrap {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .term-type-row .channels-wrap.hidden { display: none; }
+    .term-type-row select {
+      padding: 6px 10px; border: 1px solid var(--border);
+      border-radius: var(--radius-sm); background: var(--surface);
+      font-family: inherit; font-size: 13px;
+    }
+    .term-type-row .tooltip {
+      font-size: 11px; color: var(--text-muted); margin-left: auto;
+      max-width: 320px;
+    }
+
+    /* Distance row */
+    .distance-row {
+      display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 14px; margin-bottom: 14px;
+      padding: 12px 14px; background: var(--surface-2);
+      border-radius: var(--radius-sm);
+    }
+    @media (max-width: 880px) { .distance-row { grid-template-columns: 1fr 1fr; } }
+    .distance-row label.checkbox {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; color: var(--text);
+      padding-top: 18px; cursor: pointer;
+      text-transform: none; letter-spacing: 0; font-weight: 500;
+    }
+    .distance-row label.checkbox input { width: 16px; height: 16px; accent-color: var(--nokia-blue); }
+
+    .span-info {
+      padding: 10px 14px; background: var(--nokia-blue);
+      color: #fff; border-radius: var(--radius-sm); margin-bottom: 14px;
+      font-size: 13px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    }
+    .span-info .chip-acc {
+      background: var(--accent); color: var(--nokia-blue-deep);
+      padding: 2px 9px; border-radius: 4px; font-weight: 700;
+      font-size: 12px;
+    }
+    .span-info.p2p { background: #8A6700; }
+
+    /* BoM */
+    .bom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    @media (max-width: 880px) { .bom-grid { grid-template-columns: 1fr; } }
+    .bom-card { background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+    .bom-card header {
+      padding: 12px 16px; border-bottom: 1px solid var(--border);
+      background: var(--surface-2);
+      border-radius: var(--radius) var(--radius) 0 0;
+      display: flex; justify-content: space-between; align-items: baseline;
+    }
+    .bom-card header h3 { margin: 0; font-size: 14px;
+      text-transform: uppercase; letter-spacing: 0.6px; color: var(--nokia-blue-deep); }
+    .bom-card header .count { font-size: 12px; color: var(--text-faint); }
+    .bom-card .empty {
+      padding: 22px 16px; color: var(--text-faint);
+      text-align: center; font-style: italic; font-size: 13px;
+    }
+    .bom-card .empty.gap { color: var(--warn); font-style: normal; }
+    .bom-card .empty.gap strong { color: var(--warn); }
+
+    .bom-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .bom-table th {
+      text-align: left; padding: 8px 12px; font-weight: 600;
+      color: var(--text-faint); text-transform: uppercase; font-size: 10px;
+      letter-spacing: 0.6px; border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .bom-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .bom-table tr:last-child td { border-bottom: 0; }
+    .bom-table .pn { font-family: ui-monospace, Menlo, Consolas, monospace;
+      font-size: 12px; color: var(--nokia-blue); font-weight: 600; }
+    .bom-table .fn { color: var(--text-muted); font-size: 11px; display: block; margin-top: 2px; }
+    .bom-table .rel { font-size: 10px; padding: 2px 6px; border-radius: 10px;
+      background: var(--surface-2); color: var(--text-muted); font-weight: 600; white-space: nowrap; }
+    .bom-table .rel.roadmap { background: #FFF4D6; color: #8A6700; }
+    .bom-table .qty { font-weight: 700; color: var(--nokia-blue-deep);
+      text-align: center; width: 50px; font-size: 14px; }
+    .bom-table .per-node {
+      display: block; font-size: 10px; color: var(--text-faint);
+      font-weight: 500; margin-top: 1px;
+    }
+    .bom-table .over { display: inline-block; font-size: 10px;
+      background: #E6F4F2; color: #0A6E62; padding: 1px 6px; border-radius: 8px;
+      margin-left: 6px; font-weight: 600; }
+    .bom-table .dir { display: inline-block; font-size: 10px;
+      background: #FFF4D6; color: #8A6700; padding: 1px 6px; border-radius: 8px;
+      margin-left: 6px; font-weight: 600; }
+
+    .gap-banner {
+      background: #FFF4D6; border: 1px solid #F0D77A; color: #5A4400;
+      padding: 10px 14px; border-radius: var(--radius); font-size: 13px;
+      margin-top: 14px;
+    }
+    .gap-banner strong { color: #8A6700; }
+
+    .reason-box {
+      margin-top: 12px; padding: 10px 14px; background: var(--surface-2);
+      border-radius: var(--radius); border-left: 3px solid var(--nokia-blue);
+      font-size: 12px; color: var(--text-muted);
+    }
+    .reason-box strong { color: var(--text); }
+    .reason-box ul { margin: 6px 0 0 18px; padding: 0; }
+    .reason-box li { margin: 2px 0; }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="dot"></span>
+      SUMMA
+      <span class="sub">Nokia ON · Sales Engineering Workbench</span>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="portfolio.html">HS Portfolio</a>
+      <a href="mofn.html" class="active">MOFN Deck</a>
+      <a href="market-insight.html">Market Insight</a>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <section class="mofn-hero">
+      <h1>Hyperscaler OLS Configurator</h1>
+      <p class="sub">
+        Capability-based BoM generator for 1830 GX OLS deployments in
+        hyperscaler MOFN. Distance &amp; span drive ILA count, band hierarchy
+        drives card selection (C++ covers C, L++ covers L), and bidirectionality
+        of each card drives qty math.
+      </p>
+      <span class="meta-pill v3">v3 · distance + BIDI/uni-dir aware</span>
+    </section>
+
+    <!-- ============ Tab switcher (OLS | Transponder) ============ -->
+    <div class="xtabs" style="display:flex;gap:6px;margin:2px 0 20px 0;border-bottom:2px solid var(--border)">
+      <button class="xtab active" data-tab="ols"
+        style="background:none;border:0;border-bottom:3px solid var(--nokia-blue);margin-bottom:-2px;padding:10px 18px;font-family:inherit;font-size:14px;font-weight:700;color:var(--nokia-blue-deep);cursor:pointer">
+        OLS Configurator
+      </button>
+      <button class="xtab" data-tab="xpdr"
+        style="background:none;border:0;border-bottom:3px solid transparent;margin-bottom:-2px;padding:10px 18px;font-family:inherit;font-size:14px;font-weight:600;color:var(--text-muted);cursor:pointer">
+        Transponder Advisor <span style="font-size:10px;background:#DFF4F1;color:#0A6E62;padding:1px 6px;border-radius:10px;margin-left:4px;font-weight:700">NEW</span>
+      </button>
+    </div>
+
+    <div id="tab-ols">
+
+    <!-- ============ Filters ============ -->
+    <section class="section">
+      <div class="panel">
+
+        <!-- Row 1: Band / FP / RFS / Rack -->
+        <div class="filter-grid">
+          <div class="filter-cell">
+            <label for="f-band">Band requirement</label>
+            <select id="f-band">
+              <option value="C" selected>C only (4.85 THz)</option>
+              <option value="C++">Super C / C++ only (6.1 THz)</option>
+              <option value="C+L">C + L (std, ~9.6 THz)</option>
+              <option value="Super C+L">Super C + Super L (12.5 THz)</option>
+              <option value="L">L only</option>
+            </select>
+          </div>
+
+          <div class="filter-cell">
+            <label for="f-fp">Fiber pairs <span style="color:var(--text-faint);font-weight:400;text-transform:none;letter-spacing:0">(1 – 8)</span></label>
+            <div class="fp-slider-wrap">
+              <span class="fp-val" id="fp-val">1</span>
+              <input type="range" id="f-fp" min="1" max="8" step="1" value="1" />
+            </div>
+          </div>
+
+          <div class="filter-cell">
+            <label for="f-rel">GA release ceiling</label>
+            <select id="f-rel">
+              <option value="6.0">R6.0 (legacy)</option>
+              <option value="7.0">R7.0</option>
+              <option value="7.2">R7.2</option>
+              <option value="8.1">R8.1</option>
+              <option value="9.0">R9.0</option>
+              <option value="9.1" selected>R9.1 (current GA)</option>
+              <option value="10.0">R10.0</option>
+              <option value="10.1">R10.1 (roadmap)</option>
+              <option value="99">Include all roadmap</option>
+            </select>
+            <div class="toggle" id="mode-toggle" style="margin-top:6px;width:100%">
+              <button data-val="strict" class="active" style="flex:1;font-size:11px;padding:5px 8px">STRICT GA only</button>
+              <button data-val="relax"  style="flex:1;font-size:11px;padding:5px 8px">RELAX (allow roadmap)</button>
+            </div>
+          </div>
+
+          <div class="filter-cell">
+            <label for="f-rack">ILA rack constraint</label>
+            <select id="f-rack">
+              <option value="any" selected>No constraint</option>
+              <option value="300">300 mm only (compact)</option>
+              <option value="600cab">600 mm closed cabinet (compact only)</option>
+              <option value="700">700 mm (any fits)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Term type + channels -->
+        <div class="term-type-row">
+          <label>Term type:</label>
+          <div class="toggle" id="term-type-toggle">
+            <button data-val="roadm" class="active">ROADM (direct attach — best perf, future-proof)</button>
+            <button data-val="mux">MUX (OMD — fixed, lower cost, no tech-gen upg)</button>
+          </div>
+          <div class="channels-wrap hidden" id="channels-wrap">
+            <label style="text-transform:uppercase;font-size:11px;color:var(--text-faint);letter-spacing:.6px;font-weight:600">Channels:</label>
+            <select id="f-channels">
+              <option value="32">32 ch</option>
+              <option value="40">40 ch</option>
+              <option value="42">42 ch</option>
+              <option value="48" selected>48 ch</option>
+              <option value="64">64 ch</option>
+            </select>
+          </div>
+          <div class="tooltip" id="term-type-tooltip">ROADM gives flexible add/drop &amp; supports future transponder gens.</div>
+        </div>
+
+        <!-- Distance inputs -->
+        <div class="distance-row">
+          <div class="filter-cell">
+            <label for="f-total">Total distance (km)</label>
+            <input type="number" id="f-total" value="1800" min="0" step="10" />
+          </div>
+          <div class="filter-cell">
+            <label for="f-span">Avg span between ILAs (km)</label>
+            <input type="number" id="f-span" value="60" min="0" step="5" />
+          </div>
+          <div class="filter-cell" style="grid-column:span 2">
+            <label>Amp strategy <span style="color:var(--text-faint);font-weight:400;text-transform:none;letter-spacing:0">(valid combos only)</span></label>
+            <div class="toggle" id="amp-strategy-toggle" style="width:100%">
+              <button data-val="edfa" style="flex:1">EDFA only</button>
+              <button data-val="edfa+raman" class="active" style="flex:1">EDFA + Raman</button>
+              <button data-val="hybrid" style="flex:1">Hybrid only</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rack budget row -->
+        <div class="distance-row" style="margin-top:8px">
+          <div class="filter-cell">
+            <label for="f-rack-count">Racks per ILA site</label>
+            <input type="number" id="f-rack-count" value="1" min="1" max="10" step="1" />
+          </div>
+          <div class="filter-cell">
+            <label for="f-rack-power">Rack max power (W)</label>
+            <input type="number" id="f-rack-power" value="4000" min="500" step="500" />
+          </div>
+          <div class="filter-cell">
+            <label for="f-rack-u">Rack height (U, 19" std = 42)</label>
+            <input type="number" id="f-rack-u" value="42" min="20" max="60" step="1" />
+          </div>
+          <div class="filter-cell" style="display:flex;align-items:flex-end;gap:14px">
+            <label class="checkbox" for="f-otdr" style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;text-transform:none;letter-spacing:0;cursor:pointer">
+              <input type="checkbox" id="f-otdr" style="width:16px;height:16px;accent-color:var(--nokia-blue)" />
+              OTDR required
+            </label>
+            <span style="color:var(--text-faint);font-size:11px;line-height:1.3">
+              ON → adds OCC2T/2E + ZXS-O2OTDR8E-Y0
+            </span>
+          </div>
+        </div>
+
+        <!-- ILA mix row (some sites EDFA-only, some Raman/Hybrid) -->
+        <div class="distance-row" style="margin-top:8px;background:#F0F4FA">
+          <div class="filter-cell">
+            <label>Total ILA sites <span style="color:var(--text-faint);font-weight:400;text-transform:none;letter-spacing:0">(computed)</span></label>
+            <div class="fp-slider-wrap" style="cursor:default;background:var(--surface-2)">
+              <span class="fp-val" id="ila-total-display" style="background:var(--nokia-blue-deep);color:#fff;width:auto;padding:2px 12px">—</span>
+              <span style="font-size:11px;color:var(--text-muted);flex:1;text-align:right">= spans − 1</span>
+            </div>
+          </div>
+          <div class="filter-cell" style="display:flex;align-items:flex-end;gap:8px">
+            <label class="checkbox" for="f-ila-same" style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;text-transform:none;letter-spacing:0;cursor:pointer">
+              <input type="checkbox" id="f-ila-same" checked style="width:16px;height:16px;accent-color:var(--nokia-blue)" />
+              All ILA same config
+            </label>
+          </div>
+          <div class="filter-cell" id="ila-mix-wrap" style="opacity:0.4;pointer-events:none">
+            <label for="f-ila-edfa-count">ILA sites with EDFA-only <span style="color:var(--text-faint);font-weight:400;text-transform:none;letter-spacing:0">(short spans)</span></label>
+            <input type="number" id="f-ila-edfa-count" value="0" min="0" step="1" />
+          </div>
+          <div class="filter-cell" style="display:flex;align-items:flex-end;color:var(--text-faint);font-size:11px;line-height:1.3">
+            Unchecking shows split — Raman/Hybrid sites = total − EDFA-only.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ Derived network info ============ -->
+    <section class="section">
+      <div class="span-info" id="span-info"></div>
+
+      <div class="bom-grid">
+        <div class="bom-card" id="term-card">
+          <header>
+            <h3>Termination Nodes (×<span id="term-mult">2</span>)</h3>
+            <span class="count" id="term-count">—</span>
+          </header>
+          <div id="term-body"></div>
+        </div>
+        <div class="bom-card" id="ila-card">
+          <header>
+            <h3 id="ila-card-title">ILA Sites (×<span id="ila-mult">0</span>)</h3>
+            <span class="count" id="ila-count">—</span>
+          </header>
+          <div id="ila-body"></div>
+        </div>
+      </div>
+      <!-- Second ILA card for mixed-config scenarios -->
+      <div class="bom-grid" id="ila2-row" style="margin-top:18px;display:none">
+        <div></div>
+        <div class="bom-card" id="ila2-card">
+          <header>
+            <h3 id="ila2-card-title">ILA Sites — EDFA-only (×<span id="ila2-mult">0</span>)</h3>
+            <span class="count" id="ila2-count">—</span>
+          </header>
+          <div id="ila2-body"></div>
+        </div>
+      </div>
+
+      <div id="gap-banner-wrap"></div>
+
+      <!-- Power & Weight rollup -->
+      <div class="panel" id="pw-panel" style="margin-top:18px;padding:0;overflow:hidden;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface)">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--border);background:var(--surface-2);display:flex;justify-content:space-between;align-items:baseline">
+          <h3 style="margin:0;font-size:14px;text-transform:uppercase;letter-spacing:.6px;color:var(--nokia-blue-deep)">Power &amp; Space Rollup</h3>
+          <span style="font-size:11px;color:var(--text-faint)">Source: 1830 GX PowerDraw R9.0_V1.xlsx</span>
+        </div>
+        <div id="pw-body"></div>
+      </div>
+
+      <div class="reason-box" id="reason-box"></div>
+    </section>
+
+    </div><!-- /tab-ols -->
+
+    <!-- ============================================================ -->
+    <!-- ============ TRANSPONDER ADVISOR (reach → capacity) ========= -->
+    <!-- ============================================================ -->
+    <div id="tab-xpdr" style="display:none">
+
+      <section class="mofn-hero" style="padding-top:6px">
+        <h1 style="font-size:24px">Transponder Reach &amp; Capacity Advisor</h1>
+        <p class="sub">
+          Enter a link's distance and span plant; the advisor estimates the
+          maximum line rate per wavelength each GX coherent engine (CHM6 / ICE-6
+          and CHM7 / ICE-7) can carry, and the total capacity that fits in the
+          band. Reach is derived from an OSNR link budget and a per-format
+          required-OSNR ladder calibrated to Nokia/Infinera published figures.
+        </p>
+        <span class="meta-pill" style="background:#FFF4D6;color:#8A6700;font-weight:600">⚠ ESTIMATE · pre-sales sizing only · confirm firm reach with WaveLogic/Infinera planning tool</span>
+      </section>
+
+      <section class="section">
+        <div class="panel">
+          <div class="filter-grid">
+            <div class="filter-cell">
+              <label for="x-dist">Total link distance (km)</label>
+              <input type="number" id="x-dist" value="1000" min="10" step="10" />
+            </div>
+            <div class="filter-cell">
+              <label for="x-span">Avg span length (km)</label>
+              <input type="number" id="x-span" value="80" min="20" step="5" />
+            </div>
+            <div class="filter-cell">
+              <label for="x-fiber">Fiber type (loss)</label>
+              <select id="x-fiber">
+                <option value="0.22" selected>G.652 SSMF — 0.22 dB/km</option>
+                <option value="0.17">G.654.E low-loss — 0.17 dB/km</option>
+                <option value="0.20">G.655 NZDSF — 0.20 dB/km</option>
+                <option value="0.25">Legacy / aged — 0.25 dB/km</option>
+              </select>
+            </div>
+            <div class="filter-cell">
+              <label for="x-band">Band (fiber spectrum)</label>
+              <select id="x-band">
+                <option value="4800" selected>C-band extended — 4.8 THz</option>
+                <option value="6100">Super C — 6.1 THz</option>
+                <option value="9600">C + L — 9.6 THz</option>
+                <option value="12500">Super C + Super L — 12.5 THz</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="filter-grid" style="margin-top:2px">
+            <div class="filter-cell">
+              <label for="x-nf">Amplifier NF (dB)</label>
+              <input type="number" id="x-nf" value="5" min="3" max="8" step="0.5" />
+            </div>
+            <div class="filter-cell">
+              <label for="x-pch">Launch power / channel (dBm)</label>
+              <input type="number" id="x-pch" value="1" min="-6" max="6" step="0.5" />
+            </div>
+            <div class="filter-cell">
+              <label for="x-margin">System margin (dB)</label>
+              <input type="number" id="x-margin" value="2" min="0" max="6" step="0.5" />
+            </div>
+            <div class="filter-cell">
+              <label>Compare</label>
+              <div class="toggle" id="x-card-toggle" style="width:100%">
+                <button data-val="both" class="active" style="flex:1">Both</button>
+                <button data-val="CHM6" style="flex:1">CHM6</button>
+                <button data-val="CHM7" style="flex:1">CHM7</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="span-info" id="x-linkinfo"></div>
+        <div class="bom-grid" id="x-cards"></div>
+        <div id="x-reco"></div>
+        <div class="reason-box" id="x-reason"></div>
+      </section>
+
+    </div><!-- /tab-xpdr -->
+
+  </main>
+
+  <footer class="footer">
+    Built for Quang · Nokia ON Sales Engineering · Vietnam (GMT+7) ·
+    Engine v3 · Distance + BIDI/unidirectional qty math
+  </footer>
+
+  <script>
+    // =========================================================
+    // BAND HIERARCHY (Quang's rule: C++ covers C, L++ covers L)
+    // =========================================================
+    const BAND_COVERAGE = {
+      'N': ['C'], 'C': ['C'], 'L': ['L'],
+      'W': ['C', 'C++'], 'X': ['C', 'C++'],
+      'Y': ['C', 'C++', 'L', 'C+L', 'Super C+L'],
+      'Z': ['C', 'L', 'C+L'],
+      '0': ['C', 'C++', 'L', 'C+L', 'Super C+L'],
+      'S': ['S'], 'O': ['O'],
+      '*': ['C', 'C++', 'L', 'C+L', 'Super C+L'],
+    };
+    function partServes(p, b) { return (BAND_COVERAGE[p.bs]||[]).includes(b); }
+    function isOverProvision(p, b) {
+      const exact = ({'C':['N','C','0'],'C++':['W','X','0'],'C+L':['Z','0'],'Super C+L':['Y','0'],'L':['L','0']})[b]||[];
+      return !exact.includes(p.bs);
+    }
+
+    // =========================================================
+    // CHASSIS FAMILY RULE (Quang's item 5)
+    // Cards with PN char-after-G3S- = G/H/R → "full" (G31/G32/G32E/G34L, 700mm)
+    // Cards with PN char-after-G3S- = C/D → "compact" (G34c/G32c/G38c, 300mm)
+    // Passive OMDs (GQS-*) = "any"
+    // =========================================================
+    function pnFamily(pn) {
+      const clean = String(pn).replace(/\s*\(.*\)\s*$/, '').trim();
+      // Specific chassis names first
+      if (['G31','G32','G32E','G34L'].includes(clean)) return 'full';
+      if (['G34c','G34Xc','G32c','G38c'].includes(clean)) return 'compact';
+      // G3S- prefixed cards: char immediately after "G3S-" decides
+      const m = clean.match(/^G3S-([A-Z])/);
+      if (m) {
+        const ch = m[1];
+        if (ch === 'G' || ch === 'H' || ch === 'R') return 'full';
+        if (ch === 'C' || ch === 'D') return 'compact';
+      }
+      if (/^GQS-/.test(clean))  return 'any';     // passive mux
+      if (/^GLS-/.test(clean))  return 'full';    // GLS-G30OCC2T-00
+      if (/^RD/.test(clean))    return 'full';    // RD66Tx-Z0 marketing name
+      if (/^G\d/.test(clean))   return 'full';    // G2PBALZZ-N0 etc.
+      return 'any';
+    }
+
+    // Chassis RU (rack units; 1U = 44.45 mm)
+    // G31=44mm=1U, G32/G32E=88mm=2U, G34c=176mm=4U
+    // G34L (16 slots = 2× G32E): est ~6U
+    // G38c (8 slots = 2× G34c): est ~6U
+    const CHASSIS_RU = {
+      'G31': 1, 'G32': 2, 'G32E': 2, 'G34L': 6,
+      'G34c': 4, 'G34Xc': 4, 'G32c': 2, 'G38c': 6,
+      'G32E (ILA-side)': 2, 'G34L (ILA-side)': 6,
+    };
+    function chassisRU(pn) {
+      const clean = String(pn).replace(/\s*\(.*\)\s*$/, '').trim();
+      return CHASSIS_RU[clean] ?? CHASSIS_RU[pn] ?? null;
+    }
+
+    // Card slots used per card.
+    // ROADMs (RD09/RD20/RD32/RD66): 2 slots (large WSS cards)
+    // D-prefix (dual-stage / hybrid): 2 slots (D2ILASGM, D2ILSGM, D2IRB1SM)
+    // 4-fiber multi-fiber cards (G4ILA4SM, G2RPB4M, H4IRB4SG): 2 slots
+    // Hybrid amps (any cat=hybrid-*): 2 slots
+    // OMD: 1 slot (passive tray)
+    // OCC: 1 slot
+    // OTDR module: 0 slots (plugs into OCC card)
+    // Others (RPBM, RPBL, PBA, C2ILASGH single-stage): 1 slot
+    function cardSlots(p) {
+      if (p.cat === 'chassis') return 0;
+      if (p.cat === 'otdr') return 0;     // OTDR card plugs into OCC2T/E
+      if (p.cat === 'roadm') return 2;
+      if (p.cat === 'hybrid-amp' || p.cat === 'ila-hybrid') return 2;
+      if (p.fpCap === 4) return 2;
+      if (/^G3S-D2/.test(p.n)) return 2;  // D-prefix dual-stage cards
+      return 1;
+    }
+    // Quang's slot counts: G34L = 2× G32E (16 slots), G38c = 2× G34c (8 slots)
+    function chassisSlots(chassisName) {
+      const clean = String(chassisName).replace(/\s*\(.*\)\s*$/, '').trim();
+      return ({
+        'G31': 4, 'G32': 8, 'G32E': 8, 'G34L': 16,
+        'G34c': 4, 'G34Xc': 4, 'G32c': 4, 'G38c': 8,
+      })[clean] || 4;
+    }
+
+    // =========================================================
+    // PART CATALOG (v3 schema)
+    // bidi=true  : single card serves both directions (1 unit per FP)
+    // bidi=false : unidirectional — needs 2 units per FP per ILA site
+    // ch         : channel count (OMDs)
+    // deg        : ROADM degree
+    // =========================================================
+    const PARTS = [
+      // ---- TERMINATION CHASSIS ----
+      { n:'G31',  sect:'term', cat:'chassis', rel:null,   rack:700, bs:'*', fpCap:4, bidi:true, hs:'No - Single Controller' },
+      { n:'G32',  sect:'term', cat:'chassis', rel:null,   rack:700, bs:'*', fpCap:4, bidi:true, hs:'Yes' },
+      { n:'G32E', sect:'term', cat:'chassis', rel:'R8.1', rack:700, bs:'*', fpCap:4, bidi:true, hs:'Yes' },
+      { n:'G34L', sect:'term', cat:'chassis', rel:'R9.2', rack:700, bs:'L', fpCap:4, bidi:true, hs:'Yes' },
+
+      // ---- ILA CHASSIS ----
+      { n:'G34c', sect:'ila',  cat:'chassis', rel:'R6.0',  rack:300, bs:'*', fpCap:1, bidi:true, hs:'Yes' },
+      { n:'G32c', sect:'ila',  cat:'chassis', rel:'R10.0', rack:300, bs:'*', fpCap:1, bidi:true, hs:'Yes' },
+      { n:'G38c', sect:'ila',  cat:'chassis', rel:'R10.0', rack:300, bs:'*', fpCap:1, bidi:true, hs:'Yes' },
+      { n:'G32E (ILA-side)', sect:'ila', cat:'chassis', rel:'R8.1', rack:700, bs:'*', fpCap:4, bidi:true, hs:'Yes' },
+      { n:'G34L (ILA-side)', sect:'ila', cat:'chassis', rel:'R9.2', rack:700, bs:'L', fpCap:4, bidi:true, hs:'Yes' },
+
+      // ---- OMD (Mux) — term side ----
+      { n:'GQS-OMD32EZZ-N0', sect:'term', cat:'omd', rel:null, bs:'N', fpCap:1, bidi:true, hs:'Yes', ch:32 },
+      { n:'GQS-OMD40EZZ-X0', sect:'term', cat:'omd', rel:null, bs:'X', fpCap:1, bidi:true, hs:'Yes', ch:40 },
+      { n:'GQS-OMD42EZZ-N0', sect:'term', cat:'omd', rel:null, bs:'N', fpCap:1, bidi:true, hs:'Yes', ch:42 },
+      { n:'GQS-OMD42EZZ-L0', sect:'term', cat:'omd', rel:null, bs:'L', fpCap:1, bidi:true, hs:'Yes', ch:42 },
+      { n:'GQS-OMD48EZZ-00', sect:'term', cat:'omd', rel:null, bs:'0', fpCap:1, bidi:true, hs:'Yes', ch:48 },
+      { n:'GQS-OMD64ZZZ-00', sect:'term', cat:'omd', rel:null, bs:'0', fpCap:1, bidi:true, hs:'Yes', ch:64 },
+      { n:'GQS-OMD64SZZ-C0', sect:'term', cat:'omd', rel:null, bs:'C', fpCap:1, bidi:true, hs:'Yes', ch:64 },
+
+      // ---- OCC ----
+      { n:'GLS-G30OCC2T-00',  sect:'term', cat:'occ', rel:'R6.0', bs:'0', fpCap:1, bidi:true, hs:'Yes' },
+      { n:'G3S-C2OCC2EZ-00',  sect:'ila',  cat:'occ', rel:'R6.0', bs:'0', fpCap:1, bidi:true, hs:'Yes' },
+      // ---- OTDR (added when OTDR-required checkbox is on) ----
+      { n:'ZXS-O2OTDR8E-Y0',  sect:'term', cat:'otdr', rel:'R6.0', bs:'Y', fpCap:1, bidi:true, hs:'Yes' },
+      { n:'ZXS-O2OTDR8E-Y0 (ILA)', sect:'ila', cat:'otdr', rel:'R6.0', bs:'Y', fpCap:1, bidi:true, hs:'Yes' },
+
+      // ---- ROADMs (term) ----
+      { n:'G3S-G2RD09SM-N1',  sect:'term', cat:'roadm', rel:'R6.0',     bs:'N', fpCap:1, bidi:true, hs:'No', deg:9  },
+      { n:'G3S-G2RD20TM-N0',  sect:'term', cat:'roadm', rel:'R6.0',     bs:'N', fpCap:1, bidi:true, hs:'No', deg:20 },
+      { n:'G3S-G3RD32TH-X0',  sect:'term', cat:'roadm', rel:'R7.0',     bs:'X', fpCap:1, bidi:true, hs:'Yes', deg:32 },
+      { n:'G3S-G3RD32TH-L0',  sect:'term', cat:'roadm', rel:'R10.0', bs:'L', fpCap:1, bidi:true, hs:'Yes', deg:32 },
+      { n:'RD66Tx-Z0',        sect:'term', cat:'roadm', rel:'R8.1',     bs:'Z', fpCap:1, bidi:true, hs:'Yes', deg:66 },
+      { n:'G3S-H3RD66TM-Z0',  sect:'term', cat:'roadm', rel:'R8.1',     bs:'Z', fpCap:1, bidi:true, hs:'Yes', deg:66 },
+      { n:'G3S-H3RD66TH-Z0',  sect:'term', cat:'roadm', rel:'R9.0',     bs:'Z', fpCap:1, bidi:true, hs:'Yes', deg:66 },
+
+      // ---- CAD / CDC mux (HS skip) ----
+      { n:'G3S-G1CAD10A-W0',  sect:'term', cat:'cad-cdc', rel:'R6.0', bs:'W', fpCap:1, bidi:true, hs:'Yes' },
+      { n:'G3S-G1CAD10A-L0',  sect:'term', cat:'cad-cdc', rel:'TBD',  bs:'L', fpCap:1, bidi:true, hs:'Yes' },
+      { n:'G3S-G1CDC8D6-Y0',  sect:'term', cat:'cad-cdc', rel:'R6.0', bs:'Y', fpCap:1, bidi:true, hs:'No - HS no need CDC' },
+      { n:'G3S-G2CD34ZZ-Y0',  sect:'term', cat:'cad-cdc', rel:'TBD',  bs:'Y', fpCap:1, bidi:true, hs:'No - HS no need CDC' },
+
+      // ---- Term-side amps / boosters ----
+      // (Term boosters are outbound-only by nature — direction concept doesn't apply the same way.)
+      { n:'G3S-G2PBALZZ-N0',  sect:'term', cat:'edfa-amp',  rel:'R9.1', bs:'N', fpCap:1, bidi:true, hs:'Yes' },
+      { n:'G3S-G1RPBMZZ-W0',  sect:'term', cat:'raman-amp', rel:'R6.0', bs:'W', fpCap:1, bidi:true, hs:'Yes' },
+      { n:'G3S-G1RPBMZZ-W1',  sect:'term', cat:'raman-amp', rel:'R7.2', bs:'W', fpCap:1, bidi:true, hs:'Yes' },
+      { n:'G3S-G1RPBMZZ-W2',  sect:'term', cat:'raman-amp', rel:'R9.0', bs:'W', fpCap:1, bidi:true, hs:'Yes' },
+      { n:'G3S-G1RPBMZZ-Y0',  sect:'term', cat:'raman-amp', rel:'R7.1', bs:'Y', fpCap:1, bidi:true, hs:'Yes' },
+      { n:'G3S-G1RPBMZZ-Y1',  sect:'term', cat:'raman-amp', rel:'R7.2', bs:'Y', fpCap:1, bidi:true, hs:'Yes' },
+      { n:'G3S-G1RPBMZZ-Y2',  sect:'term', cat:'raman-amp', rel:'R9.0', bs:'Y', fpCap:1, bidi:true, hs:'Yes' },
+      { n:'G3S-G1OTSCHZ-Y0',  sect:'term', cat:'otsch',     rel:'R9.2 tbc', bs:'Y', fpCap:1, bidi:true, hs:'Yes when Super C + Super L required' },
+      { n:'G3S-G4ILA4SM-Z0',  sect:'term', cat:'edfa-amp',  rel:'R9.1', bs:'Z', fpCap:4, bidi:true, hs:'Yes' },
+      { n:'G3S-G2RPB4M-Y2',   sect:'term', cat:'raman-amp', rel:'R10.1',bs:'Y', fpCap:4, bidi:true, hs:'Yes' },
+      { n:'G3S-H4IRB4SG-Z2',  sect:'term', cat:'hybrid-amp',rel:'R10.1',bs:'Z', fpCap:4, bidi:true, hs:'Yes' },
+
+      // ---- ILA-side amps ----
+      // ILA* / IL* / IRB* cards = BIDI (1 card per FP serves both East+West)
+      // RPB* / PBAL* cards = UNIDIRECTIONAL (1 card per FP per direction → ×2 per site)
+      { n:'G3S-C2ILASGH-X0',  sect:'ila', cat:'ila-edfa',  rel:'R6.0', bs:'X', fpCap:1, bidi:true,  hs:'Yes' },
+      { n:'G3S-C2ILASGH-L0',  sect:'ila', cat:'ila-edfa',  rel:'R10.0', bs:'L', fpCap:1, bidi:true, hs:'Yes' },
+      { n:'G3S-D2ILASGM-Z0',  sect:'ila', cat:'ila-edfa',  rel:'R8.1', bs:'Z', fpCap:1, bidi:true,  hs:'Yes' },
+      { n:'G3S-D2ILSGM-Z0',   sect:'ila', cat:'ila-edfa',  rel:'R10.0', bs:'Z', fpCap:1, bidi:true, hs:'Yes' },
+      { n:'G3S-C2RPBLZZ-W0',  sect:'ila', cat:'ila-raman', rel:'R6.0.1', bs:'W', fpCap:1, bidi:false, hs:'Yes' },
+      { n:'G3S-C2RPBLZZ-W1',  sect:'ila', cat:'ila-raman', rel:'R7.2', bs:'W', fpCap:1, bidi:false, hs:'Yes' },
+      { n:'G3S-C2RPBLZZ-W2',  sect:'ila', cat:'ila-raman', rel:'R9.0', bs:'W', fpCap:1, bidi:false, hs:'Yes' },
+      { n:'G3S-C2RPBMZZ-Y0',  sect:'ila', cat:'ila-raman', rel:'R7.1', bs:'Y', fpCap:1, bidi:false, hs:'Yes' },
+      { n:'G3S-C2RPBMZZ-Y1',  sect:'ila', cat:'ila-raman', rel:'R7.2', bs:'Y', fpCap:1, bidi:false, hs:'Yes' },
+      { n:'G3S-C2RPBMZZ-Y2',  sect:'ila', cat:'ila-raman', rel:'R9.0', bs:'Y', fpCap:1, bidi:false, hs:'Yes' },
+      { n:'G3S-D2IRB1SM-Z2',  sect:'ila', cat:'ila-hybrid', rel:'R10.0', bs:'Z', fpCap:1, bidi:true, hs:'Yes' },
+      { n:'G3S-G4ILA4SM-Z0 (ILA)', sect:'ila', cat:'ila-edfa',  rel:'R8.1', bs:'Z', fpCap:4, bidi:true, hs:'Yes' },
+      { n:'G3S-G2RPB4M-Y2 (ILA)',  sect:'ila', cat:'ila-raman', rel:'R10.1', bs:'Y', fpCap:4, bidi:false, hs:'Yes' },
+      { n:'G3S-H4IRB4SG-Z2 (ILA)', sect:'ila', cat:'ila-hybrid', rel:'R10.1', bs:'Z', fpCap:4, bidi:true, hs:'Yes' },
+      { n:'G2PBALZZ-N0 (ILA)',     sect:'ila', cat:'ila-edfa',  rel:'R9.1', bs:'N', fpCap:1, bidi:false, hs:'Yes' },
+    ];
+
+    // =========================================================
+    // POWER & WEIGHT LOOKUP — sourced from 1830 GX PowerDraw R9.0_V1.xlsx
+    // Format: [typ@25C, max@40C, max@55C, weight_kg, source, note]
+    // source: 'exact'    = direct from PowerDraw R9.0
+    //         'variant'  = inherited from base variant (e.g. -W1 from -W0)
+    //         'estimate' = engineering estimate (4-fiber = 4× single, etc.)
+    //         'passive'  = passive component, 0 W
+    // =========================================================
+    const POWER_LOOKUP = {
+      // Term chassis — baseline power+weight = chassis + FRCU + PEMs + fans (matches PowerDraw User-Input output)
+      'G31':  [120, 300, 300, 15,    'exact',    'baseline w/ FRCU + 2 PEMs + 3 fans'],
+      'G32':  [176, 382, 382, 24.13, 'exact',    'baseline w/ FRCU + 3 PEMs + 3 fans (User-Input output)'],
+      'G32E': [176, 382, 382, 24.13, 'variant',  'inherits G32 baseline'],
+      'G34L': [200, 420, 420, 26,    'estimate', 'L-band 700mm chassis est'],
+      // ILA chassis — baseline only; cards add separately
+      'G34c': [106, 134, 134, 17.6,  'exact',    'baseline w/ FRCU + 2 PEMs (chassis+FRCU 13.2 + PEMs 4.4)'],
+      'G32c': [70,  130, 130, 10,    'estimate', 'compact est'],
+      'G38c': [70,  130, 130, 10,    'estimate', 'compact est'],
+      'G32E (ILA-side)': [176, 382, 382, 24.13, 'variant', 'same as G32 baseline'],
+      'G34L (ILA-side)': [200, 420, 420, 26,    'estimate', 'L-band 700mm chassis'],
+      // OMDs (passive)
+      'GQS-OMD32EZZ-N0': [0,0,0, 1.5, 'passive', 'passive mux'],
+      'GQS-OMD40EZZ-X0': [0,0,0, 1.5, 'passive', 'passive mux'],
+      'GQS-OMD42EZZ-N0': [0,0,0, 1.5, 'passive', 'passive mux'],
+      'GQS-OMD42EZZ-L0': [0,0,0, 1.5, 'passive', 'passive mux'],
+      'GQS-OMD48EZZ-00': [0,0,0, 1.8, 'passive', 'passive mux'],
+      'GQS-OMD64ZZZ-00': [0,0,0, 2.0, 'passive', 'passive mux'],
+      'GQS-OMD64SZZ-C0': [0,0,0, 2.0, 'passive', 'passive mux'],
+      // OCC
+      'GLS-G30OCC2T-00': [20, 25, 25, 1.77, 'exact', ''],
+      'G3S-C2OCC2EZ-00': [15, 20, 20, 1.4,  'exact', ''],
+      // ROADMs
+      'G3S-G2RD09SM-N1': [80, 100, 100, 2.27, 'exact', ''],
+      'G3S-G2RD20TM-N0': [70, 100, 100, 3.16, 'exact', ''],
+      'G3S-G3RD32TH-X0': [93, 130, 130, 3.8, 'exact', ''],
+      'G3S-G3RD32TH-L0': [93, 130, 130, 3.8, 'variant', 'L-band variant of -X0 (R10.0)'],
+      'RD66Tx-Z0':       [185, 255, 255, 6.36, 'variant', 'same as H3RD66TM'],
+      'G3S-H3RD66TM-Z0': [185, 255, 255, 6.36, 'exact', '66-deg C+L'],
+      'G3S-H3RD66TH-Z0': [185, 255, 255, 6.36, 'variant', 'TH high-density variant'],
+      // CAD/CDC
+      'G3S-G1CAD10A-W0': [24, 30, 30, 1.0, 'exact', ''],
+      'G3S-G1CAD10A-L0': [24, 30, 30, 1.0, 'variant', 'L-band variant'],
+      'G3S-G1CDC8D6-Y0': [8.9, 9.6, 9.6, 1.0, 'exact', ''],
+      'G3S-G2CD34ZZ-Y0': [10, 12, 12, 1.2, 'estimate', 'newer CDC, est'],
+      // Term amps
+      'G3S-G2PBALZZ-N0': [33, 80, 80, 1.2, 'estimate', 'PBAL ~ RPBM-W0'],
+      'G3S-G1RPBMZZ-W0': [33, 80, 80, 1.18, 'exact', ''],
+      'G3S-G1RPBMZZ-W1': [33, 80, 80, 1.18, 'variant', 'same as -W0'],
+      'G3S-G1RPBMZZ-W2': [33, 80, 80, 1.18, 'variant', 'same as -W0'],
+      'G3S-G1RPBMZZ-Y0': [35, 80, 80, 1.18, 'exact', ''],
+      'G3S-G1RPBMZZ-Y1': [35, 80, 80, 1.18, 'variant', 'same as -Y0'],
+      'G3S-G1RPBMZZ-Y2': [35, 80, 80, 1.18, 'variant', 'same as -Y0'],
+      'G3S-G1OTSCHZ-Y0': [25, 40, 40, 1.0, 'estimate', 'R9.2 tbc'],
+      'G3S-G4ILA4SM-Z0': [220, 360, 360, 5.0, 'estimate', '4× D2ILASGM-Z0'],
+      'G3S-G2RPB4M-Y2':  [140, 340, 408, 5.0, 'estimate', '4× C2RPBMZZ-Y0'],
+      'G3S-H4IRB4SG-Z2': [250, 400, 400, 5.0, 'estimate', '4-fiber hybrid'],
+      // ILA amps
+      'G3S-C2ILASGH-X0': [62, 90, 90, 2.4, 'exact', ''],
+      'G3S-C2ILASGH-L0': [62, 90, 90, 2.4, 'variant', 'L-band variant'],
+      'G3S-D2ILASGM-Z0': [110, 145, 180, 4.4, 'exact', ''],
+      'G3S-D2ILSGM-Z0':  [88, 120, 145, 3.5, 'estimate', 'single-stage est'],
+      'G3S-C2RPBLZZ-W0': [37, 60, 60, 1.96, 'exact', ''],
+      'G3S-C2RPBLZZ-W1': [37, 60, 60, 1.96, 'variant', 'same as -W0'],
+      'G3S-C2RPBLZZ-W2': [37, 60, 60, 1.96, 'variant', 'same as -W0'],
+      'G3S-C2RPBMZZ-Y0': [54, 85, 102, 1.96, 'exact', ''],
+      'G3S-C2RPBMZZ-Y1': [54, 85, 102, 1.96, 'variant', 'same as -Y0'],
+      'G3S-C2RPBMZZ-Y2': [54, 85, 102, 1.96, 'variant', 'same as -Y0'],
+      'G3S-D2IRB1SM-Z2': [195, 230, 282, 4.4, 'estimate', 'EDFA+Raman in one card'],
+      'G2PBALZZ-N0 (ILA)': [33, 80, 80, 1.2, 'estimate', 'ILA-side PBAL'],
+      'G3S-G4ILA4SM-Z0 (ILA)': [220, 360, 360, 5.0, 'estimate', '4× D2ILASGM-Z0'],
+      'G3S-G2RPB4M-Y2 (ILA)':  [140, 340, 408, 5.0, 'estimate', '4× C2RPBMZZ-Y0'],
+      'G3S-H4IRB4SG-Z2 (ILA)': [250, 400, 400, 5.0, 'estimate', '4-fiber hybrid'],
+      // OTDR module (PowerDraw R9.0)
+      'ZXS-O2OTDR8E-Y0':       [3, 10, 10, 0.16, 'exact', '8-port OTDR (C+L)'],
+      'ZXS-O2OTDR8E-Y0 (ILA)': [3, 10, 10, 0.16, 'exact', '8-port OTDR (C+L)'],
+    };
+
+    function getPW(pn) {
+      const e = POWER_LOOKUP[pn] || POWER_LOOKUP[pn.trim()];
+      if (!e) return { typ: null, max40: null, max55: null, kg: null, src: 'unknown', note: '' };
+      return { typ: e[0], max40: e[1], max55: e[2], kg: e[3], src: e[4], note: e[5] };
+    }
+
+    // =========================================================
+    // Helpers
+    // =========================================================
+    function relNum(r) {
+      if (!r) return null;
+      const m = String(r).match(/(\d+)\.(\d+)/);
+      if (m) return parseFloat(m[1] + '.' + m[2]);
+      if (/tbd|tbc/i.test(r)) return 99;
+      return null;
+    }
+    function isHsOk(p) {
+      if (!p.hs) return true;
+      const h = String(p.hs).toLowerCase();
+      return !h.startsWith('no');
+    }
+    // Compact-only racks: 300mm and 600mm closed cabinet (closed cabinet limits depth)
+    function isCompactOnlyRack(rack) {
+      return rack === '300' || rack === '600cab';
+    }
+    function rackOk(p, rack) {
+      if (!p.rack) return true;
+      if (p.sect === 'term') return true;
+      if (rack === 'any') return true;
+      if (isCompactOnlyRack(rack)) return p.rack === 300;  // only compact chassis
+      if (rack === '700') return true;
+      return true;
+    }
+    // Quang's rule #5: card family must match chassis family
+    function cardFitsRack(p, rack) {
+      if (p.sect !== 'ila') return true;        // term cards: don't care about ILA rack
+      if (p.cat === 'chassis') return true;     // handled by rackOk
+      if (!isCompactOnlyRack(rack)) return true; // full rack allows everything
+      // Compact rack: card family must be 'compact' (C/D prefix) or 'any' (passive)
+      const fam = pnFamily(p.n);
+      return fam === 'compact' || fam === 'any';
+    }
+    function eligible(p, band, rack) {
+      return isHsOk(p) && partServes(p, band) && rackOk(p, rack) && cardFitsRack(p, rack);
+    }
+
+    // Pick the best part of a given category set
+    function pickBest(parts, cats, relCeiling, userBand, extra) {
+      let list = parts.filter(p => cats.includes(p.cat));
+      if (extra) list = list.filter(extra);
+      if (list.length === 0) return null;
+      list.sort((a, b) => {
+        const aO = userBand ? (isOverProvision(a, userBand) ? 1 : 0) : 0;
+        const bO = userBand ? (isOverProvision(b, userBand) ? 1 : 0) : 0;
+        if (aO !== bO) return aO - bO;
+        const aS = (BAND_COVERAGE[a.bs] || []).length;
+        const bS = (BAND_COVERAGE[b.bs] || []).length;
+        if (aS !== bS) return aS - bS;
+        const ar = relNum(a.rel); const br = relNum(b.rel);
+        const aOk = (ar !== null && ar <= relCeiling) ? 0 : (ar === null ? 0 : 1);
+        const bOk = (br !== null && br <= relCeiling) ? 0 : (br === null ? 0 : 1);
+        if (aOk !== bOk) return aOk - bOk;
+        const ax = ar === null ? 0 : ar;
+        const bx = br === null ? 0 : br;
+        if (aOk === 0) return bx - ax;
+        return ax - bx;
+      });
+      return list[0];
+    }
+
+    function perFp(fpCap, fp) { return Math.ceil(fp / fpCap); }
+
+    // Pick chassis that fits totalSlots in 1 unit if possible; otherwise largest with multiplier.
+    // Quang's consolidation rule: prefer 1× G34L over 2× G32E, 1× G38c over 2× G34c.
+    function pickChassisForSlots(cands, totalSlots, relCeiling, userBand) {
+      const list = cands.filter(p => p.cat === 'chassis');
+      if (list.length === 0) return null;
+      // Try smallest chassis that fits everything
+      const fitting = list.filter(c => chassisSlots(c.n) >= totalSlots);
+      if (fitting.length > 0) {
+        // Smallest fitting → tied chassis disambiguated by pickBest sort (release etc.)
+        fitting.sort((a,b) => chassisSlots(a.n) - chassisSlots(b.n));
+        const minSlots = chassisSlots(fitting[0].n);
+        const sameMin = fitting.filter(c => chassisSlots(c.n) === minSlots);
+        const best = pickBest(sameMin, ['chassis'], relCeiling, userBand);
+        return { chassis: best, qty: 1 };
+      }
+      // No single chassis fits — use the largest available, qty = ceil(slots/cap)
+      list.sort((a,b) => chassisSlots(b.n) - chassisSlots(a.n));
+      const maxSlots = chassisSlots(list[0].n);
+      const sameMax = list.filter(c => chassisSlots(c.n) === maxSlots);
+      const best = pickBest(sameMax, ['chassis'], relCeiling, userBand);
+      if (!best) return null;
+      return { chassis: best, qty: Math.ceil(totalSlots / maxSlots) };
+    }
+
+    // =========================================================
+    // Network topology derivation
+    // =========================================================
+    function deriveTopology(totalKm, spanKm, ampStrat, ilaSame, ilaEdfaCount) {
+      const t = parseFloat(totalKm) || 0;
+      const s = parseFloat(spanKm) || 0;
+      if (t <= 0 || s <= 0 || t <= s) {
+        return { mode: 'p2p', spans: 1, termNodes: 2, ilaSites: 0,
+                 ilaPrimary: 0, ilaAltEdfa: 0, mixedILA: false, ampStrat };
+      }
+      const spans = Math.ceil(t / s);
+      const ilaSites = spans - 1;
+      let mode = 'edfa';
+      if (ampStrat === 'edfa+raman') mode = 'raman';
+      else if (ampStrat === 'hybrid') mode = 'hybrid';
+
+      // Mixed ILA split: alt = EDFA-only, primary = chosen strategy
+      const mixedILA = !ilaSame && mode !== 'edfa';
+      let ilaAltEdfa = 0;
+      if (mixedILA) {
+        ilaAltEdfa = Math.max(0, Math.min(ilaSites, ilaEdfaCount || 0));
+      }
+      const ilaPrimary = ilaSites - ilaAltEdfa;
+      return { mode, spans, termNodes: 2, ilaSites, ilaPrimary, ilaAltEdfa, mixedILA, ampStrat };
+    }
+
+    // =========================================================
+    // BoM engine
+    // =========================================================
+    function recommend(band, fp, topo, termType, channels, rack, relCeiling, ampStrat, strict, otdrRequired) {
+      // STRICT mode: filter parts whose release is past the ceiling (no roadmap)
+      const inCeiling = p => {
+        if (!strict) return true;
+        const r = relNum(p.rel);
+        if (r === null) return true;       // unknown release treated as available
+        return r <= relCeiling;
+      };
+      // RPBL family exclusion (Quang's rule: prefer RPBM)
+      const notRPBL = p => !/^G3S-C2RPBL/.test(p.n);
+
+      const all = PARTS.filter(p => eligible(p, band, rack) && inCeiling(p) && notRPBL(p));
+      const T = all.filter(p => p.sect === 'term');
+      const I = all.filter(p => p.sect === 'ila');
+      const termCards = [];  // populated first, chassis qty derived from slot usage
+      const ilaPerSite = [];
+
+      // --- Term node: OCC + OTDR (only when OTDR ticked) ---
+      // Per Quang: OCC2T (full chassis) + OTDR module bundled. No OCC if no OTDR.
+      if (otdrRequired) {
+        const tOcc = pickBest(T, ['occ'], relCeiling, band);
+        if (tOcc) termCards.push({ ...tOcc, qtyPerNode: 1, _note: 'OCC2T (OTDR-capable)' });
+        const tOtdr = pickBest(T, ['otdr'], relCeiling, band);
+        if (tOtdr) termCards.push({ ...tOtdr, qtyPerNode: 1, _note: 'OTDR module (plugs into OCC2T)' });
+      }
+
+      // --- Term node: ROADM or MUX (qty = perFP, each FP needs its own card) ---
+      const isRoadm = (termType === 'roadm');
+      if (termType === 'mux') {
+        const mux = pickBest(T, ['omd'], relCeiling, band,
+          p => p.ch >= channels) ||
+          pickBest(T, ['omd'], relCeiling, band);
+        if (mux) termCards.push({ ...mux, qtyPerNode: perFp(mux.fpCap, fp) });
+      } else {
+        // ROADM picker with Super C+L X+L pair special case
+        let placedRoadm = false;
+        if (band === 'Super C+L') {
+          // Try Y-suffix first (single card covers everything)
+          const yCands = T.filter(p => p.cat === 'roadm' && p.bs === 'Y');
+          const yRoadm = pickBest(yCands, ['roadm'], relCeiling, band);
+          if (yRoadm) {
+            termCards.push({ ...yRoadm, qtyPerNode: perFp(yRoadm.fpCap, fp),
+              _note: '1× per FP · single Y-suffix covers Super C+L' });
+            placedRoadm = true;
+          } else {
+            // No Y-suffix → pair X (Super C) + L (L-band) ROADMs
+            // Bypass band-coverage filter (X/L don't cover Super C+L individually)
+            const rawT = PARTS.filter(p =>
+              p.sect === 'term' && isHsOk(p) && rackOk(p, rack) && inCeiling(p) && notRPBL(p));
+            const xCands = rawT.filter(p => p.cat === 'roadm' && p.bs === 'X');
+            const lCands = rawT.filter(p => p.cat === 'roadm' && p.bs === 'L');
+            const xPick = pickBest(xCands, ['roadm'], relCeiling, null);
+            const lPick = pickBest(lCands, ['roadm'], relCeiling, null);
+            if (xPick && lPick) {
+              termCards.push({ ...xPick, qtyPerNode: perFp(xPick.fpCap, fp),
+                _note: 'Super C portion (X+L pair for Super C+L)' });
+              termCards.push({ ...lPick, qtyPerNode: perFp(lPick.fpCap, fp),
+                _note: 'L-band portion (X+L pair for Super C+L)' });
+              placedRoadm = true;
+            }
+          }
+        }
+        if (!placedRoadm) {
+          // Standard ROADM picker (Y for Super C+L was handled above; this covers all other bands)
+          const rd = pickBest(T, ['roadm'], relCeiling, band);
+          if (rd) {
+            termCards.push({ ...rd, qtyPerNode: perFp(rd.fpCap, fp),
+              _note: '1× per FP · integrated EDFA · 1× RD66 already covers C+L' });
+          } else {
+            const mux = pickBest(T, ['omd'], relCeiling, band);
+            if (mux) termCards.push({ ...mux, qtyPerNode: perFp(mux.fpCap, fp),
+              _fb: 'no ROADM available, fell back to OMD' });
+          }
+        }
+      }
+
+      // --- Term node: amp / booster (per amp strategy) ---
+      // Quang's rules:
+      //  - ROADM has integrated EDFA → no separate PBA. Only add Raman if strategy needs Raman.
+      //  - PBA used only with MUX
+      //  - Valid combos: EDFA only | EDFA+Raman | Hybrid only
+      //  - Hybrid+ROADM is redundant — kept just ROADM (no hybrid card on top)
+      //  - Hybrid FALLBACK: if hybrid card not available at ceiling, treat as EDFA+Raman.
+      //    For ROADM term → add Raman. For MUX term → add PBA + Raman.
+      const pickRamanForFp = () => {
+        let rmnCands = T.filter(p => p.cat === 'raman-amp');
+        if (fp >= 4) { const m = rmnCands.filter(p => p.fpCap === 4); if (m.length) rmnCands = m; }
+        else { const s = rmnCands.filter(p => p.fpCap === 1); if (s.length) rmnCands = s; }
+        return pickBest(rmnCands, ['raman-amp'], relCeiling, band);
+      };
+      const pickHybridForFp = () => {
+        let hybCands = T.filter(p => p.cat === 'hybrid-amp');
+        if (fp >= 4) { const m = hybCands.filter(p => p.fpCap === 4); if (m.length) hybCands = m; }
+        else { const s = hybCands.filter(p => p.fpCap === 1); if (s.length) hybCands = s; }
+        return pickBest(hybCands, ['hybrid-amp'], relCeiling, band);
+      };
+
+      // Quang's rule: ticking Hybrid means Raman is accepted.
+      // For ROADM term: ROADM has integrated EDFA → effectively treat as EDFA+Raman (always add Raman).
+      //   The "hybrid card" itself is redundant with ROADM, but the Raman portion is required.
+      // For MUX term: if hybrid card available, use it; otherwise fall back to PBA+Raman.
+      let termHybridFallback = null;
+      let effTermStrat = ampStrat;
+      if (ampStrat === 'hybrid') {
+        if (isRoadm) {
+          // ROADM + Hybrid: always add Raman (no hybrid card needed; ROADM EDFA covers EDFA portion)
+          effTermStrat = 'edfa+raman';
+        } else {
+          // MUX + Hybrid: try hybrid card first, fall back to EDFA+Raman
+          const hyb = pickHybridForFp();
+          if (!hyb) {
+            effTermStrat = 'edfa+raman';
+            termHybridFallback = 'Term hybrid card not available — using PBA + Raman fallback.';
+          }
+        }
+      }
+
+      if (isRoadm) {
+        if (effTermStrat === 'edfa+raman') {
+          const r = pickRamanForFp();
+          if (r) termCards.push({ ...r, qtyPerNode: perFp(r.fpCap, fp) });
+        }
+        // edfa-only or hybrid-with-card → ROADM only (ROADM has EDFA; hybrid+ROADM redundant)
+      } else {
+        // MUX term
+        if (effTermStrat === 'hybrid') {
+          // hybrid card available and chosen
+          const hyb = pickHybridForFp();
+          if (hyb) termCards.push({ ...hyb, qtyPerNode: perFp(hyb.fpCap, fp) });
+        } else {
+          // EDFA only OR EDFA+Raman (with optional Raman)
+          let ampCands = T.filter(p => p.cat === 'edfa-amp');
+          if (fp >= 4) { const m = ampCands.filter(p => p.fpCap === 4); if (m.length) ampCands = m; }
+          else { const s = ampCands.filter(p => p.fpCap === 1); if (s.length) ampCands = s; }
+          const tAmp = pickBest(ampCands, ['edfa-amp'], relCeiling, band);
+          if (tAmp) termCards.push({ ...tAmp, qtyPerNode: perFp(tAmp.fpCap, fp) });
+          if (effTermStrat === 'edfa+raman') {
+            const r = pickRamanForFp();
+            if (r) termCards.push({ ...r, qtyPerNode: perFp(r.fpCap, fp) });
+          }
+        }
+      }
+
+      // OTSCH (auto for Super C+L)
+      if (band === 'Super C+L') {
+        const ots = pickBest(T, ['otsch'], relCeiling, band);
+        if (ots) termCards.push({ ...ots, qtyPerNode: perFp(ots.fpCap, fp) });
+      }
+
+      // OTDR module (when ticked)
+      if (otdrRequired) {
+        const tOtdr = pickBest(T, ['otdr'], relCeiling, band);
+        if (tOtdr) termCards.push({ ...tOtdr, qtyPerNode: 1, _note: 'OTDR module — 1 per term node' });
+      }
+
+      // --- Term chassis: consolidation logic ---
+      // Compute total card-slots first, then pick smallest chassis that fits in 1×,
+      // or fall back to largest available × multiplier.
+      let termSlotsUsed = 0;
+      termCards.forEach(c => { termSlotsUsed += cardSlots(c) * c.qtyPerNode; });
+      const termPerNode = [];
+      const termChassisCands = T.filter(p => p.cat === 'chassis');
+      const tPicked = pickChassisForSlots(termChassisCands, termSlotsUsed, relCeiling, band);
+      if (tPicked && tPicked.chassis) {
+        const cSlot = chassisSlots(tPicked.chassis.n);
+        termPerNode.push({ ...tPicked.chassis, qtyPerNode: tPicked.qty,
+          _note: `${termSlotsUsed} card-slots / ${cSlot} per chassis · ${tPicked.qty === 1 ? 'fits in 1× consolidation' : 'needs ' + tPicked.qty + '× of largest'}` });
+      }
+      termCards.forEach(c => termPerNode.push(c));
+
+      // --- ILA site(s) ---
+      // ilaPerSite array holds the PRIMARY config (Raman or Hybrid).
+      // ilaPerSiteAlt holds the alt config (EDFA-only) when user mixes.
+      // Pair-consistent family selection: EDFA + Raman (or Hybrid) must be SAME family.
+      const buildIlaConfig = (ilaMode) => {
+        // ilaMode: 'edfa' | 'raman' | 'hybrid'
+        const out = [];
+        const byFam = fam => I.filter(p =>
+          p.sect === 'ila' && p.cat !== 'chassis' && pnFamily(p.n) === fam);
+        const pickWithFp = (cands, cats) => {
+          let c = cands.filter(p => cats.includes(p.cat));
+          if (fp >= 4) { const m = c.filter(p => p.fpCap === 4); if (m.length) c = m; }
+          else { const s = c.filter(p => p.fpCap === 1); if (s.length) c = s; }
+          return pickBest(c, cats, relCeiling, band);
+        };
+
+        const tryOrder = (fp >= 4 && !isCompactOnlyRack(rack)) ? ['full','compact'] : ['compact','full'];
+        const allowed = isCompactOnlyRack(rack) ? ['compact'] : tryOrder;
+
+        let chosen = null;
+        let fallbackNote = null;
+
+        for (const fam of allowed) {
+          const famI = byFam(fam);
+          if (ilaMode === 'hybrid') {
+            const pickHyb = pickWithFp(famI, ['ila-hybrid']);
+            if (pickHyb) { chosen = { fam, iEdfa: null, iRmn: null, iHyb: pickHyb }; break; }
+          } else if (ilaMode === 'edfa') {
+            const pickEdfa = pickWithFp(famI, ['ila-edfa']);
+            if (pickEdfa) { chosen = { fam, iEdfa: pickEdfa, iRmn: null, iHyb: null }; break; }
+          } else { // raman
+            const pickEdfa = pickWithFp(famI, ['ila-edfa']);
+            const pickRmn  = pickWithFp(famI, ['ila-raman']);
+            if (pickEdfa && pickRmn) { chosen = { fam, iEdfa: pickEdfa, iRmn: pickRmn, iHyb: null }; break; }
+          }
+        }
+
+        // Hybrid fallback: if hybrid not available, try EDFA+Raman
+        if (!chosen && ilaMode === 'hybrid') {
+          fallbackNote = 'Hybrid not available at this release ceiling — fell back to EDFA + Raman.';
+          for (const fam of allowed) {
+            const famI = byFam(fam);
+            const pickEdfa = pickWithFp(famI, ['ila-edfa']);
+            const pickRmn  = pickWithFp(famI, ['ila-raman']);
+            if (pickEdfa && pickRmn) { chosen = { fam, iEdfa: pickEdfa, iRmn: pickRmn, iHyb: null, fallbackNote }; break; }
+          }
+        }
+
+        if (!chosen) return { items: [], note: 'no eligible cards' };
+
+        const { fam, iEdfa, iRmn, iHyb } = chosen;
+        let edfaQty = 0, rmnQty = 0, hybQty = 0;
+        if (iEdfa) edfaQty = perFp(iEdfa.fpCap, fp) * (iEdfa.bidi ? 1 : 2);
+        if (iRmn)  rmnQty  = perFp(iRmn.fpCap, fp)  * (iRmn.bidi ? 1 : 2);
+        if (iHyb)  hybQty  = perFp(iHyb.fpCap, fp)  * (iHyb.bidi ? 1 : 2);
+
+        let iOcc = null, iOtdr = null, occQty = 0, otdrQty = 0;
+        if (otdrRequired) {
+          const occCands = I.filter(p => p.cat === 'occ' && pnFamily(p.n) === fam);
+          iOcc = pickBest(occCands.length ? occCands : I.filter(p => p.cat === 'occ'), ['occ'], relCeiling, band);
+          if (iOcc) occQty = 1;
+          iOtdr = pickBest(I, ['otdr'], relCeiling, band);
+          if (iOtdr) otdrQty = 1;
+        }
+
+        const totalCardSlots = (iEdfa ? edfaQty * cardSlots(iEdfa) : 0)
+                            + (iRmn  ? rmnQty  * cardSlots(iRmn)  : 0)
+                            + (iHyb  ? hybQty  * cardSlots(iHyb)  : 0)
+                            + (iOcc  ? occQty  * cardSlots(iOcc)  : 0)
+                            + (iOtdr ? otdrQty * cardSlots(iOtdr) : 0);
+
+        const chassisCandsFam = I.filter(p => p.cat === 'chassis' && pnFamily(p.n) === fam);
+        const iPicked = pickChassisForSlots(chassisCandsFam, totalCardSlots, relCeiling, band);
+
+        if (iPicked && iPicked.chassis) {
+          const cSlot = chassisSlots(iPicked.chassis.n);
+          out.push({ ...iPicked.chassis, qtyPerSite: iPicked.qty,
+            _note: `${fam} family · ${totalCardSlots} slots / ${cSlot} per chassis · ${iPicked.qty===1?'consolidated':iPicked.qty+'×'}` });
+        }
+        if (iEdfa) out.push({ ...iEdfa, qtyPerSite: edfaQty });
+        if (iRmn)  out.push({ ...iRmn,  qtyPerSite: rmnQty });
+        if (iHyb)  out.push({ ...iHyb,  qtyPerSite: hybQty });
+        if (iOcc)  out.push({ ...iOcc,  qtyPerSite: occQty, _note: fam==='compact'?'OCC2E':'OCC2T' });
+        if (iOtdr) out.push({ ...iOtdr, qtyPerSite: otdrQty, _note: 'OTDR module' });
+        return { items: out, note: fallbackNote };
+      };
+
+      let ilaPerSiteAlt = [];
+      let ilaPrimaryNote = null, ilaAltNote = null;
+      if (topo.mode !== 'p2p') {
+        // Primary config = chosen amp strategy
+        const primary = buildIlaConfig(topo.mode);
+        ilaPerSite.push(...primary.items);
+        ilaPrimaryNote = primary.note;
+        // Alt config (EDFA-only) only if mixed mode
+        if (topo.mixedILA && topo.mode !== 'edfa') {
+          const alt = buildIlaConfig('edfa');
+          ilaPerSiteAlt = alt.items;
+          ilaAltNote = alt.note;
+        }
+      }
+
+      return { termPerNode, ilaPerSite, ilaPerSiteAlt, ilaPrimaryNote, ilaAltNote, termHybridFallback };
+    }
+
+    // =========================================================
+    // UI
+    // =========================================================
+    const $ = id => document.getElementById(id);
+    function termType() {
+      return [...document.querySelectorAll('#term-type-toggle button')].find(b => b.classList.contains('active'))?.dataset.val || 'roadm';
+    }
+    function ampStrategy() {
+      return [...document.querySelectorAll('#amp-strategy-toggle button')].find(b => b.classList.contains('active'))?.dataset.val || 'edfa+raman';
+    }
+    function modeStrict() {
+      return [...document.querySelectorAll('#mode-toggle button')].find(b => b.classList.contains('active'))?.dataset.val === 'strict';
+    }
+    function getF() {
+      return {
+        band: $('f-band').value,
+        fp: parseInt($('f-fp').value),
+        termType: termType(),
+        ampStrategy: ampStrategy(),
+        strict: modeStrict(),
+        otdr: $('f-otdr').checked,
+        ilaSame: $('f-ila-same').checked,
+        ilaEdfaCount: parseInt($('f-ila-edfa-count').value) || 0,
+        channels: parseInt($('f-channels').value),
+        totalKm: parseFloat($('f-total').value) || 0,
+        spanKm: parseFloat($('f-span').value) || 0,
+        rack: $('f-rack').value,
+        rackCount: parseInt($('f-rack-count').value) || 1,
+        rackPower: parseFloat($('f-rack-power').value) || 4000,
+        rackU: parseInt($('f-rack-u').value) || 42,
+        relCeiling: parseFloat($('f-rel').value),
+      };
+    }
+
+    function render() {
+      const f = getF();
+      $('fp-val').textContent = f.fp;
+      // Show/hide channel dropdown based on term type
+      $('channels-wrap').classList.toggle('hidden', f.termType !== 'mux');
+      $('term-type-tooltip').textContent = f.termType === 'roadm'
+        ? 'ROADM = flexible add/drop, supports future tech-gen upgrades.'
+        : 'MUX (OMD) = fixed channel grid, lower cost, no tech-gen upgrade later.';
+
+      // ILA mix UI: enable EDFA-only count input only when "All same" unticked AND strategy != EDFA
+      const canMix = (f.ampStrategy !== 'edfa');
+      $('ila-mix-wrap').style.opacity   = (!f.ilaSame && canMix) ? '1' : '0.4';
+      $('ila-mix-wrap').style.pointerEvents = (!f.ilaSame && canMix) ? 'auto' : 'none';
+
+      const topo = deriveTopology(f.totalKm, f.spanKm, f.ampStrategy, f.ilaSame, f.ilaEdfaCount);
+      $('ila-total-display').textContent = topo.ilaSites;
+
+      // Span info banner
+      const ampLabel = ({edfa:'EDFA only', 'edfa+raman':'EDFA + Raman', hybrid:'Hybrid only'})[f.ampStrategy];
+      if (topo.mode === 'p2p') {
+        $('span-info').className = 'span-info p2p';
+        $('span-info').innerHTML = `
+          <span class="chip-acc">P2P</span>
+          <span>Span ≤ total — no ILA site needed. Direct ${f.termType === 'roadm' ? 'ROADM' : 'MUX'} termination both ends.</span>`;
+      } else {
+        $('span-info').className = 'span-info';
+        $('span-info').innerHTML = `
+          <span class="chip-acc">${f.totalKm} km</span>
+          <span>÷ ${f.spanKm} km span</span>
+          <span>= <strong>${topo.spans} spans</strong></span>
+          <span class="chip-acc">2 term nodes + ${topo.ilaSites} ILA sites</span>
+          <span>· ${ampLabel}</span>
+          <span>· Band ${f.band} · FP ${f.fp} · ${f.termType === 'roadm' ? 'ROADM' : `MUX ${f.channels}ch`} · RFS ${f.strict?'≤':'best≤'} R${f.relCeiling} (${f.strict?'STRICT':'RELAX'})</span>`;
+      }
+
+      const rec = recommend(f.band, f.fp, topo, f.termType, f.channels, f.rack, f.relCeiling, f.ampStrategy, f.strict, f.otdr);
+      $('term-mult').textContent = topo.termNodes;
+      $('ila-mult').textContent  = topo.ilaPrimary;
+
+      // Primary ILA card label
+      const ilaPrimaryLabel = topo.mixedILA
+        ? `ILA Sites — ${f.ampStrategy === 'hybrid' ? 'Hybrid' : 'Raman'} (×<span id="ila-mult">${topo.ilaPrimary}</span>)`
+        : `ILA Sites (×<span id="ila-mult">${topo.ilaPrimary}</span>)`;
+      $('ila-card-title').innerHTML = ilaPrimaryLabel;
+
+      renderBom('term-body', 'term-count', rec.termPerNode, topo.termNodes, 'qtyPerNode', f);
+      renderBom('ila-body',  'ila-count',  rec.ilaPerSite,  topo.ilaPrimary, 'qtyPerSite', f);
+
+      // Show/hide second ILA card for mixed config
+      if (topo.mixedILA && topo.ilaAltEdfa > 0) {
+        $('ila2-row').style.display = 'grid';
+        $('ila2-mult').textContent = topo.ilaAltEdfa;
+        renderBom('ila2-body', 'ila2-count', rec.ilaPerSiteAlt, topo.ilaAltEdfa, 'qtyPerSite', f);
+      } else {
+        $('ila2-row').style.display = 'none';
+      }
+
+      // Banners
+      const gaps = [];
+      if (rec.termPerNode.length === 0) gaps.push('Termination Node');
+      if (rec.ilaPerSite.length === 0 && topo.mode !== 'p2p' && topo.ilaPrimary > 0) gaps.push('ILA Site (primary)');
+      if (topo.mixedILA && topo.ilaAltEdfa > 0 && rec.ilaPerSiteAlt.length === 0) gaps.push('ILA Site (EDFA-only)');
+      const banners = [];
+      if (gaps.length) {
+        banners.push(`<div class="gap-banner"><strong>Hardware gap:</strong>
+                      no eligible part for ${gaps.join(' and ')} under current filters.</div>`);
+      }
+      if (rec.termHybridFallback) {
+        banners.push(`<div class="gap-banner"><strong>Term hybrid fallback:</strong> ${rec.termHybridFallback}</div>`);
+      }
+      if (rec.ilaPrimaryNote) {
+        banners.push(`<div class="gap-banner"><strong>ILA hybrid fallback:</strong> ${rec.ilaPrimaryNote}</div>`);
+      }
+      $('gap-banner-wrap').innerHTML = banners.join('');
+
+      // Power & Space rollup
+      renderPWRollup(rec, topo);
+
+      // Reasoning
+      const ampNotes = ({
+        'edfa':       `<strong>EDFA only</strong>: ${f.termType==='roadm'?'ROADM has integrated EDFA — no separate term booster.':'PBA EDFA booster at MUX term.'} ILA: single EDFA card (BIDI).`,
+        'edfa+raman': `<strong>EDFA + Raman</strong>: ${f.termType==='roadm'?'ROADM provides EDFA, add Raman booster card.':'PBA EDFA + Raman card at MUX term.'} ILA: EDFA (BIDI) + RPBM Raman (uni-dir ×2).`,
+        'hybrid':     `<strong>Hybrid (Raman accepted)</strong>: ${f.termType==='roadm'?'ROADM provides EDFA + Raman card added (hybrid card itself is redundant with ROADM).':'Hybrid card at MUX term (EDFA+Raman in one card); falls back to PBA+Raman if hybrid unavailable.'} ILA: hybrid card if GA, otherwise EDFA+Raman fallback.`,
+      })[f.ampStrategy];
+      $('reason-box').innerHTML = `
+        <strong>How the engine picked this BoM</strong>
+        <ul>
+          <li><strong>Topology</strong>: ${topo.mode === 'p2p'
+            ? `P2P (no ILA — total ≤ span).`
+            : `${f.totalKm} km ÷ ${f.spanKm} km = ${topo.spans} spans → 2 term + ${topo.ilaSites} ILA sites.`}</li>
+          <li><strong>Term type</strong>: ${f.termType === 'roadm'
+            ? 'ROADM direct-attach — flexible, future-proof. 1× RD66 covers C+L and has integrated EDFA. Qty/node = ceil(FP / ROADM-degree).'
+            : `MUX (OMD) at ${f.channels} channels — fixed grid, lowest cost. Each fiber pair needs its own mux. PBA used only with MUX (not ROADM).`}</li>
+          <li>${ampNotes}</li>
+          <li><strong>Band match</strong>: parts whose suffix covers <code>${f.band}</code> (C++ covers C, L++ covers L, Y covers all).</li>
+          <li><strong>FP scaling</strong>: ${f.fp} FP × ceil(FP/fpCap). Multi-fiber cards (fpCap=4) preferred when FP ≥ 4.</li>
+          <li><strong>BIDI vs uni-dir</strong>: ILA EDFA/hybrid are BIDI (×1 per FP). RPBM Raman is uni-dir (×2). RPBL family excluded — RPBM preferred.</li>
+          <li><strong>Variant version</strong>: when multiple variants are all within ceiling (W0/W1/W2 or Y0/Y1/Y2), engine picks the highest (latest hardware refresh).</li>
+          <li><strong>Mode</strong>: ${f.strict ? `<span style="color:var(--nokia-blue-deep);font-weight:600">STRICT GA</span> — only parts at-or-below R${f.relCeiling}; no roadmap fallback.` : `<span style="color:var(--warn);font-weight:600">RELAX</span> — engine may surface roadmap parts if no GA solution.`}</li>
+          ${f.band === 'Super C+L' ? `<li><strong>OTSCH</strong>: auto-added (Super C + Super L spectrum splitting).</li>
+          <li><strong>Super C+L ROADM combo</strong>: no Y-suffix ROADM exists yet → engine pairs <code>RD32-X</code> (Super C) + <code>RD32-L</code> (L-band) per FP. Both must be GA at the ceiling.</li>` : ''}
+        </ul>`;
+    }
+
+    function renderBom(bodyId, countId, items, multiplier, qtyKey, f) {
+      const body = $(bodyId);
+      const cnt = $(countId);
+      if (items.length === 0) {
+        if (multiplier === 0) {
+          body.innerHTML = `<div class="empty">Not needed — P2P topology has no ILA sites.</div>`;
+          cnt.textContent = '—';
+        } else {
+          body.innerHTML = `<div class="empty gap"><strong>No eligible parts</strong></div>`;
+          cnt.textContent = '0 items';
+        }
+        return;
+      }
+      const rows = items.map(p => {
+        const perX = p[qtyKey];
+        const totalQty = perX * multiplier;
+        const rn = relNum(p.rel);
+        const isRoadmap = rn !== null && rn > f.relCeiling;
+        const over = isOverProvision(p, f.band);
+        const dir = (p.sect === 'ila' && p.bidi === false) ? '<span class="dir">uni-dir ×2</span>' : '';
+        const fbk = p._fb ? ` <span style="color:var(--warn);font-size:10px">⚠ ${p._fb}</span>` : '';
+        const fnSuffix = [
+          labelCat(p.cat),
+          (BAND_COVERAGE[p.bs]||['?']).join('/'),
+          p.fpCap === 4 ? 'fpCap=4' : null,
+          p.ch ? `${p.ch}ch` : null,
+          p.deg ? `${p.deg}-deg` : null,
+        ].filter(Boolean).join(' · ');
+        const pw = getPW(p.n);
+        const ru = (p.cat === 'chassis') ? chassisRU(p.n) : null;
+        let pwInline = '';
+        if (pw.src === 'passive') {
+          pwInline = `<span class="fn" style="color:#0A6E62">passive · 0 W</span>`;
+        } else if (pw.src === 'unknown') {
+          pwInline = `<span class="fn" style="color:var(--warn)">no power data</span>`;
+        } else {
+          const srcTag = pw.src === 'exact' ? '' : pw.src === 'variant' ? ' <em style="font-size:9px;color:var(--text-faint)">(variant)</em>' : ' <em style="font-size:9px;color:var(--warn)">(est)</em>';
+          const ruTag = ru ? ` · ${ru}U` : '';
+          pwInline = `<span class="fn">${pw.typ} W typ / ${pw.max40} W max@40°C${ruTag}${srcTag}</span>`;
+        }
+        return `<tr>
+          <td class="qty">${totalQty}
+            <span class="per-node">${perX}/${qtyKey==='qtyPerNode'?'node':'site'} × ${multiplier}</span>
+          </td>
+          <td>
+            <span class="pn">${p.n}</span>${over ? '<span class="over">over-prov</span>' : ''}${dir}${fbk}
+            <span class="fn">${fnSuffix}</span>
+            ${pwInline}
+          </td>
+          <td><span class="rel ${isRoadmap?'roadmap':''}">${isRoadmap?'🚧 ':''}${p.rel||'—'}</span></td>
+        </tr>`;
+      }).join('');
+      body.innerHTML = `
+        <table class="bom-table">
+          <thead><tr><th>Qty</th><th>Part &amp; capability</th><th>Release</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>`;
+      cnt.textContent = `${items.length} item${items.length>1?'s':''}`;
+    }
+
+    // =========================================================
+    // Power & Space rollup — per site, then × topology
+    // =========================================================
+    function rollupSite(items, qtyKey) {
+      // Sum per-site/node power + RU
+      let typ = 0, m40 = 0, m55 = 0, ru = 0;
+      let estimated = 0, unknown = 0;
+      items.forEach(p => {
+        const pw = getPW(p.n);
+        const q = p[qtyKey] || 1;
+        if (pw.src === 'unknown') { unknown += q; return; }
+        if (pw.src === 'estimate') estimated += q;
+        if (pw.typ != null)   typ += pw.typ * q;
+        if (pw.max40 != null) m40 += pw.max40 * q;
+        if (pw.max55 != null) m55 += pw.max55 * q;
+        // RU only counted for chassis rows
+        if (p.cat === 'chassis') {
+          const r = chassisRU(p.n);
+          if (r != null) ru += r * q;
+        }
+      });
+      return { typ, m40, m55, ru, estimated, unknown };
+    }
+
+    function renderPWRollup(rec, topo) {
+      const f = getF();
+      const perTerm = rollupSite(rec.termPerNode, 'qtyPerNode');
+      const perIla  = rollupSite(rec.ilaPerSite,  'qtyPerSite');
+      const perIlaAlt = topo.mixedILA && topo.ilaAltEdfa > 0 ? rollupSite(rec.ilaPerSiteAlt, 'qtyPerSite') : null;
+
+      const termTotalTyp = perTerm.typ * topo.termNodes;
+      const termTotalM40 = perTerm.m40 * topo.termNodes;
+      const termTotalM55 = perTerm.m55 * topo.termNodes;
+      const termTotalRU  = perTerm.ru * topo.termNodes;
+      const ilaTotalTyp = perIla.typ * topo.ilaPrimary + (perIlaAlt ? perIlaAlt.typ * topo.ilaAltEdfa : 0);
+      const ilaTotalM40 = perIla.m40 * topo.ilaPrimary + (perIlaAlt ? perIlaAlt.m40 * topo.ilaAltEdfa : 0);
+      const ilaTotalM55 = perIla.m55 * topo.ilaPrimary + (perIlaAlt ? perIlaAlt.m55 * topo.ilaAltEdfa : 0);
+      const ilaTotalRU  = perIla.ru * topo.ilaPrimary + (perIlaAlt ? perIlaAlt.ru * topo.ilaAltEdfa : 0);
+      const linkTyp = termTotalTyp + ilaTotalTyp;
+      const linkM40 = termTotalM40 + ilaTotalM40;
+      const linkM55 = termTotalM55 + ilaTotalM55;
+      const linkRU  = termTotalRU + ilaTotalRU;
+      const linkEstimated = perTerm.estimated + perIla.estimated + (perIlaAlt ? perIlaAlt.estimated : 0);
+      const linkUnknown   = perTerm.unknown + perIla.unknown + (perIlaAlt ? perIlaAlt.unknown : 0);
+
+      const fmtKW = w => w >= 1000 ? `${(w/1000).toFixed(2)} kW` : `${Math.round(w)} W`;
+      const fmtRU = r => r === 0 ? '—' : `${r} U`;
+
+      // Rack budget check based on the heavier ILA config
+      const heaviest = perIlaAlt ? Math.max(perIla.m40, perIlaAlt.m40) : perIla.m40;
+      const heaviestRu = perIlaAlt ? Math.max(perIla.ru, perIlaAlt.ru) : perIla.ru;
+      const perSiteIlaPemInput = heaviest / 0.9;
+      const siteRackBudget = f.rackPower * f.rackCount;
+      const ilaBudgetExceeded = topo.mode !== 'p2p' && perSiteIlaPemInput > siteRackBudget;
+      const ilaBudgetHeadroom = siteRackBudget - perSiteIlaPemInput;
+      const ilaRackSpaceBudget = f.rackU * f.rackCount;
+      const ilaSpaceExceeded = topo.mode !== 'p2p' && heaviestRu > ilaRackSpaceBudget;
+
+      const budgetRow = topo.mode === 'p2p' ? '' : `
+            <tr style="background:#FFF9E6">
+              <td style="font-size:11px"><strong>Rack budget check (heaviest ILA site)</strong>
+                <span class="fn">${f.rackCount} rack × ${f.rackPower} W = ${fmtKW(siteRackBudget)} max output · ${ilaRackSpaceBudget} U</span>
+              </td>
+              <td colspan="3" style="font-size:11px;text-align:right">
+                PEM input load: <strong>${fmtKW(perSiteIlaPemInput)}</strong>
+                ${ilaBudgetExceeded
+                  ? ` <span class="dir" style="background:#FFD6D6;color:#A02020">⚠ EXCEEDS BUDGET by ${fmtKW(-ilaBudgetHeadroom)}</span>`
+                  : ` <span class="over">headroom ${fmtKW(ilaBudgetHeadroom)}</span>`}
+                ${ilaSpaceExceeded
+                  ? ` <span class="dir" style="background:#FFD6D6;color:#A02020">⚠ RU EXCEEDS</span>`
+                  : ''}
+              </td>
+              <td style="text-align:right;font-size:11px">${fmtRU(heaviestRu)} / ${ilaRackSpaceBudget} U</td>
+            </tr>`;
+
+      const primaryLabel = topo.mixedILA
+        ? `Per ILA site (${f.ampStrategy === 'hybrid' ? 'Hybrid' : 'Raman'})`
+        : 'Per ILA site';
+      const primarySideLabel = topo.mixedILA
+        ? `ILA side · ${f.ampStrategy === 'hybrid' ? 'Hybrid' : 'Raman'}`
+        : 'ILA side';
+
+      const altRows = (perIlaAlt && topo.ilaAltEdfa > 0) ? `
+            <tr style="border-top:2px solid var(--border)">
+              <td><strong>Per ILA site (EDFA-only)</strong></td>
+              <td style="text-align:right">${fmtKW(perIlaAlt.typ)}</td>
+              <td style="text-align:right">${fmtKW(perIlaAlt.m40)}</td>
+              <td style="text-align:right">${fmtKW(perIlaAlt.m55)}</td>
+              <td style="text-align:right">${fmtRU(perIlaAlt.ru)}</td>
+            </tr>
+            <tr>
+              <td><strong>ILA side · EDFA-only</strong>
+                <span class="fn">× ${topo.ilaAltEdfa} sites</span>
+              </td>
+              <td style="text-align:right;font-weight:600">${fmtKW(perIlaAlt.typ * topo.ilaAltEdfa)}</td>
+              <td style="text-align:right;font-weight:600">${fmtKW(perIlaAlt.m40 * topo.ilaAltEdfa)}</td>
+              <td style="text-align:right;font-weight:600">${fmtKW(perIlaAlt.m55 * topo.ilaAltEdfa)}</td>
+              <td style="text-align:right;font-weight:600">${fmtRU(perIlaAlt.ru * topo.ilaAltEdfa)}</td>
+            </tr>` : '';
+
+      const html = `
+        <table class="bom-table" style="font-size:13px">
+          <thead><tr>
+            <th></th>
+            <th style="text-align:right">Typ Power (25°C)</th>
+            <th style="text-align:right">Max Power (40°C)</th>
+            <th style="text-align:right">Max Power (55°C)</th>
+            <th style="text-align:right">Rack space</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Per term node</strong></td>
+              <td style="text-align:right">${fmtKW(perTerm.typ)}</td>
+              <td style="text-align:right">${fmtKW(perTerm.m40)}</td>
+              <td style="text-align:right">${fmtKW(perTerm.m55)}</td>
+              <td style="text-align:right">${fmtRU(perTerm.ru)}</td>
+            </tr>
+            <tr>
+              <td><strong>Term side</strong>
+                <span class="fn">× ${topo.termNodes} nodes</span>
+              </td>
+              <td style="text-align:right;font-weight:600">${fmtKW(termTotalTyp)}</td>
+              <td style="text-align:right;font-weight:600">${fmtKW(termTotalM40)}</td>
+              <td style="text-align:right;font-weight:600">${fmtKW(termTotalM55)}</td>
+              <td style="text-align:right;font-weight:600">${fmtRU(termTotalRU)}</td>
+            </tr>
+            <tr style="border-top:2px solid var(--border)">
+              <td><strong>${primaryLabel}</strong></td>
+              <td style="text-align:right">${fmtKW(perIla.typ)}</td>
+              <td style="text-align:right">${fmtKW(perIla.m40)}</td>
+              <td style="text-align:right">${fmtKW(perIla.m55)}</td>
+              <td style="text-align:right">${fmtRU(perIla.ru)}</td>
+            </tr>
+            <tr>
+              <td><strong>${primarySideLabel}</strong>
+                <span class="fn">× ${topo.ilaPrimary} sites</span>
+              </td>
+              <td style="text-align:right;font-weight:600">${fmtKW(perIla.typ * topo.ilaPrimary)}</td>
+              <td style="text-align:right;font-weight:600">${fmtKW(perIla.m40 * topo.ilaPrimary)}</td>
+              <td style="text-align:right;font-weight:600">${fmtKW(perIla.m55 * topo.ilaPrimary)}</td>
+              <td style="text-align:right;font-weight:600">${fmtRU(perIla.ru * topo.ilaPrimary)}</td>
+            </tr>
+            ${altRows}
+            <tr style="background:var(--surface-2);border-top:2px solid var(--nokia-blue-deep)">
+              <td><strong style="color:var(--nokia-blue-deep)">LINK TOTAL</strong>
+                <span class="fn">end-to-end OLS</span>
+              </td>
+              <td style="text-align:right;font-weight:700;color:var(--nokia-blue-deep);font-size:14px">${fmtKW(linkTyp)}</td>
+              <td style="text-align:right;font-weight:700;color:var(--nokia-blue-deep);font-size:14px">${fmtKW(linkM40)}</td>
+              <td style="text-align:right;font-weight:700;color:var(--nokia-blue-deep);font-size:14px">${fmtKW(linkM55)}</td>
+              <td style="text-align:right;font-weight:700;color:var(--nokia-blue-deep);font-size:14px">${fmtRU(linkRU)}</td>
+            </tr>
+            ${budgetRow}
+            <tr>
+              <td colspan="5" style="padding:8px 12px;background:var(--surface);font-size:11px;color:var(--text-faint);border-top:1px solid var(--border)">
+                Per-PEM input (90% eff): <strong>${fmtKW(linkTyp/0.9)}</strong> typ / <strong>${fmtKW(linkM40/0.9)}</strong> max@40°C across the link.
+                ${linkEstimated ? `<span class="over" style="margin-left:8px">⚠ ${linkEstimated} estimated qty</span>` : ''}
+                ${linkUnknown ? `<span class="dir" style="margin-left:8px">⚠ ${linkUnknown} no-data qty</span>` : ''}
+              </td>
+            </tr>
+          </tbody>
+        </table>`;
+      $('pw-body').innerHTML = html;
+    }
+
+    function labelCat(c) {
+      return ({
+        chassis:'Chassis', omd:'OMD (mux)', occ:'OCC controller',
+        roadm:'ROADM (integrated EDFA)', 'cad-cdc':'CAD/CDC mux',
+        'edfa-amp':'EDFA booster', 'raman-amp':'Raman booster',
+        'hybrid-amp':'Hybrid amp', otsch:'OTS channel',
+        'ila-edfa':'ILA EDFA', 'ila-raman':'ILA Raman', 'ila-hybrid':'ILA hybrid',
+        'otdr':'OTDR module',
+      })[c] || c;
+    }
+
+    // Event wiring — generic for all toggle button groups
+    ['#term-type-toggle','#amp-strategy-toggle','#mode-toggle'].forEach(sel => {
+      document.querySelectorAll(`${sel} button`).forEach(b => {
+        b.addEventListener('click', () => {
+          document.querySelectorAll(`${sel} button`).forEach(x => x.classList.remove('active'));
+          b.classList.add('active');
+          render();
+        });
+      });
+    });
+    ['f-band','f-fp','f-channels','f-total','f-span','f-rack','f-rel',
+     'f-rack-count','f-rack-power','f-rack-u','f-otdr',
+     'f-ila-same','f-ila-edfa-count'].forEach(id => {
+      const el = $(id);
+      if (el) {
+        el.addEventListener('input', render);
+        el.addEventListener('change', render);
+      }
+    });
+    render();
+  </script>
+
+  <!-- ============================================================ -->
+  <!-- Transponder Reach & Capacity Advisor engine                  -->
+  <!-- ============================================================ -->
+  <script>
+  (function(){
+    const $ = id => document.getElementById(id);
+
+    // ---- Tab switching ----
+    document.querySelectorAll('.xtab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tab = btn.dataset.tab;
+        document.querySelectorAll('.xtab').forEach(b => {
+          const on = b === btn;
+          b.classList.toggle('active', on);
+          b.style.borderBottomColor = on ? 'var(--nokia-blue)' : 'transparent';
+          b.style.color = on ? 'var(--nokia-blue-deep)' : 'var(--text-muted)';
+          b.style.fontWeight = on ? '700' : '600';
+        });
+        $('tab-ols').style.display  = tab === 'ols'  ? '' : 'none';
+        $('tab-xpdr').style.display = tab === 'xpdr' ? '' : 'none';
+        if (tab === 'xpdr') xrender();
+      });
+    });
+
+    // ============================================================
+    // REACH MODEL  (transparent, calibrated — ESTIMATE)
+    // Required-OSNR ladder per engine, [line rate G, req OSNR dB @0.1nm, format]
+    // Calibrated so, on G.652 / 80 km span / NF 5 / +1 dBm / 0 margin, the
+    // public anchor reaches land: CHM6 800G≈985 km, 600G≈3100 km, 400G TO;
+    // CHM7 1.2T≈500 km, 800G≈3100 km (Nokia/Infinera ICE6/ICE7 figures).
+    // ============================================================
+    const CARDS = {
+      CHM6: { name:'CHM6', engine:'ICE-6 (PSE-Vs) · 96 GBaud', baud:96, maxLambda:800,
+        ladder:[
+          [800,25.5,'PCS-64QAM (~4.6 b/sym/pol)'],
+          [700,22.5,'PCS-32QAM (~4.0)'],
+          [600,20.5,'PCS-16QAM (~3.4)'],
+          [500,18.5,'PCS-8QAM (~2.8)'],
+          [400,16.5,'QPSK/PCS (~2.2)'],
+          [300,14.0,'QPSK (~1.7)'],
+          [200,11.5,'QPSK (~1.1)'],
+        ]},
+      CHM7: { name:'CHM7', engine:'ICE-7 (PSE-6s) · 140 GBaud', baud:140, maxLambda:1200,
+        ladder:[
+          [1200,28.5,'PCS-64QAM (~4.4 b/sym/pol)'],
+          [1000,25.5,'PCS-32QAM (~3.7)'],
+          [800, 20.5,'PCS-16QAM (~3.0)'],
+          [600, 16.5,'QPSK/PCS (~2.2)'],
+          [400, 13.0,'QPSK (~1.5)'],
+          [300, 11.0,'QPSK (~1.2)'],
+        ]},
+    };
+    const OSNR_REF = 58; // 0.1 nm reference-bandwidth constant @1550 nm
+
+    function linkOSNR(dist, span, loss, nf, pch, margin){
+      const N = Math.max(1, Math.ceil(dist/span));   // number of spans
+      const Lspan = span * loss;                      // per-span loss (dB)
+      const osnr = OSNR_REF + pch - Lspan - nf - 10*Math.log10(N) - margin;
+      return { N, Lspan, osnr };
+    }
+    function bestRate(card, osnr){
+      for (const [rate, req, mod] of card.ladder){ if (osnr >= req) return {rate, req, mod}; }
+      return null; // even the lowest rate needs more OSNR than the link provides
+    }
+    // channel slot from baud: ~15% roll-off + guard, snapped to 12.5 GHz flexgrid
+    function slotGHz(baud){ return Math.ceil((baud*1.15)/12.5)*12.5; }
+
+    function num(id){ return parseFloat($(id).value); }
+
+    let cardMode = 'both';
+    document.querySelectorAll('#x-card-toggle button').forEach(b=>{
+      b.addEventListener('click', ()=>{
+        document.querySelectorAll('#x-card-toggle button').forEach(x=>x.classList.remove('active'));
+        b.classList.add('active'); cardMode = b.dataset.val; xrender();
+      });
+    });
+
+    function xrender(){
+      const dist=num('x-dist'), span=num('x-span'), loss=num('x-fiber'),
+            nf=num('x-nf'), pch=num('x-pch'), margin=num('x-margin'),
+            bandGHz=num('x-band');
+      if ([dist,span,loss,nf,pch,margin,bandGHz].some(v=>isNaN(v))) return;
+
+      const L = linkOSNR(dist, span, loss, nf, pch, margin);
+      const bandName = $('x-band').selectedOptions[0].text.split('—')[0].trim();
+
+      $('x-linkinfo').innerHTML =
+        `<strong>Link budget</strong> — ${dist.toLocaleString()} km ÷ ${span} km span `+
+        `= <b>${L.N} spans</b> · span loss ${L.Lspan.toFixed(1)} dB · NF ${nf} dB · `+
+        `launch ${pch>=0?'+':''}${pch} dBm · margin ${margin} dB `+
+        `→ <b>RX OSNR ≈ ${L.osnr.toFixed(1)} dB</b> (0.1 nm ref)`;
+
+      const which = cardMode==='both' ? ['CHM6','CHM7'] : [cardMode];
+      const results = {};
+      let cardsHTML = '';
+      which.forEach(key=>{
+        const c = CARDS[key];
+        const r = bestRate(c, L.osnr);
+        const slot = slotGHz(c.baud);
+        const ch = Math.floor(bandGHz / slot);
+        results[key] = r ? {rate:r.rate, total: ch*r.rate/1000, ch, slot} : null;
+
+        if (!r){
+          cardsHTML += `
+          <div class="bom-card">
+            <header><h3>${c.name}</h3><span class="count" style="background:#F8D7DA;color:#842029">no reach</span></header>
+            <div style="padding:14px 16px;font-size:13px;color:var(--text-muted)">
+              Link too long for ${c.name} at any rate — RX OSNR ${L.osnr.toFixed(1)} dB is below the
+              ${c.ladder[c.ladder.length-1][0]}G floor (${c.ladder[c.ladder.length-1][1]} dB).
+              Consider fewer/shorter spans, lower-loss fiber, Raman assist, or regeneration.
+            </div>
+          </div>`;
+          return;
+        }
+        const capPerFiber = (ch*r.rate/1000).toFixed(1);
+        const cl = bandGHz>=9600 ? ' <span style="font-size:11px;color:var(--text-faint)">(C+L, both bands filled)</span>' : '';
+        cardsHTML += `
+        <div class="bom-card">
+          <header>
+            <h3>${c.name} <span style="font-weight:400;font-size:11px;color:var(--text-faint)">${c.engine}</span></h3>
+            <span class="count" style="background:#DFF4F1;color:#0A6E62">${r.rate}G / λ</span>
+          </header>
+          <div style="padding:12px 16px;font-size:13px">
+            <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border)">
+              <span>Max line rate / wavelength</span><b>${r.rate} Gb/s</b></div>
+            <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border)">
+              <span>Modulation (est.)</span><span style="color:var(--text-muted)">${r.mod}</span></div>
+            <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border)">
+              <span>Req. OSNR at this rate</span><span>${r.req} dB &nbsp;<span style="color:var(--text-faint);font-size:11px">(margin ${(L.osnr-r.req).toFixed(1)} dB)</span></span></div>
+            <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border)">
+              <span>Per module (2 λ)</span><b>${(r.rate*2/1000).toFixed(1)} Tb/s</b></div>
+            <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border)">
+              <span>Channels in ${bandName}</span><span>${ch} λ @ ${r.slot||slot} GHz</span></div>
+            <div style="display:flex;justify-content:space-between;padding:7px 0 2px;font-size:15px">
+              <span style="font-weight:600">Total fiber capacity</span><b style="color:var(--nokia-blue-deep)">${capPerFiber} Tb/s${cl}</b></div>
+          </div>
+        </div>`;
+      });
+      $('x-cards').innerHTML = cardsHTML;
+
+      // Recommendation
+      let reco = '';
+      if (cardMode==='both' && results.CHM6 && results.CHM7){
+        const win = results.CHM7.total >= results.CHM6.total ? 'CHM7' : 'CHM6';
+        const alt = win==='CHM7' ? 'CHM6' : 'CHM7';
+        reco = `<div class="span-info" style="background:#EAF3FF;border-left:3px solid var(--nokia-blue)">
+          <strong>Recommendation — ${win}</strong>: carries ${results[win].rate}G/λ →
+          ${results[win].total.toFixed(1)} Tb/s per fiber vs ${results[alt].rate}G/λ →
+          ${results[alt].total.toFixed(1)} Tb/s on ${alt}.
+          ${win==='CHM7'
+            ? 'CHM7 (ICE-7) is the higher-capacity pick; CHM6 remains the lower-cost option if its rate already meets the demand.'
+            : 'At this reach CHM6 matches or beats CHM7 per-λ and is typically lower cost — CHM7 only pays off where its extra rate is usable.'}
+          </div>`;
+      } else if (cardMode==='both'){
+        const ok = results.CHM6 ? 'CHM6' : (results.CHM7 ? 'CHM7' : null);
+        reco = ok
+          ? `<div class="span-info" style="background:#EAF3FF;border-left:3px solid var(--nokia-blue)"><strong>Only ${ok} reaches this link.</strong></div>`
+          : `<div class="span-info" style="background:#FDECEA;border-left:3px solid #C0392B"><strong>Neither engine reaches this link unregenerated</strong> — add Raman, use G.654.E, shorten spans, or plan a regen site.</div>`;
+      }
+      $('x-reco').innerHTML = reco;
+
+      // Reasoning / assumptions panel
+      $('x-reason').innerHTML = `
+        <h4 style="margin:0 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--nokia-blue-deep)">How this is computed &amp; what to trust</h4>
+        <p style="margin:0 0 8px"><b>OSNR link budget:</b>
+          OSNR(dB) = 58 + P<sub>ch</sub> − L<sub>span</sub> − NF − 10·log₁₀(N<sub>spans</sub>) − margin.
+          Reference constant 58 is the 0.1 nm noise reference at 1550 nm; N<sub>spans</sub> = ⌈distance ÷ span⌉;
+          L<sub>span</sub> = span × fiber loss. This is an EDFA-only, identical-span approximation.</p>
+        <p style="margin:0 0 8px"><b>Rate selection:</b> each engine has a required-OSNR ladder (higher modulation → higher rate → more OSNR).
+          The advisor picks the highest rate whose required OSNR ≤ the link OSNR. Modulation labels are indicative
+          (real cards use continuous probabilistic constellation shaping, so exact formats vary by tier).</p>
+        <p style="margin:0 0 8px"><b>Capacity:</b> channels = ⌊band ÷ slot⌋ where slot ≈ baud × 1.15 on the 12.5 GHz flexgrid
+          (CHM6 ${slotGHz(96)} GHz, CHM7 ${slotGHz(140)} GHz). Total = channels × per-λ rate. C+L bands assume both halves filled.</p>
+        <p style="margin:0;padding:8px 10px;background:#FFF4D6;border-radius:6px;color:#8A6700">
+          <b>⚠ ESTIMATE — pre-sales sizing only.</b> The reach ladder is calibrated to Nokia/Infinera published anchors
+          (ICE-6 800G ~730–1000 km, 600G &gt;1600 km, 400G transoceanic; ICE-7 1.2T short-reach, 800G ~3000 km) but does
+          <b>not</b> model Raman gain, nonlinear penalties, ROADM/filter cascade, PMD/PDL, or per-subcarrier tuning.
+          Confirm firm reach with the Nokia WaveLogic / Infinera GNPy planning tool before quoting.</p>`;
+    }
+
+    // Re-render on any input change
+    ['x-dist','x-span','x-fiber','x-band','x-nf','x-pch','x-margin'].forEach(id=>{
+      const el = $(id); if (el){ el.addEventListener('input', xrender); el.addEventListener('change', xrender); }
+    });
+    xrender();
+  })();
+  </script>
+
+</body>
+</html>

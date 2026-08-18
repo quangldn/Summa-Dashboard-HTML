@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SUMMA · HS Portfolio</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root {
+  --nokia-blue: #124191;
+  --nokia-blue-deep: #001F5F;
+  --nokia-blue-light: #2E5BB8;
+  --accent: #00C4B3;
+  --bg: #F6F7FB;
+  --surface: #FFFFFF;
+  --surface-2: #F0F2F8;
+  --border: #E1E5EE;
+  --text: #1A1F36;
+  --text-muted: #5A6072;
+  --text-faint: #8A92A6;
+  --ready: #1FA663;
+  --ready-bg: #E6F6EE;
+  --roadmap: #E8A317;
+  --roadmap-bg: #FBF1D9;
+  --passive: #8A92A6;
+  --passive-bg: #ECEEF3;
+  --shadow-sm: 0 1px 2px rgba(18,65,145,0.06);
+  --shadow-md: 0 4px 12px rgba(18,65,145,0.08);
+  --shadow-lg: 0 10px 30px rgba(18,65,145,0.12);
+  --radius: 10px;
+  --radius-sm: 6px;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 14.5px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+.topbar {
+  background: var(--nokia-blue-deep);
+  color: #fff;
+  padding: 12px 28px;
+  display: flex; align-items: center; justify-content: space-between;
+  box-shadow: var(--shadow-md);
+}
+.topbar .brand {
+  display: flex; align-items: baseline; gap: 10px;
+  font-weight: 700; letter-spacing: 0.5px; font-size: 17px;
+}
+.topbar .brand .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); display: inline-block; transform: translateY(-1px); }
+.topbar .brand .sub { font-weight: 400; color: rgba(255,255,255,0.7); font-size: 13px; }
+.container { max-width: 1320px; margin: 0 auto; padding: 24px 28px 40px; }
+
+/* Hero stats */
+.hero { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 14px; margin-bottom: 22px; align-items: stretch; }
+.hero .title {
+  background: linear-gradient(135deg, var(--nokia-blue-deep) 0%, var(--nokia-blue) 100%);
+  color: #fff; border-radius: var(--radius); padding: 18px 22px;
+  box-shadow: var(--shadow-md);
+}
+.hero .title h1 { font-size: 22px; margin: 0 0 4px 0; letter-spacing: -0.2px; }
+.hero .title p { margin: 0; color: rgba(255,255,255,0.85); font-size: 13.5px; }
+.hero .stat {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 14px 16px; box-shadow: var(--shadow-sm);
+  display: flex; flex-direction: column; justify-content: center;
+}
+.hero .stat .v { font-size: 26px; font-weight: 700; color: var(--nokia-blue-deep); line-height: 1.1; }
+.hero .stat .l { font-size: 11.5px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; margin-top: 2px; }
+.hero .stat .sub { font-size: 12px; color: var(--text-faint); margin-top: 2px; }
+.hero .stat.ready .v { color: var(--ready); }
+.hero .stat.roadmap .v { color: var(--roadmap); }
+
+/* Filters */
+.filters {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 14px 18px; box-shadow: var(--shadow-sm); margin-bottom: 20px;
+  display: flex; flex-wrap: wrap; gap: 14px 20px; align-items: center;
+}
+.filters .grp { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.filters .grp-label {
+  font-size: 11px; font-weight: 700; color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.7px; margin-right: 4px;
+}
+.chip {
+  background: var(--surface-2); color: var(--text); border: 1px solid var(--border);
+  border-radius: 999px; padding: 4px 11px; font-size: 12.5px; cursor: pointer;
+  user-select: none; transition: all 0.15s ease; font-weight: 500;
+}
+.chip:hover { border-color: var(--nokia-blue); }
+.chip.active { background: var(--nokia-blue); color: #fff; border-color: var(--nokia-blue); }
+.chip.toggle.off { opacity: 0.55; text-decoration: line-through; }
+.chip.reset {
+  background: transparent; border: 1px dashed var(--border); color: var(--text-muted);
+  font-size: 11.5px;
+}
+
+/* Panel */
+.panel {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 18px 22px; box-shadow: var(--shadow-sm); margin-bottom: 20px;
+}
+.panel h2 {
+  font-size: 16px; font-weight: 700; color: var(--nokia-blue-deep);
+  margin: 0 0 4px 0; letter-spacing: -0.1px;
+}
+.panel .sub {
+  color: var(--text-muted); font-size: 12.5px; margin-bottom: 14px;
+}
+
+/* Quadrant SVG + toolbar */
+.qtoolbar {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+  padding: 6px 10px; background: var(--surface-2); border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+.qtoolbar .btn {
+  background: var(--surface); border: 1px solid var(--border);
+  color: var(--text); padding: 4px 10px; border-radius: 5px;
+  font-size: 12px; cursor: pointer; user-select: none; font-weight: 600;
+  display: inline-flex; align-items: center; gap: 4px;
+  transition: all 0.12s ease;
+}
+.qtoolbar .btn:hover { border-color: var(--nokia-blue); color: var(--nokia-blue); }
+.qtoolbar .btn:active { transform: translateY(1px); }
+.qtoolbar .zoomlevel {
+  font-size: 11.5px; color: var(--text-muted); padding: 0 8px;
+  font-variant-numeric: tabular-nums; min-width: 50px; text-align: center;
+}
+.qtoolbar .hint {
+  font-size: 11.5px; color: var(--text-faint); margin-left: auto;
+  font-style: italic;
+}
+.qtoolbar .hint kbd {
+  background: var(--surface); padding: 1px 5px; border-radius: 3px;
+  border: 1px solid var(--border); font-size: 10.5px;
+  font-family: -apple-system, sans-serif; color: var(--text-muted);
+}
+
+#quadrantWrap {
+  width: 100%; border: 1px solid var(--border); border-radius: var(--radius-sm);
+  background: linear-gradient(0deg, #FAFBFD, #FFFFFF);
+  overflow: hidden;
+  position: relative;
+}
+#quadrant {
+  width: 100%; height: 640px; display: block;
+  cursor: grab; touch-action: none;
+}
+#quadrant.panning { cursor: grabbing; }
+#quadrant.dragging-pn { cursor: grabbing; }
+#quadrant text { font-family: inherit; }
+.qaxis { stroke: var(--text-muted); stroke-width: 1.5; }
+.qaxis-fine { stroke: var(--border); stroke-width: 1; stroke-dasharray: 4 4; }
+.qaxis-divider { stroke: var(--nokia-blue); stroke-width: 2; opacity: 0.4; }
+.qlabel { fill: var(--text-muted); font-size: 11px; font-weight: 600; letter-spacing: 0.4px; text-transform: uppercase; }
+.qzone { fill: var(--text-faint); font-size: 11.5px; font-style: italic; opacity: 0.7; }
+.qaxis-title { fill: var(--text); font-size: 12.5px; font-weight: 700; }
+.qstrip-title { fill: var(--nokia-blue-deep); font-size: 12px; font-weight: 700; letter-spacing: 0.4px; }
+.pn-dot {
+  cursor: grab;
+  transition: filter 0.12s ease;
+}
+.pn-dot:hover { filter: brightness(1.15) drop-shadow(0 2px 4px rgba(0,31,95,0.3)); }
+.pn-dot:active { cursor: grabbing; }
+.pn-dot.dragging { filter: brightness(1.2) drop-shadow(0 4px 8px rgba(0,31,95,0.4)); }
+.pn-label { font-size: 9.5px; fill: var(--text); pointer-events: none; font-weight: 500; }
+.pn-grp.dim { opacity: 0.15; }
+
+/* Tooltip */
+#tooltip {
+  position: fixed; pointer-events: none;
+  background: rgba(0,31,95,0.97); color: #fff;
+  padding: 8px 12px; border-radius: 6px; font-size: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  max-width: 300px; line-height: 1.45; z-index: 100;
+  opacity: 0; transition: opacity 0.12s ease;
+}
+#tooltip.show { opacity: 1; }
+#tooltip .tt-pn { font-weight: 700; font-size: 13px; margin-bottom: 3px; }
+#tooltip .tt-row { font-size: 11.5px; opacity: 0.92; }
+#tooltip .tt-row b { color: var(--accent); font-weight: 600; }
+
+/* Legend */
+.legend { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 10px; font-size: 12px; color: var(--text-muted); }
+.legend .item { display: flex; align-items: center; gap: 6px; }
+.legend .swatch { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 16px; }
+
+/* Matrix */
+.matrix-wrap { overflow-x: auto; }
+.matrix {
+  width: 100%; border-collapse: separate; border-spacing: 0;
+  min-width: 960px;
+}
+.matrix th, .matrix td {
+  border: 1px solid var(--border); padding: 8px 10px; vertical-align: top;
+  background: var(--surface);
+}
+.matrix th {
+  background: var(--nokia-blue-deep); color: #fff;
+  font-size: 11.5px; font-weight: 600; letter-spacing: 0.4px;
+  text-transform: uppercase; text-align: center; vertical-align: middle;
+  padding: 10px 8px;
+}
+.matrix th.row-h { background: var(--surface-2); color: var(--nokia-blue-deep); text-align: left; padding-left: 14px; }
+.matrix th.chassis-col { background: var(--nokia-blue); }
+.matrix td { min-width: 120px; height: 60px; }
+.matrix td.empty { background: #FAFBFD; }
+.matrix td.chassis-cell { background: #F4F7FB; }
+.matrix .pn-chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: var(--ready-bg); color: var(--text); border-radius: 5px;
+  padding: 2px 7px; font-size: 11px; margin: 2px 3px 2px 0;
+  border: 1px solid transparent; font-weight: 500;
+  cursor: pointer; transition: all 0.12s ease;
+}
+.matrix .pn-chip:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+.matrix .pn-chip.roadmap { background: var(--roadmap-bg); }
+.matrix .pn-chip.passive { background: var(--passive-bg); }
+.matrix .pn-chip .mra-badge {
+  background: var(--nokia-blue); color: #fff; border-radius: 3px;
+  font-size: 9px; padding: 0 3px; font-weight: 700; letter-spacing: 0.3px;
+}
+.matrix .pn-chip .uni-badge {
+  background: var(--text-muted); color: #fff; border-radius: 3px;
+  font-size: 9px; padding: 0 3px; font-weight: 700;
+}
+.matrix .pn-chip .both-badge {
+  background: var(--accent); color: #001F5F; border-radius: 3px;
+  font-size: 9px; padding: 0 3px; font-weight: 700;
+}
+
+/* Topbar nav (matches other Summa pages) */
+.topbar nav a {
+  color: rgba(255,255,255,0.85);
+  margin-left: 22px; font-size: 14px; font-weight: 500;
+  text-decoration: none;
+}
+.topbar nav a:hover { color: #fff; }
+.topbar nav a.active {
+  color: #fff;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 4px;
+}
+
+/* Anchor jump nav */
+.anchor-nav {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 18px;
+  margin-bottom: 18px;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  box-shadow: var(--shadow-sm);
+  font-size: 13px;
+}
+.anchor-nav .label {
+  color: var(--text-muted); font-weight: 600; font-size: 11.5px;
+  text-transform: uppercase; letter-spacing: 0.5px; margin-right: 4px;
+}
+.anchor-nav a {
+  text-decoration: none; color: var(--nokia-blue);
+  background: var(--surface-2); border: 1px solid var(--border);
+  padding: 6px 14px; border-radius: 999px; font-weight: 600;
+  transition: all 0.15s ease;
+}
+.anchor-nav a:hover {
+  background: var(--nokia-blue); color: #fff; border-color: var(--nokia-blue);
+}
+.anchor-nav .sep { color: var(--text-faint); margin: 0 4px; }
+
+/* Section anchor offset for sticky topbar */
+section[id] { scroll-margin-top: 80px; }
+
+/* Band-shape legend block */
+.shape-legend {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin-top: 10px;
+  display: flex; flex-wrap: wrap; gap: 14px;
+  font-size: 12px; color: var(--text-muted);
+}
+.shape-legend .title {
+  font-size: 11px; font-weight: 700; color: var(--text);
+  text-transform: uppercase; letter-spacing: 0.5px; margin-right: 4px;
+}
+.shape-legend .item { display: inline-flex; align-items: center; gap: 6px; }
+.shape-legend .swatch { display: inline-flex; width: 22px; height: 16px; align-items: center; justify-content: center; }
+
+/* === Portfolio detail table === */
+.port-section { margin-bottom: 26px; }
+.port-section-head {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--nokia-blue-deep); color: #fff;
+  padding: 10px 16px; border-radius: var(--radius) var(--radius) 0 0;
+  font-size: 13px; font-weight: 600; letter-spacing: 0.4px;
+}
+.port-section-count {
+  background: var(--accent); color: var(--nokia-blue-deep);
+  padding: 2px 10px; border-radius: 12px;
+  font-size: 11px; font-weight: 700;
+}
+.portfolio-table {
+  width: 100%; border-collapse: collapse;
+  background: var(--surface); border: 1px solid var(--border);
+  border-top: 0;
+  border-radius: 0 0 var(--radius) var(--radius); overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  font-size: 12.5px;
+}
+.portfolio-table thead th {
+  text-align: left; padding: 8px 12px; font-weight: 600;
+  color: var(--text-faint); text-transform: uppercase; font-size: 10px;
+  letter-spacing: 0.6px; border-bottom: 1px solid var(--border);
+  background: var(--surface-2);
+}
+.portfolio-table tbody td {
+  padding: 8px 12px; border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.portfolio-table tbody tr:last-child td { border-bottom: 0; }
+.portfolio-table tbody tr:hover { background: #FAFBFE; }
+.portfolio-table .pn {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 12px; color: var(--nokia-blue); font-weight: 600; white-space: nowrap;
+}
+.portfolio-table .fn { color: var(--text-muted); font-size: 12px; }
+.portfolio-table code {
+  background: var(--surface-2); color: var(--nokia-blue);
+  padding: 1px 6px; border-radius: 4px; font-size: 11px;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+}
+.portfolio-table .rel { font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+.portfolio-table .cap { font-size: 11px; color: var(--text-muted); }
+.portfolio-table .pw { font-size: 11px; }
+.portfolio-table .pw-typ { color: var(--nokia-blue-deep); font-weight: 600; }
+.portfolio-table .pw-max { color: var(--roadmap); font-weight: 600; }
+.portfolio-table .pw-passive { color: #0A6E62; font-size: 11px; font-style: italic; }
+.pw-tag { display: inline-block; font-size: 9px; padding: 1px 5px; border-radius: 8px; margin-left: 3px; font-weight: 700; vertical-align: middle; }
+.pw-tag.pw-est { background: #FFF4D6; color: #8A6700; }
+.pw-tag.pw-var { background: var(--surface-2); color: var(--text-muted); }
+.fam-full { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; background: #FFF4D6; color: #8A6700; font-weight: 600; }
+.fam-compact { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; background: #DFF4F1; color: #0A6E62; font-weight: 600; }
+.fam-any { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; background: var(--surface-2); color: var(--text-muted); font-weight: 600; }
+.hs-yes { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; background: #E0F4EB; color: #0A6E40; font-weight: 600; }
+.hs-no { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; background: #FBE5E5; color: #8A2020; font-weight: 600; }
+.bidi-yes { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 8px; background: #DFF4F1; color: #0A6E62; font-weight: 600; }
+.bidi-no { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 8px; background: #FFF4D6; color: #8A6700; font-weight: 600; }
+.legend-bar {
+  display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px;
+  padding: 10px 14px; background: var(--surface-2);
+  border-radius: var(--radius); font-size: 11px; color: var(--text-muted);
+}
+.legend-bar strong { color: var(--text); font-weight: 600; }
+
+/* Footer */
+.footer { padding: 18px 28px; text-align: center; color: var(--text-faint); font-size: 12px; border-top: 1px solid var(--border); margin-top: 30px; }
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr 1fr; }
+  .hero .title { grid-column: span 2; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="dot"></span>
+    SUMMA
+    <span class="sub">Nokia ON · Sales Engineering Workbench</span>
+  </div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="portfolio.html" class="active">HS Portfolio</a>
+    <a href="mofn.html">MOFN Deck</a>
+    <a href="market-insight.html">Market Insight</a>
+  </nav>
+</header>
+
+<main class="container">
+
+  <!-- Anchor jump nav -->
+  <div class="anchor-nav">
+    <span class="label">Jump to</span>
+    <a href="#quadrant-view">↗ Quadrant view (summary)</a>
+    <a href="#detail-table">↗ Detail table (all 55 PNs)</a>
+    <span class="sep">·</span>
+    <span style="color:var(--text-faint);font-size:11.5px;">v3.2 · R9.1 readiness · source: HS Configurator v3.1.xlsx</span>
+  </div>
+
+  <!-- =================== Section 1: Quadrant View =================== -->
+  <section id="quadrant-view">
+
+  <!-- Hero & summary stats -->
+  <div class="hero">
+    <div class="title">
+      <h1>HS OLS Portfolio at a glance</h1>
+      <p>Shelves grouped on top · cards in 2×2 quadrant (Chassis length × FP capacity) · color = R9.1 readiness · drag · zoom · pan</p>
+    </div>
+    <div class="stat"><div class="v" id="stTotal">—</div><div class="l">Total PNs</div></div>
+    <div class="stat ready"><div class="v" id="stReady">—</div><div class="l">R9.1 GA Ready</div><div class="sub" id="stReadyPct"></div></div>
+    <div class="stat roadmap"><div class="v" id="stRoadmap">—</div><div class="l">Roadmap &gt; R9.1</div><div class="sub" id="stRoadmapPct"></div></div>
+    <div class="stat"><div class="v" id="stMra">—</div><div class="l">MRA 4-fiber</div><div class="sub" id="stMraPct"></div></div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters">
+    <div class="grp">
+      <span class="grp-label">Section</span>
+      <span class="chip toggle active" data-section="Term">Term node</span>
+      <span class="chip toggle active" data-section="ILA">ILA site</span>
+      <span class="chip toggle active" data-section="Both">Term + ILA</span>
+    </div>
+    <div class="grp">
+      <span class="grp-label">Category</span>
+      <span id="catChips"></span>
+    </div>
+    <div class="grp">
+      <span class="grp-label">Readiness</span>
+      <span class="chip toggle active" data-ready="ready">R9.1 GA</span>
+      <span class="chip toggle active" data-ready="roadmap">Roadmap &gt;R9.1</span>
+      <span class="chip toggle active" data-ready="passive">Passive / no release</span>
+    </div>
+    <div class="grp">
+      <span class="grp-label">Form</span>
+      <span class="chip toggle active" data-mra="single">Single Rail</span>
+      <span class="chip toggle active" data-mra="mra">MRA 4-fiber</span>
+    </div>
+    <div class="grp" style="margin-left:auto;">
+      <span class="chip reset" id="resetBtn">Reset filters</span>
+    </div>
+  </div>
+
+  <!-- Quadrant chart -->
+  <div class="panel">
+    <h2>Interactive Quadrant — Shelves + Cards</h2>
+    <div class="sub">Top strip = chassis (Compact 300mm · Full 700mm). Bottom = 2×2 card quadrant (Chassis length × FP capacity). Color = R9.1 readiness · solid border = BIDI · dashed = uni-directional · shapes group bands.</div>
+
+    <div class="qtoolbar">
+      <span class="btn" id="zoomInBtn" title="Zoom in (or scroll wheel)">＋ Zoom in</span>
+      <span class="btn" id="zoomOutBtn" title="Zoom out">－ Zoom out</span>
+      <span class="zoomlevel" id="zoomLevel">100%</span>
+      <span class="btn" id="resetViewBtn" title="Reset zoom, pan and PN positions">↺ Reset view</span>
+      <span class="hint">
+        <kbd>scroll</kbd> zoom · <kbd>drag bg</kbd> pan · <kbd>drag dot</kbd> move PN (saved) · Reset View clears all
+      </span>
+    </div>
+
+    <div id="quadrantWrap">
+      <svg id="quadrant" viewBox="0 0 1240 640" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+
+    <div class="legend">
+      <div class="item"><span class="swatch"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="#1FA663"/></svg></span> R9.1 GA</div>
+      <div class="item"><span class="swatch"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="#E8A317"/></svg></span> Roadmap &gt; R9.1</div>
+      <div class="item"><span class="swatch"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="#8A92A6"/></svg></span> Passive / no release</div>
+      <div class="item"><span class="swatch"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="#1FA663" stroke="#001F5F" stroke-width="2"/></svg></span> BIDI</div>
+      <div class="item"><span class="swatch"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="#1FA663" stroke="#001F5F" stroke-width="2" stroke-dasharray="2 1.5"/></svg></span> Uni-directional</div>
+      <div class="item"><span class="swatch"><svg width="22" height="16"><polygon points="11,3 19,13 3,13" fill="#5A6072"/></svg></span> MRA (4 FP)</div>
+      <div class="item"><span class="swatch"><svg width="22" height="16"><circle cx="11" cy="8" r="5.5" fill="#5A6072"/></svg></span> Single Rail (1 FP)</div>
+    </div>
+
+    <!-- BAND SHAPE LEGEND -->
+    <div class="shape-legend">
+      <span class="title">Band shape</span>
+      <span class="item"><span class="swatch"><svg width="22" height="16"><rect x="3" y="3" width="10" height="10" fill="#5A6072" rx="1.5"/></svg></span> ⬛ Shelf (chassis)</span>
+      <span class="item"><span class="swatch"><svg width="22" height="16"><polygon points="11,2 19.5,7 17,15 5,15 2.5,7" fill="#5A6072"/></svg></span> ⬢ Band-agnostic</span>
+      <span class="item"><span class="swatch"><svg width="22" height="16"><circle cx="11" cy="8" r="5.5" fill="#5A6072"/></svg></span> ● Std C (N / C)</span>
+      <span class="item"><span class="swatch"><svg width="22" height="16"><polygon points="11,2 18,14 4,14" fill="#5A6072"/></svg></span> ▲ Super C (W / X)</span>
+      <span class="item"><span class="swatch"><svg width="22" height="16"><polygon points="11,14 18,2 4,2" fill="#5A6072"/></svg></span> ▼ L-band</span>
+      <span class="item"><span class="swatch"><svg width="22" height="16"><polygon points="11,2 18,7 15,14 7,14 4,7" fill="#5A6072"/></svg></span> ⬠ Std C+L (Z)</span>
+      <span class="item"><span class="swatch"><svg width="22" height="16"><polygon points="11,2 13,7 18,7 14,10 16,15 11,12 6,15 8,10 4,7 9,7" fill="#5A6072"/></svg></span> ★ Super C+L (Y)</span>
+    </div>
+  </div>
+
+  <!-- Band × Chassis matrix -->
+  <div class="panel">
+    <h2>Band × Chassis matrix</h2>
+    <div class="sub">Rows = chassis family. Leftmost <strong>Chassis</strong> column groups the shelves themselves; rest of the columns are card bands. PN chips colored by R9.1 readiness · <span style="background:var(--nokia-blue);color:#fff;padding:1px 4px;border-radius:3px;font-size:10px;">MRA</span> = 4-fiber · <span style="background:var(--text-muted);color:#fff;padding:1px 4px;border-radius:3px;font-size:10px;">UNI</span> = uni-directional · <span style="background:var(--accent);color:#001F5F;padding:1px 4px;border-radius:3px;font-size:10px;">T+I</span> = shelf used both Term and ILA-side.</div>
+    <div class="matrix-wrap">
+      <table class="matrix" id="matrix"></table>
+    </div>
+  </div>
+
+  </section>
+  <!-- END quadrant-view -->
+
+  <!-- =================== Section 2: Detail Table =================== -->
+  <section id="detail-table">
+
+    <div class="panel">
+      <h2>Nokia Hyperscaler Portfolio — full catalog
+        <span style="font-size:13px;font-weight:400;color:var(--text-muted);margin-left:10px">
+          55 parts · 1830 GX OLS · sourced from HS Configurator v3.1.xlsx
+        </span>
+      </h2>
+
+      <div class="legend-bar">
+        <span><strong>Family</strong>: <span class="fam-full">full</span> = G31/G32/G32E/G34L (700 mm) · <span class="fam-compact">compact</span> = G34c/G32c/G38c (300 mm) · <span class="fam-any">any</span> = passive (OMD)</span>
+        <span><strong>Power</strong>: typ@25°C / max@40°C · <span class="pw-tag pw-est">est</span> = estimate · <span class="pw-tag pw-var">var</span> = inherits sibling variant</span>
+        <span><strong>Direction</strong>: <span class="bidi-yes">BIDI</span> = 1 card per FP · <span class="bidi-no">uni-dir ×2</span> = 1 card per direction (×2 per FP)</span>
+      </div>
+
+      <!-- PORTFOLIO_AUTO_GENERATED (regenerate from HS Configurator v3.1.xlsx Catalog sheet) -->
+<div class="port-section">
+  <div class="port-section-head"><span class="port-section-count">4</span><span>Term · Chassis (Full 700mm — fits G-/H-/R-prefix cards)</span></div>
+  <table class="portfolio-table">
+    <thead><tr><th>PN</th><th>Function</th><th>Band</th><th>Family</th><th>Release</th><th>Form factor</th><th>Power (W typ / max@40)</th><th>HS</th></tr></thead>
+    <tbody>
+      <tr><td class="pn">G31</td><td class="fn">Chassis</td><td><code>-*</code></td><td><span class="fam-full">full</span></td><td class="rel"></td><td class="cap">1U 700mm fpCap=4 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">120</span> / <span class="pw-max">300</span> W</td><td class="hs"><span class="hs-no">No - Single Controller</span></td></tr>
+      <tr><td class="pn">G32</td><td class="fn">Chassis</td><td><code>-*</code></td><td><span class="fam-full">full</span></td><td class="rel"></td><td class="cap">2U 700mm fpCap=4 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">176</span> / <span class="pw-max">382</span> W</td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G32E</td><td class="fn">Chassis</td><td><code>-*</code></td><td><span class="fam-full">full</span></td><td class="rel">R8.1</td><td class="cap">2U 700mm fpCap=4 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">176</span> / <span class="pw-max">382</span> W <span class="pw-tag pw-var">var</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G34L</td><td class="fn">Chassis</td><td><code>-L</code></td><td><span class="fam-full">full</span></td><td class="rel">R9.2 tbc</td><td class="cap">4U 700mm fpCap=4 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">200</span> / <span class="pw-max">420</span> W <span class="pw-tag pw-est">est</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+    </tbody></table></div>
+<div class="port-section">
+  <div class="port-section-head"><span class="port-section-count">7</span><span>Term · OMD (Mux, passive)</span></div>
+  <table class="portfolio-table">
+    <thead><tr><th>PN</th><th>Function</th><th>Band</th><th>Family</th><th>Release</th><th>Form factor</th><th>Power (W typ / max@40)</th><th>HS</th></tr></thead>
+    <tbody>
+      <tr><td class="pn">GQS-OMD32EZZ-N0</td><td class="fn">OMD · 32 ch</td><td><code>-N</code></td><td><span class="fam-any">any</span></td><td class="rel"></td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-passive">passive · 0 W</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">GQS-OMD40EZZ-X0</td><td class="fn">OMD · 40 ch</td><td><code>-X</code></td><td><span class="fam-any">any</span></td><td class="rel"></td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-passive">passive · 0 W</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">GQS-OMD42EZZ-N0</td><td class="fn">OMD · 42 ch</td><td><code>-N</code></td><td><span class="fam-any">any</span></td><td class="rel"></td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-passive">passive · 0 W</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">GQS-OMD42EZZ-L0</td><td class="fn">OMD · 42 ch</td><td><code>-L</code></td><td><span class="fam-any">any</span></td><td class="rel"></td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-passive">passive · 0 W</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">GQS-OMD48EZZ-00</td><td class="fn">OMD · 48 ch</td><td><code>-0</code></td><td><span class="fam-any">any</span></td><td class="rel"></td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-passive">passive · 0 W</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">GQS-OMD64ZZZ-00</td><td class="fn">OMD · 64 ch</td><td><code>-0</code></td><td><span class="fam-any">any</span></td><td class="rel"></td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-passive">passive · 0 W</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">GQS-OMD64SZZ-C0</td><td class="fn">OMD · 64 ch</td><td><code>-C</code></td><td><span class="fam-any">any</span></td><td class="rel"></td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-passive">passive · 0 W</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+    </tbody></table></div>
+<div class="port-section">
+  <div class="port-section-head"><span class="port-section-count">2</span><span>Control</span></div>
+  <table class="portfolio-table">
+    <thead><tr><th>PN</th><th>Function</th><th>Band</th><th>Family</th><th>Release</th><th>Form factor</th><th>Power (W typ / max@40)</th><th>HS</th></tr></thead>
+    <tbody>
+      <tr><td class="pn">GLS-G30OCC2T-00</td><td class="fn">OCC</td><td><code>-0</code></td><td><span class="fam-full">full</span></td><td class="rel">R6.0</td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">20</span> / <span class="pw-max">25</span> W</td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G3S-C2OCC2EZ-00</td><td class="fn">OCC</td><td><code>-0</code></td><td><span class="fam-compact">compact</span></td><td class="rel">R6.0</td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">15</span> / <span class="pw-max">20</span> W</td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+    </tbody></table></div>
+<div class="port-section">
+  <div class="port-section-head"><span class="port-section-count">7</span><span>Term · ROADM (full-chassis, G/H prefix)</span></div>
+  <table class="portfolio-table">
+    <thead><tr><th>PN</th><th>Function</th><th>Band</th><th>Family</th><th>Release</th><th>Form factor</th><th>Power (W typ / max@40)</th><th>HS</th></tr></thead>
+    <tbody>
+      <tr><td class="pn">G3S-G2RD09SM-N1</td><td class="fn">ROADM · EDFA · 9-deg</td><td><code>-N</code></td><td><span class="fam-full">full</span></td><td class="rel">R6.0</td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">80</span> / <span class="pw-max">100</span> W</td><td class="hs"><span class="hs-no">No</span></td></tr>
+      <tr><td class="pn">G3S-G2RD20TM-N0</td><td class="fn">ROADM · EDFA · 20-deg</td><td><code>-N</code></td><td><span class="fam-full">full</span></td><td class="rel">R6.0</td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">70</span> / <span class="pw-max">100</span> W</td><td class="hs"><span class="hs-no">No</span></td></tr>
+      <tr><td class="pn">G3S-G3RD32TH-X0</td><td class="fn">ROADM · 32-deg</td><td><code>-X</code></td><td><span class="fam-full">full</span></td><td class="rel">R7.0</td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">93</span> / <span class="pw-max">130</span> W</td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G3S-G3RD32TH-L0</td><td class="fn">ROADM · 32-deg</td><td><code>-L</code></td><td><span class="fam-full">full</span></td><td class="rel">R10.0</td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">93</span> / <span class="pw-max">130</span> W <span class="pw-tag pw-var">var</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">RD66Tx-Z0</td><td class="fn">ROADM · EDFA · 66-deg</td><td><code>-Z</code></td><td><span class="fam-full">full</span></td><td class="rel">R8.1</td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">185</span> / <span class="pw-max">255</span> W <span class="pw-tag pw-var">var</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G3S-H3RD66TM-Z0</td><td class="fn">ROADM · 66-deg</td><td><code>-Z</code></td><td><span class="fam-full">full</span></td><td class="rel">R8.1</td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">185</span> / <span class="pw-max">255</span> W</td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G3S-H3RD66TH-Z0</td><td class="fn">ROADM · 66-deg</td><td><code>-Z</code></td><td><span class="fam-full">full</span></td><td class="rel">R9.0</td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">185</span> / <span class="pw-max">255</span> W <span class="pw-tag pw-var">var</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+    </tbody></table></div>
+<div class="port-section">
+  <div class="port-section-head"><span class="port-section-count">4</span><span>Term · CAD/CDC mux (HS no need)</span></div>
+  <table class="portfolio-table">
+    <thead><tr><th>PN</th><th>Function</th><th>Band</th><th>Family</th><th>Release</th><th>Form factor</th><th>Power (W typ / max@40)</th><th>HS</th></tr></thead>
+    <tbody>
+      <tr><td class="pn">G3S-G1CAD10A-W0</td><td class="fn">CAD-CDC</td><td><code>-W</code></td><td><span class="fam-full">full</span></td><td class="rel">R6.0</td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">24</span> / <span class="pw-max">30</span> W</td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G3S-G1CAD10A-L0</td><td class="fn">CAD-CDC</td><td><code>-L</code></td><td><span class="fam-full">full</span></td><td class="rel">TBD</td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">24</span> / <span class="pw-max">30</span> W <span class="pw-tag pw-var">var</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G3S-G1CDC8D6-Y0</td><td class="fn">CAD-CDC</td><td><code>-Y</code></td><td><span class="fam-full">full</span></td><td class="rel">R6.0</td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">8.9</span> / <span class="pw-max">9.6</span> W</td><td class="hs"><span class="hs-no">No - HS no need CDC</span></td></tr>
+      <tr><td class="pn">G3S-G2CD34ZZ-Y0</td><td class="fn">CAD-CDC</td><td><code>-Y</code></td><td><span class="fam-full">full</span></td><td class="rel">TBD</td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">10</span> / <span class="pw-max">12</span> W <span class="pw-tag pw-est">est</span></td><td class="hs"><span class="hs-no">No - HS no need CDC</span></td></tr>
+    </tbody></table></div>
+<div class="port-section">
+  <div class="port-section-head"><span class="port-section-count">11</span><span>Term · Amps/Boosters (full chassis)</span></div>
+  <table class="portfolio-table">
+    <thead><tr><th>PN</th><th>Function</th><th>Band</th><th>Family</th><th>Release</th><th>Form factor</th><th>Power (W typ / max@40)</th><th>HS</th></tr></thead>
+    <tbody>
+      <tr><td class="pn">G3S-G2PBALZZ-N0</td><td class="fn">EDFA booster · EDFA</td><td><code>-N</code></td><td><span class="fam-full">full</span></td><td class="rel">R9.1</td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">33</span> / <span class="pw-max">80</span> W <span class="pw-tag pw-est">est</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G3S-G1RPBMZZ-W0</td><td class="fn">Raman booster · Raman</td><td><code>-W</code></td><td><span class="fam-full">full</span></td><td class="rel">R6.0</td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">33</span> / <span class="pw-max">80</span> W</td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G3S-G1RPBMZZ-W1</td><td class="fn">Raman booster · Raman</td><td><code>-W</code></td><td><span class="fam-full">full</span></td><td class="rel">R7.2</td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">33</span> / <span class="pw-max">80</span> W <span class="pw-tag pw-var">var</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G3S-G1RPBMZZ-W2</td><td class="fn">Raman booster · Raman</td><td><code>-W</code></td><td><span class="fam-full">full</span></td><td class="rel">R9.0</td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">33</span> / <span class="pw-max">80</span> W <span class="pw-tag pw-var">var</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G3S-G1RPBMZZ-Y0</td><td class="fn">Raman booster · Raman</td><td><code>-Y</code></td><td><span class="fam-full">full</span></td><td class="rel">R7.1</td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">35</span> / <span class="pw-max">80</span> W</td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G3S-G1RPBMZZ-Y1</td><td class="fn">Raman booster · Raman</td><td><code>-Y</code></td><td><span class="fam-full">full</span></td><td class="rel">R7.2</td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">35</span> / <span class="pw-max">80</span> W <span class="pw-tag pw-var">var</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G3S-G1RPBMZZ-Y2</td><td class="fn">Raman booster · Raman</td><td><code>-Y</code></td><td><span class="fam-full">full</span></td><td class="rel">R9.0</td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">35</span> / <span class="pw-max">80</span> W <span class="pw-tag pw-var">var</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G3S-G1OTSCHZ-Y0</td><td class="fn">OTSCH</td><td><code>-Y</code></td><td><span class="fam-full">full</span></td><td class="rel">R9.2 tbc</td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">25</span> / <span class="pw-max">40</span> W <span class="pw-tag pw-est">est</span></td><td class="hs">Yes when Super C + Super L</td></tr>
+      <tr><td class="pn">G3S-G4ILA4SM-Z0</td><td class="fn">EDFA booster · EDFA</td><td><code>-Z</code></td><td><span class="fam-full">full</span></td><td class="rel">R9.1</td><td class="cap">fpCap=4 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">220</span> / <span class="pw-max">360</span> W <span class="pw-tag pw-est">est</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G3S-G2RPB4M-Y2</td><td class="fn">Raman booster · Raman</td><td><code>-Y</code></td><td><span class="fam-full">full</span></td><td class="rel">R10.1</td><td class="cap">fpCap=4 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">140</span> / <span class="pw-max">340</span> W <span class="pw-tag pw-est">est</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G3S-H4IRB4SG-Z2</td><td class="fn">Hybrid amp · Hybrid</td><td><code>-Z</code></td><td><span class="fam-full">full</span></td><td class="rel">R10.1</td><td class="cap">fpCap=4 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">250</span> / <span class="pw-max">400</span> W <span class="pw-tag pw-est">est</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+    </tbody></table></div>
+<div class="port-section">
+  <div class="port-section-head"><span class="port-section-count">3</span><span>ILA · Chassis (Compact 300mm — fits C-/D-prefix cards)</span></div>
+  <table class="portfolio-table">
+    <thead><tr><th>PN</th><th>Function</th><th>Band</th><th>Family</th><th>Release</th><th>Form factor</th><th>Power (W typ / max@40)</th><th>HS</th></tr></thead>
+    <tbody>
+      <tr><td class="pn">G34c</td><td class="fn">Chassis</td><td><code>-*</code></td><td><span class="fam-compact">compact</span></td><td class="rel">R6.0</td><td class="cap">4U 300mm fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">106</span> / <span class="pw-max">134</span> W</td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G32c</td><td class="fn">Chassis</td><td><code>-*</code></td><td><span class="fam-compact">compact</span></td><td class="rel">R10.0</td><td class="cap">2U 300mm fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">70</span> / <span class="pw-max">130</span> W <span class="pw-tag pw-est">est</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G38c</td><td class="fn">Chassis</td><td><code>-*</code></td><td><span class="fam-compact">compact</span></td><td class="rel">R10.0</td><td class="cap">3U 300mm fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">70</span> / <span class="pw-max">130</span> W <span class="pw-tag pw-est">est</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+    </tbody></table></div>
+<div class="port-section">
+  <div class="port-section-head"><span class="port-section-count">2</span><span>ILA · Chassis (Full 700mm — fits G-/H-prefix cards on ILA side)</span></div>
+  <table class="portfolio-table">
+    <thead><tr><th>PN</th><th>Function</th><th>Band</th><th>Family</th><th>Release</th><th>Form factor</th><th>Power (W typ / max@40)</th><th>HS</th></tr></thead>
+    <tbody>
+      <tr><td class="pn">G32E (ILA-side)</td><td class="fn">Chassis</td><td><code>-*</code></td><td><span class="fam-full">full</span></td><td class="rel">R8.1</td><td class="cap">2U 700mm fpCap=4 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">176</span> / <span class="pw-max">382</span> W <span class="pw-tag pw-var">var</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G34L (ILA-side)</td><td class="fn">Chassis</td><td><code>-L</code></td><td><span class="fam-full">full</span></td><td class="rel">R9.2 tbc</td><td class="cap">4U 700mm fpCap=4 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">200</span> / <span class="pw-max">420</span> W <span class="pw-tag pw-est">est</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+    </tbody></table></div>
+<div class="port-section">
+  <div class="port-section-head"><span class="port-section-count">5</span><span>ILA · EDFA amps (compact, BIDI — 1 card per FP per site)</span></div>
+  <table class="portfolio-table">
+    <thead><tr><th>PN</th><th>Function</th><th>Band</th><th>Family</th><th>Release</th><th>Form factor</th><th>Power (W typ / max@40)</th><th>HS</th></tr></thead>
+    <tbody>
+      <tr><td class="pn">G3S-C2ILASGH-X0</td><td class="fn">ILA EDFA · EDFA</td><td><code>-X</code></td><td><span class="fam-compact">compact</span></td><td class="rel">R6.0</td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">62</span> / <span class="pw-max">90</span> W</td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G3S-C2ILASGH-L0</td><td class="fn">ILA EDFA · EDFA</td><td><code>-L</code></td><td><span class="fam-compact">compact</span></td><td class="rel">R10.0</td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">62</span> / <span class="pw-max">90</span> W <span class="pw-tag pw-var">var</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G3S-D2ILASGM-Z0</td><td class="fn">ILA EDFA · EDFA</td><td><code>-Z</code></td><td><span class="fam-compact">compact</span></td><td class="rel">R8.1</td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">110</span> / <span class="pw-max">145</span> W</td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G3S-D2ILSGM-Z0</td><td class="fn">ILA EDFA · EDFA</td><td><code>-Z</code></td><td><span class="fam-compact">compact</span></td><td class="rel">R10.0</td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">88</span> / <span class="pw-max">120</span> W <span class="pw-tag pw-est">est</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G3S-G4ILA4SM-Z0 (ILA)</td><td class="fn">ILA EDFA (4-fiber) · EDFA</td><td><code>-Z</code></td><td><span class="fam-full">full</span></td><td class="rel">R8.1</td><td class="cap">fpCap=4 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">220</span> / <span class="pw-max">360</span> W <span class="pw-tag pw-est">est</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+    </tbody></table></div>
+<div class="port-section">
+  <div class="port-section-head"><span class="port-section-count">7</span><span>ILA · Raman amps (UNIDIRECTIONAL — ×2 per FP per site, one per direction)</span></div>
+  <table class="portfolio-table">
+    <thead><tr><th>PN</th><th>Function</th><th>Band</th><th>Family</th><th>Release</th><th>Form factor</th><th>Power (W typ / max@40)</th><th>HS</th></tr></thead>
+    <tbody>
+      <tr><td class="pn">G3S-C2RPBLZZ-W0</td><td class="fn">ILA Raman · Raman</td><td><code>-W</code></td><td><span class="fam-compact">compact</span></td><td class="rel">R6.0.1</td><td class="cap">fpCap=1 <span class="bidi-no">uni-dir ×2</span></td><td class="pw"><span class="pw-typ">37</span> / <span class="pw-max">60</span> W</td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G3S-C2RPBLZZ-W1</td><td class="fn">ILA Raman · Raman</td><td><code>-W</code></td><td><span class="fam-compact">compact</span></td><td class="rel">R7.2</td><td class="cap">fpCap=1 <span class="bidi-no">uni-dir ×2</span></td><td class="pw"><span class="pw-typ">37</span> / <span class="pw-max">60</span> W <span class="pw-tag pw-var">var</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G3S-C2RPBLZZ-W2</td><td class="fn">ILA Raman · Raman</td><td><code>-W</code></td><td><span class="fam-compact">compact</span></td><td class="rel">R9.0</td><td class="cap">fpCap=1 <span class="bidi-no">uni-dir ×2</span></td><td class="pw"><span class="pw-typ">37</span> / <span class="pw-max">60</span> W <span class="pw-tag pw-var">var</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G3S-C2RPBMZZ-Y0</td><td class="fn">ILA Raman · Raman</td><td><code>-Y</code></td><td><span class="fam-compact">compact</span></td><td class="rel">R7.1</td><td class="cap">fpCap=1 <span class="bidi-no">uni-dir ×2</span></td><td class="pw"><span class="pw-typ">54</span> / <span class="pw-max">85</span> W</td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G3S-C2RPBMZZ-Y1</td><td class="fn">ILA Raman · Raman</td><td><code>-Y</code></td><td><span class="fam-compact">compact</span></td><td class="rel">R7.2</td><td class="cap">fpCap=1 <span class="bidi-no">uni-dir ×2</span></td><td class="pw"><span class="pw-typ">54</span> / <span class="pw-max">85</span> W <span class="pw-tag pw-var">var</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G3S-C2RPBMZZ-Y2</td><td class="fn">ILA Raman · Raman</td><td><code>-Y</code></td><td><span class="fam-compact">compact</span></td><td class="rel">R9.0</td><td class="cap">fpCap=1 <span class="bidi-no">uni-dir ×2</span></td><td class="pw"><span class="pw-typ">54</span> / <span class="pw-max">85</span> W <span class="pw-tag pw-var">var</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G3S-G2RPB4M-Y2 (ILA)</td><td class="fn">ILA Raman (4-fiber) · Raman</td><td><code>-Y</code></td><td><span class="fam-full">full</span></td><td class="rel">R10.1</td><td class="cap">fpCap=4 <span class="bidi-no">uni-dir ×2</span></td><td class="pw"><span class="pw-typ">140</span> / <span class="pw-max">340</span> W <span class="pw-tag pw-est">est</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+    </tbody></table></div>
+<div class="port-section">
+  <div class="port-section-head"><span class="port-section-count">3</span><span>ILA · Hybrid amps (BIDI EDFA+Raman in one)</span></div>
+  <table class="portfolio-table">
+    <thead><tr><th>PN</th><th>Function</th><th>Band</th><th>Family</th><th>Release</th><th>Form factor</th><th>Power (W typ / max@40)</th><th>HS</th></tr></thead>
+    <tbody>
+      <tr><td class="pn">G3S-D2IRB1SM-Z2</td><td class="fn">ILA Hybrid · Hybrid</td><td><code>-Z</code></td><td><span class="fam-compact">compact</span></td><td class="rel">R10.0</td><td class="cap">fpCap=1 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">195</span> / <span class="pw-max">230</span> W <span class="pw-tag pw-est">est</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G3S-H4IRB4SG-Z2 (ILA)</td><td class="fn">ILA Hybrid (4-fiber) · Hybrid</td><td><code>-Z</code></td><td><span class="fam-full">full</span></td><td class="rel">R10.1</td><td class="cap">fpCap=4 <span class="bidi-yes">BIDI</span></td><td class="pw"><span class="pw-typ">250</span> / <span class="pw-max">400</span> W <span class="pw-tag pw-est">est</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+      <tr><td class="pn">G2PBALZZ-N0</td><td class="fn">ILA EDFA (uni-dir) · EDFA</td><td><code>-N</code></td><td><span class="fam-full">full</span></td><td class="rel">R9.1</td><td class="cap">fpCap=1 <span class="bidi-no">uni-dir ×2</span></td><td class="pw"><span class="pw-typ">33</span> / <span class="pw-max">80</span> W <span class="pw-tag pw-est">est</span></td><td class="hs"><span class="hs-yes">Yes</span></td></tr>
+    </tbody></table></div>
+      <!-- /PORTFOLIO_AUTO_GENERATED -->
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  Built for Quang · Nokia ON Sales Engineering · Vietnam (GMT+7) ·
+  HS Portfolio v3.2 · Source <code>HS Configurator v3.1.xlsx</code>
+</footer>
+
+<div id="tooltip"></div>
+
+<script>
+// =========================================
+//  Raw data (from HS Configurator v3.1.xlsx Catalog)
+// =========================================
+const RAW = [{"pn":"G31","short":"G31","section":"Term","category":"Chassis","suffix":"*","band":"Chassis","band_x":0,"family":"full","fits":"G31/G32/G32E","release":null,"rel_num":null,"fpcap":4,"is_mra":true,"bidi":"Yes","is_bidi":true,"amp":null,"hsapply":"No - Single Controller","notes":"Older single-ctrl chassis \u00b7 pw: baseline w/ FRCU + 2 PEMs + 3 fans","header":"TERMINATION NODE \u2014 Chassis (Full 700mm \u2014 fits G-/H-/R-prefix cards)"},{"pn":"G32","short":"G32","section":"Term","category":"Chassis","suffix":"*","band":"Chassis","band_x":0,"family":"full","fits":"G31/G32/G32E","release":null,"rel_num":null,"fpcap":4,"is_mra":true,"bidi":"Yes","is_bidi":true,"amp":null,"hsapply":"Yes","notes":"Default term chassis \u00b7 pw: baseline (User-Input output)","header":"TERMINATION NODE \u2014 Chassis (Full 700mm \u2014 fits G-/H-/R-prefix cards)"},{"pn":"G32E","short":"G32E","section":"Term","category":"Chassis","suffix":"*","band":"Chassis","band_x":0,"family":"full","fits":"G31/G32/G32E","release":"R8.1","rel_num":8.1,"fpcap":4,"is_mra":true,"bidi":"Yes","is_bidi":true,"amp":null,"hsapply":"Yes","notes":"Extended-depth, default HS \u00b7 pw: inherits G32","header":"TERMINATION NODE \u2014 Chassis (Full 700mm \u2014 fits G-/H-/R-prefix cards)"},{"pn":"G34L","short":"G34L","section":"Term","category":"Chassis","suffix":"L","band":"L-band","band_x":3,"family":"full","fits":"G31/G32/G32E","release":"R9.2 tbc","rel_num":9.2,"fpcap":4,"is_mra":true,"bidi":"Yes","is_bidi":true,"amp":null,"hsapply":"Yes","notes":"L-band 700mm \u00b7 pw: L-band est","header":"TERMINATION NODE \u2014 Chassis (Full 700mm \u2014 fits G-/H-/R-prefix cards)"},{"pn":"GQS-OMD32EZZ-N0","short":"GQS-OMD32E-N0","section":"Term","category":"OMD","suffix":"N","band":"Std C","band_x":1,"family":"any","fits":"Any","release":null,"rel_num":null,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":null,"hsapply":"Yes","notes":" \u00b7 pw: passive mux","header":"TERMINATION NODE \u2014 OMD (Mux, passive)"},{"pn":"GQS-OMD40EZZ-X0","short":"GQS-OMD40E-X0","section":"Term","category":"OMD","suffix":"X","band":"Super C (upg)","band_x":2.1,"family":"any","fits":"Any","release":null,"rel_num":null,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":null,"hsapply":"Yes","notes":" \u00b7 pw: passive mux","header":"TERMINATION NODE \u2014 OMD (Mux, passive)"},{"pn":"GQS-OMD42EZZ-N0","short":"GQS-OMD42E-N0","section":"Term","category":"OMD","suffix":"N","band":"Std C","band_x":1,"family":"any","fits":"Any","release":null,"rel_num":null,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":null,"hsapply":"Yes","notes":" \u00b7 pw: passive mux","header":"TERMINATION NODE \u2014 OMD (Mux, passive)"},{"pn":"GQS-OMD42EZZ-L0","short":"GQS-OMD42E-L0","section":"Term","category":"OMD","suffix":"L","band":"L-band","band_x":3,"family":"any","fits":"Any","release":null,"rel_num":null,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":null,"hsapply":"Yes","notes":"L-band \u00b7 pw: passive mux","header":"TERMINATION NODE \u2014 OMD (Mux, passive)"},{"pn":"GQS-OMD48EZZ-00","short":"GQS-OMD48E-00","section":"Term","category":"OMD","suffix":"0","band":"Band-agnostic","band_x":0,"family":"any","fits":"Any","release":null,"rel_num":null,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":null,"hsapply":"Yes","notes":"Band-agnostic \u00b7 pw: passive mux","header":"TERMINATION NODE \u2014 OMD (Mux, passive)"},{"pn":"GQS-OMD64ZZZ-00","short":"GQS-OMD64Z-00","section":"Term","category":"OMD","suffix":"0","band":"Band-agnostic","band_x":0,"family":"any","fits":"Any","release":null,"rel_num":null,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":null,"hsapply":"Yes","notes":"Band-agnostic \u00b7 pw: passive mux","header":"TERMINATION NODE \u2014 OMD (Mux, passive)"},{"pn":"GQS-OMD64SZZ-C0","short":"GQS-OMD64S-C0","section":"Term","category":"OMD","suffix":"C","band":"Std C (upg)","band_x":1.1,"family":"any","fits":"Any","release":null,"rel_num":null,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":null,"hsapply":"Yes","notes":"Std C upg \u00b7 pw: passive mux","header":"TERMINATION NODE \u2014 OMD (Mux, passive)"},{"pn":"GLS-G30OCC2T-00","short":"GLS-G30OCC2T-00","section":"Term","category":"OCC","suffix":"0","band":"Band-agnostic","band_x":0,"family":"full","fits":"G31/G32/G32E","release":"R6.0","rel_num":6.0,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":null,"hsapply":"Yes","notes":"Full-chassis OCC","header":"OCC \u2014 Control"},{"pn":"G3S-C2OCC2EZ-00","short":"C2OCC2EZ-00","section":"ILA","category":"OCC","suffix":"0","band":"Band-agnostic","band_x":0,"family":"compact","fits":"G34c/G32c/G38c","release":"R6.0","rel_num":6.0,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":null,"hsapply":"Yes","notes":"Compact-chassis OCC","header":"OCC \u2014 Control"},{"pn":"G3S-G2RD09SM-N1","short":"G2RD09SM-N1","section":"Term","category":"ROADM","suffix":"N","band":"Std C","band_x":1,"family":"full","fits":"G31/G32/G32E","release":"R6.0","rel_num":6.0,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":"EDFA","hsapply":"No","notes":"9-deg ROADM std C","header":"TERMINATION NODE \u2014 ROADM (full-chassis, G/H prefix)"},{"pn":"G3S-G2RD20TM-N0","short":"G2RD20TM-N0","section":"Term","category":"ROADM","suffix":"N","band":"Std C","band_x":1,"family":"full","fits":"G31/G32/G32E","release":"R6.0","rel_num":6.0,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":"EDFA","hsapply":"No","notes":"20-deg ROADM std C","header":"TERMINATION NODE \u2014 ROADM (full-chassis, G/H prefix)"},{"pn":"G3S-G3RD32TH-X0","short":"G3RD32TH-X0","section":"Term","category":"ROADM","suffix":"X","band":"Super C (upg)","band_x":2.1,"family":"full","fits":"G31/G32/G32E","release":"R7.0","rel_num":7.0,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":null,"hsapply":"Yes","notes":"32-deg Super C upg","header":"TERMINATION NODE \u2014 ROADM (full-chassis, G/H prefix)"},{"pn":"G3S-G3RD32TH-L0","short":"G3RD32TH-L0","section":"Term","category":"ROADM","suffix":"L","band":"L-band","band_x":3,"family":"full","fits":"G31/G32/G32E","release":"R10.0","rel_num":10.0,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":null,"hsapply":"Yes","notes":"32-deg L-band \u00b7 pw: L-band variant","header":"TERMINATION NODE \u2014 ROADM (full-chassis, G/H prefix)"},{"pn":"RD66Tx-Z0","short":"RD66Tx-Z0","section":"Term","category":"ROADM","suffix":"Z","band":"Std C+L","band_x":4,"family":"full","fits":"G31/G32/G32E","release":"R8.1","rel_num":8.1,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":"EDFA","hsapply":"Yes","notes":"66-deg C+L \u00b7 pw: same as H3RD66TM","header":"TERMINATION NODE \u2014 ROADM (full-chassis, G/H prefix)"},{"pn":"G3S-H3RD66TM-Z0","short":"H3RD66TM-Z0","section":"Term","category":"ROADM","suffix":"Z","band":"Std C+L","band_x":4,"family":"full","fits":"G31/G32/G32E","release":"R8.1","rel_num":8.1,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":null,"hsapply":"Yes","notes":"66-deg C+L (default HS) \u00b7 pw: 66-deg C+L","header":"TERMINATION NODE \u2014 ROADM (full-chassis, G/H prefix)"},{"pn":"G3S-H3RD66TH-Z0","short":"H3RD66TH-Z0","section":"Term","category":"ROADM","suffix":"Z","band":"Std C+L","band_x":4,"family":"full","fits":"G31/G32/G32E","release":"R9.0","rel_num":9.0,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":null,"hsapply":"Yes","notes":"66-deg HD C+L \u00b7 pw: TH high-density","header":"TERMINATION NODE \u2014 ROADM (full-chassis, G/H prefix)"},{"pn":"G3S-G1CAD10A-W0","short":"G1CAD10A-W0","section":"Term","category":"CAD-CDC","suffix":"W","band":"Super C","band_x":2,"family":"full","fits":"G31/G32/G32E","release":"R6.0","rel_num":6.0,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":null,"hsapply":"Yes","notes":"10-port CAD Super C","header":"TERMINATION NODE \u2014 CAD/CDC mux (HS no need)"},{"pn":"G3S-G1CAD10A-L0","short":"G1CAD10A-L0","section":"Term","category":"CAD-CDC","suffix":"L","band":"L-band","band_x":3,"family":"full","fits":"G31/G32/G32E","release":"TBD","rel_num":null,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":null,"hsapply":"Yes","notes":"10-port CAD L \u00b7 pw: L-band","header":"TERMINATION NODE \u2014 CAD/CDC mux (HS no need)"},{"pn":"G3S-G1CDC8D6-Y0","short":"G1CDC8D6-Y0","section":"Term","category":"CAD-CDC","suffix":"Y","band":"Super C+L","band_x":5,"family":"full","fits":"G31/G32/G32E","release":"R6.0","rel_num":6.0,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":null,"hsapply":"No - HS no need CDC","notes":null,"header":"TERMINATION NODE \u2014 CAD/CDC mux (HS no need)"},{"pn":"G3S-G2CD34ZZ-Y0","short":"G2CD34-Y0","section":"Term","category":"CAD-CDC","suffix":"Y","band":"Super C+L","band_x":5,"family":"full","fits":"G31/G32/G32E","release":"TBD","rel_num":null,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":null,"hsapply":"No - HS no need CDC","notes":" \u00b7 pw: newer CDC est","header":"TERMINATION NODE \u2014 CAD/CDC mux (HS no need)"},{"pn":"G3S-G2PBALZZ-N0","short":"G2PBAL-N0","section":"Term","category":"EDFA booster","suffix":"N","band":"Std C","band_x":1,"family":"full","fits":"G31/G32/G32E","release":"R9.1","rel_num":9.1,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":"EDFA","hsapply":"Yes","notes":"EDFA std C \u00b7 pw: PBAL ~ RPBM-W0","header":"TERMINATION NODE \u2014 Amps/Boosters (full chassis)"},{"pn":"G3S-G1RPBMZZ-W0","short":"G1RPBM-W0","section":"Term","category":"Raman booster","suffix":"W","band":"Super C","band_x":2,"family":"full","fits":"G31/G32/G32E","release":"R6.0","rel_num":6.0,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":"Raman","hsapply":"Yes","notes":"Raman v0 (Super C)","header":"TERMINATION NODE \u2014 Amps/Boosters (full chassis)"},{"pn":"G3S-G1RPBMZZ-W1","short":"G1RPBM-W1","section":"Term","category":"Raman booster","suffix":"W","band":"Super C","band_x":2,"family":"full","fits":"G31/G32/G32E","release":"R7.2","rel_num":7.2,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":"Raman","hsapply":"Yes","notes":"Raman v1 (Super C) \u00b7 pw: same as -W0","header":"TERMINATION NODE \u2014 Amps/Boosters (full chassis)"},{"pn":"G3S-G1RPBMZZ-W2","short":"G1RPBM-W2","section":"Term","category":"Raman booster","suffix":"W","band":"Super C","band_x":2,"family":"full","fits":"G31/G32/G32E","release":"R9.0","rel_num":9.0,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":"Raman","hsapply":"Yes","notes":"Raman v2 (Super C) HS default \u00b7 pw: same as -W0","header":"TERMINATION NODE \u2014 Amps/Boosters (full chassis)"},{"pn":"G3S-G1RPBMZZ-Y0","short":"G1RPBM-Y0","section":"Term","category":"Raman booster","suffix":"Y","band":"Super C+L","band_x":5,"family":"full","fits":"G31/G32/G32E","release":"R7.1","rel_num":7.1,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":"Raman","hsapply":"Yes","notes":"Raman (Super C+L) v0","header":"TERMINATION NODE \u2014 Amps/Boosters (full chassis)"},{"pn":"G3S-G1RPBMZZ-Y1","short":"G1RPBM-Y1","section":"Term","category":"Raman booster","suffix":"Y","band":"Super C+L","band_x":5,"family":"full","fits":"G31/G32/G32E","release":"R7.2","rel_num":7.2,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":"Raman","hsapply":"Yes","notes":"Raman (Super C+L) v1 \u00b7 pw: same as -Y0","header":"TERMINATION NODE \u2014 Amps/Boosters (full chassis)"},{"pn":"G3S-G1RPBMZZ-Y2","short":"G1RPBM-Y2","section":"Term","category":"Raman booster","suffix":"Y","band":"Super C+L","band_x":5,"family":"full","fits":"G31/G32/G32E","release":"R9.0","rel_num":9.0,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":"Raman","hsapply":"Yes","notes":"Raman (Super C+L) v2 \u00b7 pw: same as -Y0","header":"TERMINATION NODE \u2014 Amps/Boosters (full chassis)"},{"pn":"G3S-G1OTSCHZ-Y0","short":"G1OTSCHZ-Y0","section":"Term","category":"OTSCH","suffix":"Y","band":"Super C+L","band_x":5,"family":"full","fits":"G31/G32/G32E","release":"R9.2 tbc","rel_num":9.2,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":null,"hsapply":"Yes when Super C + Super L","notes":"OTS channel \u00b7 pw: R9.2 tbc","header":"TERMINATION NODE \u2014 Amps/Boosters (full chassis)"},{"pn":"G3S-G4ILA4SM-Z0","short":"G4ILA4SM-Z0","section":"Term","category":"EDFA booster","suffix":"Z","band":"Std C+L","band_x":4,"family":"full","fits":"G31/G32/G32E","release":"R9.1","rel_num":9.1,"fpcap":4,"is_mra":true,"bidi":"Yes","is_bidi":true,"amp":"EDFA","hsapply":"Yes","notes":"4-fiber EDFA (MRA) \u00b7 pw: 4\u00d7 D2ILASGM","header":"TERMINATION NODE \u2014 Amps/Boosters (full chassis)"},{"pn":"G3S-G2RPB4M-Y2","short":"G2RPB4M-Y2","section":"Term","category":"Raman booster","suffix":"Y","band":"Super C+L","band_x":5,"family":"full","fits":"G31/G32/G32E","release":"R10.1","rel_num":10.1,"fpcap":4,"is_mra":true,"bidi":"Yes","is_bidi":true,"amp":"Raman","hsapply":"Yes","notes":"4-fiber Raman (Super C+L) \u00b7 pw: 4\u00d7 C2RPBMZZ-Y0","header":"TERMINATION NODE \u2014 Amps/Boosters (full chassis)"},{"pn":"G3S-H4IRB4SG-Z2","short":"H4IRB4SG-Z2","section":"Term","category":"Hybrid amp","suffix":"Z","band":"Std C+L","band_x":4,"family":"full","fits":"G31/G32/G32E","release":"R10.1","rel_num":10.1,"fpcap":4,"is_mra":true,"bidi":"Yes","is_bidi":true,"amp":"Hybrid","hsapply":"Yes","notes":"4-fiber hybrid (C+L) \u00b7 pw: 4-fiber hybrid","header":"TERMINATION NODE \u2014 Amps/Boosters (full chassis)"},{"pn":"G34c","short":"G34c","section":"ILA","category":"Chassis","suffix":"*","band":"Chassis","band_x":0,"family":"compact","fits":"G34c/G32c/G38c","release":"R6.0","rel_num":6.0,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":null,"hsapply":"Yes","notes":"Default ILA chassis \u00b7 pw: baseline (User-Input)","header":"ILA SITE \u2014 Chassis (Compact 300mm \u2014 fits C-/D-prefix cards)"},{"pn":"G32c","short":"G32c","section":"ILA","category":"Chassis","suffix":"*","band":"Chassis","band_x":0,"family":"compact","fits":"G34c/G32c/G38c","release":"R10.0","rel_num":10.0,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":null,"hsapply":"Yes","notes":"Compact (R10.0) \u00b7 pw: compact est","header":"ILA SITE \u2014 Chassis (Compact 300mm \u2014 fits C-/D-prefix cards)"},{"pn":"G38c","short":"G38c","section":"ILA","category":"Chassis","suffix":"*","band":"Chassis","band_x":0,"family":"compact","fits":"G34c/G32c/G38c","release":"R10.0","rel_num":10.0,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":null,"hsapply":"Yes","notes":"Compact (R10.0) \u00b7 pw: compact est","header":"ILA SITE \u2014 Chassis (Compact 300mm \u2014 fits C-/D-prefix cards)"},{"pn":"G32E (ILA-side)","short":"G32E (ILA-side)","section":"ILA","category":"Chassis","suffix":"*","band":"Chassis","band_x":0,"family":"full","fits":"G31/G32/G32E","release":"R8.1","rel_num":8.1,"fpcap":4,"is_mra":true,"bidi":"Yes","is_bidi":true,"amp":null,"hsapply":"Yes","notes":"For G4ILA4SM / G2RPB4M / H4IRB4SG \u00b7 pw: same as G32","header":"ILA SITE \u2014 Chassis (Full 700mm \u2014 fits G-/H-prefix cards on ILA side)"},{"pn":"G34L (ILA-side)","short":"G34L (ILA-side)","section":"ILA","category":"Chassis","suffix":"L","band":"L-band","band_x":3,"family":"full","fits":"G31/G32/G32E","release":"R9.2 tbc","rel_num":9.2,"fpcap":4,"is_mra":true,"bidi":"Yes","is_bidi":true,"amp":null,"hsapply":"Yes","notes":"L-band 700mm ILA \u00b7 pw: L-band 700mm","header":"ILA SITE \u2014 Chassis (Full 700mm \u2014 fits G-/H-prefix cards on ILA side)"},{"pn":"G3S-C2ILASGH-X0","short":"C2ILASGH-X0","section":"ILA","category":"ILA EDFA","suffix":"X","band":"Super C (upg)","band_x":2.1,"family":"compact","fits":"G34c/G32c/G38c","release":"R6.0","rel_num":6.0,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":"EDFA","hsapply":"Yes","notes":"ILA single-stage Super C upg","header":"ILA SITE \u2014 EDFA amps (compact, BIDI \u2014 1 card per FP per site)"},{"pn":"G3S-C2ILASGH-L0","short":"C2ILASGH-L0","section":"ILA","category":"ILA EDFA","suffix":"L","band":"L-band","band_x":3,"family":"compact","fits":"G34c/G32c/G38c","release":"R10.0","rel_num":10.0,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":"EDFA","hsapply":"Yes","notes":"ILA single-stage L \u00b7 pw: L-band","header":"ILA SITE \u2014 EDFA amps (compact, BIDI \u2014 1 card per FP per site)"},{"pn":"G3S-D2ILASGM-Z0","short":"D2ILASGM-Z0","section":"ILA","category":"ILA EDFA","suffix":"Z","band":"Std C+L","band_x":4,"family":"compact","fits":"G34c/G32c/G38c","release":"R8.1","rel_num":8.1,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":"EDFA","hsapply":"Yes","notes":"ILA dual-stage C+L","header":"ILA SITE \u2014 EDFA amps (compact, BIDI \u2014 1 card per FP per site)"},{"pn":"G3S-D2ILSGM-Z0","short":"D2ILSGM-Z0","section":"ILA","category":"ILA EDFA","suffix":"Z","band":"Std C+L","band_x":4,"family":"compact","fits":"G34c/G32c/G38c","release":"R10.0","rel_num":10.0,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":"EDFA","hsapply":"Yes","notes":"ILA single-stage C+L \u00b7 pw: single-stage est","header":"ILA SITE \u2014 EDFA amps (compact, BIDI \u2014 1 card per FP per site)"},{"pn":"G3S-G4ILA4SM-Z0 (ILA)","short":"G4ILA4SM-Z0 (ILA)","section":"ILA","category":"ILA EDFA (4-fiber)","suffix":"Z","band":"Std C+L","band_x":4,"family":"full","fits":"G31/G32/G32E","release":"R8.1","rel_num":8.1,"fpcap":4,"is_mra":true,"bidi":"Yes","is_bidi":true,"amp":"EDFA","hsapply":"Yes","notes":"4-fiber MRA (full chassis only)","header":"ILA SITE \u2014 EDFA amps (compact, BIDI \u2014 1 card per FP per site)"},{"pn":"G3S-C2RPBLZZ-W0","short":"C2RPBL-W0","section":"ILA","category":"ILA Raman","suffix":"W","band":"Super C","band_x":2,"family":"compact","fits":"G34c/G32c/G38c","release":"R6.0.1","rel_num":6.0,"fpcap":1,"is_mra":false,"bidi":"NO (uni-dir)","is_bidi":false,"amp":"Raman","hsapply":"Yes","notes":"Raman ILA (Super C) v0. Uni-dir.","header":"ILA SITE \u2014 Raman amps (UNIDIRECTIONAL \u2014 \u00d72 per FP per site, one per direction)"},{"pn":"G3S-C2RPBLZZ-W1","short":"C2RPBL-W1","section":"ILA","category":"ILA Raman","suffix":"W","band":"Super C","band_x":2,"family":"compact","fits":"G34c/G32c/G38c","release":"R7.2","rel_num":7.2,"fpcap":1,"is_mra":false,"bidi":"NO (uni-dir)","is_bidi":false,"amp":"Raman","hsapply":"Yes","notes":"Raman ILA (Super C) v1 \u00b7 pw: same as -W0","header":"ILA SITE \u2014 Raman amps (UNIDIRECTIONAL \u2014 \u00d72 per FP per site, one per direction)"},{"pn":"G3S-C2RPBLZZ-W2","short":"C2RPBL-W2","section":"ILA","category":"ILA Raman","suffix":"W","band":"Super C","band_x":2,"family":"compact","fits":"G34c/G32c/G38c","release":"R9.0","rel_num":9.0,"fpcap":1,"is_mra":false,"bidi":"NO (uni-dir)","is_bidi":false,"amp":"Raman","hsapply":"Yes","notes":"Raman ILA (Super C) v2 \u00b7 pw: same as -W0","header":"ILA SITE \u2014 Raman amps (UNIDIRECTIONAL \u2014 \u00d72 per FP per site, one per direction)"},{"pn":"G3S-C2RPBMZZ-Y0","short":"C2RPBM-Y0","section":"ILA","category":"ILA Raman","suffix":"Y","band":"Super C+L","band_x":5,"family":"compact","fits":"G34c/G32c/G38c","release":"R7.1","rel_num":7.1,"fpcap":1,"is_mra":false,"bidi":"NO (uni-dir)","is_bidi":false,"amp":"Raman","hsapply":"Yes","notes":"Raman ILA (Super C+L) v0","header":"ILA SITE \u2014 Raman amps (UNIDIRECTIONAL \u2014 \u00d72 per FP per site, one per direction)"},{"pn":"G3S-C2RPBMZZ-Y1","short":"C2RPBM-Y1","section":"ILA","category":"ILA Raman","suffix":"Y","band":"Super C+L","band_x":5,"family":"compact","fits":"G34c/G32c/G38c","release":"R7.2","rel_num":7.2,"fpcap":1,"is_mra":false,"bidi":"NO (uni-dir)","is_bidi":false,"amp":"Raman","hsapply":"Yes","notes":"Raman ILA (Super C+L) v1 \u00b7 pw: same as -Y0","header":"ILA SITE \u2014 Raman amps (UNIDIRECTIONAL \u2014 \u00d72 per FP per site, one per direction)"},{"pn":"G3S-C2RPBMZZ-Y2","short":"C2RPBM-Y2","section":"ILA","category":"ILA Raman","suffix":"Y","band":"Super C+L","band_x":5,"family":"compact","fits":"G34c/G32c/G38c","release":"R9.0","rel_num":9.0,"fpcap":1,"is_mra":false,"bidi":"NO (uni-dir)","is_bidi":false,"amp":"Raman","hsapply":"Yes","notes":"Raman ILA (Super C+L) v2 \u00b7 pw: same as -Y0","header":"ILA SITE \u2014 Raman amps (UNIDIRECTIONAL \u2014 \u00d72 per FP per site, one per direction)"},{"pn":"G3S-G2RPB4M-Y2 (ILA)","short":"G2RPB4M-Y2 (ILA)","section":"ILA","category":"ILA Raman (4-fiber)","suffix":"Y","band":"Super C+L","band_x":5,"family":"full","fits":"G31/G32/G32E","release":"R10.1","rel_num":10.1,"fpcap":4,"is_mra":true,"bidi":"NO (uni-dir)","is_bidi":false,"amp":"Raman","hsapply":"Yes","notes":"4-fiber Raman ILA (full chassis only)","header":"ILA SITE \u2014 Raman amps (UNIDIRECTIONAL \u2014 \u00d72 per FP per site, one per direction)"},{"pn":"G3S-D2IRB1SM-Z2","short":"D2IRB1SM-Z2","section":"ILA","category":"ILA Hybrid","suffix":"Z","band":"Std C+L","band_x":4,"family":"compact","fits":"G34c/G32c/G38c","release":"R10.0","rel_num":10.0,"fpcap":1,"is_mra":false,"bidi":"Yes","is_bidi":true,"amp":"Hybrid","hsapply":"Yes","notes":"Hybrid 1-fiber C+L \u00b7 pw: EDFA+Raman one card","header":"ILA SITE \u2014 Hybrid amps (BIDI EDFA+Raman in one)"},{"pn":"G3S-H4IRB4SG-Z2 (ILA)","short":"H4IRB4SG-Z2 (ILA)","section":"ILA","category":"ILA Hybrid (4-fiber)","suffix":"Z","band":"Std C+L","band_x":4,"family":"full","fits":"G31/G32/G32E","release":"R10.1","rel_num":10.1,"fpcap":4,"is_mra":true,"bidi":"Yes","is_bidi":true,"amp":"Hybrid","hsapply":"Yes","notes":"4-fiber hybrid (full chassis only)","header":"ILA SITE \u2014 Hybrid amps (BIDI EDFA+Raman in one)"},{"pn":"G2PBALZZ-N0","short":"G2PBAL-N0","section":"ILA","category":"ILA EDFA (uni-dir)","suffix":"N","band":"Std C","band_x":1,"family":"full","fits":"G31/G32/G32E","release":"R9.1","rel_num":9.1,"fpcap":1,"is_mra":false,"bidi":"NO (uni-dir)","is_bidi":false,"amp":"EDFA","hsapply":"Yes","notes":"ILA-side PBAL uni-dir \u00b7 pw: ILA-side PBAL","header":"ILA SITE \u2014 Hybrid amps (BIDI EDFA+Raman in one)"}];
+
+// =========================================
+//  Pre-processing
+//   - Force category=Chassis rows to band="Chassis" (G34L was wrongly L-band)
+//   - Merge "X (ILA-side)" duplicates into the term-side entry with section="Both"
+// =========================================
+function preprocess(rows) {
+  // Step 1: force chassis band
+  rows = rows.map(r => {
+    if (r.category === 'Chassis') {
+      return { ...r, band: 'Chassis', band_x: 0 };
+    }
+    return r;
+  });
+
+  // Step 2: detect (ILA-side) duplicates and merge
+  const ilaMarker = /\s*\(ILA-side\)\s*$/;
+  const out = [];
+  const baseMap = {};
+  for (const r of rows) {
+    if (ilaMarker.test(r.short || '')) {
+      // find base
+      const baseShort = r.short.replace(ilaMarker, '').trim();
+      const base = baseMap[baseShort];
+      if (base) {
+        base.section = 'Both';
+        base.notes = (base.notes ? base.notes + ' · ' : '') + 'Also used ILA-side';
+        continue;
+      } else {
+        // promote this row (rename), and mark as both
+        const cleaned = { ...r };
+        cleaned.short = baseShort;
+        cleaned.pn = cleaned.pn.replace(ilaMarker, '').trim();
+        cleaned.section = 'Both';
+        out.push(cleaned);
+        baseMap[baseShort] = cleaned;
+      }
+    } else {
+      out.push(r);
+      baseMap[r.short] = r;
+    }
+  }
+  return out;
+}
+
+const DATA = preprocess(RAW);
+
+const BAND_ORDER = ['Chassis', 'Band-agnostic', 'Std C', 'Std C (upg)', 'Super C', 'Super C (upg)', 'L-band', 'Std C+L', 'Super C+L'];
+const CARD_BAND_ORDER = ['Band-agnostic', 'Std C', 'Std C (upg)', 'Super C', 'Super C (upg)', 'L-band', 'Std C+L', 'Super C+L'];
+const FAMILY_ORDER = ['full', 'compact', 'any'];
+const FAMILY_LABEL = { 'full': 'Full 700mm', 'compact': 'Compact 300mm', 'any': 'Passive / Any' };
+
+const R91 = 9.1;
+function readiness(r) {
+  if (r.rel_num === null || r.rel_num === undefined) return 'passive';
+  if (r.rel_num <= R91) return 'ready';
+  return 'roadmap';
+}
+const COLOR = { ready: '#1FA663', roadmap: '#E8A317', passive: '#8A92A6' };
+
+function bandShape(d) {
+  if (d.category === 'Chassis') return 'square';
+  if (d.band === 'Band-agnostic') return 'hex';
+  if (d.band.includes('Super C+L')) return 'star';
+  if (d.band.includes('C+L')) return 'pentagon';
+  if (d.band.includes('Super C')) return 'triangle';
+  if (d.band.startsWith('L')) return 'triangleDown';
+  return 'circle';
+}
+
+DATA.forEach(d => { d.ready = readiness(d); });
+
+// =========================================
+//  Filters state
+// =========================================
+const filters = {
+  sections: new Set(['Term', 'ILA', 'Both']),
+  cats: new Set(),       // empty = all visible; entries here are "off"
+  ready: new Set(['ready', 'roadmap', 'passive']),
+  mra: new Set(['single', 'mra'])
+};
+
+// =========================================
+//  Category chips
+// =========================================
+const allCats = [...new Set(DATA.map(d => d.category))].sort();
+const catChips = document.getElementById('catChips');
+allCats.forEach(c => {
+  const chip = document.createElement('span');
+  chip.className = 'chip toggle active';
+  chip.dataset.cat = c;
+  chip.textContent = c;
+  chip.addEventListener('click', () => {
+    chip.classList.toggle('off');
+    chip.classList.toggle('active');
+    if (chip.classList.contains('active')) filters.cats.delete(c);
+    else filters.cats.add(c);
+    render();
+  });
+  catChips.appendChild(chip);
+});
+
+document.querySelectorAll('.chip.toggle').forEach(chip => {
+  if (chip.dataset.section) {
+    chip.addEventListener('click', () => {
+      chip.classList.toggle('off'); chip.classList.toggle('active');
+      const v = chip.dataset.section;
+      if (chip.classList.contains('active')) filters.sections.add(v); else filters.sections.delete(v);
+      render();
+    });
+  } else if (chip.dataset.ready) {
+    chip.addEventListener('click', () => {
+      chip.classList.toggle('off'); chip.classList.toggle('active');
+      const v = chip.dataset.ready;
+      if (chip.classList.contains('active')) filters.ready.add(v); else filters.ready.delete(v);
+      render();
+    });
+  } else if (chip.dataset.mra) {
+    chip.addEventListener('click', () => {
+      chip.classList.toggle('off'); chip.classList.toggle('active');
+      const v = chip.dataset.mra;
+      if (chip.classList.contains('active')) filters.mra.add(v); else filters.mra.delete(v);
+      render();
+    });
+  }
+});
+document.getElementById('resetBtn').addEventListener('click', () => {
+  filters.sections = new Set(['Term','ILA','Both']);
+  filters.cats = new Set();
+  filters.ready = new Set(['ready','roadmap','passive']);
+  filters.mra = new Set(['single','mra']);
+  document.querySelectorAll('.chip.toggle').forEach(c => { c.classList.remove('off'); c.classList.add('active'); });
+  render();
+});
+
+function visible(d) {
+  if (!filters.sections.has(d.section)) return false;
+  if (filters.cats.has(d.category)) return false;
+  if (!filters.ready.has(d.ready)) return false;
+  const mraKey = d.is_mra ? 'mra' : 'single';
+  if (!filters.mra.has(mraKey)) return false;
+  return true;
+}
+
+// =========================================
+//  Tooltip
+// =========================================
+const tt = document.getElementById('tooltip');
+function showTip(e, d) {
+  const fpStr = d.category === 'Chassis' ? `Shelf (${d.fpcap === 4 ? 'fits MRA' : '1-FP'})` : (d.is_mra ? 'MRA (4 FP)' : 'Single Rail (1 FP)');
+  const bidiStr = d.is_bidi ? 'BIDI' : 'Uni-directional';
+  const rel = d.release || '—';
+  const secLbl = d.section === 'Both' ? 'Term + ILA (shelf)' : d.section;
+  tt.innerHTML = `
+    <div class="tt-pn">${d.pn}</div>
+    <div class="tt-row"><b>Category:</b> ${d.category}</div>
+    <div class="tt-row"><b>Section:</b> ${secLbl}</div>
+    <div class="tt-row"><b>Band:</b> ${d.band}${d.suffix && d.category !== 'Chassis' ? ` (suffix ${d.suffix})` : ''}</div>
+    <div class="tt-row"><b>Chassis:</b> ${FAMILY_LABEL[d.family]} (${d.fits || '—'})</div>
+    ${d.category !== 'Chassis' ? `<div class="tt-row"><b>Form:</b> ${fpStr} · ${bidiStr}</div>` : ''}
+    <div class="tt-row"><b>Release:</b> ${rel} ${d.ready==='ready'?'· GA':d.ready==='roadmap'?'· roadmap':''}</div>
+    ${d.notes ? `<div class="tt-row" style="margin-top:4px;opacity:0.85;">${d.notes}</div>` : ''}
+  `;
+  tt.classList.add('show');
+  const r = tt.getBoundingClientRect();
+  const x = Math.min(e.clientX + 14, window.innerWidth - r.width - 12);
+  const y = Math.min(e.clientY + 14, window.innerHeight - r.height - 12);
+  tt.style.left = x + 'px';
+  tt.style.top = y + 'px';
+}
+function hideTip(){ tt.classList.remove('show'); }
+
+// =========================================
+//  Shape paths
+// =========================================
+function shapePath(kind, cx, cy, r) {
+  if (kind === 'circle') return { tag: 'circle', attrs: { cx, cy, r } };
+  if (kind === 'square') {
+    const s = r * 1.7;
+    return { tag: 'rect', attrs: { x: cx - s/2, y: cy - s/2, width: s, height: s, rx: 1.5 } };
+  }
+  if (kind === 'triangle') {
+    const h = r * 2;
+    return { tag: 'polygon', attrs: { points: `${cx},${cy-h*0.6} ${cx-h*0.55},${cy+h*0.4} ${cx+h*0.55},${cy+h*0.4}` } };
+  }
+  if (kind === 'triangleDown') {
+    const h = r * 2;
+    return { tag: 'polygon', attrs: { points: `${cx},${cy+h*0.6} ${cx-h*0.55},${cy-h*0.4} ${cx+h*0.55},${cy-h*0.4}` } };
+  }
+  if (kind === 'pentagon') {
+    const pts = [];
+    for (let i=0;i<5;i++){
+      const a = -Math.PI/2 + i*2*Math.PI/5;
+      pts.push(`${cx + r*1.05*Math.cos(a)},${cy + r*1.05*Math.sin(a)}`);
+    }
+    return { tag: 'polygon', attrs: { points: pts.join(' ') } };
+  }
+  if (kind === 'star') {
+    const pts = [];
+    for (let i=0;i<10;i++){
+      const rr = i%2===0 ? r*1.2 : r*0.55;
+      const a = -Math.PI/2 + i*Math.PI/5;
+      pts.push(`${cx + rr*Math.cos(a)},${cy + rr*Math.sin(a)}`);
+    }
+    return { tag: 'polygon', attrs: { points: pts.join(' ') } };
+  }
+  if (kind === 'hex') {
+    const pts = [];
+    for (let i=0;i<6;i++){
+      const a = i*Math.PI/3;
+      pts.push(`${cx + r*1.05*Math.cos(a)},${cy + r*1.05*Math.sin(a)}`);
+    }
+    return { tag: 'polygon', attrs: { points: pts.join(' ') } };
+  }
+  return { tag: 'circle', attrs: { cx, cy, r } };
+}
+
+// =========================================
+//  Quadrant rendering
+// =========================================
+const svg = document.getElementById('quadrant');
+const SVGNS = 'http://www.w3.org/2000/svg';
+const W = 1240, H = 640;
+const PAD = { l: 90, r: 30, t: 50, b: 70 };
+
+// Vertical split: shelf strip (top 25%) + 2x2 card quadrant (bottom 75%)
+const STRIP_H = 130;  // shelf strip height
+const STRIP_GAP = 14;
+const PW = W - PAD.l - PAD.r;
+const PH = H - PAD.t - PAD.b;
+const CARD_TOP = PAD.t + STRIP_H + STRIP_GAP;
+const CARD_H = PAD.t + PH - CARD_TOP;
+
+function xPos(family) {
+  // shared X mapping for compact/full/any
+  if (family === 'compact') return PAD.l + PW * 0.22;
+  if (family === 'any')     return PAD.l + PW * 0.50;
+  return                     PAD.l + PW * 0.78;
+}
+function cardY(is_mra) {
+  return is_mra ? CARD_TOP + CARD_H * 0.28 : CARD_TOP + CARD_H * 0.72;
+}
+function shelfY() {
+  return PAD.t + STRIP_H * 0.55;
+}
+
+// Per-PN user-positioned overrides (after drag) — persisted to localStorage
+const LS_KEY = 'summa-portfolio-positions-v1';
+let positionOverrides = {};
+try {
+  const raw = localStorage.getItem(LS_KEY);
+  if (raw) positionOverrides = JSON.parse(raw) || {};
+} catch (e) { /* localStorage may be blocked */ }
+function savePositions() {
+  try { localStorage.setItem(LS_KEY, JSON.stringify(positionOverrides)); } catch (e) {}
+}
+
+// viewBox state for zoom/pan
+const defaultVB = { x: 0, y: 0, w: W, h: H };
+const view = { ...defaultVB };
+
+function updateViewBox() {
+  svg.setAttribute('viewBox', `${view.x} ${view.y} ${view.w} ${view.h}`);
+  const pct = Math.round((W / view.w) * 100);
+  document.getElementById('zoomLevel').textContent = pct + '%';
+}
+
+function svgPoint(clientX, clientY) {
+  const pt = svg.createSVGPoint();
+  pt.x = clientX; pt.y = clientY;
+  const ctm = svg.getScreenCTM().inverse();
+  return pt.matrixTransform(ctm);
+}
+
+function renderQuadrant(visibleData) {
+  while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+  const cards = visibleData.filter(d => d.category !== 'Chassis');
+  const shelves = visibleData.filter(d => d.category === 'Chassis');
+
+  // ===== Shelf strip background =====
+  // Compact half (left) | Full half (right). Any-passive shelves go to middle if any.
+  const stripBg = document.createElementNS(SVGNS,'rect');
+  stripBg.setAttribute('x', PAD.l); stripBg.setAttribute('y', PAD.t);
+  stripBg.setAttribute('width', PW); stripBg.setAttribute('height', STRIP_H);
+  stripBg.setAttribute('fill', '#EDF1F8'); stripBg.setAttribute('opacity', '0.55');
+  stripBg.setAttribute('rx', 6);
+  svg.appendChild(stripBg);
+
+  // Divider line between strip and quadrant
+  const div = document.createElementNS(SVGNS,'line');
+  div.setAttribute('x1', PAD.l); div.setAttribute('y1', PAD.t + STRIP_H + STRIP_GAP/2);
+  div.setAttribute('x2', PAD.l + PW); div.setAttribute('y2', PAD.t + STRIP_H + STRIP_GAP/2);
+  div.setAttribute('class','qaxis-divider');
+  svg.appendChild(div);
+
+  // Strip title
+  const stTitle = document.createElementNS(SVGNS,'text');
+  stTitle.setAttribute('x', PAD.l + 8); stTitle.setAttribute('y', PAD.t + 18);
+  stTitle.setAttribute('class','qstrip-title');
+  stTitle.textContent = '⬛ SHELVES (structural)';
+  svg.appendChild(stTitle);
+
+  // Strip vertical divider between compact and full
+  const sdiv = document.createElementNS(SVGNS,'line');
+  sdiv.setAttribute('x1', PAD.l + PW/2); sdiv.setAttribute('y1', PAD.t + 4);
+  sdiv.setAttribute('x2', PAD.l + PW/2); sdiv.setAttribute('y2', PAD.t + STRIP_H - 4);
+  sdiv.setAttribute('class','qaxis-fine');
+  svg.appendChild(sdiv);
+  const stCompact = document.createElementNS(SVGNS,'text');
+  stCompact.setAttribute('x', PAD.l + 12); stCompact.setAttribute('y', PAD.t + STRIP_H - 8);
+  stCompact.setAttribute('class','qzone'); stCompact.textContent = 'Compact 300mm shelves';
+  svg.appendChild(stCompact);
+  const stFull = document.createElementNS(SVGNS,'text');
+  stFull.setAttribute('x', PAD.l + PW - 12); stFull.setAttribute('y', PAD.t + STRIP_H - 8);
+  stFull.setAttribute('text-anchor','end');
+  stFull.setAttribute('class','qzone'); stFull.textContent = 'Full 700mm shelves';
+  svg.appendChild(stFull);
+
+  // ===== Card quadrant zones =====
+  const zones = [
+    { x: PAD.l,             y: CARD_TOP,             w: PW/2, h: CARD_H/2, fill: '#FFF7E6', label: 'Compact + MRA' },
+    { x: PAD.l + PW/2,      y: CARD_TOP,             w: PW/2, h: CARD_H/2, fill: '#E6F4FF', label: 'Full + MRA' },
+    { x: PAD.l,             y: CARD_TOP + CARD_H/2,  w: PW/2, h: CARD_H/2, fill: '#F4F7FB', label: 'Compact + Single Rail' },
+    { x: PAD.l + PW/2,      y: CARD_TOP + CARD_H/2,  w: PW/2, h: CARD_H/2, fill: '#F9FAFC', label: 'Full + Single Rail' },
+  ];
+  zones.forEach(z => {
+    const r = document.createElementNS(SVGNS,'rect');
+    r.setAttribute('x',z.x); r.setAttribute('y',z.y);
+    r.setAttribute('width',z.w); r.setAttribute('height',z.h);
+    r.setAttribute('fill',z.fill); r.setAttribute('opacity','0.55');
+    svg.appendChild(r);
+    const t = document.createElementNS(SVGNS,'text');
+    t.setAttribute('x', z.x + z.w - 12); t.setAttribute('y', z.y + 18);
+    t.setAttribute('text-anchor','end'); t.setAttribute('class','qzone');
+    t.textContent = z.label;
+    svg.appendChild(t);
+  });
+
+  const xMid = PAD.l + PW/2, yMid = CARD_TOP + CARD_H/2;
+  const line = (x1,y1,x2,y2,cls) => {
+    const l = document.createElementNS(SVGNS,'line');
+    l.setAttribute('x1',x1); l.setAttribute('y1',y1);
+    l.setAttribute('x2',x2); l.setAttribute('y2',y2);
+    l.setAttribute('class',cls); svg.appendChild(l);
+  };
+  line(PAD.l, yMid, PAD.l+PW, yMid, 'qaxis');
+  line(xMid, CARD_TOP, xMid, CARD_TOP+CARD_H, 'qaxis');
+
+  // Axis pole labels
+  const txt = (x,y,t,cls,anchor='middle') => {
+    const e = document.createElementNS(SVGNS,'text');
+    e.setAttribute('x',x); e.setAttribute('y',y); e.setAttribute('text-anchor',anchor);
+    e.setAttribute('class',cls); e.textContent = t; svg.appendChild(e);
+  };
+  txt(PAD.l + 4, CARD_TOP + CARD_H + 30, '◄ Compact 300mm chassis', 'qlabel', 'start');
+  txt(PAD.l + PW - 4, CARD_TOP + CARD_H + 30, 'Full 700mm chassis ►', 'qlabel', 'end');
+  txt(PAD.l + PW/2, CARD_TOP + CARD_H + 50, 'Chassis length', 'qaxis-title');
+  txt(PAD.l + PW * 0.5, CARD_TOP + CARD_H + 14, '· passive / any ·', 'qzone');
+
+  txt(40, CARD_TOP + 14, '▲ MRA (4 FP)', 'qlabel', 'start');
+  txt(40, CARD_TOP + CARD_H - 4, '▼ Single Rail (1 FP)', 'qlabel', 'start');
+  const yT = document.createElementNS(SVGNS,'text');
+  yT.setAttribute('x', 24); yT.setAttribute('y', CARD_TOP + CARD_H/2);
+  yT.setAttribute('transform', `rotate(-90 24 ${CARD_TOP + CARD_H/2})`);
+  yT.setAttribute('text-anchor','middle'); yT.setAttribute('class','qaxis-title');
+  yT.textContent = 'Fiber-pair capacity';
+  svg.appendChild(yT);
+
+  // ===== Place SHELVES in strip =====
+  // Group by family; lay out horizontally
+  const shelvesByFamily = { compact: [], full: [], any: [] };
+  shelves.forEach(s => shelvesByFamily[s.family].push(s));
+  Object.values(shelvesByFamily).forEach(arr => arr.sort((a,b) => (a.rel_num ?? 99) - (b.rel_num ?? 99)));
+
+  function placeShelves(arr, x0, x1) {
+    const n = arr.length; if (n === 0) return;
+    const y = shelfY();
+    const dx = (x1 - x0) / (n + 1);
+    arr.forEach((d,i) => placePN(d, x0 + dx * (i+1), y));
+  }
+  placeShelves(shelvesByFamily.compact, PAD.l + 14, PAD.l + PW/2 - 14);
+  placeShelves(shelvesByFamily.full,    PAD.l + PW/2 + 14, PAD.l + PW - 14);
+  placeShelves(shelvesByFamily.any,     PAD.l + PW*0.42, PAD.l + PW*0.58);
+
+  // ===== Place CARDS in 2x2 — VARIANT-AWARE layout =====
+  // Cards are grouped by base PN (strip trailing version digit).
+  // Each group becomes a vertical stack inside the cell, NEWEST on top.
+  // Groups are distributed within the cell as columns, ordered by band.
+  const cardCells = {};
+  cards.forEach(d => {
+    const k = `${d.family}|${d.is_mra?1:0}`;
+    (cardCells[k] = cardCells[k] || []).push(d);
+  });
+
+  Object.entries(cardCells).forEach(([k, items]) => {
+    const [family, mraStr] = k.split('|');
+    const is_mra = mraStr === '1';
+    const cellCx = xPos(family);
+    const cellCy = cardY(is_mra);
+    const cellW = (family === 'any') ? PW * 0.26 : PW * 0.36;
+    const cellH = CARD_H * 0.44;
+
+    // Step 1: Group by base name (strip trailing digit; e.g. G1RPBM-W0/W1/W2 → G1RPBM-W)
+    const groups = {};
+    items.forEach(d => {
+      const m = d.short.match(/^(.*?)(\d+)$/);
+      const base = m ? m[1] : d.short;
+      (groups[base] = groups[base] || []).push(d);
+    });
+
+    // Step 2: Sort variants in each group — NEWEST first (highest rel_num)
+    Object.values(groups).forEach(arr => arr.sort((a, b) => {
+      const ra = a.rel_num ?? -1, rb = b.rel_num ?? -1;
+      if (ra !== rb) return rb - ra;  // higher release first
+      const va = parseInt((a.short.match(/(\d+)$/) || ['0'])[0]) || 0;
+      const vb = parseInt((b.short.match(/(\d+)$/) || ['0'])[0]) || 0;
+      return vb - va;
+    }));
+
+    // Step 3: Order group keys — by band, then alpha
+    const groupKeys = Object.keys(groups).sort((a, b) => {
+      const ba = CARD_BAND_ORDER.indexOf(groups[a][0].band);
+      const bb = CARD_BAND_ORDER.indexOf(groups[b][0].band);
+      if (ba !== bb) return ba - bb;
+      return a.localeCompare(b);
+    });
+
+    // Step 4: Layout — choose row count so the tallest group stack fits
+    const nGroups = groupKeys.length;
+    const maxVariants = Math.max(...Object.values(groups).map(g => g.length));
+    const dotV = 18;                          // vertical spacing inside a group stack
+    const stackH = (maxVariants - 1) * dotV;  // height of tallest stack
+    const rowH = stackH + 22;                 // + padding between rows of groups
+    const possibleRows = Math.max(1, Math.floor(cellH / rowH));
+    const cols = Math.max(1, Math.ceil(nGroups / possibleRows));
+    const rows = Math.ceil(nGroups / cols);
+
+    const dx = cellW / cols;
+    const dy = cellH / rows;
+    const cellLeft = cellCx - cellW / 2;
+    const cellTop = cellCy - cellH / 2;
+
+    // Small deterministic horizontal jitter per group, so columns don't look gridlocked
+    function hashStr(s) {
+      let h = 5381;
+      for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) & 0xffffffff;
+      return Math.abs(h);
+    }
+
+    groupKeys.forEach((key, gi) => {
+      const gCol = gi % cols;
+      const gRow = Math.floor(gi / cols);
+      const groupCx = cellLeft + dx/2 + gCol * dx;
+      const groupCy = cellTop + dy/2 + gRow * dy;
+      const variants = groups[key];
+      // Variants stack so the newest sits at the top of the stack
+      const totalH = (variants.length - 1) * dotV;
+      const startY = groupCy - totalH / 2;
+      // Jitter ±6px so adjacent groups don't share an X axis
+      const jitter = ((hashStr(key) % 100) / 100 - 0.5) * 12;
+      variants.forEach((d, vi) => {
+        placePN(d, groupCx + jitter, startY + vi * dotV);
+      });
+    });
+  });
+}
+
+function placePN(d, defaultX, defaultY) {
+  const R = 7;
+  const id = d.pn;
+  const pos = positionOverrides[id] || { x: defaultX, y: defaultY };
+  // store default for reset
+  d._defaultX = defaultX; d._defaultY = defaultY;
+
+  const grp = document.createElementNS(SVGNS,'g');
+  grp.setAttribute('class','pn-grp');
+  grp.dataset.pn = id;
+  grp.dataset.x = pos.x;
+  grp.dataset.y = pos.y;
+
+  const sp = shapePath(bandShape(d), pos.x, pos.y, R);
+  const el = document.createElementNS(SVGNS, sp.tag);
+  Object.entries(sp.attrs).forEach(([k,v]) => el.setAttribute(k,v));
+  el.setAttribute('fill', COLOR[d.ready]);
+  el.setAttribute('stroke', '#001F5F');
+  el.setAttribute('stroke-width', '1.6');
+  if (!d.is_bidi) el.setAttribute('stroke-dasharray', '2 1.6');
+  el.setAttribute('class','pn-dot');
+  el._data = d;
+  el._kind = bandShape(d);
+  el._radius = R;
+  grp.appendChild(el);
+
+  const lbl = document.createElementNS(SVGNS,'text');
+  lbl.setAttribute('x', pos.x + R + 4);
+  lbl.setAttribute('y', pos.y + 3.5);
+  lbl.setAttribute('class','pn-label');
+  lbl.textContent = d.short;
+  grp.appendChild(lbl);
+
+  svg.appendChild(grp);
+
+  // Drag handlers
+  el.addEventListener('pointerdown', e => startDragPN(e, grp, el, d));
+  el.addEventListener('mousemove', e => showTip(e, d));
+  el.addEventListener('mouseleave', hideTip);
+}
+
+// =========================================
+//  Drag PN
+// =========================================
+let dragState = null;
+function startDragPN(e, grp, el, d) {
+  e.stopPropagation();
+  e.preventDefault();
+  const start = svgPoint(e.clientX, e.clientY);
+  const curX = parseFloat(grp.dataset.x);
+  const curY = parseFloat(grp.dataset.y);
+  dragState = { type: 'pn', grp, el, d, startSvg: start, origX: curX, origY: curY };
+  svg.classList.add('dragging-pn');
+  grp.querySelector('.pn-dot').classList.add('dragging');
+  svg.setPointerCapture(e.pointerId);
+  hideTip();
+}
+
+// =========================================
+//  Pan & zoom
+// =========================================
+svg.addEventListener('pointerdown', e => {
+  if (dragState) return;
+  if (e.target.closest('.pn-dot')) return;   // PN drag will handle
+  e.preventDefault();
+  dragState = {
+    type: 'pan',
+    origView: { ...view },
+    clientStartX: e.clientX,
+    clientStartY: e.clientY
+  };
+  svg.classList.add('panning');
+  try { svg.setPointerCapture(e.pointerId); } catch(_) {}
+});
+
+svg.addEventListener('pointermove', e => {
+  if (!dragState) return;
+  if (dragState.type === 'pan') {
+    const rect = svg.getBoundingClientRect();
+    const sx = view.w / rect.width;
+    const sy = view.h / rect.height;
+    const dx = (e.clientX - dragState.clientStartX) * sx;
+    const dy = (e.clientY - dragState.clientStartY) * sy;
+    view.x = dragState.origView.x - dx;
+    view.y = dragState.origView.y - dy;
+    updateViewBox();
+  } else if (dragState.type === 'pn') {
+    const p = svgPoint(e.clientX, e.clientY);
+    const dx = p.x - dragState.startSvg.x;
+    const dy = p.y - dragState.startSvg.y;
+    movePN(dragState.grp, dragState.origX + dx, dragState.origY + dy);
+  }
+});
+
+function endDrag(e) {
+  if (!dragState) return;
+  if (dragState.type === 'pn') {
+    const grp = dragState.grp;
+    grp.querySelector('.pn-dot').classList.remove('dragging');
+    positionOverrides[dragState.d.pn] = {
+      x: parseFloat(grp.dataset.x),
+      y: parseFloat(grp.dataset.y)
+    };
+    savePositions();
+  }
+  svg.classList.remove('panning', 'dragging-pn');
+  try { svg.releasePointerCapture(e.pointerId); } catch(_) {}
+  dragState = null;
+}
+svg.addEventListener('pointerup', endDrag);
+svg.addEventListener('pointercancel', endDrag);
+svg.addEventListener('pointerleave', endDrag);
+
+function movePN(grp, x, y) {
+  grp.dataset.x = x; grp.dataset.y = y;
+  const el = grp.querySelector('.pn-dot');
+  const lbl = grp.querySelector('.pn-label');
+  const R = el._radius || 7;
+  // Update geometry based on shape kind
+  const kind = el._kind;
+  if (kind === 'circle') {
+    el.setAttribute('cx', x); el.setAttribute('cy', y);
+  } else if (kind === 'square') {
+    const s = R * 1.7;
+    el.setAttribute('x', x - s/2); el.setAttribute('y', y - s/2);
+  } else {
+    const sp = shapePath(kind, x, y, R);
+    Object.entries(sp.attrs).forEach(([k,v]) => el.setAttribute(k,v));
+  }
+  lbl.setAttribute('x', x + R + 4);
+  lbl.setAttribute('y', y + 3.5);
+}
+
+// Wheel zoom (cursor-centered)
+svg.addEventListener('wheel', e => {
+  e.preventDefault();
+  const factor = e.deltaY < 0 ? 0.88 : 1.14;
+  zoomAt(e.clientX, e.clientY, factor);
+}, { passive: false });
+
+function zoomAt(clientX, clientY, factor) {
+  const rect = svg.getBoundingClientRect();
+  const rx = (clientX - rect.left) / rect.width;
+  const ry = (clientY - rect.top) / rect.height;
+  const newW = Math.max(120, Math.min(W * 4, view.w * factor));
+  const newH = newW * (H / W);
+  view.x = view.x + (view.w - newW) * rx;
+  view.y = view.y + (view.h - newH) * ry;
+  view.w = newW; view.h = newH;
+  updateViewBox();
+}
+
+document.getElementById('zoomInBtn').addEventListener('click', () => {
+  const rect = svg.getBoundingClientRect();
+  zoomAt(rect.left + rect.width/2, rect.top + rect.height/2, 0.85);
+});
+document.getElementById('zoomOutBtn').addEventListener('click', () => {
+  const rect = svg.getBoundingClientRect();
+  zoomAt(rect.left + rect.width/2, rect.top + rect.height/2, 1.18);
+});
+document.getElementById('resetViewBtn').addEventListener('click', () => {
+  Object.assign(view, defaultVB);
+  // Clear all position overrides AND wipe localStorage
+  for (const k of Object.keys(positionOverrides)) delete positionOverrides[k];
+  try { localStorage.removeItem(LS_KEY); } catch (e) {}
+  updateViewBox();
+  render();
+});
+
+// =========================================
+//  Matrix rendering — with Chassis column on the left
+// =========================================
+function renderMatrix(visibleData) {
+  const m = document.getElementById('matrix');
+  m.innerHTML = '';
+
+  const cols = ['Chassis', ...CARD_BAND_ORDER];
+  const rows = FAMILY_ORDER;
+
+  const thead = document.createElement('thead');
+  const trh = document.createElement('tr');
+  const cornerH = document.createElement('th');
+  cornerH.textContent = 'Chassis ↓ / Band →';
+  cornerH.className = 'row-h';
+  trh.appendChild(cornerH);
+  cols.forEach(c => {
+    const th = document.createElement('th');
+    th.textContent = c;
+    if (c === 'Chassis') th.className = 'chassis-col';
+    trh.appendChild(th);
+  });
+  thead.appendChild(trh);
+  m.appendChild(thead);
+
+  const tbody = document.createElement('tbody');
+  rows.forEach(fam => {
+    const tr = document.createElement('tr');
+    const th = document.createElement('th');
+    th.className = 'row-h';
+    th.textContent = FAMILY_LABEL[fam];
+    tr.appendChild(th);
+    cols.forEach(band => {
+      const td = document.createElement('td');
+      const cell = visibleData.filter(d => d.family === fam && d.band === band);
+      if (band === 'Chassis') td.classList.add('chassis-cell');
+      if (cell.length === 0) td.classList.add('empty');
+      cell.sort((a,b) => (a.rel_num ?? 99) - (b.rel_num ?? 99));
+      cell.forEach(d => {
+        const chip = document.createElement('span');
+        chip.className = 'pn-chip ' + d.ready;
+        chip.innerHTML = `<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:${COLOR[d.ready]};"></span>${d.short}` +
+          (d.is_mra && d.category !== 'Chassis' ? ' <span class="mra-badge">MRA</span>' : '') +
+          (!d.is_bidi ? ' <span class="uni-badge">UNI</span>' : '') +
+          (d.section === 'Both' ? ' <span class="both-badge">T+I</span>' : '');
+        chip.addEventListener('mousemove', e => showTip(e, d));
+        chip.addEventListener('mouseleave', hideTip);
+        td.appendChild(chip);
+      });
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+  m.appendChild(tbody);
+}
+
+// =========================================
+//  Master render & stats
+// =========================================
+function render() {
+  const vis = DATA.filter(visible);
+  renderQuadrant(vis);
+  renderMatrix(vis);
+  const total = vis.length || 1;
+  document.getElementById('stTotal').textContent = vis.length;
+  const r = vis.filter(d => d.ready==='ready').length;
+  const rm = vis.filter(d => d.ready==='roadmap').length;
+  const mra = vis.filter(d => d.is_mra && d.category !== 'Chassis').length;
+  document.getElementById('stReady').textContent = r;
+  document.getElementById('stReadyPct').textContent = Math.round(r*100/total) + '% of visible';
+  document.getElementById('stRoadmap').textContent = rm;
+  document.getElementById('stRoadmapPct').textContent = Math.round(rm*100/total) + '% of visible';
+  document.getElementById('stMra').textContent = mra;
+  document.getElementById('stMraPct').textContent = Math.round(mra*100/total) + '% of MRA cards';
+}
+
+updateViewBox();
+render();
+</script>
+</body>
+</html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 

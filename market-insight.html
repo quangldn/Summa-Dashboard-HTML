@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SUMMA — Market Insight</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <style>
+    /* Market Insight — page-local additions on top of shared styles.css */
+    .mi-meta { text-align:center; color:var(--text-faint); font-size:13px; margin:-8px auto 0; max-width:640px; }
+    .portal-card .icon.ss { background: linear-gradient(135deg,#0E7C86,#00C4B3); }
+    .portal-card .icon.dc { background: linear-gradient(135deg,var(--nokia-blue),var(--nokia-blue-light)); }
+    .portal-card .icon.ms { background: linear-gradient(135deg,#4a90ff,#8a6bff); }
+    .card-tags { margin-top:14px; display:flex; flex-wrap:wrap; gap:6px; }
+    .card-tags span { font-size:10.5px; font-weight:600; letter-spacing:.3px; text-transform:uppercase;
+      color:var(--nokia-blue); background:var(--surface-2); border:1px solid var(--border);
+      padding:2px 8px; border-radius:20px; }
+    .status-badge { float:right; font-size:10.5px; font-weight:700; letter-spacing:.4px; text-transform:uppercase;
+      color:#0E7C6A; background:#E2F6F1; border:1px solid #B7E7DD; padding:2px 9px; border-radius:20px; }
+    .portal-card.soon { border-style:dashed; box-shadow:none; cursor:default; background:var(--surface-2); }
+    .portal-card.soon:hover { transform:none; box-shadow:none; border-color:var(--border); }
+    .portal-card.soon .icon { background:linear-gradient(135deg,#9AA3B7,#C2C9D6); }
+    .portal-card.soon h3 { color:var(--text-muted); }
+    .mi-note { max-width:900px; margin:26px auto 0; background:var(--surface); border:1px solid var(--border);
+      border-radius:var(--radius); padding:16px 20px; box-shadow:var(--shadow-sm); color:var(--text-muted); font-size:13.5px; }
+    .mi-note b { color:var(--nokia-blue-deep); }
+    .mi-note code { background:var(--surface-2); border:1px solid var(--border); border-radius:4px; padding:1px 6px; font-size:12.5px; }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="dot"></span>
+      SUMMA
+      <span class="sub">Nokia ON · Sales Engineering Workbench</span>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="portfolio.html">HS Portfolio</a>
+      <a href="mofn.html">MOFN Deck</a>
+      <a href="market-insight.html" class="active">Market Insight</a>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <section class="portal-hero">
+      <h1>Market Insight</h1>
+      <p>Curated, source-audited market-intelligence reports for Nokia ON deal pursuit —
+         data center, DCI, subsea and adjacent markets. Each report is built to brief
+         yourself fast and to talk to Sales / Executive level.</p>
+    </section>
+    <p class="mi-meta">A growing library — new reports slot in as cards below. Each is also saved as a Cowork artifact.</p>
+
+    <section class="portal-cards">
+
+      <a class="portal-card" href="reports/ASEAN_DC_Insight.html">
+        <span class="status-badge">Live</span>
+        <div class="icon dc">DC</div>
+        <h3>ASEAN Data Center Insight</h3>
+        <p>Five infographics dissected with an objective source audit, plus an optics/DCI
+           executive talk track. Covers ASEAN DC capacity &amp; pipeline, the electronics
+           supply chain, industrial power cost, and the Vietnam market.</p>
+        <div class="card-tags"><span>Data Center</span><span>Power</span><span>Electronics</span><span>Vietnam</span></div>
+        <div class="arrow">Open report →</div>
+      </a>
+
+      <a class="portal-card" href="reports/ASEAN_Subsea_Insight.html">
+        <span class="status-badge">Live</span>
+        <div class="icon ss">SS</div>
+        <h3>ASEAN Subsea Insight</h3>
+        <p>APAC subsea cable inventory (existing + planned), per-country subsea plans,
+           a resilience / chokepoint diagnostic, the DC ↔ Subsea connective analysis, and
+           Nokia's post-ASN positioning (SLTE + CLS-to-DC backhaul + coherent).</p>
+        <div class="card-tags"><span>Subsea</span><span>DCI</span><span>Diagnostic</span><span>Nokia play</span></div>
+        <div class="arrow">Open report →</div>
+      </a>
+
+      <a class="portal-card" href="reports/Microsoft_AI_Factory_Insight.html">
+        <span class="status-badge">Live</span>
+        <div class="icon ms">AI</div>
+        <h3>Microsoft AI Superfactory — Scale-Across</h3>
+        <p>How Microsoft's Fairwater superfactory (Wisconsin ↔ Atlanta, ~700 mi) links data centers
+           over a dedicated AI-WAN. Breaks down Scale Up / Out / Across, the optical / DWDM / DCI
+           implications, and a research agenda — the continental-scale cousin of the DCI story.</p>
+        <div class="card-tags"><span>Hyperscale</span><span>AI-WAN</span><span>DCI</span><span>Coherent</span><span>Nokia play</span></div>
+        <div class="arrow">Open report →</div>
+      </a>
+
+      <div class="portal-card soon">
+        <div class="icon">＋</div>
+        <h3>More reports land here</h3>
+        <p>Future market-insight runs — competitive teardowns, market outlooks, deal-context
+           briefings — will appear as cards in this library.</p>
+        <div class="arrow" style="color:var(--text-faint)">Coming as they run</div>
+      </div>
+
+    </section>
+
+    <div class="mi-note">
+      <b>Adding a future report:</b> drop the report's HTML into the <code>reports/</code> folder
+      and add one <code>portal-card</code> block above pointing to it. The cards use the shared
+      workbench style, so nothing else needs changing. Reports are self-contained (dark theme,
+      their own tabs); this page is the light-themed index that ties them into SUMMA.
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    Built for Quang · Nokia ON Sales Engineering · Vietnam (GMT+7) · Market Insight library
+  </footer>
+
+</body>
+</html>
