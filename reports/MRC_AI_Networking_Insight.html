@@ -1,0 +1,304 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MRC — Multipath Reliable Connection · AI Networking Briefing</title>
+<style>
+:root{--bg:#0a1122;--panel:#111b30;--panel2:#0e1728;--line:#22304d;--ink:#e6edf7;
+--mut:#93a4c0;--dim:#6c7d9c;--acc:#2ec16b;--blue:#4a90ff;--amber:#f3b73b;--red:#ef5a5a;
+--purple:#8a6bff;--green:#2ec16b;--cyan:#33c6e8}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:15px;line-height:1.62}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+header.top{padding:26px 30px 18px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#0d1830,#0a1122)}
+header.top h1{margin:0;font-size:26px;letter-spacing:.3px}
+header.top .sub{color:var(--acc);font-weight:600;margin-top:4px;font-size:14px;letter-spacing:.4px}
+header.top .meta{color:var(--dim);font-size:12.5px;margin-top:8px}
+header.top .xlink{margin-top:10px;font-size:13px;display:flex;gap:8px;flex-wrap:wrap}
+header.top .xlink a{background:#132039;border:1px solid var(--line);padding:5px 11px;border-radius:8px;color:var(--acc);display:inline-block}
+nav.tabs{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;gap:4px;padding:10px 22px;background:rgba(10,17,34,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav.tabs button{background:transparent;border:1px solid transparent;color:var(--mut);padding:8px 13px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:600;transition:.15s;white-space:nowrap}
+nav.tabs button:hover{color:var(--ink);background:#132039}
+nav.tabs button.active{color:#04140b;background:var(--acc)}
+nav.tabs button .n{opacity:.6;font-weight:700;margin-right:6px}
+main{max-width:1140px;margin:0 auto;padding:26px 22px 90px}
+.tab{display:none;animation:fade .25s ease}.tab.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+h2.tt{font-size:22px;margin:2px 0 4px}.tt-sub{color:var(--mut);margin:0 0 20px;font-size:14px}
+.sec{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:0 0 18px}
+.sec h3{margin:0 0 12px;font-size:15px;letter-spacing:.4px;text-transform:uppercase;display:flex;align-items:center;gap:9px}
+.sec h3 .dot{width:9px;height:9px;border-radius:3px;display:inline-block;background:var(--acc)}
+.sec p{margin:0 0 11px}.sec ul{margin:4px 0 6px;padding-left:20px}.sec li{margin:6px 0}
+.sec.take{background:linear-gradient(180deg,#0f2820,#0e1c1a);border-color:#1d6b4a}
+.sec.take h3 .dot{background:var(--acc)}
+.sec.warn h3 .dot{background:var(--amber)}
+table{width:100%;border-collapse:collapse;margin:6px 0 4px;font-size:13px}
+th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--mut);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.4px;background:#0f1a2e;position:sticky}
+td.c{white-space:nowrap}
+.kd{color:var(--acc);font-weight:700}
+.grid{display:grid;gap:14px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr 1fr 1fr}.g4{grid-template-columns:repeat(4,1fr)}
+.mini{background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:14px 16px}
+.mini h4{margin:0 0 6px;font-size:12.5px;color:var(--acc);text-transform:uppercase;letter-spacing:.4px}
+.mini .big{font-size:23px;font-weight:800}.mini .lbl{color:var(--dim);font-size:11.5px}
+.pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px;letter-spacing:.3px}
+.p-live{background:rgba(46,193,107,.16);color:#5fe09a;border:1px solid #226b45}
+.p-plan{background:rgba(243,183,59,.15);color:#f3c869;border:1px solid #6d5622}
+.p-hi{background:rgba(239,90,90,.14);color:#f18b8b;border:1px solid #6d2b2b}
+.p-inf{background:rgba(138,107,255,.16);color:#b6a4ff;border:1px solid #4a3b8a}
+.chip{display:inline-block;background:#132039;border:1px solid var(--line);color:var(--mut);padding:6px 12px;border-radius:20px;font-size:12.5px;font-weight:600;margin:0 6px 6px 0}
+.ccard{background:var(--panel2);border:1px solid var(--line);border-radius:13px;padding:16px 18px;margin:0 0 14px;border-left:4px solid var(--acc)}
+.ccard.hi{border-left-color:var(--red)}.ccard.med{border-left-color:var(--amber)}.ccard.inf{border-left-color:var(--purple)}
+.ccard h4{margin:0 0 3px;font-size:17px}.ccard .role{color:var(--acc);font-size:12.5px;font-weight:600;margin-bottom:10px}
+.ccard .r{display:grid;grid-template-columns:150px 1fr;gap:4px 12px;font-size:13.3px;margin:4px 0}
+.ccard .r b{color:var(--mut);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.3px;padding-top:2px}
+.flag{border-left:3px solid var(--amber);background:#151d2c;padding:10px 14px;border-radius:0 8px 8px 0;margin:10px 0}.flag b{color:var(--amber)}
+.good{border-left:3px solid var(--green);background:#101f22;padding:10px 14px;border-radius:0 8px 8px 0;margin:10px 0}.good b{color:var(--green)}
+.inf{border-left:3px solid var(--purple);background:#161528;padding:10px 14px;border-radius:0 8px 8px 0;margin:10px 0}.inf b{color:#b6a4ff}
+.callout{background:linear-gradient(180deg,#0e2820,#0e1820);border:1px solid #1d6b4a;border-radius:12px;padding:16px 18px;margin:16px 0}
+.callout .ttl{color:var(--acc);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin:14px 0}
+.flow .node{flex:1;min-width:150px;background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:13px 14px;position:relative;margin-right:26px;margin-bottom:12px}
+.flow .node:last-child{margin-right:0}
+.flow .node:not(:last-child):after{content:"\2192";position:absolute;right:-20px;top:50%;transform:translateY(-50%);color:var(--acc);font-size:20px;font-weight:700}
+.flow .node .st{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--dim);margin-bottom:4px}
+.flow .node .ti{font-weight:700;font-size:14px;margin-bottom:4px}
+.flow .node .ds{font-size:12px;color:var(--mut)}
+.flow .node.nk{border-color:#1d6b4a;background:linear-gradient(180deg,#0f2820,#0e1c1a)}
+.flow .node.nk .ti{color:var(--acc)}
+.talk{margin:6px 0}.talk .row{display:flex;gap:14px;padding:13px 0;border-bottom:1px solid var(--line)}.talk .row:last-child{border-bottom:none}
+.talk .num{flex:0 0 30px;height:30px;border-radius:9px;background:var(--acc);color:#04140b;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:14px}
+.talk .qt{font-size:14.5px}
+.q{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.q:last-child{border-bottom:none}
+.q .qn{flex:0 0 26px;height:26px;border-radius:8px;background:#16321f;color:var(--acc);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:13px}
+.q .qb b{color:var(--ink)}.q .qb{font-size:13.6px}
+.cite{color:var(--acc);border-bottom:1px dotted rgba(46,193,107,.7);cursor:help;text-decoration:none;font-weight:inherit;white-space:nowrap}
+.cite:hover{border-bottom-style:solid;text-decoration:none}
+.cite.calc{color:#b6a4ff;border-bottom-color:rgba(138,107,255,.55)}
+.mini .big .cite{border-bottom-width:2px}
+#tip{position:fixed;z-index:100;max-width:344px;background:#0c1526;border:1px solid #2d3f63;border-radius:10px;padding:11px 13px;font-size:12.5px;line-height:1.5;box-shadow:0 10px 34px rgba(0,0,0,.55);pointer-events:none;display:none}
+#tip .q{color:var(--ink);font-style:italic}
+#tip .src{margin-top:7px;color:var(--acc);font-size:11.5px;font-weight:700;letter-spacing:.2px}
+#tip .src.est{color:#b6a4ff}
+.cite-hint{display:inline-block;margin-top:4px;color:var(--dim);font-size:12px}
+.cite-hint b{color:var(--acc)}
+@media(max-width:760px){.g2,.g3,.g4{grid-template-columns:1fr}main{padding:20px 14px 80px}.ccard .r{grid-template-columns:1fr}}
+</style></head><body>
+<header class="top">
+<h1>MRC — Multipath Reliable Connection</h1>
+<div class="sub">The "better Ethernet" transport that makes 100,000-GPU AI training networks survivable — and what it means one layer up in optics</div>
+<div class="meta">Companion to the Microsoft AI Superfactory brief · sources: OpenAI (OCP paper, May 2026), NVIDIA Spectrum-X, The Next Platform, ServeTheHome, Dell'Oro · web-verified Aug 2026 · engineer framing · <b>optics relevance is analyst interpretation, flagged as such</b></div>
+<div class="meta cite-hint">💡 <b>Figures are cited</b> — hover any <span class="cite" data-q="Like this — every underlined figure shows its supporting quote and source on hover, and clicks through to the article.">underlined number</span> for the supporting quote &amp; source; click to open it.</div>
+<div class="xlink"><a href="Microsoft_AI_Factory_Insight.html">↩ Microsoft AI Superfactory (AI-WAN)</a><a href="ASEAN_Subsea_Insight.html">↩ ASEAN Subsea Insight</a></div>
+</header>
+<nav class="tabs">
+<button class="active" onclick="show('overview',this)"><span class="n">1</span>Overview</button>
+<button onclick="show('how',this)"><span class="n">2</span>How It Works</button>
+<button onclick="show('field',this)"><span class="n">3</span>vs RoCE / UEC / InfiniBand</button>
+<button onclick="show('deploy',this)"><span class="n">4</span>Deployments &amp; Resilience</button>
+<button onclick="show('optics',this)"><span class="n">5</span>Optics / Nokia Read</button>
+<button onclick="show('agenda',this)"><span class="n">6</span>Research Agenda</button>
+<button onclick="show('sources',this)"><span class="n">7</span>Sources</button>
+</nav>
+<main>
+
+<!-- 1 OVERVIEW -->
+<section id="overview" class="tab active">
+<h2 class="tt">What MRC actually is</h2>
+<p class="tt-sub"><b>MRC = Multipath Reliable Connection.</b> It is a next-generation RDMA-over-Ethernet transport protocol, led by OpenAI with Microsoft, NVIDIA, AMD, Broadcom and Intel, and <a class="cite" data-q="OpenAI: MRC was released as an open specification through the Open Compute Project (OCP) on May 5, 2026, with a technical paper 'Resilient AI Supercomputer Networking using MRC and SRv6.'" href="https://openai.com/index/mrc-supercomputer-networking/" target="_blank" rel="noopener">released as an open spec through the Open Compute Project on 5 May 2026</a>. In one line: it is the set of changes that make ordinary Ethernet behave well enough to run a synchronous training job across 100,000+ GPUs without stalling every time a link hiccups.</p>
+<div class="grid g4">
+<div class="mini"><h4>What it extends</h4><div class="big"><a class="cite" data-q="OpenAI / ServeTheHome: MRC extends RDMA over Converged Ethernet (RoCE / RoCEv2), an IBTA standard for hardware-accelerated remote memory access — it builds on RoCE rather than replacing it." href="https://openai.com/index/mrc-supercomputer-networking/" target="_blank" rel="noopener">RoCE</a></div><div class="lbl">a superset of RDMA-over-Ethernet, plus SRv6 source routing</div></div>
+<div class="mini"><h4>GPUs in 2 tiers</h4><div class="big"><a class="cite" data-q="The Next Platform / OpenAI: a two-tier MRC fabric connects 131,072 GPUs versus 65,536 in a traditional three-tier design, using only ~20% more switches and a max of 3 hops (vs 5–7)." href="https://www.nextplatform.com/connect/2026/05/12/openai-microsoft-and-friends-build-a-better-more-scalable-ethernet/5239078" target="_blank" rel="noopener">131,072</a></div><div class="lbl">vs 65,536 in a 3-tier design; max 3 hops</div></div>
+<div class="mini"><h4>Planes per NIC</h4><div class="big"><a class="cite" data-q="OpenAI: MRC splits one 800 Gb/s interface into eight 100 Gb/s planes connecting to eight switches, creating eight separate parallel networks." href="https://openai.com/index/mrc-supercomputer-networking/" target="_blank" rel="noopener">8 × 100G</a></div><div class="lbl">one 800G NIC becomes 8 parallel planes</div></div>
+<div class="mini"><h4>Back-end market</h4><div class="big"><a class="cite" data-q="Dell'Oro Group / SDxCentral: data center switch sales in AI back-end networks are forecast to exceed $100 billion over the next five years (through ~2030)." href="https://www.sdxcentral.com/news/ai-back-end-networks-to-drive-data-center-switch-spending-past-100b-by-2030/" target="_blank" rel="noopener">&gt;$100B</a></div><div class="lbl">AI back-end switch spend to ~2030 (Dell'Oro)</div></div>
+</div>
+<div class="callout"><div class="ttl">Why this matters to you (the honest version)</div>
+MRC lives at the <b>transport layer (L3/L4) over the switch/NIC fabric</b> — that is NVIDIA / Broadcom / Arista / AMD territory, <b>not</b> the optical layer Nokia sells. So MRC is not a product you quote. But it matters for two reasons an optical SE should hold: (1) it is the protocol that lets <b>Ethernet keep beating InfiniBand</b> for AI, which decides what optics ride the fabric (800G/1.6T Ethernet pluggables, coherent for the WAN); and (2) it runs over the <b>scale-across AI-WAN</b> via SRv6 — so the long-haul optical layer you <i>do</i> sell is literally the road MRC drives on. Read this as context, not a pitch.</div>
+
+<div class="sec"><h3><span class="dot"></span>The problem MRC was built to kill</h3>
+<p>In a synchronous training job, thousands of GPUs must exchange gradients in lock-step. If <b>one</b> flow gets congested or <b>one</b> link fails, the whole collective stalls and GPUs sit idle. Classic RoCE makes this worse: it pins each transfer to a <b>single path</b> so packets arrive in order, which causes flow collisions and hotspots. MRC attacks exactly this:</p>
+<ul>
+<li><b>Congestion</b> that idles GPUs during synchronous training.</li>
+<li><b>Link / switch failures</b> that used to force job restarts or slow reroutes.</li>
+<li><b>Control-plane complexity</b> — too many failure modes in dynamic routing.</li>
+<li><b>Tier explosion</b> — conventional fabrics need 3–4 switch tiers to reach 100k+ GPUs.</li>
+</ul></div>
+</section>
+
+<!-- 2 HOW IT WORKS -->
+<section id="how" class="tab">
+<h2 class="tt">How MRC works — four moves</h2>
+<p class="tt-sub">MRC is really four ideas stacked together. None is exotic on its own; the combination is what makes a 100k-GPU Ethernet fabric survivable.</p>
+
+<div class="grid g2">
+<div class="sec"><h3><span class="dot"></span>1 · Multi-plane fabric</h3>
+<p style="font-size:13.5px">Instead of one fat 800G link per GPU, MRC splits it into <a class="cite" data-q="OpenAI: one 800 Gb/s interface is split into eight 100 Gb/s planes to eight different switches, creating eight separate parallel networks; ~131,000 GPUs can be fully connected with only two switch tiers." href="https://openai.com/index/mrc-supercomputer-networking/" target="_blank" rel="noopener">eight 100G planes to eight switches</a> — eight parallel Clos networks. Abundant paths mean you can reach 131k GPUs in just two tiers.</p>
+<p style="font-size:12.5px;color:var(--dim)">Same 51.2 Tb/s switch ASIC, wired as <a class="cite" data-q="The Next Platform: MRC redistributes switch capacity — 512 ports at 100 Gb/s instead of 64 ports at 800 Gb/s on the same 51.2 Tb/s ASIC — trading port speed for path count." href="https://www.nextplatform.com/connect/2026/05/12/openai-microsoft-and-friends-build-a-better-more-scalable-ethernet/5239078" target="_blank" rel="noopener">512×100G instead of 64×800G</a> — more paths, not more speed.</p></div>
+
+<div class="sec"><h3><span class="dot"></span>2 · Packet spray + RDMA addressing</h3>
+<p style="font-size:13.5px">MRC <a class="cite" data-q="OpenAI: MRC sprays the packets of a single transfer across hundreds of paths across all planes. Packets may arrive out of order; each MRC packet carries its final memory address so the destination places it directly into memory on arrival." href="https://openai.com/index/mrc-supercomputer-networking/" target="_blank" rel="noopener">sprays one transfer across hundreds of paths</a>. Packets can arrive out of order because each carries its <b>final memory address</b> (the RDMA trick) — the receiver drops each into the right place regardless of order.</p>
+<p style="font-size:12.5px;color:var(--dim)">This is what removes the single-path constraint that made classic RoCE collide.</p></div>
+
+<div class="sec"><h3><span class="dot"></span>3 · SRv6 source routing</h3>
+<p style="font-size:13.5px">Rather than BGP and dynamic route tables, the <b>sender</b> picks each packet's path by <a class="cite" data-q="OpenAI: MRC uses IPv6 Segment Routing (SRv6) — the sender embeds the sequence of switch identifiers into each packet's destination address, so routing tables are static and set once, removing an entire class of routing failure modes." href="https://openai.com/index/mrc-supercomputer-networking/" target="_blank" rel="noopener">embedding switch IDs into the IPv6 destination address (SRv6)</a>. Routing tables are static, set once. No dynamic recalculation, one fewer class of failures.</p>
+<p style="font-size:12.5px;color:var(--dim)">Because eight paths exist to any endpoint, adaptive routing is unnecessary — the sender just reacts.</p></div>
+
+<div class="sec"><h3><span class="dot"></span>4 · Trimming, retransmit &amp; healing</h3>
+<p style="font-size:13.5px">MRC uses <a class="cite" data-q="OpenAI / The Next Platform: packet trimming distinguishes congestion loss from real failure and retransmits only dropped payloads (not headers); selective retransmission plus microsecond-scale failure detection let the network reroute instantly and heal around failures." href="https://openai.com/index/mrc-supercomputer-networking/" target="_blank" rel="noopener">packet trimming + selective retransmit + µs-scale failure detection</a>. On packet loss it assumes the path is dead, stops using it, and reroutes — no job restart. The fabric "heals around" the break.</p>
+<p style="font-size:12.5px;color:var(--dim)">Congestion control is ECN-based; the result is "essentially no congestion in the core."</p></div>
+</div>
+
+<div class="sec"><h3><span class="dot"></span>The end-to-end picture</h3>
+<div class="flow">
+<div class="node"><div class="st">Split</div><div class="ti">Multi-plane</div><div class="ds">800G → 8×100G, 8 parallel networks</div></div>
+<div class="node"><div class="st">Spread</div><div class="ti">Packet spray</div><div class="ds">one transfer → hundreds of paths, OOO ok</div></div>
+<div class="node"><div class="st">Steer</div><div class="ti">SRv6</div><div class="ds">sender sets the path, static tables</div></div>
+<div class="node nk"><div class="st">Survive</div><div class="ti">Trim + reroute</div><div class="ds">µs failure detect, heal around, no restart</div></div>
+</div>
+<p style="font-size:12.5px;color:var(--dim)">Net effect: a 100k-GPU Ethernet fabric that behaves like one non-blocking machine and shrugs off link/switch failures.</p></div>
+</section>
+
+<!-- 3 vs FIELD -->
+<section id="field" class="tab">
+<h2 class="tt">MRC vs RoCE, Ultra Ethernet &amp; InfiniBand</h2>
+<p class="tt-sub">Where MRC sits in the AI-networking landscape — and why its "extend, don't replace" stance is the strategic point.</p>
+
+<div class="sec"><h3><span class="dot"></span>The comparison</h3>
+<table><thead><tr><th>Approach</th><th>What it is</th><th>Stance</th><th>MRC's relationship</th></tr></thead><tbody>
+<tr><td><b>Classic RoCE / RoCEv2</b></td><td>RDMA over Ethernet, single-path, in-order</td><td class="c">Incumbent</td><td>MRC <b>extends</b> it — adds multipath spray + SRv6 on top</td></tr>
+<tr><td><b>Ultra Ethernet (UEC)</b></td><td><a class="cite" data-q="The Next Platform: the Ultra Ethernet Consortium protocol is a brand-new protocol starting from a blank sheet of paper, whereas MRC makes much less drastic changes to existing RoCE infrastructure." href="https://www.nextplatform.com/connect/2026/05/12/openai-microsoft-and-friends-build-a-better-more-scalable-ethernet/5239078" target="_blank" rel="noopener">a blank-sheet new AI-Ethernet protocol</a></td><td class="c">Clean-slate</td><td>MRC <a class="cite" data-q="OpenAI: MRC draws on techniques developed by the Ultra Ethernet Consortium (UEC) and extends them with SRv6-based source routing." href="https://openai.com/index/mrc-supercomputer-networking/" target="_blank" rel="noopener">borrows UEC techniques</a>, adds SRv6 — more incremental / deployable now</td></tr>
+<tr><td><b>InfiniBand</b></td><td>NVIDIA's dedicated HPC/AI fabric</td><td class="c">Proprietary</td><td>MRC is the Ethernet answer that helps <a class="cite" data-q="Dell'Oro Group: Ethernet is winning the war against InfiniBand in AI back-end networks; MRC reinforces Ethernet's expanding role." href="https://www.delloro.com/news/ethernet-is-winning-the-war-against-infiniband-in-ai-back-end-networks/" target="_blank" rel="noopener">Ethernet keep taking share from InfiniBand</a></td></tr>
+</tbody></table></div>
+
+<div class="sec"><h3><span class="dot"></span>The multi-vendor hardware ecosystem</h3>
+<p>Crucially for anyone tracking the AI-network supply chain, MRC is <b>not single-vendor</b>. It is proven on and implemented across:</p>
+<table><thead><tr><th>Vendor</th><th>MRC-capable silicon</th></tr></thead><tbody>
+<tr><td><b>NVIDIA</b></td><td><a class="cite" data-q="The Next Platform / ServeTheHome: MRC runs natively on NVIDIA ConnectX-8 / SuperNICs and Spectrum-4/5 (Spectrum-X) Ethernet switches; NVIDIA describes MRC as a next-generation RDMA transport proven on Spectrum-X." href="https://www.servethehome.com/nvidia-spectrum-x-ethernet-mrc-is-the-custom-rdma-transport-protocol-for-gigascale-ai/" target="_blank" rel="noopener">ConnectX-8 SuperNICs, Spectrum-4/5 (Spectrum-X)</a></td></tr>
+<tr><td><b>AMD</b></td><td><a class="cite" data-q="The Next Platform: MRC is implemented on AMD Pollara and Vulcano DPUs, alongside Broadcom, NVIDIA and Arista hardware." href="https://www.nextplatform.com/connect/2026/05/12/openai-microsoft-and-friends-build-a-better-more-scalable-ethernet/5239078" target="_blank" rel="noopener">Pollara &amp; Vulcano DPUs</a></td></tr>
+<tr><td><b>Broadcom</b></td><td><a class="cite" data-q="The Next Platform: Broadcom Thor Ultra SmartNICs implement MRC; Broadcom is a hardware partner alongside AMD and NVIDIA." href="https://www.nextplatform.com/connect/2026/05/12/openai-microsoft-and-friends-build-a-better-more-scalable-ethernet/5239078" target="_blank" rel="noopener">Thor Ultra SmartNICs</a></td></tr>
+<tr><td><b>Arista</b></td><td><a class="cite" data-q="OpenAI / The Next Platform: Arista Networks is an MRC deployment partner alongside Microsoft Azure, Oracle Cloud Infrastructure and NVIDIA." href="https://www.nextplatform.com/connect/2026/05/12/openai-microsoft-and-friends-build-a-better-more-scalable-ethernet/5239078" target="_blank" rel="noopener">switching / deployment partner</a></td></tr>
+</tbody></table></div>
+
+<div class="sec take"><h3><span class="dot"></span>The strategic read</h3>
+<p>MRC's whole play is <b>"extend RoCE, don't start over."</b> Where Ultra Ethernet is a clean-slate protocol that needs a fresh silicon/software cycle, MRC layers onto RoCE hardware that already ships — so it can run <i>today</i> on NVIDIA/AMD/Broadcom NICs. That pragmatism, plus an open OCP release, is designed to make Ethernet the default AI fabric and blunt both InfiniBand and any single-vendor lock. Some coverage even frames it as a "TCP/IP moment" for AI datacenter networking.</p></div>
+</section>
+
+<!-- 4 DEPLOY -->
+<section id="deploy" class="tab">
+<h2 class="tt">Deployments &amp; resilience — the proof</h2>
+<p class="tt-sub">MRC isn't a whitepaper; it is running in production on two of the largest AI builds on earth.</p>
+
+<div class="grid g3">
+<div class="mini"><h4>GPUs in production</h4><div class="big"><a class="cite" data-q="OpenAI: MRC supports over 100,000 GPUs in a single cluster and is deployed across OpenAI's largest NVIDIA GB200 supercomputers." href="https://openai.com/index/mrc-supercomputer-networking/" target="_blank" rel="noopener">100,000+</a></div><div class="lbl">on NVIDIA GB200 superclusters</div></div>
+<div class="mini"><h4>Network links</h4><div class="big"><a class="cite" data-q="OpenAI: MRC production networks contain millions of links." href="https://openai.com/index/mrc-supercomputer-networking/" target="_blank" rel="noopener">millions</a></div><div class="lbl">links in the production fabric</div></div>
+<div class="mini"><h4>Link-fail impact</h4><div class="big"><a class="cite" data-q="The Next Platform: when a link fails, endpoints lose about 12% of bandwidth but keep operating; the cluster heals around failures and offline repairs happen without stopping training." href="https://www.nextplatform.com/connect/2026/05/12/openai-microsoft-and-friends-build-a-better-more-scalable-ethernet/5239078" target="_blank" rel="noopener">~12%</a></div><div class="lbl">bandwidth lost, job keeps running</div></div>
+</div>
+
+<div class="ccard"><h4>🟢 OpenAI — Stargate (Oracle Cloud, Abilene TX)</h4><div class="role">One of the two first MRC production sites</div>
+<div class="r"><b>Where</b><span><a class="cite" data-q="OpenAI: MRC is currently running at OpenAI's Stargate facility on Oracle Cloud Infrastructure (OCI) in Abilene, Texas, and at Microsoft's Fairwater supercomputers." href="https://openai.com/index/mrc-supercomputer-networking/" target="_blank" rel="noopener">Stargate on OCI, Abilene, Texas</a></span></div>
+<div class="r"><b>Why it exists</b><span>Training OpenAI's frontier models on GB200 at gigascale — the pressure test that produced MRC</span></div></div>
+
+<div class="ccard"><h4>🔵 Microsoft — Fairwater / Azure (Wisconsin)</h4><div class="role">The other first-wave MRC site — ties directly to your Microsoft brief</div>
+<div class="r"><b>Where</b><span><a class="cite" data-q="The Next Platform: MRC testing occurred at Oracle's Stargate datacenter in Abilene, Texas and Microsoft's Azure AI facility in Wisconsin (Fairwater)." href="https://www.nextplatform.com/connect/2026/05/12/openai-microsoft-and-friends-build-a-better-more-scalable-ethernet/5239078" target="_blank" rel="noopener">Fairwater, Wisconsin</a></span></div>
+<div class="r"><b>Link</b><span>This is the same MRC named in the Microsoft AI-WAN brief — MRC is the transport inside Fairwater's 800G Ethernet scale-out and across the AI-WAN via SRv6</span></div></div>
+
+<div class="sec"><h3><span class="dot"></span>Resilience, in real numbers</h3>
+<ul>
+<li><b>Link flaps:</b> <a class="cite" data-q="OpenAI: multiple link flaps per minute between tier-0 and tier-1 switches were observed with no measurable impact on training." href="https://openai.com/index/mrc-supercomputer-networking/" target="_blank" rel="noopener">multiple flaps/minute with no measurable training impact</a>.</li>
+<li><b>Switch reboots:</b> tier-1 switches rebooted without coordinating with the training team.</li>
+<li><b>Congestion:</b> <a class="cite" data-q="OpenAI / The Next Platform: MRC achieves essentially no congestion in the core of the network, eliminating throughput variation during synchronous training and interference between multi-tenant jobs." href="https://www.nextplatform.com/connect/2026/05/12/openai-microsoft-and-friends-build-a-better-more-scalable-ethernet/5239078" target="_blank" rel="noopener">"essentially no congestion in the core"</a>, and no cross-job interference on multi-tenant clusters.</li>
+</ul></div>
+</section>
+
+<!-- 5 OPTICS READ -->
+<section id="optics" class="tab">
+<h2 class="tt">Optics / Nokia Read</h2>
+<p class="tt-sub">The honest SE translation: MRC is above your layer, but it moves the ground under the optics market. This tab is analyst interpretation on a factual base.</p>
+
+<div class="flag"><b>Set expectations first:</b> MRC is a <b>NIC + switch transport protocol</b> (NVIDIA / Broadcom / AMD / Arista). Nokia does <b>not</b> sell into the MRC layer, and you should never imply an MRC "win." Its value to you is as <b>context that shapes optical demand</b> — nothing more, but that's not nothing.</div>
+
+<div class="sec"><h3><span class="dot"></span>Three ways MRC touches the optical layer</h3>
+<table><thead><tr><th>MRC fact</th><th>Optical consequence</th></tr></thead><tbody>
+<tr><td>MRC lets <b>Ethernet</b> scale to 100k+ GPUs, keeping it ahead of InfiniBand</td><td>Locks in the <b>Ethernet optics</b> ecosystem — 800G → 1.6T pluggables (DR/FR) for scale-out, and coherent for the WAN. The fabric you feed with optics stays Ethernet.</td></tr>
+<tr><td>MRC's <b>multi-plane</b> design trades port speed for port count (512×100G vs 64×800G)</td><td>Shifts the <b>pluggable mix</b> — more lower-speed ports and breakout optics per switch; more transceivers per GPU, not fewer.</td></tr>
+<tr><td>MRC rides the <b>scale-across AI-WAN</b> via SRv6 across sites</td><td>The <b>long-haul coherent DWDM / DCI</b> layer you <i>do</i> sell is the physical road MRC drives between data centers — MRC is the tenant, your line system is the highway.</td></tr>
+</tbody></table></div>
+
+<div class="sec"><h3><span class="dot"></span>Where Nokia does / doesn't sit</h3>
+<div class="good"><b>Where you play:</b> the <b>optical transport under the fabric</b> — DWDM line systems + coherent (1830 GX/PSS, PSE-6s) for the metro/long-haul DCI that carries MRC between sites, and the ZR/ZR+ pluggable ecosystem at the IP-optical edge. MRC growing = the AI back-end growing = more of this.</div>
+<div class="flag"><b>Where you don't:</b> the NIC, the switch ASIC and the transport protocol itself — that's NVIDIA/Broadcom/AMD/Arista. Don't position Nokia as an "AI fabric" vendor at that layer.</div>
+<div class="inf"><b>The useful move:</b> use MRC as <b>credibility in a hyperscaler conversation</b> — showing you understand why their back-end is Ethernet, why it's multi-plane, and how their cross-site training rides your optical layer. That's the SE who "gets it," which is how you earn the DCI/line-system conversation.</div>
+</div>
+
+<div class="sec take"><h3><span class="dot"></span>Four lines for a Sales / exec conversation</h3>
+<div class="talk">
+<div class="row"><div class="num">1</div><div class="qt">"MRC is why AI back-ends are staying <b>Ethernet</b>, not InfiniBand — OpenAI, Microsoft and NVIDIA made ordinary Ethernet survivable at 100k GPUs. That decides which optics ride the fabric."</div></div>
+<div class="row"><div class="num">2</div><div class="qt">"We don't sell MRC — it's the NIC-and-switch layer. We sell the <b>optical road it runs on</b>: the coherent DCI between the sites it stitches together."</div></div>
+<div class="row"><div class="num">3</div><div class="qt">"Their multi-plane design means <b>more transceivers per GPU</b>, not fewer — the optics content of an AI cluster is going up, and the back-end switch market is a <b>$100B+</b> wave to 2030."</div></div>
+<div class="row"><div class="num">4</div><div class="qt">"When they train across sites, MRC runs over <b>SRv6 on the WAN</b> — that WAN is coherent DWDM, and that's exactly where we compete."</div></div>
+</div></div>
+</section>
+
+<!-- 6 AGENDA -->
+<section id="agenda" class="tab">
+<h2 class="tt">Research Agenda — where to dig next</h2>
+<p class="tt-sub">Open threads to turn this into deeper knowledge.</p>
+<div class="q"><div class="qn">1</div><div class="qb"><b>Read the OpenAI/OCP paper in full.</b> "Resilient AI Supercomputer Networking using MRC and SRv6" — the primary source for the topology math, congestion-control detail, and the exact SRv6 encoding. Everything else summarises it.</div></div>
+<div class="q"><div class="qn">2</div><div class="qb"><b>MRC over the WAN — how far does SRv6 stretch?</b> Intra-site MRC is clear; the interesting question for optics is how MRC/SRv6 behaves across the ~700-mile AI-WAN (latency, reliability, whether it's the same transport or a WAN variant). Tie back to the Microsoft brief's Research Agenda #2.</div></div>
+<div class="q"><div class="qn">3</div><div class="qb"><b>MRC vs Ultra Ethernet — who wins the standard?</b> Both target AI Ethernet; MRC is incremental, UEC is clean-slate. Track OCP vs UEC adoption, and whether NVIDIA/Broadcom converge them. Decides the long-run NIC/switch optics roadmap.</div></div>
+<div class="q"><div class="qn">4</div><div class="qb"><b>Optics content per GPU under multi-plane.</b> Quantify how 512×100G-style wiring changes transceiver/breakout demand vs 64×800G — the real "more optics per GPU" claim. Component-market angle (Coherent, Lumentum, InnoLight).</div></div>
+<div class="q"><div class="qn">5</div><div class="qb"><b>ASEAN read-across.</b> As regional operators build AI back-ends, do they adopt MRC/Ethernet or buy turnkey InfiniBand? Whichever they pick, map the optical pull — and where Nokia's DCI layer attaches.</div></div>
+</section>
+
+<!-- 7 SOURCES -->
+<section id="sources" class="tab">
+<h2 class="tt">Sources &amp; Confidence</h2>
+<p class="tt-sub">What this brief is built on. Every figure is hyperlinked to one of these — hover it for the supporting quote.</p>
+<div class="sec"><h3><span class="dot"></span>Primary &amp; analyst sources</h3>
+<ul>
+<li><b><a href="https://openai.com/index/mrc-supercomputer-networking/" target="_blank" rel="noopener">OpenAI — Supercomputer networking to accelerate large-scale AI training</a></b> (May 2026) + the OCP paper <i>Resilient AI Supercomputer Networking using MRC and SRv6</i>. The primary source: MRC definition, multi-plane, packet spray, SRv6, partners, deployments, resilience.</li>
+<li><b><a href="https://www.nextplatform.com/connect/2026/05/12/openai-microsoft-and-friends-build-a-better-more-scalable-ethernet/5239078" target="_blank" rel="noopener">The Next Platform — OpenAI, Microsoft and Friends Build a Better, More Scalable Ethernet</a></b>. Topology math (131,072 GPUs, 512×100G, 3 hops), hardware vendors, UEC/RoCE positioning, ~12% degradation.</li>
+<li><b><a href="https://www.servethehome.com/nvidia-spectrum-x-ethernet-mrc-is-the-custom-rdma-transport-protocol-for-gigascale-ai/" target="_blank" rel="noopener">ServeTheHome — NVIDIA Spectrum-X Ethernet MRC</a></b>. MRC as a custom RDMA transport on Spectrum-X; RoCEv2 relationship; open-spec / OCP framing.</li>
+<li><b><a href="https://www.delloro.com/news/ethernet-is-winning-the-war-against-infiniband-in-ai-back-end-networks/" target="_blank" rel="noopener">Dell'Oro — Ethernet winning vs InfiniBand</a></b> &amp; <b><a href="https://www.sdxcentral.com/news/ai-back-end-networks-to-drive-data-center-switch-spending-past-100b-by-2030/" target="_blank" rel="noopener">SDxCentral / Dell'Oro — AI back-end switch spend &gt;$100B to 2030</a></b>. Market framing.</li>
+<li><b><a href="https://techcommunity.microsoft.com/blog/azurehighperformancecomputingblog/building-resilient-networks-for-ai-supercomputers/4516919" target="_blank" rel="noopener">Microsoft — Building resilient networks for AI supercomputers</a></b>. Microsoft's own account (JS-rendered; cited here for completeness).</li>
+</ul></div>
+<div class="sec warn"><h3><span class="dot" style="background:var(--amber)"></span>Confidence &amp; caveats</h3>
+<ul>
+<li><b>MRC's core facts are well-sourced</b> — OpenAI published an open spec + paper via OCP, cross-confirmed by NextPlatform, ServeTheHome and NVIDIA. High confidence on the "what/how."</li>
+<li><b>The naming:</b> MRC = <b>Multipath Reliable Connection</b> (OpenAI's expansion). The Microsoft AI-WAN brief earlier used the looser phrase "Multi-Path Reliable Connected" — same protocol; this report uses OpenAI's exact term.</li>
+<li><b>Optics / Nokia relevance is analyst interpretation</b> (purple / flagged) — MRC is a NIC/switch-layer protocol; the optical consequences and Nokia positioning are inference, not vendor statements. Never present as an MRC or Nokia fact.</li>
+<li><b>WAN behaviour of MRC/SRv6 is under-documented</b> publicly — the intra-site story is clear; cross-site specifics are an open question (Agenda #2).</li>
+</ul></div>
+<div class="callout"><div class="ttl">Companion reports</div>
+This is the transport-layer companion to the <b>Microsoft AI Superfactory</b> brief (where MRC first appears, inside the AI-WAN) and sits in the SUMMA Market Insight library with the ASEAN DC &amp; Subsea reports. Open <a href="Microsoft_AI_Factory_Insight.html">Microsoft_AI_Factory_Insight.html</a>.</div>
+</section>
+
+</main>
+<div id="tip"></div>
+<footer>MRC — Multipath Reliable Connection · sources: OpenAI (OCP, May 2026) · The Next Platform · ServeTheHome · NVIDIA Spectrum-X · Dell'Oro. Optics/Nokia relevance is analyst inference, flagged in-text. Built for Quang · Nokia ON Sales Engineering · Aug 2026.</footer>
+<script>
+function show(id,btn){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+document.getElementById('tip').style.display='none';
+window.scrollTo({top:0,behavior:'smooth'});}
+(function(){
+ var tip=document.getElementById('tip');
+ function srcName(el){
+  if(el.classList.contains('calc'))return "Author's estimate — not a vendor figure";
+  try{return el.getAttribute('href').replace(/^https?:\/\//,'').replace(/^www\./,'').split('/')[0]+' ↗';}catch(e){return '';}
+ }
+ function place(e){var x=e.clientX+14,y=e.clientY+16,w=tip.offsetWidth,h=tip.offsetHeight;
+  if(x+w>window.innerWidth-8)x=e.clientX-w-14; if(x<8)x=8;
+  if(y+h>window.innerHeight-8)y=e.clientY-h-14; if(y<8)y=8;
+  tip.style.left=x+'px';tip.style.top=y+'px';}
+ document.querySelectorAll('.cite').forEach(function(el){
+  el.addEventListener('mouseenter',function(e){
+   var est=el.classList.contains('calc')?' est':'';
+   tip.innerHTML='<div class="q">'+(el.dataset.q||'')+'</div><div class="src'+est+'">'+srcName(el)+'</div>';
+   tip.style.display='block';place(e);
+  });
+  el.addEventListener('mousemove',place);
+  el.addEventListener('mouseleave',function(){tip.style.display='none';});
+ });
+})();
+</script>
+</body></html>
