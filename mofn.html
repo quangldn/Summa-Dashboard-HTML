@@ -363,6 +363,146 @@
           </div>
         </div>
 
+        <!-- ============ Span budget · OSNR gating ============ -->
+        <div style="margin-top:14px;padding-top:12px;border-top:2px solid var(--border)">
+          <div style="font-size:11px;text-transform:uppercase;letter-spacing:.6px;font-weight:700;color:var(--nokia-blue-deep);margin-bottom:8px">
+            Span budget · reach gating
+            <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-faint);margin-left:6px">
+              lets the link budget choose the amp strategy instead of guessing
+            </span>
+          </div>
+
+          <div class="distance-row">
+            <div class="filter-cell">
+              <label for="f-fiber">Fiber type (loss)</label>
+              <select id="f-fiber">
+                <option value="0.22" selected>G.652 SSMF — 0.22 dB/km</option>
+                <option value="0.17">G.654.E low-loss — 0.17 dB/km</option>
+                <option value="0.20">G.655 NZDSF — 0.20 dB/km</option>
+                <option value="0.25">Legacy / aged — 0.25 dB/km</option>
+              </select>
+            </div>
+            <div class="filter-cell">
+              <label for="f-engine">Target transponder</label>
+              <select id="f-engine">
+                <option value="CHM7" selected>CHM7 · ICE-7 (PSE-6s)</option>
+                <option value="CHM6">CHM6 · ICE-6 (PSE-Vs)</option>
+              </select>
+            </div>
+            <div class="filter-cell">
+              <label for="f-rate">Target line rate / λ</label>
+              <select id="f-rate"></select>
+            </div>
+            <div class="filter-cell">
+              <label>Launch / margin (dBm · dB)</label>
+              <div style="display:flex;gap:6px">
+                <input type="number" id="f-pch" value="1" min="-6" max="6" step="0.5" style="flex:1" />
+                <input type="number" id="f-margin" value="2" min="0" max="6" step="0.5" style="flex:1" />
+              </div>
+            </div>
+          </div>
+
+          <div class="distance-row" style="margin-top:8px">
+            <div class="filter-cell" style="display:flex;align-items:flex-end">
+              <label class="checkbox" for="f-auto-amp" style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;text-transform:none;letter-spacing:0;cursor:pointer">
+                <input type="checkbox" id="f-auto-amp" style="width:16px;height:16px;accent-color:var(--nokia-blue)" />
+                Let the link budget pick the amp strategy
+              </label>
+            </div>
+            <div class="filter-cell" style="grid-column:span 3;display:flex;align-items:flex-end;color:var(--text-faint);font-size:11px;line-height:1.3">
+              When on, the engine walks EDFA → EDFA+Raman → Hybrid and takes the first that closes
+              the target rate with positive margin. The amp-strategy buttons above become read-only.
+            </div>
+          </div>
+
+          <div id="osnr-panel" style="margin-top:10px"></div>
+        </div>
+
+        <!-- ============ Site build · redundancy · protection ============ -->
+        <div style="margin-top:14px;padding-top:12px;border-top:2px solid var(--border)">
+          <div style="font-size:11px;text-transform:uppercase;letter-spacing:.6px;font-weight:700;color:var(--nokia-blue-deep);margin-bottom:8px">
+            Site build · redundancy · protection
+            <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-faint);margin-left:6px">
+              drives the common-equipment BoM, PEM count and breaker sizing
+            </span>
+          </div>
+
+          <div class="distance-row">
+            <div class="filter-cell">
+              <label for="f-ctrl">Controllers per chassis</label>
+              <select id="f-ctrl">
+                <option value="1">1 — unprotected</option>
+                <option value="2" selected>2 — 1+1 protected</option>
+              </select>
+            </div>
+            <div class="filter-cell">
+              <label for="f-pem-mode">PEM feed redundancy</label>
+              <select id="f-pem-mode">
+                <option value="none">Non-redundant (N)</option>
+                <option value="1+1" selected>1+1 dual feed (2N)</option>
+                <option value="1:N">1:N spare (N+1)</option>
+              </select>
+            </div>
+            <div class="filter-cell">
+              <label for="f-pem-type">PEM type</label>
+              <select id="f-pem-type">
+                <option value="dc" selected>DC (−48 V)</option>
+                <option value="ac">AC</option>
+              </select>
+            </div>
+            <div class="filter-cell">
+              <label for="f-mount">Mounting</label>
+              <select id="f-mount">
+                <option value="19" selected>19" rack</option>
+                <option value="23">23" rack</option>
+                <option value="cab">Closed cabinet</option>
+                <option value="etsi">ETSI</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="distance-row" style="margin-top:8px">
+            <div class="filter-cell">
+              <label for="f-protect">Optical line protection</label>
+              <select id="f-protect">
+                <option value="none" selected>None — single route</option>
+                <option value="olp">OLP 1+1 — diverse route B</option>
+              </select>
+            </div>
+            <div class="filter-cell" id="routeb-dist-wrap" style="opacity:.4;pointer-events:none">
+              <label for="f-total-b">Route B distance (km)</label>
+              <input type="number" id="f-total-b" value="1800" min="0" step="10" />
+            </div>
+            <div class="filter-cell" id="routeb-span-wrap" style="opacity:.4;pointer-events:none">
+              <label for="f-span-b">Route B avg span (km)</label>
+              <input type="number" id="f-span-b" value="60" min="0" step="5" />
+            </div>
+            <div class="filter-cell">
+              <label for="f-spares">Sparing (% of link qty)</label>
+              <div style="display:flex;gap:8px;align-items:center">
+                <input type="number" id="f-spares" value="0" min="0" max="25" step="1" style="flex:1" />
+                <label class="checkbox" for="f-spares-min1" style="display:flex;align-items:center;gap:5px;font-size:12px;font-weight:500;text-transform:none;letter-spacing:0;cursor:pointer;white-space:nowrap">
+                  <input type="checkbox" id="f-spares-min1" checked style="width:15px;height:15px;accent-color:var(--nokia-blue)" />
+                  min 1/PN
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="distance-row" style="margin-top:8px">
+            <div class="filter-cell" style="display:flex;align-items:flex-end">
+              <label class="checkbox" for="f-show-common" style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;text-transform:none;letter-spacing:0;cursor:pointer">
+                <input type="checkbox" id="f-show-common" checked style="width:16px;height:16px;accent-color:var(--nokia-blue)" />
+                Itemise common equipment (chassis kit, fans, PEMs, controllers, fillers, mount kits)
+              </label>
+            </div>
+            <div class="filter-cell" style="display:flex;align-items:flex-end;color:var(--text-faint);font-size:11px;line-height:1.3;grid-column:span 3">
+              Common-equipment power is the measured PowerDraw aggregate for the chassis, not a sum of the FRU rows.
+              Extra controllers and PEMs beyond the base build are added on top.
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -398,6 +538,29 @@
         </div>
       </div>
 
+      <!-- Route B ILA card (OLP 1+1 diverse route) -->
+      <div class="bom-grid" id="ilab-row" style="margin-top:18px;display:none">
+        <div></div>
+        <div class="bom-card" id="ilab-card">
+          <header>
+            <h3 id="ilab-card-title">Route B — ILA Sites (×<span id="ilab-mult">0</span>)</h3>
+            <span class="count" id="ilab-count">—</span>
+          </header>
+          <div id="ilab-body"></div>
+        </div>
+      </div>
+
+      <!-- Spares -->
+      <div class="bom-grid" id="spares-row" style="margin-top:18px;display:none">
+        <div class="bom-card" id="spares-card" style="grid-column:1 / -1">
+          <header>
+            <h3>Recommended spares</h3>
+            <span class="count" id="spares-count">—</span>
+          </header>
+          <div id="spares-body"></div>
+        </div>
+      </div>
+
       <div id="gap-banner-wrap"></div>
 
       <!-- Power & Weight rollup -->
@@ -407,6 +570,15 @@
           <span style="font-size:11px;color:var(--text-faint)">Source: 1830 GX PowerDraw R9.0_V1.xlsx</span>
         </div>
         <div id="pw-body"></div>
+      </div>
+
+      <!-- DC power / PEM / breaker plan -->
+      <div class="panel" id="dc-panel" style="margin-top:18px;padding:0;overflow:hidden;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface)">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--border);background:var(--surface-2);display:flex;justify-content:space-between;align-items:baseline">
+          <h3 style="margin:0;font-size:14px;text-transform:uppercase;letter-spacing:.6px;color:var(--nokia-blue-deep)">PEM &amp; Breaker Plan</h3>
+          <span style="font-size:11px;color:var(--text-faint)">PowerDraw method · eff 0.90 · V<sub>min</sub> 40.5 V · breaker derate 0.85</span>
+        </div>
+        <div id="dc-body"></div>
       </div>
 
       <div class="reason-box" id="reason-box"></div>
@@ -573,6 +745,8 @@
     function cardSlots(p) {
       if (p.cat === 'chassis') return 0;
       if (p.cat === 'otdr') return 0;     // OTDR card plugs into OCC2T/E
+      if (p.cat === 'ops') return 0;      // OPS protection module: OFP2 slot on the OCC
+      if (p.cat === 'common') return 0;   // fans / PEMs / controllers / fillers / kits
       if (p.cat === 'roadm') return 2;
       if (p.cat === 'hybrid-amp' || p.cat === 'ila-hybrid') return 2;
       if (p.fpCap === 4) return 2;
@@ -683,17 +857,20 @@
     //         'passive'  = passive component, 0 W
     // =========================================================
     const POWER_LOOKUP = {
-      // Term chassis — baseline power+weight = chassis + FRCU + PEMs + fans (matches PowerDraw User-Input output)
-      'G31':  [120, 300, 300, 15,    'exact',    'baseline w/ FRCU + 2 PEMs + 3 fans'],
-      'G32':  [176, 382, 382, 24.13, 'exact',    'baseline w/ FRCU + 3 PEMs + 3 fans (User-Input output)'],
-      'G32E': [176, 382, 382, 24.13, 'variant',  'inherits G32 baseline'],
-      'G34L': [200, 420, 420, 26,    'estimate', 'L-band 700mm chassis est'],
+      // Term chassis — SINGLE-CONTROLLER common-equipment aggregate straight from
+      // PowerDraw ("<chassis> w/ fans+PEM+FRCU" rows). A second controller for
+      // protection is added separately by CHASSIS_KIT.ctrlPW, so these rows must
+      // NOT include it. Weight = chassis + base fans/PEMs/controller.
+      'G31':  [93.5, 321, 321, 9.57,  'exact',    'w/ fans + FRCU + 2 PEMs (PowerDraw G31/G32 sheet)'],
+      'G32':  [140,  339, 339, 19.68, 'exact',    'w/ fans + FRCU + 3 PEMs (PowerDraw User-Input output)'],
+      'G32E': [140,  339, 339, 19.68, 'variant',  'inherits G32 baseline'],
+      'G34L': [165,  380, 380, 26,    'estimate', 'L-band 700mm chassis est (scaled from G32)'],
       // ILA chassis — baseline only; cards add separately
-      'G34c': [106, 134, 134, 17.6,  'exact',    'baseline w/ FRCU + 2 PEMs (chassis+FRCU 13.2 + PEMs 4.4)'],
-      'G32c': [70,  130, 130, 10,    'estimate', 'compact est'],
-      'G38c': [70,  130, 130, 10,    'estimate', 'compact est'],
-      'G32E (ILA-side)': [176, 382, 382, 24.13, 'variant', 'same as G32 baseline'],
-      'G34L (ILA-side)': [200, 420, 420, 26,    'estimate', 'L-band 700mm chassis'],
+      'G34c': [69,  89, 381, 12.56, 'exact',    'w/ fans + PEM + 1 FRCU · 55°C figure is fan-ramp limited'],
+      'G32c': [60,  80, 340, 10,    'estimate', 'compact est (scaled from G34c)'],
+      'G38c': [60,  80, 340, 10,    'estimate', 'compact est (scaled from G34c)'],
+      'G32E (ILA-side)': [140, 339, 339, 19.68, 'variant', 'same as G32 baseline'],
+      'G34L (ILA-side)': [165, 380, 380, 26,    'estimate', 'L-band 700mm chassis'],
       // OMDs (passive)
       'GQS-OMD32EZZ-N0': [0,0,0, 1.5, 'passive', 'passive mux'],
       'GQS-OMD40EZZ-X0': [0,0,0, 1.5, 'passive', 'passive mux'],
@@ -756,6 +933,104 @@
       if (!e) return { typ: null, max40: null, max55: null, kg: null, src: 'unknown', note: '' };
       return { typ: e[0], max40: e[1], max55: e[2], kg: e[3], src: e[4], note: e[5] };
     }
+
+    // =========================================================
+    // COMMON EQUIPMENT / CHASSIS KIT
+    // Source: 1830 GX PowerDraw R9.0_V1.xlsx — "* Power and Weight per FRU"
+    // and "* User-Input" common-equipment blocks.
+    //
+    // IMPORTANT — how power is accounted:
+    // PowerDraw publishes a MEASURED aggregate for "<chassis> w/ fans+PEM+FRCU"
+    // (carried in POWER_LOOKUP above). It is deliberately NOT the arithmetic sum
+    // of the individual FRU rows, so this engine does not re-sum them. These
+    // entries exist to make the BoM quotable (real PNs + quantities + weights)
+    // and to price the *deltas* beyond the base build:
+    //   ctrlPW  — adder per controller BEYOND baseCtrl (PowerDraw "Second FRCU
+    //             for protection" row)
+    //   pemPW   — adder per PEM BEYOND basePem
+    //   pemCapW — max output of one PEM, drives PEM count + breaker sizing
+    // =========================================================
+    const PEM_EFF   = 0.9;    // PowerDraw named range PEM_Efficiency
+    const BRK_VMIN  = 40.5;   // PowerDraw "Min. Voltage, for Breaker Size Calculation"
+    const BRK_DERATE= 0.85;   // PowerDraw "Circuit breaker rating"
+    const BRK_SIZES = [10,15,20,25,30,35,40,45,50,60,63,80,100,125];
+
+    const CHASSIS_KIT = {
+      'G31': {
+        family:'full', slots:4, basePem:2, pemSlots:2, baseCtrl:1, ctrlSlots:2, pemCapW:1300,
+        ctrlPW:[32,40,40], pemPW:[20,25,25], src:'exact',
+        frus:[
+          {pn:'GQS-G31CHASZ-00', d:'G31 chassis',                       role:'chassis', qty:1, kg:6.06},
+          {pn:'GFS-G31FANZZ-00', d:'G31 fan module',                    role:'fan',     qty:3, kg:0.29},
+          {pn:'GCS-G31FRIOZ-00', d:'G31 field-replaceable I/O unit',    role:'io',      qty:1, kg:0.16},
+        ],
+        ctrl:{pn:'GCS-G31FRCUZ-00', d:'G31 field-replaceable controller (FRCU)', kg:0.48},
+        pem :{dc:{pn:'GPU-G30PSUDC-00', d:'G30/G31 DC power module', kg:1.00},
+              ac:{pn:'GPS-G30PSUAC-00', d:'G30/G31 AC power module', kg:1.00}},
+        filler:{pn:'GLS-G30CHMFI-00', d:'G30 slot filler plate', kg:0.46},
+        mount:{ '19':{pn:'GKS-G31RAKIT-19', d:'G31 19" rack mounting kit',        kg:4.6},
+                'cab':{pn:'GKS-G31CAKIT-19', d:'G31 19" cabinet mounting kit',    kg:5.0},
+                '23':{pn:'GKS-G31INKIT-23',  d:'G31 23" rack/cabinet mounting kit',kg:4.9},
+                'etsi':{pn:'GKS-G31INKIT-ET',d:'G31 ETSI rack/cabinet mounting kit',kg:4.6} },
+      },
+      'G32': {
+        family:'full', slots:8, basePem:3, pemSlots:4, baseCtrl:1, ctrlSlots:2, pemCapW:1300,
+        ctrlPW:[36,43,43], pemPW:[23,34.5,34.5], src:'exact',
+        frus:[
+          {pn:'G3S-G32CHASZ-00', d:'GX G32 chassis',                    role:'chassis', qty:1, kg:13.7},
+          {pn:'G3S-G32FANZZ-00', d:'GX G32 fan module',                 role:'fan',     qty:3, kg:0.45},
+          {pn:'G3S-G32FRIOZ-00', d:'GX G32 field-replaceable I/O unit', role:'io',      qty:1, kg:0.18},
+          {pn:'G3S-G32FCFZZ-00', d:'GX G32 front cover filter',         role:'filter',  qty:1, kg:1.92},
+        ],
+        ctrl:{pn:'G3S-G32FRCUZ-00', d:'GX G32 field-replaceable controller (FRCU)', kg:0.45},
+        pem :{dc:{pn:'G3S-G3XPSUDC-00', d:'GX G31/G32/G32E DC power module', kg:1.00},
+              ac:{pn:'G3S-G3XPSUAC-00', d:'GX G31/G32/G32E AC power module', kg:1.00}},
+        filler:{pn:'GLS-G30CHMFI-00',   d:'G30 slot filler plate', kg:0.46},
+        pemFiller:{pn:'G3S-G32PSFIZ-00', d:'GX G32 PSU filler card', kg:0.42},
+        mount:{ '19':{pn:'G3S-G32RAKIT-00', d:'GX G32 rack mounting kit (19"/23"/ETSI)',    kg:2.5},
+                'cab':{pn:'G3S-G32CAKIT-00',d:'GX G32 cabinet mounting kit (19"/23"/ETSI)', kg:5.8},
+                '23':{pn:'G3S-G32RAKIT-00', d:'GX G32 rack mounting kit (19"/23"/ETSI)',    kg:2.5},
+                'etsi':{pn:'G3S-G32RAKIT-00',d:'GX G32 rack mounting kit (19"/23"/ETSI)',   kg:2.5} },
+      },
+      'G34c': {
+        family:'compact', slots:4, basePem:2, pemSlots:2, baseCtrl:1, ctrlSlots:2, pemCapW:1300,
+        ctrlPW:[37,45,45], pemPW:[10,82,82], src:'exact',
+        frus:[
+          {pn:'G3S-G34CCHAS-00', d:'GX G34c chassis',            role:'chassis', qty:1, kg:7.2},
+          {pn:'G3S-G34CFANZ-00', d:'GX G34c fan module',         role:'fan',     qty:2, kg:0.66},
+          {pn:'G3S-G34CFCFZ-00', d:'GX G34c front cover filter', role:'filter',  qty:1, kg:1.8},
+        ],
+        ctrl:{pn:'G3S-G34CCONZ-00', d:'GX G34c controller', kg:0.64},
+        pem :{dc:{pn:'G3S-G34CPSDC-00', d:'GX G34c DC power module', kg:0.8},
+              ac:{pn:'G3S-G34CPSAC-00', d:'GX G34c AC power module', kg:0.9}},
+        filler:{pn:'G3S-G34CSF2Z-00', d:'GX G34c sled filler (2-slot)', kg:0.6, covers:2},
+        ctrlFiller:{pn:'G3S-G34CCFIZ-00', d:'GX G34c controller filler card', kg:0.28},
+        mount:{ '19':{pn:'G3S-G34CIKIT-19', d:'GX G34c 19" rack/cabinet mounting kit', kg:0.7},
+                'cab':{pn:'G3S-G34CIKIA-ET',d:'GX G34c ETSI cabinet mount A16',        kg:1.2},
+                '23':{pn:'G3S-G34CIKIT-E2', d:'GX G34c 23" rack/cabinet mounting kit', kg:1.9},
+                'etsi':{pn:'G3S-G34CIKIT-ET',d:'GX G34c ETSI cabinet mount',           kg:0.7} },
+      },
+    };
+    // Chassis that reuse another chassis' kit (no separate PowerDraw sheet yet).
+    const KIT_ALIAS = {
+      'G32E':'G32', 'G34L':'G32', 'G32E (ILA-side)':'G32', 'G34L (ILA-side)':'G32',
+      'G34Xc':'G34c', 'G32c':'G34c', 'G38c':'G34c',
+    };
+    function chassisKit(pn) {
+      const clean = String(pn).trim();
+      const key = CHASSIS_KIT[clean] ? clean : KIT_ALIAS[clean];
+      if (!key || !CHASSIS_KIT[key]) return null;
+      return { ...CHASSIS_KIT[key], _key:key, _aliased: key !== clean };
+    }
+
+    // =========================================================
+    // PROTECTION — optical line protection (OLP / 1+1 diverse route)
+    // OPS module PNs and power from PowerDraw R9.0 OFP2 rows.
+    // =========================================================
+    const OPS_CARDS = {
+      pilot: { pn:'ZXS-O2OPS1PT-W0', d:'OFP2 1-channel OPS module (GX pilot tone)', pw:[5.7,8.2,8.2], kg:0.16 },
+      plain: { pn:'ZXS-O2OPS1ZZ-00', d:'OFP2 1-channel OPS module',                 pw:[1.7,2.0,2.0], kg:0.16 },
+    };
 
     // =========================================================
     // Helpers
@@ -874,9 +1149,241 @@
     }
 
     // =========================================================
+    // REACH / OSNR MODEL  (shared with the Transponder Advisor tab)
+    // OSNR(dB) = 58 + Pch − Lspan − NF − 10·log10(Nspans) − margin
+    // Raman and hybrid amplification are modelled as an effective noise-figure
+    // advantage over a plain EDFA span — the standard first-order way to compare
+    // amp strategies without a full GNPy run.
+    // =========================================================
+    const OSNR_REF = 58;        // 0.1 nm noise reference at 1550 nm
+    const EDFA_NF  = 5.0;       // typical GX EDFA noise figure (dB)
+    const RAMAN_NF_ADV  = 4.5;  // backward Raman, ~10–12 dB on-off gain
+    const HYBRID_NF_ADV = 5.5;  // integrated EDFA+Raman (co- + counter-pumped)
+
+    const CARDS = {
+      CHM6: { name:'CHM6', engine:'ICE-6 (PSE-Vs) · 96 GBaud', baud:96, maxLambda:800,
+        ladder:[
+          [800,25.5,'PCS-64QAM (~4.6 b/sym/pol)'],
+          [700,22.5,'PCS-32QAM (~4.0)'],
+          [600,20.5,'PCS-16QAM (~3.4)'],
+          [500,18.5,'PCS-8QAM (~2.8)'],
+          [400,16.5,'QPSK/PCS (~2.2)'],
+          [300,14.0,'QPSK (~1.7)'],
+          [200,11.5,'QPSK (~1.1)'],
+        ]},
+      CHM7: { name:'CHM7', engine:'ICE-7 (PSE-6s) · 140 GBaud', baud:140, maxLambda:1200,
+        ladder:[
+          [1200,28.5,'PCS-64QAM (~4.4 b/sym/pol)'],
+          [1000,25.5,'PCS-32QAM (~3.7)'],
+          [800, 20.5,'PCS-16QAM (~3.0)'],
+          [600, 16.5,'QPSK/PCS (~2.2)'],
+          [400, 13.0,'QPSK (~1.5)'],
+          [300, 11.0,'QPSK (~1.2)'],
+        ]},
+    };
+    function linkOSNR(dist, span, loss, nf, pch, margin){
+      const N = Math.max(1, Math.ceil(dist/span));
+      const Lspan = span * loss;
+      const osnr = OSNR_REF + pch - Lspan - nf - 10*Math.log10(N) - margin;
+      return { N, Lspan, osnr };
+    }
+    function bestRate(card, osnr){
+      for (const [rate, req, mod] of card.ladder){ if (osnr >= req) return {rate, req, mod}; }
+      return null;
+    }
+    function slotGHz(baud){ return Math.ceil((baud*1.15)/12.5)*12.5; }
+    function reqOSNRfor(engineKey, rate){
+      const c = CARDS[engineKey]; if (!c) return null;
+      const hit = c.ladder.find(r => r[0] === rate);
+      return hit ? { req: hit[1], mod: hit[2] } : null;
+    }
+
+    // Effective per-span noise figure for each amp strategy.
+    const AMP_NF = {
+      'edfa':       EDFA_NF,
+      'edfa+raman': EDFA_NF - RAMAN_NF_ADV,
+      'hybrid':     EDFA_NF - HYBRID_NF_ADV,
+    };
+    const AMP_ORDER = ['edfa', 'edfa+raman', 'hybrid'];   // cheapest → most capable
+
+    // Which amp strategy closes the link for the target service?
+    function gateAmpStrategy(totalKm, spanKm, lossPerKm, pch, margin, engineKey, rate) {
+      const need = reqOSNRfor(engineKey, rate);
+      if (!need) return null;
+      const options = AMP_ORDER.map(k => {
+        const L = linkOSNR(totalKm, spanKm, lossPerKm, AMP_NF[k], pch, margin);
+        return { strat:k, nf:AMP_NF[k], osnr:L.osnr, spans:L.N, lspan:L.Lspan, margin:L.osnr - need.req };
+      });
+      const pick = options.find(o => o.margin >= 0) || null;
+      return { need, options, pick, closes: !!pick };
+    }
+
+    // =========================================================
+    // Power accessor that honours per-row overrides (_pw) used by
+    // synthesised common-equipment / protection rows.
+    // =========================================================
+    function pwOf(p) {
+      if (p && p._pw) return p._pw;
+      return getPW(p.n);
+    }
+    const mkPW = (typ, m40, m55, kg, src, note) =>
+      ({ typ, max40:m40, max55:m55, kg, src: src||'exact', note: note||'' });
+
+    // =========================================================
+    // COMMON EQUIPMENT BUILDER
+    // For every chassis in a site's BoM, emit the shippable FRU rows
+    // (fans, PEMs, controllers, I/O panel, slot fillers, mount kit) and the
+    // power adders for anything beyond the PowerDraw base build.
+    //
+    // Returns { rows, addTyp, addM40, addM55, notes, pemPlan }
+    // =========================================================
+    function buildCommonEquipment(items, qtyKey, opt) {
+      const rows = [];
+      const notes = [];
+      let addTyp = 0, addM40 = 0, addM55 = 0;
+      const chassisRows = items.filter(p => p.cat === 'chassis');
+      if (chassisRows.length === 0) return { rows, addTyp, addM40, addM55, notes };
+
+      // card slots consumed per chassis-unit (used to size slot fillers)
+      let usedSlots = 0;
+      items.filter(p => p.cat !== 'chassis')
+           .forEach(p => { usedSlots += cardSlots(p) * (p[qtyKey] || 0); });
+
+      chassisRows.forEach(ch => {
+        const nCh = ch[qtyKey] || 1;
+        const kit = chassisKit(ch.n);
+        if (!kit) { notes.push(`No common-equipment data for ${ch.n} — chassis kit omitted.`); return; }
+        // The kit rows carry the real weights, so the aggregate chassis row must
+        // not also contribute its bundled weight.
+        ch._noKg = true;
+        const aliasTag = kit._aliased ? ` (kit inherited from ${kit._key})` : '';
+        const est = kit._aliased ? 'estimate' : 'exact';
+
+        // --- fixed FRUs (chassis, fans, I/O, filter) ---
+        kit.frus.forEach(fr => {
+          rows.push({
+            n: fr.pn, cat:'common', _role: fr.role, rel:null, bs:'*',
+            [qtyKey]: fr.qty * nCh,
+            _desc: fr.d + (fr.role === 'chassis' ? aliasTag : ''),
+            _pw: mkPW(0, 0, 0, +(fr.kg * fr.qty * nCh).toFixed(3), 'in-baseline', `power included in chassis aggregate · ${fr.kg} kg ea`),
+          });
+        });
+
+        // --- controllers ---
+        const nCtrl = Math.max(1, Math.min(kit.ctrlSlots || 2, opt.ctrlCount));
+        if (nCtrl > (opt.ctrlCount || 1)) notes.push(`${ch.n}: controller count capped at ${nCtrl} (chassis has ${kit.ctrlSlots} controller slots).`);
+        const extraCtrl = nCtrl - kit.baseCtrl;
+        rows.push({
+          n: kit.ctrl.pn, cat:'common', _role:'ctrl', rel:null, bs:'*',
+          [qtyKey]: nCtrl * nCh,
+          _desc: kit.ctrl.d + (nCtrl > 1 ? ' · 1+1 protected' : ' · unprotected'),
+          _pw: mkPW(
+            extraCtrl > 0 ? kit.ctrlPW[0] * extraCtrl : 0,
+            extraCtrl > 0 ? kit.ctrlPW[1] * extraCtrl : 0,
+            extraCtrl > 0 ? kit.ctrlPW[2] * extraCtrl : 0,
+            +(kit.ctrl.kg * nCtrl * nCh).toFixed(3), extraCtrl > 0 ? est : 'in-baseline',
+            extraCtrl > 0 ? `${kit.baseCtrl} in chassis aggregate, +${extraCtrl} protection controller` : 'included in chassis aggregate'),
+        });
+        // controller filler when the second controller slot is empty
+        if (nCtrl < (kit.ctrlSlots || 2) && kit.ctrlFiller) {
+          rows.push({
+            n: kit.ctrlFiller.pn, cat:'common', _role:'filler', rel:null, bs:'*',
+            [qtyKey]: (kit.ctrlSlots - nCtrl) * nCh, _desc: kit.ctrlFiller.d,
+            _pw: mkPW(0,0,0, +(kit.ctrlFiller.kg * (kit.ctrlSlots - nCtrl) * nCh).toFixed(3), 'passive', 'blank'),
+          });
+        }
+
+        // --- slot fillers for unequipped card slots ---
+        const perChassisUsed = Math.min(kit.slots, Math.ceil(usedSlots / Math.max(1, nCh)));
+        const emptyPerChassis = Math.max(0, kit.slots - perChassisUsed);
+        if (emptyPerChassis > 0 && kit.filler) {
+          const covers = kit.filler.covers || 1;
+          const fillerQty = Math.ceil(emptyPerChassis / covers) * nCh;
+          rows.push({
+            n: kit.filler.pn, cat:'common', _role:'filler', rel:null, bs:'*',
+            [qtyKey]: fillerQty,
+            _desc: `${kit.filler.d} · ${emptyPerChassis} empty slot${emptyPerChassis>1?'s':''} per chassis`,
+            _pw: mkPW(0,0,0, +(kit.filler.kg * fillerQty).toFixed(3), 'passive', 'blank'),
+          });
+        }
+
+        // --- mount kit ---
+        const mk = (kit.mount || {})[opt.mount] || (kit.mount || {})['19'];
+        if (mk) {
+          rows.push({
+            n: mk.pn, cat:'common', _role:'mount', rel:null, bs:'*',
+            [qtyKey]: nCh, _desc: mk.d,
+            _pw: mkPW(0,0,0, +(mk.kg * nCh).toFixed(3), 'passive', 'mechanical'),
+          });
+        }
+      });
+
+      // _pw on these rows already carries the TOTAL adder for the row's quantity
+      // (not a per-unit figure), so sum once — never × qty.
+      rows.forEach(r => { addTyp += r._pw.typ || 0; addM40 += r._pw.max40 || 0; addM55 += r._pw.max55 || 0; });
+
+      return { rows, addTyp, addM40, addM55, notes, chassisRows };
+    }
+
+    // PEM rows depend on the site's total load, so they are appended after the
+    // rest of the site BoM (and its power) is known.
+    function pemRows(plan, chassisPn, qtyKey, pemType) {
+      const kit = chassisKit(chassisPn);
+      if (!kit || !plan) return [];
+      const p = kit.pem[pemType] || kit.pem.dc;
+      const extra = Math.max(0, plan.qty - kit.basePem);
+      const out = [{
+        n: p.pn, cat:'common', _role:'pem', rel:null, bs:'*',
+        [qtyKey]: plan.qty,
+        _desc: `${p.d} · ${plan.label} · ${plan.nBase} needed for ${Math.round(plan.inputW)} W input @ ${plan.cap} W/PEM`,
+        _pw: mkPW(
+          extra > 0 ? kit.pemPW[0] * extra : 0,
+          extra > 0 ? kit.pemPW[1] * extra : 0,
+          extra > 0 ? kit.pemPW[2] * extra : 0,
+          +(p.kg * plan.qty).toFixed(3), extra > 0 ? 'exact' : 'in-baseline',
+          extra > 0 ? `${kit.basePem} in chassis aggregate, +${extra} redundancy` : 'included in chassis aggregate'),
+      }];
+      if (plan.qty < plan.slots && kit.pemFiller) {
+        out.push({
+          n: kit.pemFiller.pn, cat:'common', _role:'filler', rel:null, bs:'*',
+          [qtyKey]: plan.slots - plan.qty, _desc: kit.pemFiller.d,
+          _pw: mkPW(0,0,0, +(kit.pemFiller.kg * (plan.slots - plan.qty)).toFixed(3), 'passive', 'blank'),
+        });
+      }
+      return out;
+    }
+
+    // =========================================================
+    // PEM COUNT + BREAKER SIZING  (PowerDraw G34C_BreakerSize method)
+    //   inputW  = siteW / PEM_EFF
+    //   nBase   = ceil(inputW / pemCapW)
+    //   qty     = nBase (none) | nBase×2 (1+1) | nBase+1 (1:N)
+    //   I_min   = (inputW / Vmin) / derate / feeds
+    // =========================================================
+    function pemPlan(siteW, chassisPn, mode, nChassis) {
+      const kit = chassisKit(chassisPn);
+      const cap = (kit && kit.pemCapW) || 1300;
+      const slots = (kit && kit.pemSlots) || 2;
+      const inputW = siteW / PEM_EFF;
+      const nBase = Math.max(1, Math.ceil(inputW / cap));
+      let qty = nBase, feeds = nBase, label = 'non-redundant';
+      if (mode === '1+1') { qty = nBase * 2; feeds = nBase; label = '1+1 dual feed'; }
+      else if (mode === '1:N') { qty = nBase + 1; feeds = nBase; label = '1:N spare'; }
+      // never ship fewer than the chassis' standard PEM population
+      const basePem = (kit && kit.basePem) || 2;
+      if (qty < basePem) { qty = basePem; label += ` · floored at ${basePem} (chassis minimum)`; }
+      const perChassis = Math.ceil(qty / Math.max(1, nChassis || 1));
+      const overSlot = perChassis > slots;
+      const iMin = (inputW / BRK_VMIN) / BRK_DERATE / Math.max(1, feeds);
+      const brk = BRK_SIZES.find(b => b >= iMin) || BRK_SIZES[BRK_SIZES.length - 1];
+      const availW = feeds * BRK_DERATE * brk * BRK_VMIN;
+      return { cap, slots, inputW, nBase, qty, perChassis, overSlot, feeds, iMin, brk, availW, label, pemKg: kit ? kit.pem : null };
+    }
+
+    // =========================================================
     // BoM engine
     // =========================================================
-    function recommend(band, fp, topo, termType, channels, rack, relCeiling, ampStrat, strict, otdrRequired) {
+    function recommend(band, fp, topo, termType, channels, rack, relCeiling, ampStrat, strict, otdrRequired, opt) {
       // STRICT mode: filter parts whose release is past the ceiling (no roadmap)
       const inCeiling = p => {
         if (!strict) return true;
@@ -1025,10 +1532,25 @@
         if (ots) termCards.push({ ...ots, qtyPerNode: perFp(ots.fpCap, fp) });
       }
 
-      // OTDR module (when ticked)
-      if (otdrRequired) {
-        const tOtdr = pickBest(T, ['otdr'], relCeiling, band);
-        if (tOtdr) termCards.push({ ...tOtdr, qtyPerNode: 1, _note: 'OTDR module — 1 per term node' });
+      // (The OTDR module is emitted once, with its OCC host, at the top of this
+      //  function. A second emission here was double-counting it — removed.)
+
+      // --- Optical line protection (OLP 1+1) ---
+      // 1 OPS module per fiber pair per term node, hosted in an OFP2 slot on the
+      // OCC. If OTDR wasn't ticked there is no OCC yet, so add one.
+      if (opt && opt.protection === 'olp') {
+        const haveOcc = termCards.some(c => c.cat === 'occ');
+        if (!haveOcc) {
+          const tOcc = pickBest(T, ['occ'], relCeiling, band);
+          if (tOcc) termCards.push({ ...tOcc, qtyPerNode: 1, _note: 'OCC — hosts the OPS protection modules' });
+        }
+        const ops = OPS_CARDS.pilot;
+        termCards.push({
+          n: ops.pn, sect:'term', cat:'ops', rel:'R6.0', bs:'*', fpCap:1, bidi:true, hs:'Yes',
+          qtyPerNode: fp,
+          _note: `OLP 1+1 · 1 per fiber pair · switches to route B`,
+          _pw: mkPW(ops.pw[0]*fp, ops.pw[1]*fp, ops.pw[2]*fp, ops.kg*fp, 'exact', ops.d),
+        });
       }
 
       // --- Term chassis: consolidation logic ---
@@ -1182,11 +1704,153 @@
         rackPower: parseFloat($('f-rack-power').value) || 4000,
         rackU: parseInt($('f-rack-u').value) || 42,
         relCeiling: parseFloat($('f-rel').value),
+        // --- site build / redundancy / protection ---
+        ctrlCount: parseInt($('f-ctrl').value) || 1,
+        pemMode: $('f-pem-mode').value,
+        pemType: $('f-pem-type').value,
+        mount: $('f-mount').value,
+        protection: $('f-protect').value,
+        totalKmB: parseFloat($('f-total-b').value) || 0,
+        spanKmB: parseFloat($('f-span-b').value) || 0,
+        sparePct: parseFloat($('f-spares').value) || 0,
+        spareMin1: $('f-spares-min1').checked,
+        showCommon: $('f-show-common').checked,
+        // --- span budget / reach gating ---
+        fiberLoss: parseFloat($('f-fiber').value),
+        engine: $('f-engine').value,
+        rate: parseInt($('f-rate').value) || 0,
+        pch: parseFloat($('f-pch').value),
+        margin: parseFloat($('f-margin').value),
+        autoAmp: $('f-auto-amp').checked,
       };
+    }
+
+    // Keep the line-rate dropdown in step with the selected engine.
+    function syncRateOptions() {
+      const sel = $('f-rate');
+      const eng = $('f-engine').value;
+      const prev = parseInt(sel.value);
+      const rates = CARDS[eng].ladder.map(r => r[0]);
+      sel.innerHTML = rates.map(r => `<option value="${r}">${r}G</option>`).join('');
+      sel.value = rates.includes(prev) ? prev : (eng === 'CHM7' ? 800 : 600);
+    }
+
+    // =========================================================
+    // OSNR gating panel
+    // =========================================================
+    function renderOSNR(gate, f, effStrat) {
+      if (!gate) { $('osnr-panel').innerHTML = ''; return; }
+      const label = { 'edfa':'EDFA only', 'edfa+raman':'EDFA + Raman', 'hybrid':'Hybrid' };
+      const cells = gate.options.map(o => {
+        const ok = o.margin >= 0;
+        const isPick = effStrat === o.strat;
+        return `<td style="text-align:center;padding:8px 10px;${isPick?'background:#EAF3FF;':''}border-left:1px solid var(--border)">
+            <div style="font-weight:${isPick?700:600};font-size:12px;color:${isPick?'var(--nokia-blue-deep)':'var(--text)'}">${label[o.strat]}${isPick?' ✔':''}</div>
+            <div style="font-size:11px;color:var(--text-faint)">eff NF ${o.nf.toFixed(1)} dB</div>
+            <div style="font-size:13px;font-weight:600;margin-top:2px">${o.osnr.toFixed(1)} dB</div>
+            <div style="font-size:11px;font-weight:600;color:${ok?'#0A6E62':'#A02020'}">
+              ${ok?'+':''}${o.margin.toFixed(1)} dB ${ok?'margin':'short'}</div>
+          </td>`;
+      }).join('');
+
+      const head = gate.closes
+        ? `<span style="color:#0A6E62;font-weight:700">Link closes</span> on
+           <strong>${label[gate.pick.strat]}</strong> at ${f.rate}G/λ with
+           ${gate.pick.margin.toFixed(1)} dB margin.`
+        : `<span style="color:#A02020;font-weight:700">Link does not close</span> at ${f.rate}G/λ on any
+           amp strategy — drop the line rate, shorten spans, move to G.654.E, or plan a regen site.`;
+
+      $('osnr-panel').innerHTML = `
+        <div style="border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--surface)">
+          <div style="padding:8px 12px;background:var(--surface-2);font-size:12px;border-bottom:1px solid var(--border)">
+            ${gate.options[0].spans} spans × ${gate.options[0].lspan.toFixed(1)} dB ·
+            ${f.engine} needs <strong>${gate.need.req} dB</strong> for ${f.rate}G
+            <span style="color:var(--text-faint)">(${gate.need.mod})</span> · ${head}
+          </div>
+          <table style="width:100%;border-collapse:collapse;font-family:inherit">
+            <tr>
+              <td style="padding:8px 12px;font-size:11px;color:var(--text-faint);width:150px">
+                RX OSNR by amp strategy<br><span style="font-size:10px">0.1 nm ref · ${f.fiberLoss} dB/km · launch ${f.pch>=0?'+':''}${f.pch} dBm · margin ${f.margin} dB</span>
+              </td>
+              ${cells}
+            </tr>
+          </table>
+          <div style="padding:6px 12px;background:#FFF4D6;color:#8A6700;font-size:10.5px;border-top:1px solid var(--border)">
+            ⚠ ESTIMATE — first-order OSNR only. Raman/hybrid are modelled as a
+            ${RAMAN_NF_ADV}/${HYBRID_NF_ADV} dB effective noise-figure advantage over a ${EDFA_NF} dB EDFA span;
+            no nonlinear penalty, ROADM cascade or PMD/PDL. Confirm with GNPy / WaveLogic planning before quoting.
+          </div>
+        </div>`;
+    }
+
+    // =========================================================
+    // Attach common equipment + PEMs to a site BoM, in place.
+    // Returns the PEM plan for the site (or null).
+    // =========================================================
+    function augmentSite(items, qtyKey, f) {
+      if (!items || items.length === 0) return null;
+      if (!f.showCommon) return null;
+      const ce = buildCommonEquipment(items, qtyKey, { ctrlCount: f.ctrlCount, mount: f.mount });
+      if (!ce.chassisRows || ce.chassisRows.length === 0) return null;
+
+      // Site load = cards + chassis aggregate + controller/filler adders,
+      // before PEM adders (PEM count is derived from this).
+      const preRoll = rollupSite(items.concat(ce.rows), qtyKey);
+      const primaryChassis = ce.chassisRows[0].n;
+      const nChassis = ce.chassisRows.reduce((s, c) => s + (c[qtyKey] || 1), 0);
+      const plan = pemPlan(preRoll.m40, primaryChassis, f.pemMode, nChassis);
+      const pr = pemRows(plan, primaryChassis, qtyKey, f.pemType);
+
+      items.push(...ce.rows, ...pr);
+      plan.notes = ce.notes;
+      plan.chassis = primaryChassis;
+      plan.nChassis = nChassis;
+      return plan;
+    }
+
+    // =========================================================
+    // Spares — roll every distinct PN up to a link total, then apply %.
+    // =========================================================
+    function buildSpares(groups, f) {
+      if (f.sparePct <= 0) return [];
+      const tally = new Map();
+      groups.forEach(({ items, qtyKey, mult }) => {
+        (items || []).forEach(p => {
+          if (p.cat === 'common' && ['filler','mount','filter'].includes(p._role)) return; // no spares for blanks/brackets
+          const q = (p[qtyKey] || 0) * mult;
+          if (q <= 0) return;
+          const cur = tally.get(p.n) || { n: p.n, cat: p.cat, rel: p.rel, qty: 0, desc: p._desc || '' };
+          cur.qty += q;
+          tally.set(p.n, cur);
+        });
+      });
+      const out = [];
+      tally.forEach(v => {
+        let s = Math.ceil(v.qty * f.sparePct / 100);
+        if (f.spareMin1 && s < 1) s = 1;
+        if (s > 0) out.push({ ...v, spare: s });
+      });
+      out.sort((a, b) => b.spare - a.spare || a.n.localeCompare(b.n));
+      return out;
     }
 
     function render() {
       const f = getF();
+
+      // --- OSNR gating: let the link budget choose the amp strategy ---
+      const gate = gateAmpStrategy(f.totalKm, f.spanKm, f.fiberLoss, f.pch, f.margin, f.engine, f.rate);
+      const ampToggle = $('amp-strategy-toggle');
+      if (f.autoAmp && gate) {
+        // First strategy that closes; if none does, show the most capable one
+        // so the BoM is at least the best available attempt.
+        f.ampStrategy = gate.closes ? gate.pick.strat : 'hybrid';
+        document.querySelectorAll('#amp-strategy-toggle button')
+          .forEach(b => b.classList.toggle('active', b.dataset.val === f.ampStrategy));
+      }
+      ampToggle.style.opacity = f.autoAmp ? '0.55' : '1';
+      ampToggle.style.pointerEvents = f.autoAmp ? 'none' : 'auto';
+      renderOSNR(gate, f, f.ampStrategy);
+
       $('fp-val').textContent = f.fp;
       // Show/hide channel dropdown based on term type
       $('channels-wrap').classList.toggle('hidden', f.termType !== 'mux');
@@ -1220,7 +1884,30 @@
           <span>· Band ${f.band} · FP ${f.fp} · ${f.termType === 'roadm' ? 'ROADM' : `MUX ${f.channels}ch`} · RFS ${f.strict?'≤':'best≤'} R${f.relCeiling} (${f.strict?'STRICT':'RELAX'})</span>`;
       }
 
-      const rec = recommend(f.band, f.fp, topo, f.termType, f.channels, f.rack, f.relCeiling, f.ampStrategy, f.strict, f.otdr);
+      // Route B inputs live only when OLP is selected
+      const olp = f.protection === 'olp';
+      ['routeb-dist-wrap','routeb-span-wrap'].forEach(id => {
+        $(id).style.opacity = olp ? '1' : '0.4';
+        $(id).style.pointerEvents = olp ? 'auto' : 'none';
+      });
+
+      const rec = recommend(f.band, f.fp, topo, f.termType, f.channels, f.rack, f.relCeiling, f.ampStrategy, f.strict, f.otdr, f);
+
+      // Route B: a diverse path with its own span plan and its own ILA chain.
+      let topoB = null, recB = null;
+      if (olp) {
+        topoB = deriveTopology(f.totalKmB, f.spanKmB, f.ampStrategy, true, 0);
+        recB = recommend(f.band, f.fp, topoB, f.termType, f.channels, f.rack, f.relCeiling, f.ampStrategy, f.strict, f.otdr, { protection: 'none' });
+      }
+
+      // Common equipment + PEMs (mutates the item arrays)
+      const planTerm = augmentSite(rec.termPerNode, 'qtyPerNode', f);
+      const planIla  = augmentSite(rec.ilaPerSite,  'qtyPerSite', f);
+      const planIlaAlt = (topo.mixedILA && topo.ilaAltEdfa > 0)
+        ? augmentSite(rec.ilaPerSiteAlt, 'qtyPerSite', f) : null;
+      const planIlaB = (recB && topoB.ilaPrimary > 0)
+        ? augmentSite(recB.ilaPerSite, 'qtyPerSite', f) : null;
+
       $('term-mult').textContent = topo.termNodes;
       $('ila-mult').textContent  = topo.ilaPrimary;
 
@@ -1242,6 +1929,29 @@
         $('ila2-row').style.display = 'none';
       }
 
+      // Route B ILA card
+      if (olp && topoB && topoB.ilaPrimary > 0) {
+        $('ilab-row').style.display = 'grid';
+        $('ilab-mult').textContent = topoB.ilaPrimary;
+        $('ilab-card-title').innerHTML =
+          `Route B — ILA Sites (×<span id="ilab-mult">${topoB.ilaPrimary}</span>)
+           <span style="font-weight:400;font-size:11px;color:var(--text-faint)">
+             ${f.totalKmB} km ÷ ${f.spanKmB} km = ${topoB.spans} spans</span>`;
+        renderBom('ilab-body', 'ilab-count', recB.ilaPerSite, topoB.ilaPrimary, 'qtyPerSite', f);
+      } else {
+        $('ilab-row').style.display = 'none';
+      }
+
+      // Spares
+      const spareGroups = [
+        { items: rec.termPerNode,   qtyKey:'qtyPerNode', mult: topo.termNodes },
+        { items: rec.ilaPerSite,    qtyKey:'qtyPerSite', mult: topo.ilaPrimary },
+        { items: rec.ilaPerSiteAlt, qtyKey:'qtyPerSite', mult: topo.ilaAltEdfa },
+      ];
+      if (olp && topoB) spareGroups.push({ items: recB.ilaPerSite, qtyKey:'qtyPerSite', mult: topoB.ilaPrimary });
+      const spares = buildSpares(spareGroups, f);
+      renderSpares(spares, f);
+
       // Banners
       const gaps = [];
       if (rec.termPerNode.length === 0) gaps.push('Termination Node');
@@ -1261,7 +1971,8 @@
       $('gap-banner-wrap').innerHTML = banners.join('');
 
       // Power & Space rollup
-      renderPWRollup(rec, topo);
+      renderPWRollup(rec, topo, { recB, topoB, olp });
+      renderDCPlan({ planTerm, planIla, planIlaAlt, planIlaB }, topo, topoB, f);
 
       // Reasoning
       const ampNotes = ({
@@ -1283,6 +1994,19 @@
           <li><strong>FP scaling</strong>: ${f.fp} FP × ceil(FP/fpCap). Multi-fiber cards (fpCap=4) preferred when FP ≥ 4.</li>
           <li><strong>BIDI vs uni-dir</strong>: ILA EDFA/hybrid are BIDI (×1 per FP). RPBM Raman is uni-dir (×2). RPBL family excluded — RPBM preferred.</li>
           <li><strong>Variant version</strong>: when multiple variants are all within ceiling (W0/W1/W2 or Y0/Y1/Y2), engine picks the highest (latest hardware refresh).</li>
+          <li><strong>Reach gating</strong>: ${f.autoAmp
+            ? (gate && gate.closes
+                ? `link budget chose <strong>${({edfa:'EDFA only','edfa+raman':'EDFA + Raman',hybrid:'Hybrid'})[f.ampStrategy]}</strong> — first strategy whose RX OSNR (${gate.pick.osnr.toFixed(1)} dB) clears the ${gate.need.req} dB needed for ${f.engine} at ${f.rate}G, with ${gate.pick.margin.toFixed(1)} dB spare.`
+                : `no amp strategy closes ${f.rate}G on ${f.engine} over ${f.totalKm} km — showing the Hybrid build as the best attempt. Drop the rate, shorten spans, or plan regen.`)
+            : `manual — amp strategy taken from the buttons above. The OSNR panel still shows whether ${f.rate}G on ${f.engine} would close.`}</li>
+          <li><strong>Common equipment</strong>: ${f.showCommon
+            ? `chassis kit itemised from PowerDraw R9.0 per-FRU sheets — fans, I/O panel, ${f.ctrlCount} controller${f.ctrlCount>1?'s (1+1 protected)':' (unprotected)'}, ${f.pemType.toUpperCase()} PEMs (${f.pemMode}), slot fillers for empty slots, and the ${({'19':'19"','23':'23"','cab':'closed cabinet','etsi':'ETSI'})[f.mount]} mounting kit. Chassis power is the measured PowerDraw aggregate; only controllers/PEMs beyond the base build add power on top.`
+            : `not itemised — chassis rows carry the PowerDraw aggregate only.`}</li>
+          <li><strong>PEM &amp; breaker</strong>: sized the PowerDraw way — input load = max@40 °C ÷ ${PEM_EFF}, PEM count = ⌈load ÷ PEM capacity⌉ then ${f.pemMode === '1+1' ? 'doubled for 1+1 dual feed' : f.pemMode === '1:N' ? '+1 for a 1:N spare' : 'left non-redundant'}, breaker = (load ÷ ${BRK_VMIN} V) ÷ ${BRK_DERATE} per feed rounded to the next standard size.</li>
+          <li><strong>Protection</strong>: ${f.protection === 'olp'
+            ? `OLP 1+1 — one <code>${OPS_CARDS.pilot.pn}</code> OPS module per fiber pair per term node, plus a fully diverse route B (${f.totalKmB} km ÷ ${f.spanKmB} km) with its own ILA chain. Client-side schemes (OSNCP / OChP / OMSP) live on the transponder, not the OLS, so they are out of this BoM.`
+            : `single route, no optical line protection. Switch to OLP 1+1 to add OPS modules and a diverse route B.`}</li>
+          ${f.sparePct > 0 ? `<li><strong>Sparing</strong>: ${f.sparePct}% of deployed quantity per PN, rounded up${f.spareMin1?', floor of 1 per part number':''}. Blanks, fillers, filters and mount kits excluded.</li>` : ''}
           <li><strong>Mode</strong>: ${f.strict ? `<span style="color:var(--nokia-blue-deep);font-weight:600">STRICT GA</span> — only parts at-or-below R${f.relCeiling}; no roadmap fallback.` : `<span style="color:var(--warn);font-weight:600">RELAX</span> — engine may surface roadmap parts if no GA solution.`}</li>
           ${f.band === 'Super C+L' ? `<li><strong>OTSCH</strong>: auto-added (Super C + Super L spectrum splitting).</li>
           <li><strong>Super C+L ROADM combo</strong>: no Y-suffix ROADM exists yet → engine pairs <code>RD32-X</code> (Super C) + <code>RD32-L</code> (L-band) per FP. Both must be GA at the ceiling.</li>` : ''}
@@ -1302,34 +2026,46 @@
         }
         return;
       }
+      let commonHeaderDone = false;
       const rows = items.map(p => {
         const perX = p[qtyKey];
         const totalQty = perX * multiplier;
         const rn = relNum(p.rel);
         const isRoadmap = rn !== null && rn > f.relCeiling;
-        const over = isOverProvision(p, f.band);
+        const isCommon = p.cat === 'common';
+        const over = (isCommon || p.cat === 'chassis') ? false : isOverProvision(p, f.band);
         const dir = (p.sect === 'ila' && p.bidi === false) ? '<span class="dir">uni-dir ×2</span>' : '';
         const fbk = p._fb ? ` <span style="color:var(--warn);font-size:10px">⚠ ${p._fb}</span>` : '';
-        const fnSuffix = [
-          labelCat(p.cat),
-          (BAND_COVERAGE[p.bs]||['?']).join('/'),
-          p.fpCap === 4 ? 'fpCap=4' : null,
-          p.ch ? `${p.ch}ch` : null,
-          p.deg ? `${p.deg}-deg` : null,
-        ].filter(Boolean).join(' · ');
-        const pw = getPW(p.n);
+        const fnSuffix = isCommon
+          ? (p._desc || labelCat(p.cat))
+          : [
+              labelCat(p.cat),
+              (BAND_COVERAGE[p.bs]||['?']).join('/'),
+              p.fpCap === 4 ? 'fpCap=4' : null,
+              p.ch ? `${p.ch}ch` : null,
+              p.deg ? `${p.deg}-deg` : null,
+            ].filter(Boolean).join(' · ');
+        const pw = pwOf(p);
         const ru = (p.cat === 'chassis') ? chassisRU(p.n) : null;
         let pwInline = '';
         if (pw.src === 'passive') {
-          pwInline = `<span class="fn" style="color:#0A6E62">passive · 0 W</span>`;
+          pwInline = `<span class="fn" style="color:#0A6E62">passive · 0 W${pw.kg?` · ${pw.kg} kg`:''}</span>`;
+        } else if (pw.src === 'in-baseline') {
+          pwInline = `<span class="fn" style="color:var(--text-faint)">power in chassis aggregate${pw.kg?` · ${pw.kg} kg`:''}</span>`;
         } else if (pw.src === 'unknown') {
           pwInline = `<span class="fn" style="color:var(--warn)">no power data</span>`;
         } else {
           const srcTag = pw.src === 'exact' ? '' : pw.src === 'variant' ? ' <em style="font-size:9px;color:var(--text-faint)">(variant)</em>' : ' <em style="font-size:9px;color:var(--warn)">(est)</em>';
           const ruTag = ru ? ` · ${ru}U` : '';
-          pwInline = `<span class="fn">${pw.typ} W typ / ${pw.max40} W max@40°C${ruTag}${srcTag}</span>`;
+          const adderTag = p._pw ? ' <em style="font-size:9px;color:var(--text-faint)">(row total)</em>' : '';
+          pwInline = `<span class="fn">${pw.typ} W typ / ${pw.max40} W max@40°C${ruTag}${srcTag}${adderTag}</span>`;
         }
-        return `<tr>
+        let sep = '';
+        if (isCommon && !commonHeaderDone) {
+          commonHeaderDone = true;
+          sep = `<tr><td colspan="3" style="padding:6px 12px;background:var(--surface-2);font-size:10px;text-transform:uppercase;letter-spacing:.6px;font-weight:700;color:var(--text-muted);border-top:2px solid var(--border)">Common equipment</td></tr>`;
+        }
+        return `${sep}<tr${isCommon?' style="background:#FBFCFE"':''}>
           <td class="qty">${totalQty}
             <span class="per-node">${perX}/${qtyKey==='qtyPerNode'?'node':'site'} × ${multiplier}</span>
           </td>
@@ -1338,7 +2074,7 @@
             <span class="fn">${fnSuffix}</span>
             ${pwInline}
           </td>
-          <td><span class="rel ${isRoadmap?'roadmap':''}">${isRoadmap?'🚧 ':''}${p.rel||'—'}</span></td>
+          <td><span class="rel ${isRoadmap?'roadmap':''}">${isRoadmap?'🚧 ':''}${isCommon?'—':(p.rel||'—')}</span></td>
         </tr>`;
       }).join('');
       body.innerHTML = `
@@ -1346,56 +2082,148 @@
           <thead><tr><th>Qty</th><th>Part &amp; capability</th><th>Release</th></tr></thead>
           <tbody>${rows}</tbody>
         </table>`;
-      cnt.textContent = `${items.length} item${items.length>1?'s':''}`;
+      const nCards = items.filter(p => p.cat !== 'common').length;
+      const nCommon = items.length - nCards;
+      cnt.textContent = nCommon
+        ? `${nCards} card${nCards!==1?'s':''} + ${nCommon} common`
+        : `${items.length} item${items.length>1?'s':''}`;
+    }
+
+    // =========================================================
+    // Spares table
+    // =========================================================
+    function renderSpares(spares, f) {
+      if (!spares.length) { $('spares-row').style.display = 'none'; return; }
+      $('spares-row').style.display = 'grid';
+      $('spares-count').textContent = `${spares.length} PN · ${spares.reduce((s,x)=>s+x.spare,0)} units`;
+      const rows = spares.map(s => `
+        <tr>
+          <td class="qty">${s.spare}<span class="per-node">of ${s.qty} deployed</span></td>
+          <td><span class="pn">${s.n}</span>
+              <span class="fn">${s.desc || labelCat(s.cat)}</span></td>
+          <td><span class="rel">${s.rel || '—'}</span></td>
+        </tr>`).join('');
+      $('spares-body').innerHTML = `
+        <table class="bom-table">
+          <thead><tr><th>Spare qty</th><th>Part</th><th>Release</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+        <div style="padding:8px 12px;font-size:11px;color:var(--text-faint);border-top:1px solid var(--border)">
+          ${f.sparePct}% of deployed quantity, rounded up${f.spareMin1 ? ', minimum 1 per part number' : ''}.
+          Blanks, filler plates, front-cover filters and mounting kits are excluded.
+        </div>`;
+    }
+
+    // =========================================================
+    // PEM & breaker plan (PowerDraw method)
+    // =========================================================
+    function renderDCPlan(plans, topo, topoB, f) {
+      const list = [
+        { label: 'Term node',  plan: plans.planTerm,  n: topo.termNodes },
+        { label: topo.mixedILA ? `ILA site (${f.ampStrategy==='hybrid'?'Hybrid':'Raman'})` : 'ILA site',
+          plan: plans.planIla, n: topo.ilaPrimary },
+        { label: 'ILA site (EDFA-only)', plan: plans.planIlaAlt, n: topo.ilaAltEdfa },
+        { label: 'Route B ILA site', plan: plans.planIlaB, n: topoB ? topoB.ilaPrimary : 0 },
+      ].filter(x => x.plan && x.n > 0);
+
+      if (!list.length) {
+        $('dc-body').innerHTML = `<div style="padding:14px 16px;font-size:12px;color:var(--text-muted)">
+          Enable <strong>Itemise common equipment</strong> to size PEMs and breakers.</div>`;
+        return;
+      }
+      const warn = [];
+      const rows = list.map(x => {
+        const p = x.plan;
+        if (p.overSlot) warn.push(`${x.label}: ${p.perChassis} PEMs per chassis exceeds the ${p.slots} PEM slots on ${p.chassis} — split the load across more chassis or move to a larger shelf.`);
+        (p.notes || []).forEach(nn => warn.push(`${x.label}: ${nn}`));
+        return `<tr>
+          <td><strong>${x.label}</strong><span class="fn">${p.chassis} · × ${x.n} site${x.n>1?'s':''}</span></td>
+          <td style="text-align:right">${Math.round(p.inputW)} W<span class="fn">max@40 ÷ 0.90</span></td>
+          <td style="text-align:right">${p.qty}<span class="fn">${p.label} · ${p.nBase} load-bearing</span></td>
+          <td style="text-align:right">${p.iMin.toFixed(1)} A<span class="fn">per feed, ${p.feeds} feed${p.feeds>1?'s':''}</span></td>
+          <td style="text-align:right"><strong>${p.brk} A</strong><span class="fn">${Math.round(p.availW)} W available</span></td>
+        </tr>`;
+      }).join('');
+
+      $('dc-body').innerHTML = `
+        <table class="bom-table" style="font-size:13px">
+          <thead><tr>
+            <th></th>
+            <th style="text-align:right">PEM input load</th>
+            <th style="text-align:right">PEMs</th>
+            <th style="text-align:right">Min breaker</th>
+            <th style="text-align:right">Select breaker</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+        ${warn.length ? `<div style="padding:8px 12px;background:#FFF4D6;color:#8A6700;font-size:11px;border-top:1px solid var(--border)">
+            ${warn.map(w=>`⚠ ${w}`).join('<br>')}</div>` : ''}
+        <div style="padding:8px 12px;font-size:11px;color:var(--text-faint);border-top:1px solid var(--border)">
+          Method mirrors the PowerDraw breaker sheet: I<sub>min</sub> = (P<sub>input</sub> ÷ ${BRK_VMIN} V) ÷ ${BRK_DERATE} ÷ feeds,
+          then the next standard breaker. PEM count = ⌈P<sub>input</sub> ÷ ${list[0].plan.cap} W⌉,
+          doubled for 1+1 or +1 for 1:N. Sized on max@40 °C.
+        </div>`;
     }
 
     // =========================================================
     // Power & Space rollup — per site, then × topology
     // =========================================================
     function rollupSite(items, qtyKey) {
-      // Sum per-site/node power + RU
-      let typ = 0, m40 = 0, m55 = 0, ru = 0;
+      // Sum per-site/node power, weight and RU.
+      // Rows carrying an explicit _pw (common equipment, OPS) already hold the
+      // TOTAL for their quantity, so they are summed once rather than × qty.
+      let typ = 0, m40 = 0, m55 = 0, ru = 0, kg = 0;
       let estimated = 0, unknown = 0;
       items.forEach(p => {
-        const pw = getPW(p.n);
+        const pw = pwOf(p);
         const q = p[qtyKey] || 1;
+        const mult = p._pw ? 1 : q;
         if (pw.src === 'unknown') { unknown += q; return; }
         if (pw.src === 'estimate') estimated += q;
-        if (pw.typ != null)   typ += pw.typ * q;
-        if (pw.max40 != null) m40 += pw.max40 * q;
-        if (pw.max55 != null) m55 += pw.max55 * q;
+        if (pw.typ   != null) typ += pw.typ   * mult;
+        if (pw.max40 != null) m40 += pw.max40 * mult;
+        if (pw.max55 != null) m55 += pw.max55 * mult;
+        if (pw.kg    != null && !p._noKg) kg += pw.kg * mult;
         // RU only counted for chassis rows
         if (p.cat === 'chassis') {
           const r = chassisRU(p.n);
           if (r != null) ru += r * q;
         }
       });
-      return { typ, m40, m55, ru, estimated, unknown };
+      return { typ, m40, m55, ru, kg, estimated, unknown };
     }
 
-    function renderPWRollup(rec, topo) {
+    function renderPWRollup(rec, topo, ext) {
+      ext = ext || {};
       const f = getF();
       const perTerm = rollupSite(rec.termPerNode, 'qtyPerNode');
       const perIla  = rollupSite(rec.ilaPerSite,  'qtyPerSite');
       const perIlaAlt = topo.mixedILA && topo.ilaAltEdfa > 0 ? rollupSite(rec.ilaPerSiteAlt, 'qtyPerSite') : null;
+      const hasB = !!(ext.olp && ext.recB && ext.topoB && ext.topoB.ilaPrimary > 0);
+      const perIlaB = hasB ? rollupSite(ext.recB.ilaPerSite, 'qtyPerSite') : null;
+      const nB = hasB ? ext.topoB.ilaPrimary : 0;
 
       const termTotalTyp = perTerm.typ * topo.termNodes;
       const termTotalM40 = perTerm.m40 * topo.termNodes;
       const termTotalM55 = perTerm.m55 * topo.termNodes;
       const termTotalRU  = perTerm.ru * topo.termNodes;
-      const ilaTotalTyp = perIla.typ * topo.ilaPrimary + (perIlaAlt ? perIlaAlt.typ * topo.ilaAltEdfa : 0);
-      const ilaTotalM40 = perIla.m40 * topo.ilaPrimary + (perIlaAlt ? perIlaAlt.m40 * topo.ilaAltEdfa : 0);
-      const ilaTotalM55 = perIla.m55 * topo.ilaPrimary + (perIlaAlt ? perIlaAlt.m55 * topo.ilaAltEdfa : 0);
-      const ilaTotalRU  = perIla.ru * topo.ilaPrimary + (perIlaAlt ? perIlaAlt.ru * topo.ilaAltEdfa : 0);
+      const termTotalKg  = perTerm.kg * topo.termNodes;
+      const ilaTotalTyp = perIla.typ * topo.ilaPrimary + (perIlaAlt ? perIlaAlt.typ * topo.ilaAltEdfa : 0) + (perIlaB ? perIlaB.typ * nB : 0);
+      const ilaTotalM40 = perIla.m40 * topo.ilaPrimary + (perIlaAlt ? perIlaAlt.m40 * topo.ilaAltEdfa : 0) + (perIlaB ? perIlaB.m40 * nB : 0);
+      const ilaTotalM55 = perIla.m55 * topo.ilaPrimary + (perIlaAlt ? perIlaAlt.m55 * topo.ilaAltEdfa : 0) + (perIlaB ? perIlaB.m55 * nB : 0);
+      const ilaTotalRU  = perIla.ru  * topo.ilaPrimary + (perIlaAlt ? perIlaAlt.ru  * topo.ilaAltEdfa : 0) + (perIlaB ? perIlaB.ru  * nB : 0);
+      const ilaTotalKg  = perIla.kg  * topo.ilaPrimary + (perIlaAlt ? perIlaAlt.kg  * topo.ilaAltEdfa : 0) + (perIlaB ? perIlaB.kg  * nB : 0);
       const linkTyp = termTotalTyp + ilaTotalTyp;
       const linkM40 = termTotalM40 + ilaTotalM40;
       const linkM55 = termTotalM55 + ilaTotalM55;
       const linkRU  = termTotalRU + ilaTotalRU;
-      const linkEstimated = perTerm.estimated + perIla.estimated + (perIlaAlt ? perIlaAlt.estimated : 0);
-      const linkUnknown   = perTerm.unknown + perIla.unknown + (perIlaAlt ? perIlaAlt.unknown : 0);
+      const linkKg  = termTotalKg + ilaTotalKg;
+      const linkEstimated = perTerm.estimated + perIla.estimated + (perIlaAlt ? perIlaAlt.estimated : 0) + (perIlaB ? perIlaB.estimated : 0);
+      const linkUnknown   = perTerm.unknown + perIla.unknown + (perIlaAlt ? perIlaAlt.unknown : 0) + (perIlaB ? perIlaB.unknown : 0);
 
       const fmtKW = w => w >= 1000 ? `${(w/1000).toFixed(2)} kW` : `${Math.round(w)} W`;
       const fmtRU = r => r === 0 ? '—' : `${r} U`;
+      const fmtKg = k => !k ? '—' : (k >= 1000 ? `${(k/1000).toFixed(2)} t` : `${k.toFixed(1)} kg`);
 
       // Rack budget check based on the heavier ILA config
       const heaviest = perIlaAlt ? Math.max(perIla.m40, perIlaAlt.m40) : perIla.m40;
@@ -1412,7 +2240,7 @@
               <td style="font-size:11px"><strong>Rack budget check (heaviest ILA site)</strong>
                 <span class="fn">${f.rackCount} rack × ${f.rackPower} W = ${fmtKW(siteRackBudget)} max output · ${ilaRackSpaceBudget} U</span>
               </td>
-              <td colspan="3" style="font-size:11px;text-align:right">
+              <td colspan="4" style="font-size:11px;text-align:right">
                 PEM input load: <strong>${fmtKW(perSiteIlaPemInput)}</strong>
                 ${ilaBudgetExceeded
                   ? ` <span class="dir" style="background:#FFD6D6;color:#A02020">⚠ EXCEEDS BUDGET by ${fmtKW(-ilaBudgetHeadroom)}</span>`
@@ -1438,6 +2266,7 @@
               <td style="text-align:right">${fmtKW(perIlaAlt.m40)}</td>
               <td style="text-align:right">${fmtKW(perIlaAlt.m55)}</td>
               <td style="text-align:right">${fmtRU(perIlaAlt.ru)}</td>
+              <td style="text-align:right">${fmtKg(perIlaAlt.kg)}</td>
             </tr>
             <tr>
               <td><strong>ILA side · EDFA-only</strong>
@@ -1447,6 +2276,27 @@
               <td style="text-align:right;font-weight:600">${fmtKW(perIlaAlt.m40 * topo.ilaAltEdfa)}</td>
               <td style="text-align:right;font-weight:600">${fmtKW(perIlaAlt.m55 * topo.ilaAltEdfa)}</td>
               <td style="text-align:right;font-weight:600">${fmtRU(perIlaAlt.ru * topo.ilaAltEdfa)}</td>
+              <td style="text-align:right;font-weight:600">${fmtKg(perIlaAlt.kg * topo.ilaAltEdfa)}</td>
+            </tr>` : '';
+
+      const bRows = (perIlaB && nB > 0) ? `
+            <tr style="border-top:2px solid var(--border);background:#F7FBFF">
+              <td><strong>Per Route B ILA site</strong></td>
+              <td style="text-align:right">${fmtKW(perIlaB.typ)}</td>
+              <td style="text-align:right">${fmtKW(perIlaB.m40)}</td>
+              <td style="text-align:right">${fmtKW(perIlaB.m55)}</td>
+              <td style="text-align:right">${fmtRU(perIlaB.ru)}</td>
+              <td style="text-align:right">${fmtKg(perIlaB.kg)}</td>
+            </tr>
+            <tr style="background:#F7FBFF">
+              <td><strong>Route B ILA side</strong>
+                <span class="fn">× ${nB} sites · OLP 1+1 diverse path</span>
+              </td>
+              <td style="text-align:right;font-weight:600">${fmtKW(perIlaB.typ * nB)}</td>
+              <td style="text-align:right;font-weight:600">${fmtKW(perIlaB.m40 * nB)}</td>
+              <td style="text-align:right;font-weight:600">${fmtKW(perIlaB.m55 * nB)}</td>
+              <td style="text-align:right;font-weight:600">${fmtRU(perIlaB.ru * nB)}</td>
+              <td style="text-align:right;font-weight:600">${fmtKg(perIlaB.kg * nB)}</td>
             </tr>` : '';
 
       const html = `
@@ -1457,6 +2307,7 @@
             <th style="text-align:right">Max Power (40°C)</th>
             <th style="text-align:right">Max Power (55°C)</th>
             <th style="text-align:right">Rack space</th>
+            <th style="text-align:right">Weight</th>
           </tr></thead>
           <tbody>
             <tr>
@@ -1465,6 +2316,7 @@
               <td style="text-align:right">${fmtKW(perTerm.m40)}</td>
               <td style="text-align:right">${fmtKW(perTerm.m55)}</td>
               <td style="text-align:right">${fmtRU(perTerm.ru)}</td>
+              <td style="text-align:right">${fmtKg(perTerm.kg)}</td>
             </tr>
             <tr>
               <td><strong>Term side</strong>
@@ -1474,6 +2326,7 @@
               <td style="text-align:right;font-weight:600">${fmtKW(termTotalM40)}</td>
               <td style="text-align:right;font-weight:600">${fmtKW(termTotalM55)}</td>
               <td style="text-align:right;font-weight:600">${fmtRU(termTotalRU)}</td>
+              <td style="text-align:right;font-weight:600">${fmtKg(termTotalKg)}</td>
             </tr>
             <tr style="border-top:2px solid var(--border)">
               <td><strong>${primaryLabel}</strong></td>
@@ -1481,6 +2334,7 @@
               <td style="text-align:right">${fmtKW(perIla.m40)}</td>
               <td style="text-align:right">${fmtKW(perIla.m55)}</td>
               <td style="text-align:right">${fmtRU(perIla.ru)}</td>
+              <td style="text-align:right">${fmtKg(perIla.kg)}</td>
             </tr>
             <tr>
               <td><strong>${primarySideLabel}</strong>
@@ -1490,8 +2344,10 @@
               <td style="text-align:right;font-weight:600">${fmtKW(perIla.m40 * topo.ilaPrimary)}</td>
               <td style="text-align:right;font-weight:600">${fmtKW(perIla.m55 * topo.ilaPrimary)}</td>
               <td style="text-align:right;font-weight:600">${fmtRU(perIla.ru * topo.ilaPrimary)}</td>
+              <td style="text-align:right;font-weight:600">${fmtKg(perIla.kg * topo.ilaPrimary)}</td>
             </tr>
             ${altRows}
+            ${bRows}
             <tr style="background:var(--surface-2);border-top:2px solid var(--nokia-blue-deep)">
               <td><strong style="color:var(--nokia-blue-deep)">LINK TOTAL</strong>
                 <span class="fn">end-to-end OLS</span>
@@ -1500,10 +2356,11 @@
               <td style="text-align:right;font-weight:700;color:var(--nokia-blue-deep);font-size:14px">${fmtKW(linkM40)}</td>
               <td style="text-align:right;font-weight:700;color:var(--nokia-blue-deep);font-size:14px">${fmtKW(linkM55)}</td>
               <td style="text-align:right;font-weight:700;color:var(--nokia-blue-deep);font-size:14px">${fmtRU(linkRU)}</td>
+              <td style="text-align:right;font-weight:700;color:var(--nokia-blue-deep);font-size:14px">${fmtKg(linkKg)}</td>
             </tr>
             ${budgetRow}
             <tr>
-              <td colspan="5" style="padding:8px 12px;background:var(--surface);font-size:11px;color:var(--text-faint);border-top:1px solid var(--border)">
+              <td colspan="6" style="padding:8px 12px;background:var(--surface);font-size:11px;color:var(--text-faint);border-top:1px solid var(--border)">
                 Per-PEM input (90% eff): <strong>${fmtKW(linkTyp/0.9)}</strong> typ / <strong>${fmtKW(linkM40/0.9)}</strong> max@40°C across the link.
                 ${linkEstimated ? `<span class="over" style="margin-left:8px">⚠ ${linkEstimated} estimated qty</span>` : ''}
                 ${linkUnknown ? `<span class="dir" style="margin-left:8px">⚠ ${linkUnknown} no-data qty</span>` : ''}
@@ -1521,7 +2378,7 @@
         'edfa-amp':'EDFA booster', 'raman-amp':'Raman booster',
         'hybrid-amp':'Hybrid amp', otsch:'OTS channel',
         'ila-edfa':'ILA EDFA', 'ila-raman':'ILA Raman', 'ila-hybrid':'ILA hybrid',
-        'otdr':'OTDR module',
+        'otdr':'OTDR module', 'ops':'OPS (line protection)', 'common':'Common equipment',
       })[c] || c;
     }
 
@@ -1537,13 +2394,18 @@
     });
     ['f-band','f-fp','f-channels','f-total','f-span','f-rack','f-rel',
      'f-rack-count','f-rack-power','f-rack-u','f-otdr',
-     'f-ila-same','f-ila-edfa-count'].forEach(id => {
+     'f-ila-same','f-ila-edfa-count',
+     'f-ctrl','f-pem-mode','f-pem-type','f-mount','f-protect',
+     'f-total-b','f-span-b','f-spares','f-spares-min1','f-show-common',
+     'f-fiber','f-rate','f-pch','f-margin','f-auto-amp'].forEach(id => {
       const el = $(id);
       if (el) {
         el.addEventListener('input', render);
         el.addEventListener('change', render);
       }
     });
+    $('f-engine').addEventListener('change', () => { syncRateOptions(); render(); });
+    syncRateOptions();
     render();
   </script>
 
@@ -1572,47 +2434,10 @@
     });
 
     // ============================================================
-    // REACH MODEL  (transparent, calibrated — ESTIMATE)
-    // Required-OSNR ladder per engine, [line rate G, req OSNR dB @0.1nm, format]
-    // Calibrated so, on G.652 / 80 km span / NF 5 / +1 dBm / 0 margin, the
-    // public anchor reaches land: CHM6 800G≈985 km, 600G≈3100 km, 400G TO;
-    // CHM7 1.2T≈500 km, 800G≈3100 km (Nokia/Infinera ICE6/ICE7 figures).
+    // REACH MODEL — CARDS / OSNR_REF / linkOSNR / bestRate / slotGHz are now
+    // defined once in the main engine script above and shared by both tabs, so
+    // the OLS configurator and this advisor can never drift apart.
     // ============================================================
-    const CARDS = {
-      CHM6: { name:'CHM6', engine:'ICE-6 (PSE-Vs) · 96 GBaud', baud:96, maxLambda:800,
-        ladder:[
-          [800,25.5,'PCS-64QAM (~4.6 b/sym/pol)'],
-          [700,22.5,'PCS-32QAM (~4.0)'],
-          [600,20.5,'PCS-16QAM (~3.4)'],
-          [500,18.5,'PCS-8QAM (~2.8)'],
-          [400,16.5,'QPSK/PCS (~2.2)'],
-          [300,14.0,'QPSK (~1.7)'],
-          [200,11.5,'QPSK (~1.1)'],
-        ]},
-      CHM7: { name:'CHM7', engine:'ICE-7 (PSE-6s) · 140 GBaud', baud:140, maxLambda:1200,
-        ladder:[
-          [1200,28.5,'PCS-64QAM (~4.4 b/sym/pol)'],
-          [1000,25.5,'PCS-32QAM (~3.7)'],
-          [800, 20.5,'PCS-16QAM (~3.0)'],
-          [600, 16.5,'QPSK/PCS (~2.2)'],
-          [400, 13.0,'QPSK (~1.5)'],
-          [300, 11.0,'QPSK (~1.2)'],
-        ]},
-    };
-    const OSNR_REF = 58; // 0.1 nm reference-bandwidth constant @1550 nm
-
-    function linkOSNR(dist, span, loss, nf, pch, margin){
-      const N = Math.max(1, Math.ceil(dist/span));   // number of spans
-      const Lspan = span * loss;                      // per-span loss (dB)
-      const osnr = OSNR_REF + pch - Lspan - nf - 10*Math.log10(N) - margin;
-      return { N, Lspan, osnr };
-    }
-    function bestRate(card, osnr){
-      for (const [rate, req, mod] of card.ladder){ if (osnr >= req) return {rate, req, mod}; }
-      return null; // even the lowest rate needs more OSNR than the link provides
-    }
-    // channel slot from baud: ~15% roll-off + guard, snapped to 12.5 GHz flexgrid
-    function slotGHz(baud){ return Math.ceil((baud*1.15)/12.5)*12.5; }
 
     function num(id){ return parseFloat($(id).value); }
 

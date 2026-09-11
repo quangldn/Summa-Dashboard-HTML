@@ -93,6 +93,33 @@ html, body {
 .chip:hover { border-color: var(--nokia-blue); }
 .chip.active { background: var(--nokia-blue); color: #fff; border-color: var(--nokia-blue); }
 .chip.toggle.off { opacity: 0.55; text-decoration: line-through; }
+/* === Search === */
+.searchwrap { position: relative; display: flex; align-items: center; gap: 6px; }
+.searchwrap input {
+  font-family: inherit; font-size: 13px; padding: 6px 28px 6px 30px;
+  border: 1px solid var(--border); border-radius: 999px; background: #fff;
+  min-width: 260px; color: var(--text); outline: none;
+}
+.searchwrap input:focus { border-color: var(--nokia-blue); box-shadow: 0 0 0 3px rgba(0,91,187,0.12); }
+.searchwrap .sicon { position: absolute; left: 11px; font-size: 12px; color: var(--text-faint); pointer-events: none; }
+.searchwrap .sclear {
+  position: absolute; right: 9px; cursor: pointer; font-size: 14px; color: var(--text-faint);
+  line-height: 1; display: none; border: 0; background: none; padding: 0;
+}
+.searchwrap.has-q .sclear { display: block; }
+.searchwrap .skbd {
+  font-size: 10px; color: var(--text-faint); border: 1px solid var(--border);
+  border-radius: 4px; padding: 1px 5px; background: var(--surface-2);
+}
+.matchcount { font-size: 12px; color: var(--text-muted); white-space: nowrap; }
+.matchcount b { color: var(--nokia-blue-deep); }
+.matchcount.zero b { color: #A02020; }
+mark.hit { background: #FFF0A8; color: inherit; border-radius: 2px; padding: 0 1px; }
+.portfolio-table tbody tr.rowhide { display: none; }
+.port-section.sechide { display: none; }
+.portfolio-table tbody tr.rowflash { animation: rowflash 1.6s ease; }
+@keyframes rowflash { 0%,60% { background: #FFF0A8; } 100% { background: transparent; } }
+.pn-chip.dim, .pn-dot.dim { opacity: 0.18; }
 .chip.reset {
   background: transparent; border: 1px dashed var(--border); color: var(--text-muted);
   font-size: 11.5px;
@@ -434,6 +461,14 @@ section[id] { scroll-margin-top: 80px; }
       <span class="chip toggle active" data-mra="mra">MRA 4-fiber</span>
     </div>
     <div class="grp" style="margin-left:auto;">
+      <span class="matchcount" id="matchCount"></span>
+      <div class="searchwrap" id="searchWrap">
+        <span class="sicon">&#128269;</span>
+        <input type="search" id="searchBox" placeholder="Search PN, function, band, release&hellip;"
+               autocomplete="off" spellcheck="false" />
+        <button class="sclear" id="searchClear" title="Clear (Esc)">&times;</button>
+      </div>
+      <span class="skbd">/</span>
       <span class="chip reset" id="resetBtn">Reset filters</span>
     </div>
   </div>
@@ -728,8 +763,46 @@ const filters = {
   sections: new Set(['Term', 'ILA', 'Both']),
   cats: new Set(),       // empty = all visible; entries here are "off"
   ready: new Set(['ready', 'roadmap', 'passive']),
-  mra: new Set(['single', 'mra'])
+  mra: new Set(['single', 'mra']),
+  q: ''                  // free-text query, space-separated AND terms
 };
+
+// =========================================
+//  Free-text search
+//  Every term must appear somewhere in the row's searchable blob.
+//  A term of the form key:value narrows to one field.
+// =========================================
+const SEARCH_FIELDS = {
+  pn:'pn', name:'pn', band:'band', cat:'category', category:'category',
+  fam:'family', family:'family', rel:'release', release:'release',
+  fits:'fits', sect:'section', section:'section', note:'notes', notes:'notes',
+};
+function searchBlob(d) {
+  if (d._blob) return d._blob;
+  d._blob = [d.pn, d.short, d.category, d.band, d.family, d.release, d.fits,
+             d.section, d.notes, d.header, d.hsapply,
+             d.is_mra ? 'mra 4-fiber' : 'single rail',
+             d.is_bidi ? 'bidi' : 'uni-dir unidirectional',
+             d.amp, d.suffix ? '-' + d.suffix : '']
+            .filter(Boolean).join(' ').toLowerCase();
+  return d._blob;
+}
+function parseQuery(q) {
+  return (q || '').toLowerCase().split(/\s+/).filter(Boolean).map(t => {
+    const m = t.match(/^([a-z]+):(.+)$/);
+    if (m && SEARCH_FIELDS[m[1]]) return { field: SEARCH_FIELDS[m[1]], v: m[2] };
+    return { field: null, v: t };
+  });
+}
+function matchesQuery(d, terms) {
+  if (!terms.length) return true;
+  const blob = searchBlob(d);
+  return terms.every(t => {
+    if (!t.field) return blob.includes(t.v);
+    const val = d[t.field];
+    return val != null && String(val).toLowerCase().includes(t.v);
+  });
+}
 
 // =========================================
 //  Category chips
@@ -780,16 +853,22 @@ document.getElementById('resetBtn').addEventListener('click', () => {
   filters.cats = new Set();
   filters.ready = new Set(['ready','roadmap','passive']);
   filters.mra = new Set(['single','mra']);
+  filters.q = ''; QTERMS = [];
+  const sb = document.getElementById('searchBox');
+  if (sb) { sb.value = ''; document.getElementById('searchWrap').classList.remove('has-q'); }
+  syncHash();
   document.querySelectorAll('.chip.toggle').forEach(c => { c.classList.remove('off'); c.classList.add('active'); });
   render();
 });
 
+let QTERMS = [];
 function visible(d) {
   if (!filters.sections.has(d.section)) return false;
   if (filters.cats.has(d.category)) return false;
   if (!filters.ready.has(d.ready)) return false;
   const mraKey = d.is_mra ? 'mra' : 'single';
   if (!filters.mra.has(mraKey)) return false;
+  if (!matchesQuery(d, QTERMS)) return false;
   return true;
 }
 
@@ -1156,6 +1235,13 @@ function placePN(d, defaultX, defaultY) {
   el.addEventListener('pointerdown', e => startDragPN(e, grp, el, d));
   el.addEventListener('mousemove', e => showTip(e, d));
   el.addEventListener('mouseleave', hideTip);
+  // Double-click jumps to the PN's row in the detail table (single click is
+  // reserved for dragging).
+  el.addEventListener('dblclick', e => {
+    e.preventDefault(); e.stopPropagation();
+    const base = String(d.pn).replace(/\s*\((ILA|ILA-side)\)\s*$/, '').trim();
+    if (typeof focusPn === 'function') focusPn(base);
+  });
 }
 
 // =========================================
@@ -1333,6 +1419,12 @@ function renderMatrix(visibleData) {
           (d.section === 'Both' ? ' <span class="both-badge">T+I</span>' : '');
         chip.addEventListener('mousemove', e => showTip(e, d));
         chip.addEventListener('mouseleave', hideTip);
+        chip.style.cursor = 'pointer';
+        chip.title = 'Click to jump to this PN in the detail table';
+        chip.addEventListener('click', () => {
+          const base = String(d.pn).replace(/\s*\((ILA|ILA-side)\)\s*$/, '').trim();
+          if (typeof focusPn === 'function') focusPn(base);
+        });
         td.appendChild(chip);
       });
       tr.appendChild(td);
@@ -1349,6 +1441,8 @@ function render() {
   const vis = DATA.filter(visible);
   renderQuadrant(vis);
   renderMatrix(vis);
+  const tableCount = (typeof renderTable === 'function') ? renderTable() : vis.length;
+  if (typeof updateMatchCount === 'function') updateMatchCount(vis.length, tableCount);
   const total = vis.length || 1;
   document.getElementById('stTotal').textContent = vis.length;
   const r = vis.filter(d => d.ready==='ready').length;
@@ -1362,9 +1456,149 @@ function render() {
   document.getElementById('stMraPct').textContent = Math.round(mra*100/total) + '% of MRA cards';
 }
 
+// =========================================
+//  Detail table wiring — the table is hand-authored HTML (it carries power
+//  figures and form-factor text the RAW array doesn't), so instead of
+//  regenerating it we index each row against DATA and show/hide in place.
+// =========================================
+const TABLE_ROWS = [];
+(function indexTable() {
+  const byPn = new Map();
+  DATA.forEach(d => { byPn.set(d.pn, d); byPn.set(d.short, d); });
+  document.querySelectorAll('#detail-table .port-section').forEach(sec => {
+    const trs = [...sec.querySelectorAll('tbody tr')];
+    trs.forEach(tr => {
+      const cell = tr.querySelector('td.pn');
+      if (!cell) return;
+      const raw = cell.textContent.trim();
+      const base = raw.replace(/\s*\((ILA|ILA-side)\)\s*$/, '').trim();
+      const d = byPn.get(raw) || byPn.get(base);
+      tr.dataset.pn = base;
+      // Rows the RAW array doesn't cover still get to participate in search.
+      const text = tr.textContent.replace(/\s+/g, ' ').toLowerCase();
+      TABLE_ROWS.push({ tr, sec, d, base, text });
+    });
+  });
+})();
+
+function renderTable() {
+  const secCounts = new Map();
+  let shown = 0;
+  TABLE_ROWS.forEach(r => {
+    // A row is visible when its DATA record passes the filters; rows with no
+    // DATA record fall back to plain text matching so nothing silently vanishes.
+    const ok = r.d ? visible(r.d)
+                   : QTERMS.every(t => r.text.includes(t.v));
+    r.tr.classList.toggle('rowhide', !ok);
+    if (ok) { shown++; secCounts.set(r.sec, (secCounts.get(r.sec) || 0) + 1); }
+    // highlight matches in the PN cell
+    const cell = r.tr.querySelector('td.pn');
+    if (cell) {
+      const plain = cell.textContent;
+      if (ok && filters.q) {
+        const terms = QTERMS.map(t => t.v).filter(Boolean)
+          .map(v => v.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+        cell.innerHTML = terms.length
+          ? plain.replace(new RegExp('(' + terms.join('|') + ')', 'ig'), '<mark class="hit">$1</mark>')
+          : plain;
+      } else if (cell.querySelector('mark')) {
+        cell.textContent = plain;
+      }
+    }
+  });
+  document.querySelectorAll('#detail-table .port-section').forEach(sec => {
+    const n = secCounts.get(sec) || 0;
+    sec.classList.toggle('sechide', n === 0);
+    const badge = sec.querySelector('.port-section-count');
+    if (badge) {
+      if (!badge.dataset.full) badge.dataset.full = badge.textContent.trim();
+      badge.textContent = (filters.q || n !== +badge.dataset.full) ? `${n}/${badge.dataset.full}` : badge.dataset.full;
+    }
+  });
+  return shown;
+}
+
+function updateMatchCount(visCount, tableCount) {
+  const el = document.getElementById('matchCount');
+  if (!el) return;
+  const filtering = filters.q || visCount !== DATA.length;
+  el.classList.toggle('zero', tableCount === 0);
+  el.innerHTML = filtering
+    ? `<b>${tableCount}</b> of ${TABLE_ROWS.length} parts${filters.q ? ` matching &ldquo;${filters.q}&rdquo;` : ''}`
+    : '';
+}
+
+// =========================================
+//  Deep link  —  #pn=G3S-H3RD66TM-Z0  or  #q=raman
+// =========================================
+function syncHash() {
+  const parts = [];
+  if (filters.q) parts.push('q=' + encodeURIComponent(filters.q));
+  const h = parts.length ? '#' + parts.join('&') : '';
+  history.replaceState(null, '', location.pathname + location.search + h);
+}
+function focusPn(pn) {
+  const row = TABLE_ROWS.find(r => r.base.toLowerCase() === String(pn).toLowerCase());
+  if (!row || row.tr.classList.contains('rowhide')) return false;
+  row.tr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  row.tr.classList.remove('rowflash');
+  void row.tr.offsetWidth;
+  row.tr.classList.add('rowflash');
+  return true;
+}
+function readHash() {
+  const h = location.hash.replace(/^#/, '');
+  if (!h) return;
+  const params = new URLSearchParams(h.includes('=') ? h : '');
+  const q = params.get('q');
+  const pn = params.get('pn');
+  if (q) {
+    filters.q = q; QTERMS = parseQuery(q);
+    const sb = document.getElementById('searchBox');
+    if (sb) { sb.value = q; document.getElementById('searchWrap').classList.add('has-q'); }
+  }
+  render();
+  if (pn) setTimeout(() => focusPn(pn), 120);
+}
+
+// =========================================
+//  Search wiring
+// =========================================
+(function wireSearch() {
+  const box = document.getElementById('searchBox');
+  const wrap = document.getElementById('searchWrap');
+  const clear = document.getElementById('searchClear');
+  if (!box) return;
+  let t = null;
+  const apply = () => {
+    filters.q = box.value.trim();
+    QTERMS = parseQuery(filters.q);
+    wrap.classList.toggle('has-q', !!filters.q);
+    syncHash();
+    render();
+  };
+  box.addEventListener('input', () => { clearTimeout(t); t = setTimeout(apply, 90); });
+  box.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { box.value = ''; apply(); box.blur(); }
+    if (e.key === 'Enter') {
+      // Enter on a single match jumps straight to it
+      const hits = TABLE_ROWS.filter(r => !r.tr.classList.contains('rowhide'));
+      if (hits.length === 1) focusPn(hits[0].base);
+    }
+  });
+  clear.addEventListener('click', () => { box.value = ''; apply(); box.focus(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === '/' && document.activeElement !== box &&
+        !/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)) {
+      e.preventDefault(); box.focus(); box.select();
+    }
+  });
+  window.addEventListener('hashchange', readHash);
+})();
+
 updateViewBox();
 render();
+readHash();
 </script>
 </body>
 </html>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 

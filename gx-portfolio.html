@@ -1,0 +1,1021 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>1830 GX Portfolio — SUMMA</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+<style>
+/* ============================================================
+   GX Portfolio — explorer
+   Colour roles:
+     lifecycle   = status palette (good / warning / neutral), ALWAYS with a
+                   text label beside it, so colour never carries meaning alone
+     magnitude   = one sequential blue ramp, light -> dark, length carries value
+   ============================================================ */
+.gxp {
+  --good:    #0ca30c;   /* available today */
+  --warn-s:  #fab219;   /* plan of record  */
+  --neutral: #9AA3B7;   /* plan of intent  */
+  --good-ink:#06630 6;
+  --good-ink:#066306;
+  --warn-ink:#7A5600;
+  --neut-ink:#4E5568;
+  --seq-1: #EAF1FB;
+  --seq-2: #C3D8F2;
+  --seq-3: #7FA8E0;
+  --seq-4: #3F7BCB;
+  --seq-5: #124191;
+}
+
+/* ---------- hero ---------- */
+.gx-hero { padding: 22px 0 10px; }
+.gx-hero h1 { margin: 0 0 5px; font-size: 29px; letter-spacing: -0.4px; color: var(--nokia-blue-deep); }
+.gx-hero p { margin: 0; max-width: 76ch; color: var(--text-muted); }
+.provenance { margin-top: 10px; font-size: 11.5px; color: var(--text-faint); border-left: 3px solid var(--border); padding: 3px 0 3px 10px; line-height: 1.6; }
+.provenance b { color: var(--text-muted); font-weight: 600; }
+
+/* ---------- view switcher ---------- */
+.viewbar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 16px 0 0; }
+.seg { display: inline-flex; background: var(--surface-2); border: 1px solid var(--border); border-radius: 999px; padding: 3px; }
+.seg button {
+  border: 0; background: none; font-family: inherit; font-size: 13px; font-weight: 600;
+  color: var(--text-muted); padding: 6px 16px; border-radius: 999px; cursor: pointer; white-space: nowrap;
+}
+.seg button.on { background: var(--nokia-blue); color: #fff; box-shadow: var(--shadow-sm); }
+.viewhint { font-size: 12px; color: var(--text-faint); }
+
+/* ---------- layout ---------- */
+.gx-layout { display: grid; grid-template-columns: 268px minmax(0, 1fr); gap: 20px; align-items: start; margin-top: 16px; }
+.rail { position: sticky; top: 14px; max-height: calc(100vh - 28px); overflow-y: auto; padding-right: 4px; }
+.rail-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 13px; margin-bottom: 12px; }
+.rail-box > h3 {
+  margin: 0 0 9px; font-size: 10px; text-transform: uppercase; letter-spacing: .8px;
+  color: var(--text-faint); font-weight: 700; display: flex; justify-content: space-between; align-items: center;
+}
+.rail-box > h3 button { border: 0; background: none; font-family: inherit; font-size: 10px; color: var(--nokia-blue); cursor: pointer; padding: 0; letter-spacing: 0; text-transform: none; }
+.chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.chip {
+  font-size: 11.5px; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--border);
+  background: var(--surface-2); cursor: pointer; user-select: none; white-space: nowrap; color: var(--text);
+  display: inline-flex; align-items: center; gap: 5px;
+}
+.chip:hover { border-color: var(--nokia-blue); }
+.chip.on { background: var(--nokia-blue); color: #fff; border-color: var(--nokia-blue); }
+.chip .n { font-size: 10px; opacity: .65; font-variant-numeric: tabular-nums; }
+.chip i.sw { width: 8px; height: 8px; border-radius: 2px; display: inline-block; }
+.rng { margin-bottom: 10px; }
+.rng label { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--text-muted); margin-bottom: 2px; }
+.rng label b { color: var(--nokia-blue-deep); font-variant-numeric: tabular-nums; }
+.rng input[type=range] { width: 100%; accent-color: var(--nokia-blue); }
+.searchwrap { position: relative; display: flex; align-items: center; }
+.searchwrap input {
+  font-family: inherit; font-size: 13px; padding: 7px 28px 7px 30px; border: 1px solid var(--border);
+  border-radius: 999px; background: #fff; width: 100%; min-width: 0; color: var(--text); outline: none;
+}
+.searchwrap input:focus { border-color: var(--nokia-blue); box-shadow: 0 0 0 3px rgba(18,65,145,.12); }
+.searchwrap .sicon { position: absolute; left: 11px; font-size: 12px; color: var(--text-faint); pointer-events: none; }
+.searchwrap .sclear { position: absolute; right: 9px; border: 0; background: none; cursor: pointer; font-size: 15px; color: var(--text-faint); display: none; padding: 0; line-height: 1; }
+.searchwrap.has-q .sclear { display: block; }
+.hint { font-size: 10.5px; color: var(--text-faint); margin-top: 6px; line-height: 1.5; }
+.hint code { background: var(--surface-2); border-radius: 3px; padding: 0 3px; }
+
+/* ---------- result header ---------- */
+.reshead { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+.reshead .count { font-size: 13px; color: var(--text-muted); }
+.reshead .count b { color: var(--nokia-blue-deep); font-size: 17px; font-variant-numeric: tabular-nums; }
+.sortsel { font-family: inherit; font-size: 12px; padding: 5px 8px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: #fff; color: var(--text); }
+.activefilters { display: flex; flex-wrap: wrap; gap: 5px; }
+.afchip { font-size: 11px; background: #EAF3FF; color: var(--nokia-blue-deep); border: 1px solid #CFE0F7; border-radius: 999px; padding: 2px 6px 2px 9px; display: inline-flex; align-items: center; gap: 5px; }
+.afchip button { border: 0; background: none; cursor: pointer; color: inherit; font-size: 13px; line-height: 1; padding: 0 2px; }
+
+/* ---------- lifecycle pills ---------- */
+.lc { display: inline-flex; align-items: center; gap: 5px; font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 4px; white-space: nowrap; border: 1px solid; }
+.lc i { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+.lc.ga  { background: #E8F7E8; color: var(--good-ink); border-color: #C6E9C6; }
+.lc.ga i  { background: var(--good); }
+.lc.por { background: #FFF6DF; color: var(--warn-ink); border-color: #F3E2B4; }
+.lc.por i { background: var(--warn-s); }
+.lc.poi { background: #EFF1F6; color: var(--neut-ink); border-color: #DDE1EA; }
+.lc.poi i { background: var(--neutral); }
+
+/* ---------- cards ---------- */
+.gx-section { margin: 0 0 22px; }
+.gx-section > h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .8px; color: var(--nokia-blue-deep); margin: 0 0 9px; display: flex; align-items: center; gap: 9px; }
+.gx-section > h2::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.gx-section .cnt { font-size: 10.5px; font-weight: 600; color: var(--text-faint); background: var(--surface-2); border: 1px solid var(--border); border-radius: 999px; padding: 1px 7px; letter-spacing: 0; }
+.gx-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(304px, 1fr)); gap: 12px; }
+.gx-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: var(--shadow-sm); overflow: hidden; display: flex; flex-direction: column;
+  border-left: 3px solid var(--neutral); cursor: pointer; transition: box-shadow .12s ease, transform .12s ease;
+}
+.gx-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.gx-card.ga  { border-left-color: var(--good); }
+.gx-card.por { border-left-color: var(--warn-s); }
+.gx-card.pinned { outline: 2px solid var(--nokia-blue); outline-offset: -1px; }
+.gx-card > header { padding: 11px 13px 9px; display: flex; justify-content: space-between; gap: 8px; align-items: flex-start; }
+.gx-card .nm { font-weight: 700; font-size: 14.5px; color: var(--nokia-blue-deep); line-height: 1.3; }
+.gx-card .pn { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 10.5px; color: var(--text-muted); margin-top: 2px; word-break: break-word; }
+.pinbtn { border: 1px solid var(--border); background: var(--surface-2); color: var(--text-faint); border-radius: 6px; width: 26px; height: 24px; cursor: pointer; font-size: 13px; line-height: 1; flex: none; }
+.pinbtn:hover { border-color: var(--nokia-blue); color: var(--nokia-blue); }
+.pinbtn.on { background: var(--nokia-blue); border-color: var(--nokia-blue); color: #fff; }
+.cardbody { padding: 0 13px 10px; }
+.rowline { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 7px; }
+.b { font-size: 10.5px; font-weight: 600; padding: 2px 7px; border-radius: 4px; background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border); white-space: nowrap; }
+.b.shelf { background: #EAF3FF; color: var(--nokia-blue-deep); border-color: #CFE0F7; }
+.b.cap { background: #fff; color: var(--nokia-blue); border-color: #CFE0F7; }
+
+/* spectrum bar — magnitude: length = usable THz, one sequential hue */
+.spec-bar { margin: 2px 0 8px; }
+.spec-bar .lbl { display: flex; justify-content: space-between; font-size: 10.5px; color: var(--text-faint); margin-bottom: 3px; }
+.spec-bar .lbl b { color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
+.spec-bar .tr { height: 7px; background: var(--surface-2); border-radius: 4px; overflow: hidden; }
+.spec-bar .fl { height: 100%; border-radius: 4px; background: var(--seq-4); }
+
+/* mini metric row */
+.metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(62px, 1fr)); gap: 6px; margin-top: 2px; }
+.metric { background: var(--surface-2); border-radius: var(--radius-sm); padding: 5px 7px; }
+.metric .k { font-size: 9px; text-transform: uppercase; letter-spacing: .5px; color: var(--text-faint); }
+.metric .v { font-size: 13px; font-weight: 700; color: var(--nokia-blue-deep); font-variant-numeric: tabular-nums; line-height: 1.25; }
+.metric .u { font-size: 9.5px; font-weight: 400; color: var(--text-faint); }
+
+.cardfoot { margin-top: auto; border-top: 1px solid var(--border); padding: 7px 13px; font-size: 11px; color: var(--text-muted); display: flex; justify-content: space-between; gap: 8px; }
+.cardfoot .more { color: var(--nokia-blue); font-weight: 600; cursor: pointer; }
+.cardfoot .more:hover { text-decoration: underline; }
+.conflict-dot { color: var(--warn-ink); font-weight: 700; }
+
+/* ---------- table view ---------- */
+.tblwrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
+table.gxt { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+table.gxt th {
+  position: sticky; top: 0; background: var(--surface-2); text-align: left; padding: 8px 10px;
+  font-size: 10px; text-transform: uppercase; letter-spacing: .6px; color: var(--text-muted);
+  border-bottom: 1px solid var(--border); cursor: pointer; white-space: nowrap; z-index: 2;
+}
+table.gxt th:hover { color: var(--nokia-blue); }
+table.gxt th .ar { font-size: 9px; color: var(--nokia-blue); }
+table.gxt td { padding: 7px 10px; border-bottom: 1px solid var(--border); vertical-align: middle; white-space: nowrap; }
+table.gxt tbody tr { cursor: pointer; }
+table.gxt tbody tr:hover { background: #FAFBFE; }
+table.gxt td.num { text-align: right; font-variant-numeric: tabular-nums; }
+table.gxt td.pnm { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 11px; color: var(--text-muted); }
+.barcell { display: flex; align-items: center; gap: 6px; justify-content: flex-end; }
+.barcell .tr { width: 46px; height: 6px; background: var(--surface-2); border-radius: 3px; overflow: hidden; flex: none; }
+.barcell .fl { height: 100%; background: var(--seq-4); border-radius: 3px; }
+
+/* ---------- shelf view ---------- */
+.shelfpick { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.shelfbtn {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 9px 13px; cursor: pointer; font-family: inherit; text-align: left; min-width: 128px;
+}
+.shelfbtn:hover { border-color: var(--nokia-blue); }
+.shelfbtn.on { border-color: var(--nokia-blue); background: #EAF3FF; box-shadow: inset 0 0 0 1px var(--nokia-blue); }
+.shelfbtn .s-n { font-weight: 700; font-size: 14px; color: var(--nokia-blue-deep); }
+.shelfbtn .s-m { font-size: 11px; color: var(--text-muted); }
+.slotmap { display: flex; gap: 3px; margin-top: 7px; }
+.slotmap i { flex: 1; height: 9px; border-radius: 2px; background: var(--surface-2); border: 1px solid var(--border); }
+.slotmap i.used { background: var(--seq-4); border-color: var(--seq-5); }
+.slotmap i.over { background: #F3C9C9; border-color: #D03B3B; }
+
+.buildbox { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; margin-bottom: 16px; }
+.buildbox h3 { margin: 0 0 3px; font-size: 14px; color: var(--nokia-blue-deep); }
+.buildbox .sub { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
+.buildlist { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+.buildrow { display: flex; align-items: center; gap: 8px; font-size: 12.5px; background: var(--surface-2); border-radius: var(--radius-sm); padding: 6px 9px; }
+.buildrow .bn { font-weight: 600; color: var(--nokia-blue-deep); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.qtybtn { border: 1px solid var(--border); background: #fff; width: 22px; height: 22px; border-radius: 5px; cursor: pointer; font-size: 13px; line-height: 1; color: var(--nokia-blue); }
+.qtybtn:hover { border-color: var(--nokia-blue); }
+.qv { min-width: 18px; text-align: center; font-variant-numeric: tabular-nums; font-weight: 700; }
+.budget { display: grid; grid-template-columns: repeat(auto-fit, minmax(92px, 1fr)); gap: 8px; }
+.bud { background: var(--surface-2); border-radius: var(--radius-sm); padding: 8px 10px; }
+.bud .k { font-size: 9.5px; text-transform: uppercase; letter-spacing: .5px; color: var(--text-faint); }
+.bud .v { font-size: 17px; font-weight: 700; color: var(--nokia-blue-deep); font-variant-numeric: tabular-nums; }
+.bud.bad .v { color: #B02121; }
+.bud .sub2 { font-size: 10px; color: var(--text-faint); }
+
+/* ---------- roadmap view ---------- */
+.rmwrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 0 0 10px; overflow-x: auto; }
+.rmhead { display: grid; position: sticky; top: 0; background: var(--surface-2); border-bottom: 1px solid var(--border); z-index: 2; }
+.rmhead div { padding: 8px 6px; font-size: 10.5px; font-weight: 700; color: var(--text-muted); border-left: 1px solid var(--border); text-align: center; }
+.rmhead div:first-child { border-left: 0; text-align: left; padding-left: 12px; }
+.rmhead div .dt { display: block; font-weight: 400; font-size: 9.5px; color: var(--text-faint); }
+.rmrow { display: grid; align-items: center; border-bottom: 1px solid var(--border); }
+.rmrow:hover { background: #FAFBFE; }
+.rmrow .lbl { padding: 6px 12px; font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; cursor: pointer; }
+.rmrow .lbl b { color: var(--nokia-blue-deep); }
+.rmcell { height: 100%; border-left: 1px solid var(--border); position: relative; }
+.rmbar { position: absolute; top: 50%; transform: translateY(-50%); left: 4px; right: 4px; height: 16px; border-radius: 4px; display: flex; align-items: center; padding: 0 7px; font-size: 10px; font-weight: 700; color: #fff; white-space: nowrap; }
+.rmbar.ga  { background: var(--good); }
+.rmbar.por { background: var(--warn-s); color: var(--warn-ink); }
+.rmbar.poi { background: var(--neutral); }
+.rmgrp { padding: 9px 12px 4px; font-size: 10px; text-transform: uppercase; letter-spacing: .8px; color: var(--text-faint); font-weight: 700; background: #FAFBFE; border-bottom: 1px solid var(--border); }
+
+/* ---------- drawer ---------- */
+.scrim { position: fixed; inset: 0; background: rgba(10,20,45,.35); opacity: 0; pointer-events: none; transition: opacity .18s ease; z-index: 40; }
+.scrim.on { opacity: 1; pointer-events: auto; }
+.drawer {
+  position: fixed; top: 0; right: 0; height: 100%; width: min(520px, 100%); background: var(--bg);
+  box-shadow: var(--shadow-lg); transform: translateX(100%); transition: transform .2s ease; z-index: 41;
+  display: flex; flex-direction: column;
+}
+.drawer.on { transform: none; }
+.drawer > header { padding: 16px 18px 12px; background: var(--surface); border-bottom: 1px solid var(--border); }
+.drawer .dclose { position: absolute; top: 12px; right: 14px; border: 1px solid var(--border); background: var(--surface-2); border-radius: 6px; width: 28px; height: 28px; cursor: pointer; font-size: 15px; color: var(--text-muted); }
+.drawer h2 { margin: 0 0 3px; font-size: 20px; color: var(--nokia-blue-deep); padding-right: 34px; }
+.drawer .dpn { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; color: var(--text-muted); }
+.dbody { overflow-y: auto; padding: 14px 18px 30px; flex: 1; }
+.dsec { margin-bottom: 18px; }
+.dsec h4 { margin: 0 0 7px; font-size: 10px; text-transform: uppercase; letter-spacing: .8px; color: var(--text-faint); }
+.dtable { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.dtable td { padding: 7px 11px; font-size: 12.5px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.dtable tr:last-child td { border-bottom: 0; }
+.dtable td:first-child { color: var(--text-faint); width: 44%; }
+.callout { font-size: 12px; line-height: 1.55; border-radius: var(--radius); padding: 10px 12px; }
+.callout.note { background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border); }
+.callout.conf { background: #FFF6DF; color: var(--warn-ink); border: 1px solid #F3E2B4; }
+.relatedlist { display: flex; flex-direction: column; gap: 5px; }
+.relitem { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 7px 10px; font-size: 12.5px; cursor: pointer; }
+.relitem:hover { border-color: var(--nokia-blue); }
+.relitem .rn { font-weight: 600; color: var(--nokia-blue-deep); flex: 1; }
+
+/* ---------- compare tray ---------- */
+.tray {
+  position: fixed; left: 0; right: 0; bottom: 0; background: var(--nokia-blue-deep); color: #fff;
+  padding: 10px 20px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  transform: translateY(110%); transition: transform .2s ease; z-index: 35; box-shadow: 0 -4px 18px rgba(0,31,95,.25);
+}
+.tray.on { transform: none; }
+.tray .tl { font-size: 12px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; opacity: .85; }
+.traychips { display: flex; gap: 6px; flex-wrap: wrap; flex: 1; }
+.traychip { background: rgba(255,255,255,.14); border-radius: 999px; padding: 3px 6px 3px 11px; font-size: 12px; display: inline-flex; align-items: center; gap: 6px; }
+.traychip button { border: 0; background: none; color: #fff; cursor: pointer; font-size: 13px; line-height: 1; opacity: .8; padding: 0 2px; }
+.traybtn { border: 0; border-radius: 999px; padding: 7px 16px; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; background: var(--accent); color: #00332E; }
+.traybtn.ghost { background: rgba(255,255,255,.14); color: #fff; font-weight: 600; }
+
+.cmpwrap { position: fixed; inset: 0; background: rgba(10,20,45,.45); z-index: 50; display: none; padding: 34px 20px; overflow: auto; }
+.cmpwrap.on { display: block; }
+.cmpbox { background: var(--bg); border-radius: var(--radius); max-width: 1080px; margin: 0 auto; overflow: hidden; box-shadow: var(--shadow-lg); }
+.cmpbox > header { background: var(--surface); padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+.cmpbox h2 { margin: 0; font-size: 17px; color: var(--nokia-blue-deep); }
+.cmptable { width: 100%; border-collapse: collapse; background: var(--surface); font-size: 12.5px; }
+.cmptable th, .cmptable td { padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+.cmptable th { background: var(--surface-2); font-size: 11px; color: var(--nokia-blue-deep); position: sticky; top: 0; }
+.cmptable td:first-child, .cmptable th:first-child { color: var(--text-faint); font-weight: 600; width: 180px; }
+.cmptable td.best { background: #E8F7E8; font-weight: 700; color: var(--good-ink); }
+
+.emptystate { padding: 44px 20px; text-align: center; color: var(--text-muted); background: var(--surface); border: 1px dashed var(--border); border-radius: var(--radius); }
+mark.hit { background: #FFF0A8; border-radius: 2px; padding: 0 1px; }
+
+@media (max-width: 900px) {
+  .gx-layout { grid-template-columns: 1fr; }
+  .rail { position: static; max-height: none; }
+  .gx-grid { grid-template-columns: 1fr; }
+  .drawer { width: 100%; }
+}
+</style>
+</head>
+<body class="gxp">
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="dot"></span>
+      SUMMA
+      <span class="sub">Nokia ON · Sales Engineering Workbench</span>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="gx-portfolio.html" class="active">GX Portfolio</a>
+      <a href="portfolio.html">HS Portfolio</a>
+      <a href="mofn.html">MOFN Deck</a>
+      <a href="market-insight.html">Market Insight</a>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <section class="gx-hero">
+      <h1>1830 GX Portfolio</h1>
+      <p>Pick a shelf and see what fits it. Filter by band, capability or optical spec.
+         Pin a few cards and compare them side by side. Every module carries its release,
+         slot cost and the numbers that decide whether a design closes.</p>
+      <div class="provenance">
+        <b>Source:</b> ON Consolidated Roadmap Aug 2026 — GX Transcend v1.0 (slides 9–19 hardware, 21–35 release contents) ·
+        <b>PNs:</b> GX G30 Part Numbers 2026-08-06, GX G40 PON List Aug 2026 ·
+        <b>Measured power &amp; weight:</b> 1830 GX PowerDraw R9.0_V1.
+        Roadmap dates are plan-of-record or plan-of-intent and move — confirm before committing one to a customer.
+      </div>
+    </section>
+
+    <div class="viewbar">
+      <div class="seg" id="viewSeg">
+        <button data-v="explore" class="on">Explore</button>
+        <button data-v="table">Table</button>
+        <button data-v="shelf">Shelf builder</button>
+        <button data-v="roadmap">Roadmap</button>
+      </div>
+      <span class="viewhint" id="viewHint"></span>
+    </div>
+
+    <div class="gx-layout">
+
+      <!-- ============ FILTER RAIL ============ -->
+      <aside class="rail" id="rail">
+        <div class="rail-box">
+          <h3>Search <button id="resetAll">reset all</button></h3>
+          <div class="searchwrap" id="searchWrap">
+            <span class="sicon">&#128269;</span>
+            <input type="search" id="searchBox" placeholder="PN, spec, band, shelf&hellip;" autocomplete="off" spellcheck="false" />
+            <button class="sclear" id="searchClear" title="Clear">&times;</button>
+          </div>
+          <div class="hint">Field search: <code>shelf:G32E</code> <code>band:super l</code> <code>rel:R10.0</code> · <code>/</code> to focus</div>
+        </div>
+
+        <div class="rail-box">
+          <h3>Available by</h3>
+          <div class="rng">
+            <label><span>Release</span><b id="byLabel">everything</b></label>
+            <input type="range" id="byRange" min="0" max="10" step="1" value="10" />
+          </div>
+          <div class="hint" id="byHint"></div>
+        </div>
+
+        <div class="rail-box"><h3>Lifecycle</h3><div class="chips" id="lcChips"></div></div>
+        <div class="rail-box"><h3>Category</h3><div class="chips" id="catChips"></div></div>
+        <div class="rail-box"><h3>Shelf</h3><div class="chips" id="shelfChips"></div></div>
+        <div class="rail-box"><h3>Band</h3><div class="chips" id="bandChips"></div></div>
+        <div class="rail-box"><h3>Capability</h3><div class="chips" id="capChips"></div></div>
+
+        <div class="rail-box">
+          <h3>Optical limits <button id="resetRanges">clear</button></h3>
+          <div class="rng">
+            <label for="rNf"><span>Noise figure at most</span><b id="rNfV">any</b></label>
+            <input type="range" id="rNf" min="4" max="9" step="0.1" value="9" />
+          </div>
+          <div class="rng">
+            <label for="rPout"><span>Output power at least</span><b id="rPoutV">any</b></label>
+            <input type="range" id="rPout" min="18" max="25" step="0.1" value="18" />
+          </div>
+          <div class="rng">
+            <label for="rSpan"><span>Span loss at least</span><b id="rSpanV">any</b></label>
+            <input type="range" id="rSpan" min="0" max="48" step="1" value="0" />
+          </div>
+          <div class="rng">
+            <label for="rPw"><span>Power @55 °C at most</span><b id="rPwV">any</b></label>
+            <input type="range" id="rPw" min="0" max="560" step="10" value="560" />
+          </div>
+          <div class="hint">Modules with no published figure are kept — a blank is not a fail.</div>
+        </div>
+      </aside>
+
+      <!-- ============ CONTENT ============ -->
+      <section>
+        <div class="reshead">
+          <span class="count"><b id="cntShown">—</b> of <span id="cntAll">—</span> modules</span>
+          <select class="sortsel" id="sortSel">
+            <option value="group">Group by category</option>
+            <option value="rel">Soonest release first</option>
+            <option value="relDesc">Furthest release first</option>
+            <option value="name">Name A→Z</option>
+            <option value="thz">Widest spectrum</option>
+            <option value="nf">Lowest noise figure</option>
+            <option value="pout">Highest output power</option>
+            <option value="span">Highest span loss</option>
+            <option value="pw">Lowest power @55 °C</option>
+            <option value="slots">Fewest slots</option>
+          </select>
+          <div class="activefilters" id="activeFilters"></div>
+        </div>
+
+        <div id="viewExplore"></div>
+        <div id="viewTable" style="display:none"></div>
+        <div id="viewShelf" style="display:none"></div>
+        <div id="viewRoadmap" style="display:none"></div>
+        <div class="emptystate" id="emptyState" style="display:none">
+          Nothing matches. <a href="#" id="emptyReset">Clear the filters</a>.
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer" style="padding-bottom:70px">
+    Built for Quang · Nokia ON Sales Engineering · Vietnam (GMT+7) ·
+    Data as of the August 2026 consolidated roadmap
+  </footer>
+
+  <!-- compare tray -->
+  <div class="tray" id="tray">
+    <span class="tl">Pinned</span>
+    <div class="traychips" id="trayChips"></div>
+    <button class="traybtn" id="cmpOpen">Compare</button>
+    <button class="traybtn ghost" id="cmpClear">Clear</button>
+  </div>
+
+  <!-- compare modal -->
+  <div class="cmpwrap" id="cmpWrap">
+    <div class="cmpbox">
+      <header>
+        <h2>Side by side</h2>
+        <button class="pinbtn" id="cmpClose" style="width:30px;height:28px">&times;</button>
+      </header>
+      <div style="overflow:auto;max-height:calc(100vh - 140px)"><div id="cmpBody"></div></div>
+    </div>
+  </div>
+
+  <!-- detail drawer -->
+  <div class="scrim" id="scrim"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <header>
+      <button class="dclose" id="dClose">&times;</button>
+      <h2 id="dName">—</h2>
+      <div class="dpn" id="dPn"></div>
+      <div class="rowline" id="dBadges" style="margin-top:9px;margin-bottom:0"></div>
+    </header>
+    <div class="dbody" id="dBody"></div>
+  </aside>
+
+  <script src="assets/gx-data.js"></script>
+  <script>
+  (function () {
+    const $ = id => document.getElementById(id);
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
+
+    const CAT_LABEL = { chassis:'Chassis', roadm:'ROADM', amp:'Amplifier', raman:'Raman', hybrid:'Hybrid', ad:'Add / drop', xpdr:'Transponder' };
+    const CAT_ORDER = ['chassis','roadm','amp','raman','hybrid','ad','xpdr'];
+    const GRP_ORDER = ['Chassis — 600 mm','Chassis — 300 mm','ROADM modules','Amplifiers — C + L',
+      'Amplifiers — Super C + Super L','Raman modules','Hybrid Raman / EDFA','Add / drop modules',
+      'Transponders — G42 (3 RU / 600 mm)','Transponders — G31 / G32 (600 mm)','Transponders — G34c (300 mm)'];
+    const LC_LABEL = { ga:'Available today', por:'Plan of record', poi:'Plan of intent' };
+    const CAPS = [
+      ['ila','ILA capable'], ['term','Terminal capable'], ['mra','Multi-rail (MRA)'],
+      ['unidir','Unidirectional'], ['dge','Integrated DGE'], ['otdr','Integrated OTDR'],
+      ['midstage','Mid-stage access'], ['lext','L-band extendable'], ['osc','OSC capable'],
+      ['encrypt','Encryption'], ['regen','Regeneration'], ['protect','Protection'],
+    ];
+    const MAX_THZ = Math.max(...GX.map(d => d.thz || 0));
+    const relOf = k => REL[k] || { label:k, date:'', ord:99, shipped:false };
+    const relOrd = k => relOf(k).ord;
+    const stops = RELEASES.filter(r => r.k !== 'TBD' && r.ord >= 0).sort((a,b) => a.ord - b.ord);
+
+    /* ---------- band identity (text label always present; bar length carries THz) ---------- */
+    const bandKey = d => {
+      const b = (d.band || '').toLowerCase();
+      if (/super c \+ super l|super c & super l/.test(b)) return 'Super C + Super L';
+      if (/std\.? c \+ l|std c \+ l/.test(b)) return 'Std C + L';
+      if (/super l/.test(b)) return 'Super L';
+      if (/super c/.test(b)) return 'Super C';
+      if (/std\.? c/.test(b)) return 'Std C';
+      return null;
+    };
+    GX.forEach(d => { d.bandKey = bandKey(d); });
+    const BANDS = ['Std C','Super L','Super C','Std C + L','Super C + Super L'];
+
+    /* ---------- search ---------- */
+    GX.forEach(d => {
+      d._blob = [d.name, d.pn, CAT_LABEL[d.cat], d.grp, d.rel, relOf(d.rel).date, (d.shelf||[]).join(' '),
+        d.form, d.band, d.line, d.apps, d.note, d.conflict,
+        ...Object.entries(d.spec||{}).flat()].filter(Boolean).join(' ').toLowerCase();
+    });
+    const SF = { pn:'pn', name:'name', shelf:'shelf', band:'band', rel:'rel', release:'rel', cat:'cat' };
+    let QT = [];
+    const parseQ = q => (q||'').toLowerCase().split(/\s+/).filter(Boolean).map(t => {
+      const m = t.match(/^([a-z]+):(.+)$/);
+      return (m && SF[m[1]]) ? { f:SF[m[1]], v:m[2] } : { f:null, v:t };
+    });
+
+    /* ---------- state ---------- */
+    const S = {
+      view:'explore', q:'', by:99, sort:'group',
+      lc:new Set(), cats:new Set(), shelves:new Set(), bands:new Set(), caps:new Set(),
+      nf:9, pout:18, span:0, pw:560,
+      pinned:[], shelf:null, build:new Map(),
+    };
+    const RANGE_DEFAULT = { nf:9, pout:18, span:0, pw:560 };
+
+    function visible(d) {
+      if (S.lc.size && !S.lc.has(d.status)) return false;
+      if (S.cats.size && !S.cats.has(d.cat)) return false;
+      if (S.shelves.size && !(d.shelf||[]).some(s => S.shelves.has(s))) return false;
+      if (S.bands.size && !S.bands.has(d.bandKey)) return false;
+      for (const c of S.caps) if (!d.caps[c]) return false;
+      // S.by === 99 means no ceiling, so unscheduled (TBD) modules stay visible
+      if (S.by < 99 && relOrd(d.rel) > S.by) return false;
+      if (d.nf     != null && d.nf     > S.nf)   return false;
+      if (d.pout   != null && d.pout   < S.pout) return false;
+      if (d.spanHi != null && d.spanHi < S.span) return false;
+      if (d.pw55   != null && d.pw55   > S.pw)   return false;
+      return QT.every(t => t.f
+        ? String(Array.isArray(d[t.f]) ? d[t.f].join(' ') : (d[t.f] ?? '')).toLowerCase().includes(t.v)
+        : d._blob.includes(t.v));
+    }
+
+    function hl(s) {
+      const terms = QT.map(t => t.v).filter(Boolean).map(v => v.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
+      return terms.length ? String(s).replace(new RegExp('('+terms.join('|')+')','ig'), '<mark class="hit">$1</mark>') : s;
+    }
+
+    /* ---------- chip builders ---------- */
+    function buildChips(host, items, set, opts = {}) {
+      host.innerHTML = '';
+      items.forEach(([val, label, extra]) => {
+        const el = document.createElement('span');
+        el.className = 'chip' + (set.has(val) ? ' on' : '');
+        el.innerHTML = (opts.swatch ? `<i class="sw" style="background:${opts.swatch(val)}"></i>` : '') +
+                       esc(label) + (extra != null ? ` <span class="n">${extra}</span>` : '');
+        el.addEventListener('click', () => {
+          set.has(val) ? set.delete(val) : set.add(val);
+          el.classList.toggle('on');
+          render();
+        });
+        host.appendChild(el);
+      });
+    }
+    const countBy = fn => v => GX.filter(d => fn(d, v)).length;
+
+    buildChips($('lcChips'), ['ga','por','poi'].map(k => [k, LC_LABEL[k], GX.filter(d => d.status===k).length]), S.lc,
+      { swatch: k => ({ ga:'#0ca30c', por:'#fab219', poi:'#9AA3B7' }[k]) });
+    buildChips($('catChips'), CAT_ORDER.filter(c => GX.some(d => d.cat===c))
+      .map(c => [c, CAT_LABEL[c], GX.filter(d => d.cat===c).length]), S.cats);
+    const ALL_SHELVES = [...new Set(GX.flatMap(d => d.shelf||[]))].sort();
+    buildChips($('shelfChips'), ALL_SHELVES.map(s => [s, s, GX.filter(d => (d.shelf||[]).includes(s)).length]), S.shelves);
+    buildChips($('bandChips'), BANDS.filter(b => GX.some(d => d.bandKey===b))
+      .map(b => [b, b, GX.filter(d => d.bandKey===b).length]), S.bands);
+    buildChips($('capChips'), CAPS.filter(([k]) => GX.some(d => d.caps[k]))
+      .map(([k,l]) => [k, l, GX.filter(d => d.caps[k]).length]), S.caps);
+
+    /* ---------- pieces ---------- */
+    const lcPill = d => `<span class="lc ${d.status}"><i></i>${esc(relOf(d.rel).label)}${
+      relOf(d.rel).date && relOf(d.rel).date !== 'shipping' ? ' · ' + esc(relOf(d.rel).date) : ''}</span>`;
+
+    const spectrumBar = d => d.thz == null ? '' : `
+      <div class="spec-bar">
+        <div class="lbl"><span>${esc(d.bandKey || 'Spectrum')}</span><b>${d.thz} THz</b></div>
+        <div class="tr"><div class="fl" style="width:${Math.round(d.thz / MAX_THZ * 100)}%"></div></div>
+      </div>`;
+
+    function metricRow(d) {
+      const m = [];
+      if (d.nf     != null) m.push(['NF', d.nf, 'dB']);
+      if (d.pout   != null) m.push(['P out', d.pout, 'dBm']);
+      if (d.gain   != null) m.push(['Gain', d.gain, 'dB']);
+      if (d.spanHi != null) m.push(['Span', d.spanHi, 'dB']);
+      if (d.pw55   != null) m.push(['@55 °C', d.pw55, 'W']);
+      if (!m.length && d.slots != null) m.push(['Slots', d.slots, '']);
+      if (!m.length) return '';
+      return `<div class="metrics">${m.slice(0,4).map(([k,v,u]) =>
+        `<div class="metric"><div class="k">${k}</div><div class="v">${v}<span class="u">${u ? ' '+u : ''}</span></div></div>`).join('')}</div>`;
+    }
+
+    function card(d) {
+      const pinned = S.pinned.includes(d.name);
+      const badges = [
+        ...(d.shelf||[]).map(s => `<span class="b shelf">${esc(s)}</span>`),
+        d.slots ? `<span class="b">${d.slots} slot${d.slots>1?'s':''}</span>` : (d.slots === 0 ? `<span class="b">OFP2</span>` : ''),
+        d.ru ? `<span class="b">${d.ru} RU</span>` : '',
+        d.deg ? `<span class="b cap">${d.deg}-degree</span>` : '',
+        d.caps.mra ? `<span class="b cap">MRA</span>` : '',
+        d.caps.unidir ? `<span class="b cap">unidir</span>` : '',
+        d.caps.dge ? `<span class="b cap">DGE</span>` : '',
+        d.caps.otdr ? `<span class="b cap">OTDR</span>` : '',
+      ].filter(Boolean).join('');
+      return `<article class="gx-card ${d.status}${pinned?' pinned':''}" data-n="${esc(d.name)}">
+        <header>
+          <div style="min-width:0">
+            <div class="nm">${hl(esc(d.name))}</div>
+            <div class="pn">${d.pn ? hl(esc(d.pn)) : 'PN not yet published'}</div>
+          </div>
+          <button class="pinbtn${pinned?' on':''}" data-pin="${esc(d.name)}" title="Pin to compare">${pinned?'&#10003;':'+'}</button>
+        </header>
+        <div class="cardbody">
+          <div class="rowline">${lcPill(d)}${badges}</div>
+          ${spectrumBar(d)}
+          ${metricRow(d)}
+        </div>
+        <div class="cardfoot">
+          <span>${esc(d.form || CAT_LABEL[d.cat])}</span>
+          <span>${d.conflict ? '<span class="conflict-dot">&#9888; conflict</span> · ' : ''}<span class="more" data-details="${esc(d.name)}">Details &rsaquo;</span></span>
+        </div>
+      </article>`;
+    }
+
+    /* ---------- explore ---------- */
+    function renderExplore(vis) {
+      const host = $('viewExplore');
+      if (S.sort === 'group') {
+        const byG = new Map();
+        vis.forEach(d => { if (!byG.has(d.grp)) byG.set(d.grp, []); byG.get(d.grp).push(d); });
+        const ord = GRP_ORDER.filter(g => byG.has(g)).concat([...byG.keys()].filter(g => !GRP_ORDER.includes(g)));
+        host.innerHTML = ord.map(g => {
+          const items = byG.get(g).slice().sort((a,b) => relOrd(a.rel)-relOrd(b.rel) || a.name.localeCompare(b.name));
+          return `<section class="gx-section"><h2>${esc(g)} <span class="cnt">${items.length}</span></h2>
+                  <div class="gx-grid">${items.map(card).join('')}</div></section>`;
+        }).join('');
+      } else {
+        host.innerHTML = `<div class="gx-grid">${sortList(vis).map(card).join('')}</div>`;
+      }
+    }
+
+    function sortList(list) {
+      const n = (v, dir) => v == null ? (dir > 0 ? Infinity : -Infinity) : v;
+      const by = {
+        rel:      (a,b) => relOrd(a.rel)-relOrd(b.rel) || a.name.localeCompare(b.name),
+        relDesc:  (a,b) => relOrd(b.rel)-relOrd(a.rel) || a.name.localeCompare(b.name),
+        name:     (a,b) => a.name.localeCompare(b.name),
+        thz:      (a,b) => n(b.thz,-1)-n(a.thz,-1),
+        nf:       (a,b) => n(a.nf,1)-n(b.nf,1),
+        pout:     (a,b) => n(b.pout,-1)-n(a.pout,-1),
+        span:     (a,b) => n(b.spanHi,-1)-n(a.spanHi,-1),
+        pw:       (a,b) => n(a.pw55,1)-n(b.pw55,1),
+        slots:    (a,b) => n(a.slots,1)-n(b.slots,1),
+      }[S.sort];
+      return by ? list.slice().sort(by) : list;
+    }
+
+    /* ---------- table ---------- */
+    const COLS = [
+      ['name','Module',null], ['pn','PN',null], ['rel','Release','rel'],
+      ['shelf','Shelf',null], ['slots','Slots','num'], ['thz','THz','bar'],
+      ['nf','NF dB','num'], ['pout','P out dBm','num'], ['gain','Gain dB','num'],
+      ['spanHi','Span dB','num'], ['pw55','W @55','num'], ['kg','kg','num'],
+    ];
+    let tSort = { k:'rel', dir:1 };
+    function renderTable(vis) {
+      const rows = vis.slice().sort((a,b) => {
+        const k = tSort.k;
+        let av = k === 'rel' ? relOrd(a.rel) : a[k], bv = k === 'rel' ? relOrd(b.rel) : b[k];
+        if (Array.isArray(av)) av = av.join(','); if (Array.isArray(bv)) bv = bv.join(',');
+        if (av == null) return 1; if (bv == null) return -1;
+        return (typeof av === 'number' ? av - bv : String(av).localeCompare(String(bv))) * tSort.dir;
+      });
+      $('viewTable').innerHTML = `<div class="tblwrap"><table class="gxt">
+        <thead><tr>${COLS.map(([k,l,t]) =>
+          `<th data-k="${k}" class="${t==='num'?'num':''}">${l}${tSort.k===k?` <span class="ar">${tSort.dir>0?'▲':'▼'}</span>`:''}</th>`).join('')}</tr></thead>
+        <tbody>${rows.map(d => `<tr data-n="${esc(d.name)}">
+          <td><strong style="color:var(--nokia-blue-deep)">${hl(esc(d.name))}</strong></td>
+          <td class="pnm">${d.pn ? hl(esc(d.pn)) : '—'}</td>
+          <td>${lcPill(d)}</td>
+          <td>${(d.shelf||[]).map(s=>`<span class="b shelf">${esc(s)}</span>`).join(' ')}</td>
+          <td class="num">${d.slots ?? '—'}</td>
+          <td class="num">${d.thz == null ? '—' : `<span class="barcell"><span>${d.thz}</span>
+              <span class="tr"><span class="fl" style="width:${Math.round(d.thz/MAX_THZ*100)}%"></span></span></span>`}</td>
+          <td class="num">${d.nf ?? '—'}</td><td class="num">${d.pout ?? '—'}</td>
+          <td class="num">${d.gain ?? '—'}</td><td class="num">${d.spanHi ?? '—'}</td>
+          <td class="num">${d.pw55 ?? '—'}</td><td class="num">${d.kg ?? '—'}</td>
+        </tr>`).join('')}</tbody></table></div>`;
+      $('viewTable').querySelectorAll('th').forEach(th => th.addEventListener('click', () => {
+        const k = th.dataset.k;
+        tSort = { k, dir: tSort.k === k ? -tSort.dir : 1 };
+        render();
+      }));
+    }
+
+    /* ---------- shelf builder ---------- */
+    const SHELF_CAP = {};
+    GX.filter(d => d.cat === 'chassis').forEach(c => {
+      (c.shelf || []).forEach(s => { SHELF_CAP[s] = { slots:c.slots, ru:c.ru, rec:c, form:c.form }; });
+    });
+    const fitsShelf = (d, s) => d.cat !== 'chassis' && (d.shelf || []).includes(s);
+
+    function renderShelf(vis) {
+      const picks = ALL_SHELVES.filter(s => SHELF_CAP[s]);
+      if (!S.shelf) S.shelf = 'G34c';
+      const capInfo = SHELF_CAP[S.shelf] || { slots:4 };
+      const build = S.build.get(S.shelf) || new Map();
+      let used = 0, pTyp = 0, pMax = 0, kg = 0;
+      build.forEach((q, name) => {
+        const d = GX.find(x => x.name === name); if (!d) return;
+        used += (d.slots || 0) * q;
+        if (d.pw55 != null) pMax += d.pw55 * q;
+        if (d.kg != null) kg += d.kg * q;
+      });
+      if (capInfo.rec && capInfo.rec.kg) kg += capInfo.rec.kg;
+      const cap = capInfo.slots || 4;
+      const over = used > cap;
+
+      const cells = Array.from({ length: cap }, (_, i) =>
+        `<i class="${i < used ? (over ? 'over' : 'used') : ''}"></i>`).join('');
+
+      const fitting = vis.filter(d => fitsShelf(d, S.shelf));
+      const byCat = new Map();
+      fitting.forEach(d => { if (!byCat.has(d.cat)) byCat.set(d.cat, []); byCat.get(d.cat).push(d); });
+
+      $('viewShelf').innerHTML = `
+        <div class="shelfpick">${picks.map(s => {
+          const c = SHELF_CAP[s];
+          return `<button class="shelfbtn${s===S.shelf?' on':''}" data-shelf="${esc(s)}">
+            <div class="s-n">${esc(s)}</div>
+            <div class="s-m">${c.slots} slots · ${c.form || ''}</div>
+            <div class="slotmap">${Array.from({length:c.slots},()=>'<i></i>').join('')}</div>
+          </button>`;
+        }).join('')}</div>
+
+        <div class="buildbox">
+          <h3>${esc(S.shelf)} — ${cap} slots${capInfo.ru ? ` · ${capInfo.ru} RU` : ''}</h3>
+          <div class="sub">Click a module below to add it. Slot cost, power and weight add up live against the shelf.</div>
+          <div class="slotmap" style="margin-bottom:12px">${cells}</div>
+          ${build.size ? `<div class="buildlist">${[...build.entries()].map(([name,q]) => {
+            const d = GX.find(x => x.name === name);
+            return `<div class="buildrow">
+              <span class="bn">${esc(name)}</span>
+              <span class="b">${(d.slots||0)*q} slot${(d.slots||0)*q===1?'':'s'}</span>
+              <button class="qtybtn" data-q="-1" data-n="${esc(name)}">−</button>
+              <span class="qv">${q}</span>
+              <button class="qtybtn" data-q="1" data-n="${esc(name)}">+</button>
+            </div>`; }).join('')}</div>`
+            : `<div class="hint" style="margin-bottom:12px">Nothing added yet.</div>`}
+          <div class="budget">
+            <div class="bud${over?' bad':''}"><div class="k">Slots</div><div class="v">${used} / ${cap}</div>
+              <div class="sub2">${over ? 'over capacity' : `${cap-used} free`}</div></div>
+            <div class="bud"><div class="k">Cards</div><div class="v">${[...build.values()].reduce((a,b)=>a+b,0)}</div><div class="sub2">in this shelf</div></div>
+            <div class="bud"><div class="k">Power @55 °C</div><div class="v">${pMax ? Math.round(pMax) : '—'}<span style="font-size:11px"> W</span></div><div class="sub2">cards only</div></div>
+            <div class="bud"><div class="k">Weight</div><div class="v">${kg ? kg.toFixed(1) : '—'}<span style="font-size:11px"> kg</span></div><div class="sub2">shelf + cards</div></div>
+          </div>
+        </div>
+
+        ${fitting.length ? CAT_ORDER.filter(c => byCat.has(c)).map(c => `
+          <section class="gx-section"><h2>${CAT_LABEL[c]} that fit ${esc(S.shelf)} <span class="cnt">${byCat.get(c).length}</span></h2>
+          <div class="gx-grid">${byCat.get(c).sort((a,b)=>relOrd(a.rel)-relOrd(b.rel)).map(card).join('')}</div></section>`).join('')
+          : `<div class="emptystate">No modules fit ${esc(S.shelf)} under the current filters.</div>`}`;
+
+      $('viewShelf').querySelectorAll('[data-shelf]').forEach(b =>
+        b.addEventListener('click', () => { S.shelf = b.dataset.shelf; render(); }));
+      $('viewShelf').querySelectorAll('.qtybtn').forEach(b =>
+        b.addEventListener('click', e => { e.stopPropagation(); addToBuild(b.dataset.n, +b.dataset.q); }));
+    }
+
+    function addToBuild(name, delta) {
+      if (!S.build.has(S.shelf)) S.build.set(S.shelf, new Map());
+      const m = S.build.get(S.shelf);
+      const q = (m.get(name) || 0) + delta;
+      if (q <= 0) m.delete(name); else m.set(name, q);
+      render();
+    }
+
+    /* ---------- roadmap ---------- */
+    function renderRoadmap(vis) {
+      const cols = stops;
+      const grid = `grid-template-columns: 230px repeat(${cols.length}, minmax(72px, 1fr));`;
+      const byG = new Map();
+      sortList(vis).forEach(d => { if (!byG.has(d.grp)) byG.set(d.grp, []); byG.get(d.grp).push(d); });
+      const ord = GRP_ORDER.filter(g => byG.has(g)).concat([...byG.keys()].filter(g => !GRP_ORDER.includes(g)));
+
+      $('viewRoadmap').innerHTML = `<div class="rmwrap">
+        <div class="rmhead" style="${grid}">
+          <div>Module</div>
+          ${cols.map(c => `<div>${esc(c.label)}<span class="dt">${esc(c.date)}</span></div>`).join('')}
+        </div>
+        ${ord.map(g => `<div class="rmgrp">${esc(g)}</div>` +
+          byG.get(g).map(d => {
+            const i = cols.findIndex(c => c.ord === relOrd(d.rel));
+            const col = i < 0 ? cols.length - 1 : i;
+            return `<div class="rmrow" style="${grid}" data-n="${esc(d.name)}">
+              <div class="lbl"><b>${esc(d.name)}</b></div>
+              ${cols.map((c, j) => `<div class="rmcell">${j === col
+                ? `<div class="rmbar ${d.status}" title="${esc(d.name)} — ${esc(relOf(d.rel).label)}">${esc(relOf(d.rel).label)}</div>` : ''}</div>`).join('')}
+            </div>`;
+          }).join('')).join('')}
+      </div>
+      <div class="hint" style="margin-top:8px">
+        Columns run in <strong>ship-date</strong> order. R9.3 (Dec 2026) sits to the left of R9.2 (Feb 2027) because it ships first —
+        a release-number sort puts them the wrong way round.
+      </div>`;
+    }
+
+    /* ---------- drawer ---------- */
+    function openDrawer(name) {
+      const d = GX.find(x => x.name === name); if (!d) return;
+      $('dName').innerHTML = esc(d.name);
+      $('dPn').textContent = d.pn || 'PN not yet published';
+      $('dBadges').innerHTML = lcPill(d) +
+        (d.shelf||[]).map(s => `<span class="b shelf">${esc(s)}</span>`).join('') +
+        (d.slots ? `<span class="b">${d.slots} slots</span>` : '') +
+        (d.ru ? `<span class="b">${d.ru} RU</span>` : '');
+
+      const capsOn = CAPS.filter(([k]) => d.caps[k]);
+      const related = GX.filter(x => x.name !== d.name && x.cat === d.cat &&
+        (x.shelf||[]).some(s => (d.shelf||[]).includes(s))).slice(0, 6);
+      const alsoFits = d.cat === 'chassis'
+        ? GX.filter(x => (x.shelf||[]).some(s => (d.shelf||[]).includes(s)) && x.cat !== 'chassis').slice(0, 8)
+        : [];
+      const rn = RELEASE_NOTES[d.rel];
+
+      $('dBody').innerHTML = `
+        ${d.thz != null ? `<div class="dsec">${spectrumBar(d)}</div>` : ''}
+        ${d.conflict ? `<div class="dsec"><div class="callout conf"><b>Data conflict —</b> ${esc(d.conflict)}</div></div>` : ''}
+        ${d.note ? `<div class="dsec"><div class="callout note">${esc(d.note)}</div></div>` : ''}
+        ${rn ? `<div class="dsec"><h4>What ${esc(relOf(d.rel).label)} brings (${esc(relOf(d.rel).date)})</h4>
+                <div class="callout note">${esc(rn)}</div></div>` : ''}
+        ${capsOn.length ? `<div class="dsec"><h4>Capabilities</h4><div class="chips">
+          ${capsOn.map(([,l]) => `<span class="chip on">${esc(l)}</span>`).join('')}</div></div>` : ''}
+        <div class="dsec"><h4>Full specification</h4>
+          <table class="dtable">
+            ${[['Category', CAT_LABEL[d.cat]], ['Form factor', d.form], ['Applications', d.apps],
+               ['Band', d.band], ['Line side', d.line]].filter(r => r[1])
+               .map(r => `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join('')}
+            ${Object.entries(d.spec||{}).map(([k,v]) => `<tr><td>${esc(k)}</td><td>${esc(v)}</td></tr>`).join('')}
+          </table>
+        </div>
+        ${alsoFits.length ? `<div class="dsec"><h4>Modules that fit this shelf</h4><div class="relatedlist">
+          ${alsoFits.map(x => `<div class="relitem" data-go="${esc(x.name)}">
+            <span class="rn">${esc(x.name)}</span>${lcPill(x)}
+            <span class="b">${x.slots ?? '—'} sl</span></div>`).join('')}</div></div>` : ''}
+        ${related.length ? `<div class="dsec"><h4>Alternatives in the same class</h4><div class="relatedlist">
+          ${related.map(x => `<div class="relitem" data-go="${esc(x.name)}">
+            <span class="rn">${esc(x.name)}</span>${lcPill(x)}
+            ${x.thz != null ? `<span class="b">${x.thz} THz</span>` : ''}</div>`).join('')}</div></div>` : ''}
+        <div class="dsec"><button class="traybtn" id="dPin" style="width:100%">
+          ${S.pinned.includes(d.name) ? 'Unpin from compare' : 'Pin to compare'}</button></div>`;
+
+      $('dBody').querySelectorAll('[data-go]').forEach(el =>
+        el.addEventListener('click', () => openDrawer(el.dataset.go)));
+      $('dPin').addEventListener('click', () => { togglePin(d.name); openDrawer(d.name); });
+
+      $('drawer').classList.add('on'); $('scrim').classList.add('on');
+      $('drawer').setAttribute('aria-hidden','false');
+      location.hash = 'pn=' + encodeURIComponent(d.name);
+    }
+    function closeDrawer() {
+      $('drawer').classList.remove('on'); $('scrim').classList.remove('on');
+      $('drawer').setAttribute('aria-hidden','true');
+      if (location.hash.startsWith('#pn=')) history.replaceState(null,'',location.pathname);
+    }
+    $('dClose').addEventListener('click', closeDrawer);
+    $('scrim').addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeDrawer(); $('cmpWrap').classList.remove('on'); } });
+
+    /* ---------- compare ---------- */
+    function togglePin(name) {
+      const i = S.pinned.indexOf(name);
+      if (i >= 0) S.pinned.splice(i,1);
+      else { if (S.pinned.length >= 4) S.pinned.shift(); S.pinned.push(name); }
+      render();
+    }
+    function renderTray() {
+      $('tray').classList.toggle('on', S.pinned.length > 0);
+      $('trayChips').innerHTML = S.pinned.map(n =>
+        `<span class="traychip">${esc(n)}<button data-un="${esc(n)}">&times;</button></span>`).join('');
+      $('trayChips').querySelectorAll('[data-un]').forEach(b =>
+        b.addEventListener('click', () => togglePin(b.dataset.un)));
+    }
+    function renderCompare() {
+      const items = S.pinned.map(n => GX.find(x => x.name === n)).filter(Boolean);
+      if (!items.length) return;
+      const numRows = [
+        ['Release', d => relOf(d.rel).label + (relOf(d.rel).date !== 'shipping' ? ` · ${relOf(d.rel).date}` : ''), null],
+        ['Lifecycle', d => LC_LABEL[d.status], null],
+        ['Shelf', d => (d.shelf||[]).join(', '), null],
+        ['Slots', d => d.slots, 'min'],
+        ['Spectrum (THz)', d => d.thz, 'max'],
+        ['Noise figure (dB)', d => d.nf, 'min'],
+        ['Max output (dBm)', d => d.pout, 'max'],
+        ['Max gain (dB)', d => d.gain, 'max'],
+        ['Span loss (dB)', d => d.spanHi, 'max'],
+        ['Power @55 °C (W)', d => d.pw55, 'min'],
+        ['Weight (kg)', d => d.kg, 'min'],
+      ];
+      const specKeys = [...new Set(items.flatMap(d => Object.keys(d.spec||{})))];
+      const best = (vals, dir) => {
+        const nums = vals.filter(v => typeof v === 'number');
+        if (nums.length < 2) return null;
+        return dir === 'min' ? Math.min(...nums) : Math.max(...nums);
+      };
+      $('cmpBody').innerHTML = `<table class="cmptable">
+        <thead><tr><th></th>${items.map(d => `<th>${esc(d.name)}</th>`).join('')}</tr></thead>
+        <tbody>
+          ${numRows.map(([label, fn, dir]) => {
+            const vals = items.map(fn);
+            const b = dir ? best(vals, dir) : null;
+            return `<tr><td>${esc(label)}</td>${vals.map(v =>
+              `<td class="${b != null && v === b ? 'best' : ''}">${v == null || v === '' ? '—' : esc(v)}</td>`).join('')}</tr>`;
+          }).join('')}
+          ${specKeys.map(k => `<tr><td>${esc(k)}</td>${items.map(d =>
+            `<td>${d.spec && d.spec[k] ? esc(d.spec[k]) : '—'}</td>`).join('')}</tr>`).join('')}
+        </tbody></table>`;
+      $('cmpWrap').classList.add('on');
+    }
+    $('cmpOpen').addEventListener('click', renderCompare);
+    $('cmpClose').addEventListener('click', () => $('cmpWrap').classList.remove('on'));
+    $('cmpWrap').addEventListener('click', e => { if (e.target === $('cmpWrap')) $('cmpWrap').classList.remove('on'); });
+    $('cmpClear').addEventListener('click', () => { S.pinned = []; render(); });
+
+    /* ---------- active filter summary ---------- */
+    function renderActive() {
+      const out = [];
+      const add = (label, clear) => out.push({ label, clear });
+      if (S.q) add(`“${S.q}”`, () => { $('searchBox').value=''; S.q=''; QT=[]; $('searchWrap').classList.remove('has-q'); });
+      if (S.by < 99) add(`by ${stops.find(s=>s.ord===S.by).label}`, () => { S.by=99; $('byRange').value=10; });
+      [['lc',LC_LABEL],['cats',CAT_LABEL]].forEach(([key,map]) =>
+        S[key].forEach(v => add(map[v] || v, () => S[key].delete(v))));
+      S.shelves.forEach(v => add(v, () => S.shelves.delete(v)));
+      S.bands.forEach(v => add(v, () => S.bands.delete(v)));
+      S.caps.forEach(v => add((CAPS.find(c=>c[0]===v)||[,v])[1], () => S.caps.delete(v)));
+      ['nf','pout','span','pw'].forEach(k => {
+        if (S[k] !== RANGE_DEFAULT[k]) add(
+          { nf:'NF ≤ '+S.nf, pout:'P out ≥ '+S.pout, span:'Span ≥ '+S.span, pw:'≤ '+S.pw+' W' }[k],
+          () => { S[k] = RANGE_DEFAULT[k]; syncRanges(); });
+      });
+      const host = $('activeFilters');
+      host.innerHTML = out.map((o,i) => `<span class="afchip">${esc(o.label)}<button data-i="${i}">&times;</button></span>`).join('');
+      host.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+        out[+b.dataset.i].clear();
+        document.querySelectorAll('.chip.on').forEach(c => {});
+        syncChips(); render();
+      }));
+    }
+    function syncChips() {
+      const map = [[$('lcChips'),S.lc,['ga','por','poi']],[$('catChips'),S.cats,CAT_ORDER.filter(c=>GX.some(d=>d.cat===c))],
+                   [$('shelfChips'),S.shelves,ALL_SHELVES],[$('bandChips'),S.bands,BANDS.filter(b=>GX.some(d=>d.bandKey===b))],
+                   [$('capChips'),S.caps,CAPS.filter(([k])=>GX.some(d=>d.caps[k])).map(c=>c[0])]];
+      map.forEach(([host,set,vals]) => [...host.children].forEach((el,i) => el.classList.toggle('on', set.has(vals[i]))));
+    }
+    function syncRanges() {
+      $('rNf').value=S.nf; $('rPout').value=S.pout; $('rSpan').value=S.span; $('rPw').value=S.pw;
+      $('rNfV').textContent   = S.nf===9   ? 'any' : S.nf+' dB';
+      $('rPoutV').textContent = S.pout===18? 'any' : S.pout+' dBm';
+      $('rSpanV').textContent = S.span===0 ? 'any' : S.span+' dB';
+      $('rPwV').textContent   = S.pw===560 ? 'any' : S.pw+' W';
+    }
+
+    /* ---------- master render ---------- */
+    const HINTS = {
+      explore:'Click any card for the full spec, what else fits its shelf, and close alternatives.',
+      table:'Click a column to sort. Click a row for details.',
+      shelf:'Pick a shelf, then click modules to load slots and watch the budget.',
+      roadmap:'Each bar sits in the release that first ships it.',
+    };
+    function render() {
+      const vis = GX.filter(visible);
+      ['Explore','Table','Shelf','Roadmap'].forEach(v =>
+        $('view'+v).style.display = S.view === v.toLowerCase() ? '' : 'none');
+      document.querySelectorAll('#viewSeg button').forEach(b => b.classList.toggle('on', b.dataset.v === S.view));
+      $('viewHint').textContent = HINTS[S.view];
+      $('cntShown').textContent = vis.length;
+      $('cntAll').textContent = GX.length;
+      const stop = stops.find(s => s.ord === S.by);
+      $('byLabel').textContent = stop ? stop.label : 'everything';
+      $('byHint').textContent = stop ? `Shipping by ${stop.date}.`
+        : 'All releases out to 2029, including modules with no committed date.';
+      $('emptyState').style.display = (vis.length || S.view === 'shelf') ? 'none' : '';
+
+      if (S.view === 'explore') renderExplore(vis);
+      if (S.view === 'table')   renderTable(vis);
+      if (S.view === 'shelf')   renderShelf(vis);
+      if (S.view === 'roadmap') renderRoadmap(vis);
+
+      document.querySelectorAll('[data-details]').forEach(el => el.addEventListener('click', e => {
+        e.stopPropagation(); openDrawer(el.dataset.details);
+      }));
+      document.querySelectorAll('[data-n]').forEach(el => el.addEventListener('click', e => {
+        if (e.target.closest('[data-pin]') || e.target.closest('.qtybtn') || e.target.closest('[data-details]')) return;
+        // In the shelf builder a card click loads a slot; "Details ›" still opens the drawer.
+        if (S.view === 'shelf' && el.classList.contains('gx-card')) { addToBuild(el.dataset.n, 1); return; }
+        openDrawer(el.dataset.n);
+      }));
+      document.querySelectorAll('[data-pin]').forEach(el => el.addEventListener('click', e => {
+        e.stopPropagation(); togglePin(el.dataset.pin);
+      }));
+      renderTray(); renderActive();
+    }
+
+    /* ---------- wiring ---------- */
+    document.querySelectorAll('#viewSeg button').forEach(b =>
+      b.addEventListener('click', () => { S.view = b.dataset.v; render(); }));
+    $('sortSel').addEventListener('change', () => { S.sort = $('sortSel').value; render(); });
+    $('byRange').addEventListener('input', () => {
+      const v = +$('byRange').value;
+      S.by = v > 9 ? 99 : v;   // top of the track = no ceiling
+      render();
+    });
+    [['rNf','nf'],['rPout','pout'],['rSpan','span'],['rPw','pw']].forEach(([id,k]) =>
+      $(id).addEventListener('input', () => { S[k] = +$(id).value; syncRanges(); render(); }));
+    $('resetRanges').addEventListener('click', () => { Object.assign(S, RANGE_DEFAULT); syncRanges(); render(); });
+
+    const box = $('searchBox'), wrap = $('searchWrap');
+    let t = null;
+    const applyQ = () => { S.q = box.value.trim(); QT = parseQ(S.q); wrap.classList.toggle('has-q', !!S.q); render(); };
+    box.addEventListener('input', () => { clearTimeout(t); t = setTimeout(applyQ, 90); });
+    box.addEventListener('keydown', e => { if (e.key === 'Escape') { box.value=''; applyQ(); box.blur(); } });
+    $('searchClear').addEventListener('click', () => { box.value=''; applyQ(); box.focus(); });
+    document.addEventListener('keydown', e => {
+      if (e.key === '/' && document.activeElement !== box &&
+          !/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)) { e.preventDefault(); box.focus(); box.select(); }
+    });
+
+    function resetAll() {
+      S.q=''; box.value=''; wrap.classList.remove('has-q'); QT=[];
+      S.lc.clear(); S.cats.clear(); S.shelves.clear(); S.bands.clear(); S.caps.clear();
+      S.by = 99; $('byRange').value = 10;
+      Object.assign(S, RANGE_DEFAULT); syncRanges(); syncChips(); render();
+    }
+    $('resetAll').addEventListener('click', resetAll);
+    $('emptyReset').addEventListener('click', e => { e.preventDefault(); resetAll(); });
+
+    syncRanges();
+    render();
+    if (location.hash.startsWith('#pn=')) openDrawer(decodeURIComponent(location.hash.slice(4)));
+  })();
+  </script>
+</body>
+</html>

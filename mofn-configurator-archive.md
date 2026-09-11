@@ -396,3 +396,149 @@ eligibility(band, rack) = part →
 ---
 
 *Maintained by Quang · Nokia ON SE Vietnam · GMT+7*
+
+---
+
+## 10. v4 — complete BoM, redundancy/protection, OSNR gating
+
+Added 2026-09-10. Source for all new hardware data:
+`Summa/GX/1830 Global Express (GX) PowerDraw R9.0_V1.xlsx`
+(`* Power and Weight per FRU`, `* User-Input`, `*_BreakerSize` sheets).
+
+### 10.1 Complete BoM — common equipment
+
+The BoM is now quotable, not just card-level. For every chassis in a site the
+engine emits the real FRU part numbers with quantities and weights:
+
+| Chassis | Chassis PN | Fans | Controller | I/O panel | PEM (DC / AC) | Slot filler | Mount kit |
+|---|---|---|---|---|---|---|---|
+| G31 | `GQS-G31CHASZ-00` | 3× `GFS-G31FANZZ-00` | `GCS-G31FRCUZ-00` | `GCS-G31FRIOZ-00` | `GPU-G30PSUDC-00` / `GPS-G30PSUAC-00` | `GLS-G30CHMFI-00` | `GKS-G31RAKIT-19` / `-CAKIT-19` / `-INKIT-23` / `-INKIT-ET` |
+| G32 · G32E · G34L | `G3S-G32CHASZ-00` | 3× `G3S-G32FANZZ-00` | `G3S-G32FRCUZ-00` | `G3S-G32FRIOZ-00` | `G3S-G3XPSUDC-00` / `-PSUAC-00` | `GLS-G30CHMFI-00` (+ `G3S-G32PSFIZ-00` PSU filler) | `G3S-G32RAKIT-00` / `-CAKIT-00` |
+| G34c · G34Xc · G32c · G38c | `G3S-G34CCHAS-00` | 2× `G3S-G34CFANZ-00` | `G3S-G34CCONZ-00` | — | `G3S-G34CPSDC-00` / `-PSAC-00` | `G3S-G34CSF2Z-00` (2-slot) | `G3S-G34CIKIT-19` / `-E2` / `-ET` / `G3S-G34CIKIA-ET` |
+
+G32E, G34L, G34Xc, G32c and G38c have no PowerDraw sheet of their own and
+inherit the nearest kit; those rows are tagged **(kit inherited from …)**.
+
+**Power accounting rule.** PowerDraw publishes a *measured* aggregate for
+"`<chassis>` w/ fans+PEM+FRCU" that is deliberately not the arithmetic sum of
+the individual FRU rows. The engine therefore keeps the aggregate as the
+chassis row's power and treats the itemised FRUs as zero-power BoM lines
+(`power in chassis aggregate`). Only equipment **beyond** the base build adds
+power: the second controller and any PEM past the chassis' base population.
+Weight works the other way round — it comes from the itemised FRU rows, and
+the chassis row's bundled weight is suppressed so nothing is double-counted.
+
+**Chassis baselines corrected.** The v3 table carried single figures that
+silently included the protection controller and copied max@40 into max@55.
+v4 splits them:
+
+| Chassis | v3 typ / max40 / max55 | v4 typ / max40 / max55 (single controller) |
+|---|---|---|
+| G31 | 120 / 300 / 300 | **93.5 / 321 / 321** |
+| G32 · G32E | 176 / 382 / 382 | **140 / 339 / 339** |
+| G34c | 106 / 134 / 134 | **69 / 89 / 381** |
+
+The G34c max@55 of 381 W is the fan-ramp figure from PowerDraw and was the
+largest single error in v3. Chassis weights were also realigned to the
+PowerDraw assembled-unit figures (G31 9.57 kg, G32 19.68 kg, G34c 12.56 kg).
+
+**Regression preserved.** The canonical 1800 km / 60 km / FP1 / C+L / ROADM /
+EDFA+Raman example still lands on **324 W typ / 449 W max@40 per ILA site** —
+now decomposed exactly as PowerDraw does it: 218 W sleds + 37 W second
+controller + 69 W common equipment.
+
+### 10.2 Sparing
+
+A percentage of the deployed link quantity per part number, rounded up, with an
+optional floor of one spare per PN. Blanks, filler plates, front-cover filters
+and mounting kits are excluded.
+
+### 10.3 Redundancy — PEM and controller
+
+Controllers per chassis (1 = unprotected, 2 = 1+1) drive both the BoM and the
+power adder taken from PowerDraw's *"Second FRCU for protection"* row
+(G31 +32/40/40 W, G32 +36/43/43 W, G34c +37/45/45 W). When only one controller
+is fitted, the spare slot gets a controller filler card.
+
+PEM count and breaker sizing reproduce the PowerDraw `*_BreakerSize` method
+exactly:
+
+```
+inputW = siteW(max@40) / 0.90          PEM_Efficiency
+nBase  = ceil(inputW / pemCap)         pemCap = 1300 W (G31/G32/G34c), 2200 W (G42)
+qty    = nBase          non-redundant
+       = nBase × 2      1+1 dual feed
+       = nBase + 1      1:N spare
+qty    = max(qty, chassis base PEM population)
+I_min  = (inputW / 40.5 V) / 0.85 / feeds        then round up to a standard breaker
+```
+
+Verified against PowerDraw: a canonical G34c ILA site draws 499 W of PEM input
+and needs 14.5 A per feed — the spreadsheet's own answer is 14.49 A. The engine
+warns when the required PEM count exceeds the chassis' PEM slots.
+
+### 10.4 Protection — OLP 1+1
+
+`Optical line protection = OLP 1+1` adds one `ZXS-O2OPS1PT-W0` OPS module
+(GX pilot tone, 5.7 / 8.2 W, 0.16 kg) per fiber pair per termination node, hosted
+in an OFP2 slot on the OCC — and pulls an OCC into the BoM if OTDR had not
+already required one. It also opens a **route B** distance/span pair and builds
+a complete second ILA chain for the diverse path, which then flows into the BoM
+cards, the power/space/weight rollup, the PEM plan and the spares list.
+
+Client-side schemes (OSNCP, OChP, OMSP) live on the transponder rather than the
+OLS and are deliberately out of this BoM; the reasoning panel says so.
+
+### 10.5 OSNR gating of the amp strategy
+
+The reach model (`CARDS`, `linkOSNR`, `bestRate`, `slotGHz`) moved out of the
+Transponder Advisor's IIFE into the shared engine scope, so both tabs now read
+from one definition and cannot drift.
+
+The OLS tab gained fiber type, target transponder, target line rate, launch
+power and system margin. With **"Let the link budget pick the amp strategy"**
+ticked, the engine walks EDFA → EDFA+Raman → Hybrid and takes the first whose
+RX OSNR clears the required OSNR for the target rate, then locks the amp-strategy
+buttons and explains the choice. Raman and hybrid are modelled as an effective
+noise-figure advantage over a plain EDFA span:
+
+| Strategy | Effective span NF |
+|---|---|
+| EDFA only | 5.0 dB |
+| EDFA + Raman | 0.5 dB (−4.5 dB) |
+| Hybrid | −0.5 dB (−5.5 dB) |
+
+The panel shows all three side by side with per-strategy margin, so the case for
+Raman is visible rather than assumed. When nothing closes, it says so and points
+at the levers (lower rate, shorter spans, G.654.E, regen). This is a first-order
+budget only — no nonlinear penalty, ROADM cascade or PMD/PDL — and is labelled
+as an estimate throughout.
+
+### 10.6 Bugs fixed in v4
+
+- **Duplicate OTDR line.** Ticking *OTDR required* emitted `ZXS-O2OTDR8E-Y0`
+  twice at the termination node (once with its OCC host, once again later),
+  double-counting its quantity and power. The second emission is removed.
+- **G34c max@55 °C** was a copy of max@40 (134 W). Corrected to 381 W.
+- **Chassis over-provision tag.** Chassis rows were flagged `over-prov` against
+  the band filter, which is meaningless for a shelf.
+- **`portfolio.html` trailing corruption.** The file carried 9,521 trailing NUL
+  bytes after `</html>` — harmless in a browser but it made the file register as
+  binary to grep/diff. Stripped.
+
+### 10.7 Portfolio page — search and filtering
+
+- Free-text search across PN, function, band, family, release, fits-chassis,
+  section, notes and the BIDI/MRA flags. Space-separated terms are ANDed.
+- Field-scoped terms: `pn:`, `band:`, `cat:`, `fam:`, `rel:`, `fits:`, `sect:`,
+  `note:` — e.g. `cat:ROADM band:L-band`.
+- The hand-authored detail table is now indexed against the data array and
+  filtered in place (it keeps power and form-factor text the array doesn't
+  carry, so it is not regenerated). Section headers show `visible/total` and
+  empty sections collapse.
+- Live match count, matched text highlighted in the PN column.
+- Deep links: `portfolio.html#pn=<PN>` scrolls to and flashes a row;
+  `#q=<query>` opens with a search applied. The query is kept in the URL.
+- Click a matrix chip, or double-click a quadrant dot, to jump to that PN's row.
+- `/` focuses the search box, `Esc` clears it, `Enter` on a single match jumps
+  to it. Reset filters also clears the query.

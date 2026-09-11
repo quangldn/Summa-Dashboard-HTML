@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GX Wiki — SUMMA</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+<style>
+.gxw { --good:#0ca30c; --warn-s:#fab219; --neutral:#9AA3B7;
+       --good-ink:#066306; --warn-ink:#7A5600; --crit:#d03b3b; --crit-ink:#8E2020; }
+
+.wiki-hero { padding: 22px 0 8px; }
+.wiki-hero h1 { margin: 0 0 5px; font-size: 29px; letter-spacing: -.4px; color: var(--nokia-blue-deep); }
+.wiki-hero p { margin: 0; max-width: 74ch; color: var(--text-muted); }
+.provenance { margin-top: 10px; font-size: 11.5px; color: var(--text-faint); border-left: 3px solid var(--border); padding: 3px 0 3px 10px; line-height: 1.6; }
+.provenance b { color: var(--text-muted); font-weight: 600; }
+
+/* ---------- decoder ---------- */
+.decoder { background: var(--nokia-blue-deep); border-radius: var(--radius); padding: 18px 20px 20px; margin: 18px 0 6px; color: #fff; }
+.decoder h2 { margin: 0 0 3px; font-size: 16px; color: #fff; }
+.decoder .dsub { font-size: 12.5px; color: rgba(255,255,255,.72); margin-bottom: 13px; }
+.dinput { display: flex; gap: 8px; flex-wrap: wrap; }
+.dinput input {
+  flex: 1; min-width: 220px; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 16px;
+  padding: 11px 14px; border-radius: var(--radius-sm); border: 1px solid rgba(255,255,255,.25);
+  background: rgba(255,255,255,.1); color: #fff; outline: none; letter-spacing: .5px;
+}
+.dinput input::placeholder { color: rgba(255,255,255,.42); }
+.dinput input:focus { border-color: var(--accent); background: rgba(255,255,255,.16); }
+.samples { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+.samples button {
+  border: 1px solid rgba(255,255,255,.22); background: rgba(255,255,255,.08); color: rgba(255,255,255,.9);
+  font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 11px; padding: 3px 9px;
+  border-radius: 999px; cursor: pointer;
+}
+.samples button:hover { background: rgba(255,255,255,.18); border-color: var(--accent); }
+.samples .lab { font-size: 11px; color: rgba(255,255,255,.5); align-self: center; margin-right: 2px; }
+
+.dout { margin-top: 15px; background: var(--surface); border-radius: var(--radius); overflow: hidden; color: var(--text); }
+.dsegs { display: flex; flex-wrap: wrap; gap: 2px; padding: 14px 14px 4px; background: var(--surface-2); }
+.seg2 { border-radius: var(--radius-sm); padding: 7px 11px; min-width: 54px; border: 1px solid var(--border); background: #fff; }
+.seg2 .code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 17px; font-weight: 700; color: var(--nokia-blue-deep); letter-spacing: .5px; }
+.seg2 .role { font-size: 9.5px; text-transform: uppercase; letter-spacing: .6px; color: var(--text-faint); margin-top: 1px; }
+.seg2.pad { background: repeating-linear-gradient(45deg,#F4F6FA,#F4F6FA 4px,#EAEEF5 4px,#EAEEF5 8px); }
+.seg2.pad .code { color: var(--text-faint); }
+.seg2.unk { border-color: var(--warn-s); background: #FFF9EA; }
+.dash2 { align-self: center; font-family: ui-monospace, monospace; font-size: 18px; color: var(--text-faint); padding: 0 2px; }
+.dtable2 { width: 100%; border-collapse: collapse; }
+.dtable2 td { padding: 8px 14px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.dtable2 tr:last-child td { border-bottom: 0; }
+.dtable2 td:first-child { width: 128px; color: var(--text-faint); font-size: 11px; text-transform: uppercase; letter-spacing: .6px; padding-top: 10px; }
+.dtable2 td b { color: var(--nokia-blue-deep); }
+.dtable2 .mono { font-family: ui-monospace, Menlo, Consolas, monospace; font-weight: 700; color: var(--nokia-blue-deep); }
+.srcflag { font-size: 9.5px; border-radius: 3px; padding: 1px 5px; margin-left: 6px; font-weight: 700; }
+.srcflag.deck { background: #E8F7E8; color: var(--good-ink); }
+.srcflag.obs  { background: #FFF6DF; color: var(--warn-ink); }
+.srcflag.leg  { background: #EFF1F6; color: var(--text-muted); }
+.dnote { padding: 10px 14px; font-size: 12px; line-height: 1.55; border-top: 1px solid var(--border); }
+.dnote.warn { background: #FFF6DF; color: var(--warn-ink); }
+.dnote.ok { background: #F3F9F3; color: var(--good-ink); }
+.dnote a { color: inherit; font-weight: 700; text-decoration: underline; }
+
+/* ---------- nav + sections ---------- */
+.wiki-layout { display: grid; grid-template-columns: 208px minmax(0,1fr); gap: 22px; align-items: start; margin-top: 20px; }
+.wiki-layout > div { min-width: 0; }
+.decoder, .wiki-hero { min-width: 0; }
+.toc { position: sticky; top: 14px; }
+.toc a {
+  display: block; padding: 6px 10px; font-size: 12.5px; color: var(--text-muted);
+  border-left: 2px solid var(--border); text-decoration: none;
+}
+.toc a:hover { color: var(--nokia-blue); border-left-color: var(--nokia-blue-light); background: var(--surface-2); }
+.toc a.on { color: var(--nokia-blue-deep); font-weight: 700; border-left-color: var(--nokia-blue); background: #EAF3FF; }
+.wsearch { margin-bottom: 12px; position: relative; }
+.wsearch input {
+  width: 100%; font-family: inherit; font-size: 13px; padding: 7px 12px 7px 28px;
+  border: 1px solid var(--border); border-radius: 999px; background: #fff; outline: none;
+}
+.wsearch input:focus { border-color: var(--nokia-blue); box-shadow: 0 0 0 3px rgba(18,65,145,.12); }
+.wsearch .si { position: absolute; left: 10px; top: 7px; font-size: 12px; color: var(--text-faint); }
+
+section.wsec { margin-bottom: 34px; scroll-margin-top: 14px; }
+section.wsec > h2 { font-size: 19px; color: var(--nokia-blue-deep); margin: 0 0 4px; }
+section.wsec > .lede { font-size: 13.5px; color: var(--text-muted); margin: 0 0 14px; max-width: 78ch; }
+h3.wsub { font-size: 12px; text-transform: uppercase; letter-spacing: .8px; color: var(--text-faint); margin: 20px 0 8px; }
+
+table.wt { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; font-size: 13px; }
+table.wt th { background: var(--surface-2); text-align: left; padding: 8px 12px; font-size: 10px; text-transform: uppercase; letter-spacing: .6px; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+table.wt td { padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+table.wt tr:last-child td { border-bottom: 0; }
+table.wt td.code, table.wt td.mono { font-family: ui-monospace, Menlo, Consolas, monospace; font-weight: 700; color: var(--nokia-blue-deep); white-space: nowrap; }
+table.wt td.num { text-align: right; font-variant-numeric: tabular-nums; }
+table.wt tr.hide { display: none; }
+.tblnote { font-size: 11.5px; color: var(--text-faint); margin-top: 6px; }
+
+.pattern { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.prow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 3px; padding: 16px 16px 14px; background: var(--surface-2); }
+.pseg { background: #fff; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 7px 12px; text-align: center; min-width: 56px; }
+.pseg.pfx { background: var(--nokia-blue-deep); border-color: var(--nokia-blue-deep); }
+.pseg.pfx .pc { color: #fff; }
+.pseg.pfx .pr { color: rgba(255,255,255,.62); }
+.pc { display: block; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 17px; font-weight: 700; color: var(--nokia-blue-deep); letter-spacing: .5px; }
+.pr { display: block; font-size: 9.5px; text-transform: uppercase; letter-spacing: .6px; color: var(--text-faint); margin-top: 2px; }
+.pdash { align-self: center; font-family: ui-monospace, monospace; font-size: 20px; color: var(--text-faint); padding: 0 3px; }
+.plegend { margin: 0; padding: 12px 16px 14px; display: grid; grid-template-columns: 62px 1fr; gap: 6px 14px; align-items: baseline; }
+.plegend dt { font-family: ui-monospace, Menlo, Consolas, monospace; font-weight: 700; font-size: 12.5px; color: var(--nokia-blue-deep); }
+.plegend dd { margin: 0; font-size: 12.5px; color: var(--text-muted); line-height: 1.55; }
+
+.callout2 { border-radius: var(--radius); padding: 12px 14px; font-size: 13px; line-height: 1.6; margin: 12px 0; }
+.callout2 b { display: block; margin-bottom: 3px; }
+.callout2.key { background: #EAF3FF; border: 1px solid #CFE0F7; color: var(--nokia-blue-deep); }
+.callout2.warn { background: #FFF6DF; border: 1px solid #F3E2B4; color: var(--warn-ink); }
+
+.fixcard { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--neutral); border-radius: var(--radius); padding: 12px 14px; margin-bottom: 10px; }
+.fixcard.correction { border-left-color: var(--good); }
+.fixcard.conflict   { border-left-color: var(--crit); }
+.fixcard.gap        { border-left-color: var(--warn-s); }
+.fixcard h4 { margin: 0 0 5px; font-size: 14px; color: var(--nokia-blue-deep); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.sevtag { font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; padding: 2px 7px; border-radius: 4px; }
+.sevtag.correction { background:#E8F7E8; color:var(--good-ink); }
+.sevtag.conflict { background:#FBE9E9; color:var(--crit-ink); }
+.sevtag.gap { background:#FFF6DF; color:var(--warn-ink); }
+.fixcard p { margin: 0 0 7px; font-size: 12.5px; color: var(--text-muted); line-height: 1.6; }
+.fixcard .hits { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 11px; color: var(--text-faint); }
+
+.lifepill { font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; }
+.lifepill.brownfield { background:#EFF1F6; color:var(--text-muted); }
+.lifepill.greenfield { background:#E8F7E8; color:var(--good-ink); }
+.lifepill.both { background:#EAF3FF; color:var(--nokia-blue-deep); }
+
+mark.hit { background:#FFF0A8; border-radius:2px; padding:0 1px; }
+
+@media (max-width: 880px) {
+  .wiki-layout { grid-template-columns: minmax(0,1fr); }
+  .dinput input { min-width: 0; }
+  table.wt { display: block; overflow-x: auto; }
+  .toc { position: static; display: flex; flex-wrap: wrap; gap: 4px; }
+  .toc a { border-left: 0; border: 1px solid var(--border); border-radius: 999px; padding: 4px 10px; }
+}
+</style>
+</head>
+<body class="gxw">
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="dot"></span>
+      SUMMA
+      <span class="sub">Nokia ON · Sales Engineering Workbench</span>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="gx-wiki.html" class="active">GX Wiki</a>
+      <a href="gx-portfolio.html">GX Portfolio</a>
+      <a href="portfolio.html">HS Portfolio</a>
+      <a href="mofn.html">MOFN Deck</a>
+      <a href="market-insight.html">Market Insight</a>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <section class="wiki-hero">
+      <h1>GX Wiki</h1>
+      <p>How to read a 1830 GX part number, what every code in it means, which chassis
+         it fits and what it costs in slots. Paste a PN below and it comes apart.</p>
+      <div class="provenance">
+        <b>Grammar:</b> GX Naming Convention.pptx (Infinera, 7 slides) ·
+        <b>Configuration rules:</b> GX BOM Configurator V3.0.xlsm, AUX sheet (Nokia, 2026-08-04) ·
+        <b>Portfolio shape:</b> ON Consolidated Roadmap Aug 2026 — GX Transcend v1.0 ·
+        <b>Real PNs:</b> GX G30 Part Numbers 2026-08-06, GX G40 PON List Aug 2026.<br>
+        Codes marked <span class="srcflag deck">deck</span> are stated in the naming convention.
+        <span class="srcflag obs">observed</span> means it was derived from the part-number lists and is worth confirming with PLM.
+      </div>
+    </section>
+
+    <!-- ============ DECODER ============ -->
+    <div class="decoder">
+      <h2>Part-number decoder</h2>
+      <div class="dsub">Type or paste any GX part number. Nothing is sent anywhere — the grammar runs in the page.</div>
+      <div class="dinput">
+        <input id="pnIn" placeholder="G3S-C2RD12TI-W0" autocomplete="off" spellcheck="false" />
+      </div>
+      <div class="samples" id="samples"><span class="lab">Try:</span></div>
+      <div class="dout" id="dOut" style="display:none"></div>
+    </div>
+
+    <div class="wiki-layout">
+      <nav class="toc" id="toc">
+        <div class="wsearch">
+          <span class="si">&#128269;</span>
+          <input id="wq" placeholder="Filter all tables…" autocomplete="off" />
+        </div>
+        <a href="#grammar">Grammar</a>
+        <a href="#chassis">Chassis</a>
+        <a href="#sleds">Sled families</a>
+        <a href="#codes">Code tables</a>
+        <a href="#rules">Configuration rules</a>
+        <a href="#corrections">Corrections &amp; conflicts</a>
+        <a href="#acronyms">Acronyms</a>
+      </nav>
+
+      <div>
+        <!-- ============ GRAMMAR ============ -->
+        <section class="wsec" id="grammar">
+          <h2>The grammar</h2>
+          <p class="lede">Every G3x service-module PN follows one pattern. Learn the shape once and
+             most part numbers read themselves.</p>
+
+          <div class="pattern">
+            <div class="prow">
+              <div class="pseg pfx"><span class="pc">G3S</span><span class="pr">prefix</span></div>
+              <span class="pdash">–</span>
+              <div class="pseg"><span class="pc">fn</span><span class="pr">form factor</span></div>
+              <div class="pseg"><span class="pc">ZZ</span><span class="pr">function</span></div>
+              <div class="pseg"><span class="pc">nn</span><span class="pr">ports</span></div>
+              <div class="pseg"><span class="pc">m</span><span class="pr">perf</span></div>
+              <div class="pseg"><span class="pc">p</span><span class="pr">variant</span></div>
+              <span class="pdash">–</span>
+              <div class="pseg"><span class="pc">b</span><span class="pr">band</span></div>
+              <div class="pseg"><span class="pc">v</span><span class="pr">ver</span></div>
+            </div>
+            <dl class="plegend">
+              <dt>prefix</dt><dd>What kind of item this is — a service module, a chassis, a pluggable, a cable.</dd>
+              <dt>fn</dt><dd>Form factor: slot width and which chassis family it seats in.</dd>
+              <dt>ZZ</dt><dd>Functionality — ROADM, Raman pump, add/drop, amplifier, transponder.</dd>
+              <dt>nn</dt><dd>Port count, ROADM degrees, channel count or gain range.</dd>
+              <dt>m p</dt><dd>Performance and variant letters — WSS type, gain class, amplified, expandable.</dd>
+              <dt>b</dt><dd>Transmission band, and whether it can be upgraded later.</dd>
+              <dt>v</dt><dd>Version digit — hardware revision. 0 is the first release.</dd>
+            </dl>
+          </div>
+
+          <div class="callout2 key">
+            <b>The middle block is always 8 characters, padded with Z.</b>
+            <code>G1RPBM</code> + <code>ZZ</code>, <code>OMD32E</code> + <code>ZZ</code>,
+            <code>G31CHAS</code> + <code>Z</code>, <code>C2OCC2E</code> + <code>Z</code>.
+            The trailing Zs carry no meaning — they pad the field to a fixed width. This is what lets
+            the decoder above find the boundary between the port code and the variant letter, and it is
+            why so many PNs appear to have a stray “ZZ” in the middle. (Derived from the part-number
+            lists, not stated in the deck — one PN, <code>G3S-G2RPB4M-Y2</code>, breaks it at 7.)
+          </div>
+
+          <div class="callout2 warn">
+            <b>Cables use a different tail — and the sources disagree on it.</b>
+            On a <code>GVS-</code> cable the final digits are length, not band and version. The naming
+            deck says length in cm/10, which makes <code>-03</code> = 30 cm. But the Aug-2026 part list
+            describes <code>GVS-PCC15AUZ-03</code> as a <strong>3 m</strong> cable. Read the description
+            rather than the code until PLM confirms which rule is live.
+          </div>
+        </section>
+
+        <!-- ============ CHASSIS ============ -->
+        <section class="wsec" id="chassis">
+          <h2>Chassis</h2>
+          <p class="lede">Two series. The letters in a chassis name are not decoration: they tell you
+             depth, backplane and slot height.</p>
+
+          <div class="callout2 key">
+            <b>Reading a chassis name</b>
+            Lowercase <code>c</code> = compact, 300 mm depth (G34<b>c</b>, G32<b>c</b>).
+            <code>X</code> = backplane “Xross” pairing (G34<b>X</b>c).
+            <code>E</code> = enables double-height slots (G32<b>E</b>) — which is why RD66 only goes there.
+            The second-digit rule does not apply to the G20 series.
+          </div>
+
+          <table class="wt" data-wt>
+            <thead><tr><th>Chassis</th><th>Series</th><th>Depth</th><th>Sled FF</th>
+              <th class="num">Rows</th><th class="num">Slots</th><th class="num">RU</th><th>Lifecycle</th><th>Notes</th></tr></thead>
+            <tbody id="chassisRows"></tbody>
+          </table>
+          <div class="tblnote">
+            Rows × slots and RU come from the V3.0 AUX sheet where the tool models the chassis, and from the
+            Aug-2026 roadmap deck for G32c, G34L and G38c, which post-date an R9.1 tool.
+            Depth per the naming deck: the full family is <strong>600 mm</strong>, the compact family 300 mm.
+          </div>
+        </section>
+
+        <!-- ============ SLEDS ============ -->
+        <section class="wsec" id="sleds">
+          <h2>Sled families</h2>
+          <p class="lede">A sled name is a category prefix, a width or generation digit, then letters
+             that qualify it.</p>
+
+          <table class="wt" data-wt>
+            <thead><tr><th>Prefix</th><th>Full name</th><th>Role</th></tr></thead>
+            <tbody id="sledCatRows"></tbody>
+          </table>
+
+          <div class="callout2 key">
+            <b>The digit after the category prefix means two different things</b>
+            On the <strong>G30 series</strong> it is slot width in quarter-sleds — CHM<b>1</b> is one,
+            CHM<b>2</b> is two. On the <strong>G40 series</strong> it is the coherent generation —
+            CHM<b>6</b> is ICE-6, CHM<b>7</b> is ICE-7, CHM<b>8</b> is ICE-8 — or capacity, as in UCM<b>4</b> = 400G.
+            Same position, different meaning, depending on the shelf.
+          </div>
+
+          <h3 class="wsub">Qualifying letters inside a sled name</h3>
+          <table class="wt" data-wt>
+            <thead><tr><th>Letter</th><th>Meaning</th></tr></thead>
+            <tbody id="sledLetterRows"></tbody>
+          </table>
+        </section>
+
+        <!-- ============ CODE TABLES ============ -->
+        <section class="wsec" id="codes">
+          <h2>Code tables</h2>
+          <p class="lede">Everything the decoder looks up. Use the filter box to jump to a code.</p>
+
+          <h3 class="wsub">Prefix — what kind of item</h3>
+          <table class="wt" data-wt><thead><tr><th>Code</th><th>Item type</th><th>Notes</th></tr></thead>
+            <tbody id="prefixRows"></tbody></table>
+
+          <h3 class="wsub">Form factor (fn) — slot width and chassis family</h3>
+          <table class="wt" data-wt><thead><tr><th>Code</th><th>Meaning</th><th>Notes</th></tr></thead>
+            <tbody id="formRows"></tbody></table>
+
+          <h3 class="wsub">Functionality (ZZ)</h3>
+          <table class="wt" data-wt><thead><tr><th>Code</th><th>Meaning</th><th>Group</th></tr></thead>
+            <tbody id="funcRows"></tbody></table>
+
+          <h3 class="wsub">Performance &amp; gain suffixes</h3>
+          <table class="wt" data-wt><thead><tr><th>Code</th><th>Meaning</th><th>Applies to</th></tr></thead>
+            <tbody id="perfRows"></tbody></table>
+
+          <h3 class="wsub">Band (b) — the one people get wrong</h3>
+          <table class="wt" data-wt><thead><tr><th>Code</th><th>Band</th><th class="num">THz</th><th>Upgrade path</th></tr></thead>
+            <tbody id="bandRows"></tbody></table>
+          <div class="tblnote">
+            The distinction that matters commercially is <strong>upgradeable vs not</strong>:
+            N and W are dead ends, C and X can be grown later. Y is already both bands.
+          </div>
+        </section>
+
+        <!-- ============ RULES ============ -->
+        <section class="wsec" id="rules">
+          <h2>Configuration rules</h2>
+          <p class="lede">What the V3.0 configurator enforces when it builds a shelf — the part a
+             naming convention cannot tell you.</p>
+
+          <h3 class="wsub">Slot cost per card</h3>
+          <table class="wt" data-wt>
+            <thead><tr><th>PN</th><th>Sled name</th><th class="num">Slots</th><th>Class</th></tr></thead>
+            <tbody id="slotRows"></tbody>
+          </table>
+          <div class="tblnote">
+            Straight from the V3.0 AUX sled table. Chassis quantity derives from these, so they are the
+            numbers that decide how many shelves a design needs.
+          </div>
+
+          <h3 class="wsub">OMDs are shelves, not cards</h3>
+          <p style="font-size:13px;color:var(--text-muted);max-width:78ch;margin:0 0 10px">
+            V3.0 gives every OMD its own chassis type with its own rack units and no slot cost. A
+            mux-terminated site therefore does not spend a termination slot on the OMD — it adds a
+            separate passive shelf to the rack.
+          </p>
+          <table class="wt" data-wt>
+            <thead><tr><th>Shelf</th><th class="num">RU</th></tr></thead>
+            <tbody id="omdRows"></tbody>
+          </table>
+
+          <h3 class="wsub">PEM and breaker sizing</h3>
+          <div class="callout2 key">
+            <b>Both Nokia tools agree on 90 %</b>
+            V3.0's own release notes state "PEMs input power assumes 90 % efficiency, AC input is based
+            on 220 V AC". The PowerDraw breaker sheet uses the same 0.90, a minimum voltage of 40.5 V and
+            a 0.85 breaker derate. PEM count is ⌈input ÷ 1300 W⌉ for the G3x shelves and ⌈input ÷ 2200 W⌉
+            for the G42, doubled for 1+1 or plus one for 1:N.
+          </div>
+        </section>
+
+        <!-- ============ CORRECTIONS ============ -->
+        <section class="wsec" id="corrections">
+          <h2>Corrections &amp; open conflicts</h2>
+          <p class="lede">Where the sources disagree, or where a commonly held reading is wrong.
+             Kept visible rather than quietly resolved.</p>
+          <div id="fixRows"></div>
+        </section>
+
+        <!-- ============ ACRONYMS ============ -->
+        <section class="wsec" id="acronyms">
+          <h2>Acronyms</h2>
+          <p class="lede">The ones that come up in a GX conversation.</p>
+          <table class="wt" data-wt><thead><tr><th>Acronym</th><th>Meaning</th></tr></thead>
+            <tbody id="acroRows"></tbody></table>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    Built for Quang · Nokia ON Sales Engineering · Vietnam (GMT+7) ·
+    Grammar from the GX Naming Convention deck, rules from BOM Configurator V3.0
+  </footer>
+
+  <script src="assets/gx-data.js"></script>
+  <script src="assets/gx-wiki-data.js"></script>
+  <script>
+  (function () {
+    const $ = id => document.getElementById(id);
+    const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    const flag = src => {
+      if (!src) return '';
+      if (src === 'deck') return '<span class="srcflag deck">deck</span>';
+      if (src === 'legacy') return '<span class="srcflag leg">legacy</span>';
+      if (src === 'deck+observed') return '<span class="srcflag deck">deck</span><span class="srcflag obs">extended</span>';
+      return '<span class="srcflag obs">observed</span>';
+    };
+
+    /* =======================================================
+       DECODER
+       Pattern: PREFIX - BODY(8, Z-padded) - BAND+VERSION
+       ======================================================= */
+    const FUNC_KEYS = Object.keys(FUNC).sort((a,b) => b.length - a.length);
+    const PERF_KEYS = Object.keys(PERF).sort((a,b) => b.length - a.length);
+
+    function decode(raw) {
+      const pn = String(raw || '').trim().toUpperCase().replace(/\s+/g, '');
+      if (!pn) return null;
+      const out = { pn, segs: [], rows: [], notes: [] };
+      const parts = pn.split('-');
+      if (parts.length < 2) { out.err = 'Expected at least one dash — a GX PN looks like PREFIX-BODY-TAIL.'; return out; }
+
+      // --- prefix ---
+      const pre = parts[0];
+      const pinfo = PREFIX[pre] || PREFIX[pre.replace(/\d+$/, '')];
+      out.segs.push({ c: pre, r: 'prefix', unk: !pinfo });
+      out.rows.push(['Prefix', pinfo
+        ? `<b>${esc(pinfo.t)}</b> ${flag(pinfo.src)}<br><span style="color:var(--text-muted)">${esc(pinfo.d)}</span>`
+        : `<span style="color:var(--warn-ink)">Unrecognised prefix — not in the tables.</span>`]);
+
+      // --- tail: band + version, or cable length ---
+      const tail = parts.length > 2 ? parts[parts.length - 1] : null;
+      const body = parts.slice(1, parts.length > 2 ? -1 : undefined).join('-');
+
+      // --- cables carry no sled grammar at all ---
+      if (pre === 'GVS') {
+        out.segs.push({ c: body, r: 'cable type' });
+        out.rows.push(['Cable', `<b>${esc(body.replace(/Z+$/,''))}</b> <span style="color:var(--text-muted)">— connector and region code. Cables do not follow the sled grammar.</span>`]);
+        if (tail) {
+          out.segs.push({ c: tail, r: 'length' });
+          const n = parseInt(tail, 10);
+          out.rows.push(['Length', `<b>${n} m</b> if the tail is metres, or <b>${n*10} cm</b> under the naming deck's cm/10 rule.`]);
+          out.notes.push({ k:'warn', t:`The deck says the cable tail is length in cm/10, which would make -${tail} = ${n*10} cm. But the Aug-2026 PN list describes this exact part as ${n} m. The deck and the part list disagree — read the description, not the code.` });
+        }
+        out.corr = []; return out;
+      }
+
+      // --- body ---
+      let rest = body;
+      const takeForm = () => {
+        const ffCode = rest.slice(0, 2), ff = FORM[ffCode];
+        if (!ff) return null;
+        const after = rest.slice(2).replace(/Z+$/, '');
+        // A real form factor is followed by a function code. G31CHAS looks like
+        // form factor "G3" but "1CHAS" is not a function, so it is a chassis scope.
+        if (!FUNC_KEYS.some(k => after.startsWith(k))) return null;
+        return { ffCode, ff };
+      };
+      const bodyTrim = rest.replace(/Z+$/, '');
+      const fm = takeForm();
+      if (fm) {
+        out.segs.push({ c: fm.ffCode, r: 'form factor' });
+        out.rows.push(['Form factor', `<b>${esc(fm.ff.t)}</b> ${flag(fm.ff.src)}<br><span style="color:var(--text-muted)">${esc(fm.ff.n)}</span>`]);
+        rest = rest.slice(2);
+      } else if (/^G\d{2}/.test(rest)) {            // chassis-scoped: G31CHASZ, G34CFANZ
+        const sc = rest.slice(0, 3);
+        out.segs.push({ c: sc, r: 'chassis' });
+        out.rows.push(['Applies to', `<b>${esc(sc)}</b> chassis <span style="color:var(--text-muted)">— common equipment scoped to one shelf, not a card that takes a slot.</span>`]);
+        rest = rest.slice(3);
+      } else if (FUNC_KEYS.some(k => bodyTrim.startsWith(k))) {
+        // Passive shelves (OMD…) and some legacy items open straight with the function.
+        out.rows.push(['Form factor', `<span style="color:var(--text-muted)">None — this item is a shelf in its own right, so it carries no sled form factor.</span>`]);
+      } else {
+        const ffCode = rest.slice(0, 2);
+        out.segs.push({ c: ffCode, r: 'form factor', unk: true });
+        out.rows.push(['Form factor', `<span style="color:var(--warn-ink)">“${esc(ffCode)}” is not a known form-factor code.</span>`]);
+        rest = rest.slice(2);
+      }
+
+      // strip Z padding off the right of the body
+      const padded = rest;
+      const trimmed = rest.replace(/Z+$/, '');
+      const pad = padded.slice(trimmed.length);
+      rest = trimmed;
+
+      // function code — longest match at the head
+      const fk = FUNC_KEYS.find(k => rest.startsWith(k));
+      if (fk) {
+        out.segs.push({ c: fk, r: 'function' });
+        out.rows.push(['Function', `<b>${esc(FUNC[fk].t)}</b> ${flag(FUNC[fk].src)}<br><span style="color:var(--text-muted)">${esc(FUNC[fk].g)}</span>`]);
+        rest = rest.slice(fk.length);
+      } else if (rest) {
+        out.segs.push({ c: rest, r: 'function', unk: true });
+        out.rows.push(['Function', `<span style="color:var(--warn-ink)">No function code matches “${esc(rest)}”.</span>`]);
+        rest = '';
+      }
+
+      // digits — port count / degrees
+      const dm = rest.match(/^(\d+)/);
+      if (dm) {
+        out.segs.push({ c: dm[1], r: 'ports / degrees' });
+        const n = dm[1];
+        const fam = fk || '';
+        const label = /^RD|^WS/.test(fam) ? `${+n} degrees`
+                    : /^CAD|^CDC|^CD/.test(fam) ? `${+n} add/drop ports`
+                    : /^OMD/.test(fam) ? `${+n} channels`
+                    : /^CHM|^UTM|^SPN|^UCM/.test(fam) ? `generation or width ${+n}`
+                    : `${+n}`;
+        out.rows.push(['Ports / degrees', `<b>${esc(label)}</b>`]);
+        rest = rest.slice(dm[1].length);
+      }
+
+      // remaining letters — performance / variant, longest match first
+      while (rest) {
+        const pk = PERF_KEYS.find(k => rest.startsWith(k));
+        if (!pk) {
+          out.segs.push({ c: rest, r: 'variant', unk: true });
+          out.rows.push(['Variant', `<span style="color:var(--warn-ink)">“${esc(rest)}” is not in the performance tables.</span>`]);
+          break;
+        }
+        out.segs.push({ c: pk, r: 'performance' });
+        out.rows.push(['Performance', `<b>${esc(PERF[pk].t)}</b><br><span style="color:var(--text-muted)">${esc(PERF[pk].g)}</span>`]);
+        rest = rest.slice(pk.length);
+      }
+
+      if (pad) {
+        out.segs.push({ c: pad, r: 'padding', pad: true });
+        out.rows.push(['Padding', `<span style="color:var(--text-muted)">${pad.length} filler character${pad.length>1?'s':''} — the body is padded to 8 characters. No meaning.</span>`]);
+      }
+
+      // --- tail ---
+      if (tail) {
+        {
+          const b = tail[0], v = tail.slice(1);
+          const bi = BAND[b];
+          out.segs.push({ c: b, r: 'band', unk: !bi });
+          out.segs.push({ c: v, r: 'version' });
+          out.rows.push(['Band', bi
+            ? `<b>${esc(bi.t)}</b>${bi.thz ? ` · ${bi.thz} THz` : ''} ${flag(bi.src)}<br><span style="color:var(--text-muted)">${esc(bi.up)}</span>`
+            : `<span style="color:var(--warn-ink)">“${esc(b)}” is not a band code.</span>`]);
+          out.rows.push(['Version', `<b>${esc(v)}</b> <span style="color:var(--text-muted)">— hardware revision; 0 is the first release.</span>`]);
+          if (b === 'L') out.notes.push({ k:'warn', t:'Band L is base L-band, not Super L. Super L only appears inside Y (Super C + Super L). If the source description says “Super L” in words, that wins — but the PN code alone does not say it.' });
+          if (b === 'Z') out.notes.push({ k:'warn', t:'Z is a legacy Groove band code that pre-dates the current standard. On RPBM and ILA parts it historically meant std C + std L. Check the description column in the source file rather than trusting the letter.' });
+        }
+      }
+
+      // --- catalog cross-reference ---
+      const hit = (typeof GX !== 'undefined') && GX.find(d => d.pn && d.pn.toUpperCase().split(/\s*\/\s*/).includes(pn));
+      if (hit) out.cat = hit;
+      const slot = V30_SLOTS.find(s => s.pn.toUpperCase() === pn);
+      if (slot) out.slot = slot;
+      const corr = CORRECTIONS.filter(c => (c.hit || '').toUpperCase().includes(pn));
+      out.corr = corr;
+      return out;
+    }
+
+    function renderDecode(r) {
+      const host = $('dOut');
+      if (!r) { host.style.display = 'none'; return; }
+      host.style.display = '';
+      if (r.err) { host.innerHTML = `<div class="dnote warn">${esc(r.err)}</div>`; return; }
+
+      let segs = '';
+      r.segs.forEach((s, i) => {
+        if (i === 1 || (i === r.segs.length - 2 && r.segs[r.segs.length-1].r === 'version'))
+          segs += '<span class="dash2">–</span>';
+        segs += `<div class="seg2${s.pad?' pad':''}${s.unk?' unk':''}">
+          <div class="code">${esc(s.c)}</div><div class="role">${esc(s.r)}</div></div>`;
+      });
+
+      const cat = r.cat ? `<div class="dnote ok">
+        In the portfolio as <strong>${esc(r.cat.name)}</strong> —
+        ${esc(r.cat.rel)}${r.cat.shelf ? ' · fits ' + esc(r.cat.shelf.join(', ')) : ''}${r.cat.slots ? ' · ' + r.cat.slots + ' slots' : ''}.
+        <a href="gx-portfolio.html#pn=${encodeURIComponent(r.cat.name)}">Open its card &rsaquo;</a></div>` : '';
+      const slot = (r.slot && !r.cat) ? `<div class="dnote ok">
+        V3.0 scores this at <strong>${r.slot.slots} slot${r.slot.slots>1?'s':''}</strong> as sled “${esc(r.slot.sled)}”.</div>` : '';
+      const notes = r.notes.map(n => `<div class="dnote warn">${esc(n.t)}</div>`).join('');
+      const corr = (r.corr || []).map(c => `<div class="dnote warn"><strong>${esc(c.t)}</strong> — ${esc(c.d)}</div>`).join('');
+
+      host.innerHTML = `<div class="dsegs">${segs}</div>
+        <table class="dtable2"><tbody>${r.rows.map(([k,v]) => `<tr><td>${esc(k)}</td><td>${v}</td></tr>`).join('')}</tbody></table>
+        ${cat}${slot}${notes}${corr}`;
+    }
+
+    const input = $('pnIn');
+    const run = () => renderDecode(decode(input.value));
+    input.addEventListener('input', run);
+
+    [['G3S-C2RD12TI-W0','compact ROADM'], ['G3S-H3RD66TM-Z0','the legacy-code one'],
+     ['G3S-G1RPBMZZ-W0','Z padding'], ['GQS-OMD48EZZ-00','a passive shelf'],
+     ['G3S-C2ILASGH-L0','the L-band trap'], ['GQS-G31CHASZ-00','common equipment']
+    ].forEach(([pn, why]) => {
+      const b = document.createElement('button');
+      b.textContent = pn; b.title = why;
+      b.addEventListener('click', () => { input.value = pn; run(); });
+      $('samples').appendChild(b);
+    });
+    input.value = 'G3S-C2RD12TI-W0'; run();
+
+    /* =======================================================
+       TABLES
+       ======================================================= */
+    const row = cells => `<tr>${cells.join('')}</tr>`;
+    $('chassisRows').innerHTML = CHASSIS.map(c => row([
+      `<td class="code">${esc(c.n)}</td>`, `<td>${esc(c.series)} series</td>`, `<td>${esc(c.depth)}</td>`,
+      `<td>${esc(c.ff)}</td>`, `<td class="num">${c.rows ?? '—'}</td>`, `<td class="num">${c.slots ?? '—'}</td>`,
+      `<td class="num">${c.ru ?? '—'}</td>`,
+      `<td><span class="lifepill ${c.life}">${c.life}</span></td>`,
+      `<td style="color:var(--text-muted);font-size:12px">${esc(c.note)}</td>`])).join('');
+
+    $('sledCatRows').innerHTML = SLED_CAT.map(s => row([
+      `<td class="code">${esc(s.c)}</td>`, `<td>${esc(s.t)}</td>`,
+      `<td style="color:var(--text-muted)">${esc(s.r)}</td>`])).join('');
+
+    $('sledLetterRows').innerHTML = SLED_LETTERS.map(([c,t]) => row([
+      `<td class="code">${esc(c)}</td>`, `<td>${esc(t)}</td>`])).join('');
+
+    $('prefixRows').innerHTML = Object.entries(PREFIX).map(([k,v]) => row([
+      `<td class="code">${esc(k)}-</td>`, `<td><b>${esc(v.t)}</b> ${flag(v.src)}</td>`,
+      `<td style="color:var(--text-muted);font-size:12px">${esc(v.d)}</td>`])).join('');
+
+    $('formRows').innerHTML = Object.entries(FORM).map(([k,v]) => row([
+      `<td class="code">${esc(k)}</td>`, `<td><b>${esc(v.t)}</b> ${flag(v.src)}</td>`,
+      `<td style="color:var(--text-muted);font-size:12px">${esc(v.n)}</td>`])).join('');
+
+    const funcGroups = [...new Set(Object.values(FUNC).map(f => f.g))];
+    $('funcRows').innerHTML = funcGroups.flatMap(g =>
+      Object.entries(FUNC).filter(([,v]) => v.g === g).map(([k,v]) => row([
+        `<td class="code">${esc(k)}</td>`, `<td>${esc(v.t)} ${flag(v.src)}</td>`,
+        `<td style="color:var(--text-muted);font-size:12px">${esc(g)}</td>`]))).join('');
+
+    $('perfRows').innerHTML = Object.entries(PERF).map(([k,v]) => row([
+      `<td class="code">${esc(k)}</td>`, `<td>${esc(v.t)}</td>`,
+      `<td style="color:var(--text-muted);font-size:12px">${esc(v.g)}</td>`])).join('');
+
+    $('bandRows').innerHTML = Object.entries(BAND).map(([k,v]) => row([
+      `<td class="code">${esc(k)}</td>`, `<td><b>${esc(v.t)}</b> ${flag(v.src)}</td>`,
+      `<td class="num">${v.thz ?? '—'}</td>`,
+      `<td style="color:var(--text-muted);font-size:12px">${esc(v.up)}</td>`])).join('');
+
+    $('slotRows').innerHTML = V30_SLOTS.map(s => row([
+      `<td class="mono">${esc(s.pn)}</td>`, `<td>${esc(s.sled)}</td>`,
+      `<td class="num"><b>${s.slots}</b>${s.conflict?' <span class="sevtag conflict">conflict</span>':''}</td>`,
+      `<td style="color:var(--text-muted);font-size:12px">${esc(s.cls)}</td>`])).join('');
+
+    $('omdRows').innerHTML = OMD_SHELVES.map(o => row([
+      `<td class="code">${esc(o.n)}</td>`, `<td class="num">${o.ru} RU</td>`])).join('');
+
+    $('fixRows').innerHTML = CORRECTIONS.map(c => `
+      <div class="fixcard ${c.sev}" data-wt-card>
+        <h4>${esc(c.t)} <span class="sevtag ${c.sev}">${c.sev}</span></h4>
+        <p>${esc(c.d)}</p>
+        <div class="hits">${esc(c.hit)}</div>
+      </div>`).join('');
+
+    $('acroRows').innerHTML = ACRONYMS.map(([a,t]) => row([
+      `<td class="code">${esc(a)}</td>`, `<td>${esc(t)}</td>`])).join('');
+
+    /* =======================================================
+       FILTER + TOC
+       ======================================================= */
+    const q = $('wq');
+    q.addEventListener('input', () => {
+      const v = q.value.trim().toLowerCase();
+      document.querySelectorAll('table[data-wt] tbody tr').forEach(tr => {
+        tr.classList.toggle('hide', !!v && !tr.textContent.toLowerCase().includes(v));
+      });
+      document.querySelectorAll('[data-wt-card]').forEach(el => {
+        el.style.display = (!v || el.textContent.toLowerCase().includes(v)) ? '' : 'none';
+      });
+      document.querySelectorAll('table[data-wt]').forEach(t => {
+        const any = [...t.querySelectorAll('tbody tr')].some(r => !r.classList.contains('hide'));
+        t.style.display = any ? '' : 'none';
+        const h = t.previousElementSibling;
+        if (h && h.classList.contains('wsub')) h.style.display = any ? '' : 'none';
+      });
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === '/' && !/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)) {
+        e.preventDefault(); q.focus(); q.select();
+      }
+    });
+
+    const links = [...document.querySelectorAll('.toc a')];
+    const secs = links.map(a => document.querySelector(a.getAttribute('href')));
+    const io = new IntersectionObserver(es => {
+      es.forEach(e => {
+        if (!e.isIntersecting) return;
+        const i = secs.indexOf(e.target);
+        links.forEach((a, j) => a.classList.toggle('on', i === j));
+      });
+    }, { rootMargin: '-10% 0px -75% 0px' });
+    secs.forEach(s => s && io.observe(s));
+  })();
+  </script>
+</body>
+</html>

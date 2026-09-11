@@ -4,10 +4,12 @@ Static HTML companion to **SUMMA** (Quang's Nokia ON Sales Engineering
 automation). Lives in a private GitHub repo, opens directly from a local
 clone — no build step, no server.
 
-> **v1 status** (May 2026): Dashboard portfolio populated with 55-PN catalog.
-> MOFN page is now a full interactive HS OLS Configurator with capability-rule
-> engine, slot-based chassis math, and PowerDraw integration. Earlier v0.1
-> was a draft.
+> **v4 status** (Sep 2026): the configurator now produces a quotable BoM —
+> chassis kits, fans, PEMs, controllers, fillers and mount kits with real part
+> numbers — plus PEM/breaker sizing and sparing, OLP 1+1 protection with a
+> diverse route B, and an OSNR link budget that picks the amp strategy instead
+> of the user guessing. The portfolio page gained full-text search, field-scoped
+> queries and deep links.
 
 ## Pages
 
@@ -167,6 +169,35 @@ Summa Dashboard HTML/
 ```
 
 ## Changelog
+
+- **v4 (Sep 2026)** — *Complete BoM, redundancy & protection, OSNR gating.*
+  - **Common equipment**: every chassis now ships its real FRU list (chassis,
+    fans, controller, I/O panel, PEMs, slot/PSU/controller fillers, mounting
+    kit) sourced from the PowerDraw R9.0 per-FRU sheets, with weights. Power
+    stays on PowerDraw's measured chassis aggregate; only equipment beyond the
+    base build adds to it.
+  - **Redundancy**: controllers per chassis (1 / 1+1) and PEM feed
+    (non-redundant / 1+1 / 1:N), both feeding the BoM and the power budget.
+  - **PEM & breaker plan**: a new panel reproducing PowerDraw's own sizing —
+    input load at 0.90 efficiency, PEM count against a 1300 W module, and
+    minimum breaker current at 40.5 V with 0.85 derate. Matches the
+    spreadsheet to 0.01 A on the canonical G34c ILA site.
+  - **Protection**: OLP 1+1 adds an OPS module per fiber pair per term node and
+    a full diverse route B with its own ILA chain, rolled into power, space,
+    weight, PEM plan and spares.
+  - **Sparing**: percentage of deployed quantity per PN with an optional
+    minimum of one, excluding blanks and brackets.
+  - **OSNR gating**: fiber type, target transponder and line rate, launch power
+    and margin drive a link budget that walks EDFA → EDFA+Raman → Hybrid and
+    picks the first that closes — or says plainly that nothing does. The reach
+    model is now shared with the Transponder Advisor rather than duplicated.
+  - **Portfolio search**: free-text and field-scoped (`cat:`, `band:`, `rel:`…)
+    search across the quadrant, matrix and detail table, with live match counts,
+    highlighted hits, collapsing empty sections, `#pn=` / `#q=` deep links,
+    click-to-jump from the matrix, and `/` `Esc` `Enter` shortcuts.
+  - **Fixes**: duplicate OTDR line at the term node; G34c max@55 °C reported as
+    134 W instead of 381 W; chassis rows wrongly tagged `over-prov`; 9,521
+    trailing NUL bytes in `portfolio.html`.
 
 - **v1 (May 2026)** — Dashboard portfolio populated (55 PNs × 11 sections).
   MOFN page replaced with full interactive HS OLS Configurator. Engine
