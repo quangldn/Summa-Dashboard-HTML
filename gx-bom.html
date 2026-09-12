@@ -1,0 +1,1022 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GX BOM Configurator — SUMMA</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <style>
+    .wrap { max-width: 1500px; margin: 0 auto; padding: 18px 20px 60px; }
+
+    .hero { display: flex; align-items: flex-end; justify-content: space-between;
+            gap: 20px; flex-wrap: wrap; margin-bottom: 14px; }
+    .hero h1 { margin: 0 0 4px; font-size: 26px; color: var(--nokia-blue-deep); }
+    .hero p { margin: 0; color: var(--text-muted); max-width: 70ch; font-size: 13.5px; }
+    .src { font-size: 12px; color: var(--text-faint); white-space: nowrap; }
+
+    .tabs { display: flex; gap: 4px; border-bottom: 2px solid var(--border);
+            margin-bottom: 16px; flex-wrap: wrap; }
+    .tabs button { border: none; background: none; font: inherit; font-size: 13.5px;
+                   font-weight: 600; color: var(--text-muted); padding: 9px 14px;
+                   cursor: pointer; border-bottom: 2px solid transparent;
+                   margin-bottom: -2px; border-radius: 6px 6px 0 0; }
+    .tabs button:hover { background: var(--surface-2); color: var(--text); }
+    .tabs button[aria-selected="true"] { color: var(--nokia-blue);
+                   border-bottom-color: var(--nokia-blue); }
+    .tabs .spacer { flex: 1; }
+    .tabs .tool { font-weight: 500; font-size: 12.5px; color: var(--text-muted);
+                  border: 1px solid var(--border); background: var(--surface);
+                  border-radius: 6px; margin-bottom: 6px; }
+
+    .layout { display: grid; grid-template-columns: 264px minmax(0, 1fr) 290px;
+              gap: 16px; align-items: start; }
+    @media (max-width: 1180px) { .layout { grid-template-columns: 1fr; } }
+
+    .card { background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius); box-shadow: var(--shadow-sm);
+            padding: 14px; margin-bottom: 14px; }
+    .card h3 { margin: 0 0 10px; font-size: 12px; letter-spacing: .08em;
+               text-transform: uppercase; color: var(--text-faint); }
+
+    label.f { display: block; margin-bottom: 9px; font-size: 12px;
+              color: var(--text-muted); }
+    label.f > span { display: block; margin-bottom: 3px; font-weight: 600;
+                     color: var(--text-muted); }
+    select, input[type="text"], input[type="number"] {
+      width: 100%; font: inherit; font-size: 12.5px; padding: 5px 7px;
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      background: #fff; color: var(--text); }
+    select:focus, input:focus { outline: 2px solid var(--nokia-blue-light);
+                                outline-offset: -1px; }
+    select:disabled { background: var(--surface-2); color: var(--text-faint); }
+    .checks { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 4px; }
+    .checks label { font-size: 12.5px; color: var(--text-muted); display: flex;
+                    gap: 5px; align-items: center; cursor: pointer; }
+
+    .btn { font: inherit; font-size: 12.5px; font-weight: 600; padding: 5px 11px;
+           border-radius: var(--radius-sm); border: 1px solid var(--border);
+           background: var(--surface); color: var(--text); cursor: pointer; }
+    .btn:hover { background: var(--surface-2); }
+    .btn.primary { background: var(--nokia-blue); border-color: var(--nokia-blue);
+                   color: #fff; }
+    .btn.primary:hover { background: var(--nokia-blue-deep); }
+    .btn.ghost { border-color: transparent; color: var(--text-muted); }
+    .btnrow { display: flex; gap: 6px; flex-wrap: wrap; }
+
+    /* config list */
+    .clist { list-style: none; margin: 0 0 10px; padding: 0; }
+    .clist li { display: flex; align-items: center; gap: 6px; padding: 6px 8px;
+                border-radius: var(--radius-sm); cursor: pointer; font-size: 13px; }
+    .clist li:hover { background: var(--surface-2); }
+    .clist li[aria-current="true"] { background: #EAF0FB; font-weight: 600;
+                                     color: var(--nokia-blue-deep); }
+    .clist .nm { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis;
+                 white-space: nowrap; }
+    .clist .ch { font-size: 11px; color: var(--text-faint); font-weight: 500; }
+
+    /* chassis grid */
+    .shelf { border: 1px solid var(--border); border-radius: var(--radius);
+             background: linear-gradient(#FAFBFE, #F2F4FA); padding: 10px; }
+    .shelf + .shelf { margin-top: 10px; }
+    .shelf .rowlbl { font-size: 11px; letter-spacing: .07em; text-transform: uppercase;
+                     color: var(--text-faint); margin-bottom: 6px; font-weight: 600; }
+    .slots { display: grid; gap: 8px; }
+    .slot { border: 1px solid var(--border); border-radius: var(--radius-sm);
+            background: #fff; padding: 8px; min-height: 74px; }
+    .slot.filled { border-color: var(--nokia-blue-light);
+                   box-shadow: inset 3px 0 0 var(--nokia-blue); }
+    .slot.covered { background: repeating-linear-gradient(135deg, #F4F6FB,
+                    #F4F6FB 6px, #EDEFF7 6px, #EDEFF7 12px); border-style: dashed; }
+    .slot .hdr { display: flex; justify-content: space-between; align-items: center;
+                 font-size: 11px; color: var(--text-faint); font-weight: 700;
+                 letter-spacing: .05em; margin-bottom: 5px; }
+    .slot .hdr .grp { font-weight: 500; letter-spacing: 0; }
+    .slot .cover { font-size: 12px; color: var(--text-muted); padding-top: 12px;
+                   text-align: center; }
+    .slot .meta { font-size: 11px; color: var(--text-faint); margin-top: 5px;
+                  display: flex; gap: 8px; flex-wrap: wrap; }
+    .slot .meta b { font-weight: 600; color: var(--text-muted); }
+
+    .cages { margin-top: 7px; border-top: 1px dashed var(--border); padding-top: 6px; }
+    .cages .bank { font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em;
+                   color: var(--text-faint); margin: 4px 0 3px; font-weight: 700; }
+    .cages .grid { display: grid; gap: 4px; grid-template-columns:
+                   repeat(auto-fill, minmax(min(150px, 100%), 1fr)); }
+    .cage { display: flex; align-items: center; gap: 4px; min-width: 0; }
+    .cage select { min-width: 0; }
+    .cage .n { font-size: 10px; color: var(--text-faint); width: 16px; flex: none; }
+    .cage select { font-size: 11.5px; padding: 3px 5px; }
+    .cage select.set { border-color: var(--nokia-blue-light); background: #F7FAFF; }
+
+    /* summary */
+    .kv { display: flex; justify-content: space-between; gap: 10px; font-size: 12.5px;
+          padding: 4px 0; border-bottom: 1px solid var(--surface-2); }
+    .kv:last-child { border-bottom: none; }
+    .kv span { color: var(--text-muted); }
+    .kv b { font-variant-numeric: tabular-nums; font-weight: 600; }
+    .bar { height: 7px; border-radius: 4px; background: var(--surface-2);
+           overflow: hidden; margin: 4px 0 2px; }
+    .bar i { display: block; height: 100%; background: var(--nokia-blue); }
+    .bar i.warn { background: var(--warn); }
+    .bar i.over { background: #C8342B; }
+    .barlbl { display: flex; justify-content: space-between; font-size: 11px;
+              color: var(--text-faint); font-variant-numeric: tabular-nums; }
+
+    .flag { font-size: 12px; padding: 6px 8px; border-radius: var(--radius-sm);
+            background: #FDF6E6; border: 1px solid #F3E0B0; color: #6B5210;
+            margin-bottom: 6px; }
+    .flag.bad { background: #FDEEEC; border-color: #F2C7C2; color: #8A2A22; }
+    .ok { font-size: 12px; color: var(--text-faint); }
+
+    /* BOM table */
+    table.bom { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+    table.bom th { text-align: left; font-size: 11px; letter-spacing: .06em;
+                   text-transform: uppercase; color: var(--text-faint);
+                   border-bottom: 1px solid var(--border); padding: 6px 8px; }
+    table.bom td { padding: 5px 8px; border-bottom: 1px solid var(--surface-2);
+                   vertical-align: top; }
+    table.bom td.q { text-align: right; font-variant-numeric: tabular-nums;
+                     font-weight: 600; white-space: nowrap; }
+    table.bom td.pn { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+                      font-size: 11.5px; white-space: nowrap; }
+    table.bom tr.grp td { background: var(--surface-2); font-weight: 700;
+                          font-size: 11px; letter-spacing: .06em;
+                          text-transform: uppercase; color: var(--text-muted); }
+    table.bom td .src { display: block; font-size: 10.5px; color: var(--text-faint);
+                        white-space: normal; }
+    .unknown { color: #8A2A22; }
+
+    .scope { display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+             margin-bottom: 12px; }
+    .scope select { width: auto; min-width: 200px; }
+
+    .nodegrid { display: grid; grid-template-columns: repeat(auto-fill,
+                minmax(260px, 1fr)); gap: 12px; }
+    .pick { list-style: none; margin: 6px 0 0; padding: 0; }
+    .pick li { display: flex; align-items: center; gap: 6px; font-size: 12.5px;
+               padding: 3px 0; }
+    .pick li .nm { flex: 1; min-width: 0; overflow: hidden;
+                   text-overflow: ellipsis; white-space: nowrap; }
+    .pick li input[type="number"] { width: 56px; }
+    .empty { color: var(--text-faint); font-size: 12.5px; padding: 6px 0; }
+    .note { font-size: 11.5px; color: var(--text-faint); margin-top: 8px; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+           font-size: 11.5px; background: var(--surface-2); padding: 1px 4px;
+           border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="dot"></span>
+      SUMMA
+      <span class="sub">Nokia ON · Sales Engineering Workbench</span>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="gx-wiki.html">GX Wiki</a>
+      <a href="gx-portfolio.html">GX Portfolio</a>
+      <a href="gx-bom.html" class="active">GX BOM</a>
+      <a href="portfolio.html">HS Portfolio</a>
+      <a href="mofn.html">MOFN Deck</a>
+      <a href="market-insight.html">Market Insight</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <div class="hero">
+      <div>
+        <h1>GX BOM Configurator</h1>
+        <p>Config → node → network → BOM, on the rules extracted from the GX BOM
+           Configurator workbook. Slot legality, power, weight and part numbers
+           come from that workbook, not from hand-kept tables.</p>
+      </div>
+      <div class="src" id="src">loading rules…</div>
+    </div>
+
+    <div class="tabs" role="tablist">
+      <button role="tab" data-tab="config" aria-selected="true">Config</button>
+      <button role="tab" data-tab="node">Node</button>
+      <button role="tab" data-tab="network">Network</button>
+      <button role="tab" data-tab="bom">BOM</button>
+      <span class="spacer"></span>
+      <button class="tool" id="save">Save file</button>
+      <button class="tool" id="load">Open file</button>
+      <button class="tool" id="reset">Clear all</button>
+    </div>
+
+    <section id="tab-config"></section>
+    <section id="tab-node" hidden></section>
+    <section id="tab-network" hidden></section>
+    <section id="tab-bom" hidden></section>
+  </main>
+
+  <footer class="footer">
+    Built for Quang · Nokia ON Sales Engineering · Vietnam (GMT+7)
+  </footer>
+
+  <input type="file" id="file" accept="application/json" hidden />
+
+  <script src="assets/gx-bom-engine.js"></script>
+  <script>
+  (function () {
+    'use strict';
+
+    const $ = s => document.querySelector(s);
+    const el = (tag, attrs, kids) => {
+      const n = document.createElement(tag);
+      for (const k in (attrs || {})) {
+        if (k === 'class') n.className = attrs[k];
+        else if (k === 'text') n.textContent = attrs[k];
+        else if (k === 'html') n.innerHTML = attrs[k];
+        else if (k.startsWith('on')) n.addEventListener(k.slice(2), attrs[k]);
+        else if (attrs[k] === true) n.setAttribute(k, '');
+        else if (attrs[k] !== false && attrs[k] != null) n.setAttribute(k, attrs[k]);
+      }
+      (kids || []).forEach(c => n.appendChild(typeof c === 'string'
+        ? document.createTextNode(c) : c));
+      return n;
+    };
+    const num = v => (v == null ? 0 : Math.round(v * 10) / 10);
+    const KEY = 'summa.gxbom.v1';
+
+    let S = { configs: [], nodes: [], sites: [], sel: 0, selNode: 0, selSite: 0,
+              tab: 'config', bomScope: 'config:0' };
+
+    /* --------------------------------------------------------------- state */
+
+    function save() {
+      try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* private mode */ }
+    }
+    function restore() {
+      try {
+        const raw = localStorage.getItem(KEY);
+        if (raw) S = Object.assign(S, JSON.parse(raw));
+      } catch (e) { /* ignore */ }
+    }
+
+    function cfg() { return S.configs[S.sel] || null; }
+
+    function addConfig(chassisType) {
+      const c = GXBOM.defaultConfig(chassisType);
+      c.name = chassisType + ' #' + (S.configs.filter(x =>
+        x.chassisType === chassisType).length + 1);
+      S.configs.push(c);
+      S.sel = S.configs.length - 1;
+      return c;
+    }
+
+    /* ------------------------------------------------------------- helpers */
+
+    function opts(sel, values, current, blank) {
+      sel.innerHTML = '';
+      if (blank) sel.appendChild(el('option', { value: '' }, [blank]));
+      values.forEach(v => {
+        const value = typeof v === 'string' ? v : v.value;
+        const label = typeof v === 'string' ? v : v.label;
+        const o = el('option', { value: value }, [label]);
+        if (typeof v !== 'string' && v.disabled) o.disabled = true;
+        if (String(current) === String(value)) o.selected = true;
+        sel.appendChild(o);
+      });
+    }
+
+    function field(labelText, control) {
+      return el('label', { class: 'f' }, [el('span', { text: labelText }), control]);
+    }
+
+    function selectField(labelText, values, current, onchange, blank, disabled) {
+      const s = el('select');
+      opts(s, values, current, blank);
+      if (disabled) s.disabled = true;
+      s.addEventListener('change', () => onchange(s.value));
+      return field(labelText, s);
+    }
+
+    function check(labelText, current, onchange) {
+      const i = el('input', { type: 'checkbox' });
+      i.checked = !!current;
+      i.addEventListener('change', () => onchange(i.checked));
+      return el('label', {}, [i, labelText]);
+    }
+
+    /* ------------------------------------------------------ config tab: UI */
+
+    function renderConfigTab() {
+      const host = $('#tab-config');
+      host.innerHTML = '';
+      const layout = el('div', { class: 'layout' });
+
+      /* ---- left rail: the configs themselves */
+      const left = el('div');
+      const listCard = el('div', { class: 'card' }, [el('h3', { text: 'Configs' })]);
+      if (!S.configs.length) {
+        listCard.appendChild(el('div', { class: 'empty',
+          text: 'No configs yet — add a chassis below.' }));
+      }
+      const ul = el('ul', { class: 'clist' });
+      S.configs.forEach((c, i) => {
+        ul.appendChild(el('li', {
+          'aria-current': i === S.sel ? 'true' : 'false',
+          onclick: () => { S.sel = i; save(); renderConfigTab(); },
+        }, [
+          el('span', { class: 'nm', text: c.name }),
+          el('span', { class: 'ch', text: c.chassisType }),
+        ]));
+      });
+      listCard.appendChild(ul);
+
+      const addSel = el('select');
+      opts(addSel, GXBOM.chassisNames(), '', 'Add chassis…');
+      addSel.addEventListener('change', () => {
+        if (!addSel.value) return;
+        addConfig(addSel.value); save(); renderConfigTab();
+      });
+      listCard.appendChild(addSel);
+      if (S.configs.length) {
+        listCard.appendChild(el('div', { class: 'btnrow', style: 'margin-top:8px' }, [
+          el('button', { class: 'btn', onclick: () => {
+            const c = JSON.parse(JSON.stringify(cfg()));
+            c.name = c.name + ' copy';
+            S.configs.splice(S.sel + 1, 0, c); S.sel++; save(); renderConfigTab();
+          } }, ['Duplicate']),
+          el('button', { class: 'btn ghost', onclick: () => {
+            S.configs.splice(S.sel, 1);
+            S.sel = Math.max(0, S.sel - 1);
+            S.nodes.forEach(n => delete n.members['' + S.sel]);
+            save(); renderConfigTab();
+          } }, ['Delete']),
+        ]));
+      }
+      left.appendChild(listCard);
+
+      const c = cfg();
+      if (c) left.appendChild(chassisCard(c));
+      layout.appendChild(left);
+
+      /* ---- middle: the shelf. Kept in its own container so that placing a
+             card or a pluggable repaints only the shelf and the numbers,
+             not the whole page — filling sixteen cages should not mean
+             sixteen scroll jumps. */
+      const mid = el('div', { id: 'shelfHost' });
+      layout.appendChild(mid);
+      const right = el('div', { id: 'sumHost' });
+      layout.appendChild(right);
+
+      host.appendChild(layout);
+      refreshShelf();
+    }
+
+    function refreshShelf() {
+      const c = cfg();
+      const mid = $('#shelfHost');
+      if (!mid) return;
+      mid.innerHTML = '';
+      if (!c) {
+        mid.appendChild(el('div', { class: 'card' }, [
+          el('div', { class: 'empty',
+            text: 'Pick a chassis on the left to start a configuration.' })]));
+      } else {
+        mid.appendChild(shelfCard(c));
+      }
+      refreshSummary();
+    }
+
+    function refreshSummary() {
+      const c = cfg();
+      const right = $('#sumHost');
+      if (!right) return;
+      right.innerHTML = '';
+      if (c) right.appendChild(summaryCard(GXBOM.buildBOM(c), c));
+    }
+
+    function chassisCard(c) {
+      const card = el('div', { class: 'card' }, [el('h3', { text: 'Chassis' })]);
+
+      const nameInput = el('input', { type: 'text', value: c.name });
+      nameInput.addEventListener('input', () => {
+        c.name = nameInput.value; save();
+        const li = document.querySelector('.clist li[aria-current="true"] .nm');
+        if (li) li.textContent = c.name;
+      });
+      card.appendChild(field('Name', nameInput));
+
+      const ch = GXBOM.chassis(c.chassisType);
+      card.appendChild(selectField('Chassis variant',
+        ch.variants.map(v => ({ value: v.kitPon, label: v.description || v.kitPon })),
+        c.variant, v => {
+          c.variant = v;
+          const pw = GXBOM.powerOptions(c);
+          const ct = GXBOM.controllerOptions(c);
+          if (!pw.some(p => p.option === c.powerOption)) {
+            c.powerOption = pw.length ? pw[0].option : null;
+          }
+          if (!ct.some(p => p.option === c.controllerOption)) {
+            c.controllerOption = ct.length ? ct[0].option : null;
+          }
+          save(); renderConfigTab();
+        }));
+
+      const pw = GXBOM.powerOptions(c);
+      card.appendChild(selectField('Power configuration',
+        pw.map(p => ({ value: p.option,
+                       label: p.option + (p.pemCount ? '  ·  ' + p.pemCount + ' PEM' : '') })),
+        c.powerOption, v => { c.powerOption = v || null; save(); refreshSummary(); },
+        pw.length ? null : 'in the kit', !pw.length));
+
+      const cables = GXBOM.powerCableOptions(c);
+      card.appendChild(selectField('Power cable',
+        cables.filter(x => x.pon).map(x => x.description),
+        c.powerCable, v => { c.powerCable = v || null; save(); refreshSummary(); },
+        cables.length ? 'procured locally' : 'in the kit', !cables.length));
+
+      const eth = GXBOM.ethernetCableOptions(c);
+      card.appendChild(selectField('Ethernet cable',
+        eth.filter(x => x.pon).map(x => x.description),
+        c.ethernetCable, v => { c.ethernetCable = v || null; save(); refreshSummary(); },
+        'procured locally', !eth.length));
+
+      const kits = GXBOM.mountKitOptions(c);
+      card.appendChild(selectField('Mounting kit',
+        kits.filter(x => x.pon).map(x => x.description),
+        c.mountingKit, v => { c.mountingKit = v || null; save(); refreshSummary(); },
+        'none', !kits.length));
+
+      const ct = GXBOM.controllerOptions(c);
+      card.appendChild(selectField('Controllers',
+        ct.map(p => p.option), c.controllerOption,
+        v => { c.controllerOption = v || null; save(); refreshSummary(); },
+        ct.length ? null : 'in the kit', !ct.length));
+
+      const v = GXBOM.variant(c.chassisType, c.variant) || {};
+      const checks = el('div', { class: 'checks' }, [
+        check('Fillers', c.fillers, x => { c.fillers = x; save(); refreshSummary(); }),
+      ]);
+      if (v.airFilterPon) checks.appendChild(check('Dust filter', c.dustFilter,
+        x => { c.dustFilter = x; save(); refreshSummary(); }));
+      if (v.airBafflePon) checks.appendChild(check('Air baffle', c.airBaffle,
+        x => { c.airBaffle = x; save(); refreshSummary(); }));
+      if (v.cableGuidePon) checks.appendChild(check('Cable guide', c.cableGuide,
+        x => { c.cableGuide = x; save(); refreshSummary(); }));
+      card.appendChild(field('Include', checks));
+
+      card.appendChild(el('h3', { text: 'Software', style: 'margin-top:14px' }));
+      card.appendChild(selectField('GX OS release', GXBOM.releasesFor(c.chassisType),
+        c.release, v2 => { c.release = v2 || null; save(); refreshSummary(); }));
+      card.appendChild(selectField('GX OS level', ['Basic', 'Advanced'], c.swLevel,
+        v2 => { c.swLevel = v2; save(); refreshSummary(); }));
+
+      const nms = GXBOM.nmsTable(c.chassisType);
+      const swChecks = el('div', { class: 'checks' }, [
+        check('NMS licences', c.nmsEnable,
+          x => { c.nmsEnable = x; save(); renderConfigTab(); }),
+      ]);
+      if (ch.encryptionPon) swChecks.appendChild(check('Encryption', c.encryption,
+        x => { c.encryption = x; save(); refreshSummary(); }));
+      if (c.nmsEnable) {
+        swChecks.appendChild(check('L0 restoration', c.l0Restoration,
+          x => { c.l0Restoration = x; save(); refreshSummary(); }));
+        swChecks.appendChild(check('L0/L1 automation', c.l0l1Automation,
+          x => { c.l0l1Automation = x; save(); refreshSummary(); }));
+      }
+      card.appendChild(field('Options', swChecks));
+      if (c.nmsEnable && nms.length) {
+        card.appendChild(selectField('Node type', nms.map(n => n.configType),
+          c.nmsType, v2 => { c.nmsType = v2; save(); refreshSummary(); }));
+      }
+      return card;
+    }
+
+    function shelfCard(c) {
+      const ch = GXBOM.chassis(c.chassisType);
+      const plan = GXBOM.slotPlan(c);
+      const perRow = ch.sledSlotsPerRow || ch.slotsPerRow || plan.length;
+      const rows = Math.max(1, Math.ceil(plan.length / perRow));
+
+      const card = el('div', { class: 'card' }, [
+        el('h3', { text: c.chassisType + '  ·  ' + plan.length + ' slots  ·  ' +
+                         (ch.ru || '?') + ' RU' }),
+      ]);
+
+      for (let r = 0; r < rows; r++) {
+        const shelf = el('div', { class: 'shelf' });
+        if (rows > 1) shelf.appendChild(el('div', { class: 'rowlbl', text: 'Row ' + (r + 1) }));
+        const grid = el('div', { class: 'slots',
+          style: 'grid-template-columns: repeat(' + Math.min(perRow, 4) + ', minmax(0,1fr))' });
+        for (let k = 0; k < perRow; k++) {
+          const i = r * perRow + k;
+          if (i >= plan.length) break;
+          grid.appendChild(slotCell(c, plan, i));
+        }
+        shelf.appendChild(grid);
+        card.appendChild(shelf);
+      }
+      card.appendChild(el('div', { class: 'note', html:
+        'Slot groups come from the workbook’s own <code>TEMPLATE_SLED_VLISTS</code> ' +
+        'table — a card is offered only where the configurator would offer it. ' +
+        'Multi-slot cards cover the slots to their right.' }));
+      return card;
+    }
+
+    function slotCell(c, plan, i) {
+      const p = plan[i];
+      const cell = el('div', { class: 'slot' + (p.covered ? ' covered' :
+                                                 p.sled ? ' filled' : '') });
+      cell.appendChild(el('div', { class: 'hdr' }, [
+        el('span', { text: 'Slot ' + p.label }),
+        el('span', { class: 'grp', text: p.covered ? '' : (p.group || '') }),
+      ]));
+
+      if (p.covered) {
+        cell.appendChild(el('div', { class: 'cover',
+          text: plan[p.coveredBy].sled + ' (slot ' + plan[p.coveredBy].label + ')' }));
+        return cell;
+      }
+
+      const legal = GXBOM.legalSleds(c, i);
+      const sel = el('select');
+      opts(sel, legal.map(x => ({
+        value: x.sled,
+        label: x.sled + (x.width > 1 ? '  (' + x.width + ' slots)' : '') +
+               (x.fits ? '' : '  — ' + x.why),
+        disabled: !x.fits && x.sled !== (c.slots[i] || {}).sled,
+      })), (c.slots[i] || {}).sled || 'EMPTY');
+      sel.addEventListener('change', () => {
+        c.slots[i] = { sled: sel.value, line: {}, client: {} };
+        save(); refreshShelf();
+      });
+      cell.appendChild(sel);
+
+      if (p.sled && p.sled !== 'EMPTY') {
+        const s = GXBOM.rules().sleds[p.sled];
+        if (s) {
+          const meta = el('div', { class: 'meta' });
+          if (s.classification) meta.appendChild(el('span', { text: s.classification }));
+          if (s.w40) meta.appendChild(el('span', {}, [el('b', { text: s.w40 + ' W' })]));
+          if (s.weightKg) meta.appendChild(el('span', { text: s.weightKg + ' kg' }));
+          (s.requiredPons || []).forEach(pn =>
+            meta.appendChild(el('span', { class: 'pn', text: pn })));
+          cell.appendChild(meta);
+          cell.appendChild(cages(c, i, p.sled));
+        }
+      }
+      return cell;
+    }
+
+    function cages(c, i, sledName) {
+      const ports = GXBOM.sledPorts(sledName);
+      const box = el('div', { class: 'cages' });
+      const sel = c.slots[i];
+      sel.line = sel.line || {};
+      sel.client = sel.client || {};
+
+      function bank(title, list, kind) {
+        if (!list.length) return;
+        box.appendChild(el('div', { class: 'bank', text: title }));
+        const grid = el('div', { class: 'grid' });
+        list.forEach(port => {
+          const key = (kind === 'line' ? 'L' : 'C') + port.bank + '.' + port.index;
+          const choices = GXBOM.list(port.table);
+          const s = el('select');
+          opts(s, choices.filter(x => x.pon || x.description)
+                          .map(x => x.description || x.pon),
+               sel[kind][key], '—');
+          if (sel[kind][key]) s.className = 'set';
+          s.addEventListener('change', () => {
+            if (s.value) sel[kind][key] = s.value; else delete sel[kind][key];
+            s.className = s.value ? 'set' : '';
+            save(); refreshSummary();
+          });
+          grid.appendChild(el('div', { class: 'cage' }, [
+            el('span', { class: 'n', text: (port.bank ? (port.bank + 1) + ':' : '') +
+                                           (port.index + 1) }),
+            s,
+          ]));
+        });
+        box.appendChild(grid);
+      }
+
+      bank('Line', ports.line, 'line');
+      bank('Client cages', ports.client, 'client');
+      return box;
+    }
+
+    function summaryCard(bom, c) {
+      const s = bom.summary;
+      const card = el('div', { class: 'card' }, [el('h3', { text: 'This config' })]);
+
+      card.appendChild(el('div', { class: 'kv' }, [
+        el('span', { text: 'Slots used' }),
+        el('b', { text: s.slotsUsed + ' / ' + s.slotsTotal })]));
+      card.appendChild(el('div', { class: 'kv' }, [
+        el('span', { text: 'Rack units' }), el('b', { text: (s.ru || '—') + ' RU' })]));
+      card.appendChild(el('div', { class: 'kv' }, [
+        el('span', { text: 'Weight' }), el('b', { text: s.weightKg + ' kg' })]));
+      card.appendChild(el('div', { class: 'kv' }, [
+        el('span', { text: 'Parts' }),
+        el('b', { text: s.partCount + ' in ' + s.lineCount + ' lines' })]));
+
+      card.appendChild(el('h3', { text: 'Power', style: 'margin-top:14px' }));
+      ['25 °C', '40 °C', '55 °C'].forEach((t, i) => {
+        const draw = s.power.total[i];
+        const cap = s.feedCapacityW ? s.feedCapacityW[i] : 0;
+        const pct = cap ? Math.min(100, (draw / cap) * 100) : 0;
+        const cls = !cap ? '' : draw > cap ? 'over' : (draw / cap > 0.8 ? 'warn' : '');
+        card.appendChild(el('div', { class: 'barlbl' }, [
+          el('span', { text: t }),
+          el('span', { text: num(draw) + ' W' + (cap ? ' / ' + num(cap) + ' W' : '') })]));
+        card.appendChild(el('div', { class: 'bar' }, [
+          el('i', { class: cls, style: 'width:' + pct + '%' })]));
+      });
+      card.appendChild(el('div', { class: 'kv', style: 'margin-top:6px' }, [
+        el('span', { text: 'Chassis / sleds @ 40 °C' }),
+        el('b', { text: num(s.power.chassis[1]) + ' / ' + num(s.power.sled[1]) + ' W' })]));
+      if (s.pemCount) {
+        card.appendChild(el('div', { class: 'kv' }, [
+          el('span', { text: 'PEMs' }), el('b', { text: s.pemCount })]));
+      }
+
+      card.appendChild(el('h3', { text: 'Checks', style: 'margin-top:14px' }));
+      if (!bom.warnings.length) {
+        card.appendChild(el('div', { class: 'ok', text: 'No rule breaks found.' }));
+      }
+      bom.warnings.forEach(w => card.appendChild(el('div', {
+        class: 'flag' + (/exceeds|past the end/.test(w) ? ' bad' : ''), text: w })));
+
+      const unknown = bom.lines.filter(l => !l.known);
+      if (unknown.length) {
+        card.appendChild(el('div', { class: 'flag', text: unknown.length +
+          ' part(s) not in the PON master: ' + unknown.map(l => l.pon).join(', ') }));
+      }
+      (s.notShippable || []).forEach(n => card.appendChild(el('div', { class: 'flag',
+        text: n.pon + ' is ' + n.status.toLowerCase() +
+              (n.phase ? ' (' + n.phase.toLowerCase() + ')' : '') +
+              ' — check availability before quoting' })));
+
+      card.appendChild(el('div', { class: 'btnrow', style: 'margin-top:12px' }, [
+        el('button', { class: 'btn primary', onclick: () => {
+          S.bomScope = 'config:' + S.sel; show('bom');
+        } }, ['View BOM']),
+      ]));
+      return card;
+    }
+
+    /* ------------------------------------------------------------ node tab */
+
+    function renderNodeTab() {
+      const host = $('#tab-node');
+      host.innerHTML = '';
+      host.appendChild(el('div', { class: 'card' }, [
+        el('h3', { text: 'Multi-chassis nodes' }),
+        el('div', { class: 'note', html:
+          'A node is one network element made of several chassis — the ' +
+          'workbook’s MC CONFIG. Group configs here; the BOM tab rolls them up.' }),
+        el('div', { class: 'btnrow', style: 'margin-top:10px' }, [
+          el('button', { class: 'btn primary', onclick: () => {
+            S.nodes.push({ name: 'Node ' + (S.nodes.length + 1), members: {} });
+            save(); renderNodeTab();
+          } }, ['Add node']),
+        ]),
+      ]));
+
+      if (!S.configs.length) {
+        host.appendChild(el('div', { class: 'card' }, [el('div', { class: 'empty',
+          text: 'Build at least one config first.' })]));
+        return;
+      }
+
+      const grid = el('div', { class: 'nodegrid' });
+      S.nodes.forEach((n, ni) => {
+        const card = el('div', { class: 'card' });
+        const nm = el('input', { type: 'text', value: n.name });
+        nm.addEventListener('input', () => { n.name = nm.value; save(); });
+        card.appendChild(field('Node name', nm));
+
+        const ul = el('ul', { class: 'pick' });
+        S.configs.forEach((c, ci) => {
+          const qty = el('input', { type: 'number', min: '0', step: '1',
+                                    value: n.members[ci] || 0 });
+          qty.addEventListener('input', () => {
+            const v = parseInt(qty.value, 10) || 0;
+            if (v > 0) n.members[ci] = v; else delete n.members[ci];
+            save(); renderNodeTab();
+          });
+          ul.appendChild(el('li', {}, [
+            el('span', { class: 'nm', text: c.name }),
+            el('span', { class: 'ch', text: c.chassisType }),
+            qty,
+          ]));
+        });
+        card.appendChild(ul);
+
+        const boms = [], mult = [];
+        Object.keys(n.members).forEach(k => {
+          const c = S.configs[k];
+          if (!c) return;
+          boms.push(GXBOM.buildBOM(c)); mult.push(n.members[k]);
+        });
+        if (boms.length) {
+          const m = GXBOM.mergeBOMs(boms, mult).summary;
+          card.appendChild(el('div', { class: 'kv', style: 'margin-top:8px' }, [
+            el('span', { text: 'Chassis' }),
+            el('b', { text: mult.reduce((a, b) => a + b, 0) })]));
+          card.appendChild(el('div', { class: 'kv' }, [
+            el('span', { text: 'Rack units' }), el('b', { text: m.ru + ' RU' })]));
+          card.appendChild(el('div', { class: 'kv' }, [
+            el('span', { text: 'Weight' }), el('b', { text: m.weightKg + ' kg' })]));
+          card.appendChild(el('div', { class: 'kv' }, [
+            el('span', { text: 'Power @ 40 °C' }),
+            el('b', { text: num(m.power.total[1]) + ' W' })]));
+        } else {
+          card.appendChild(el('div', { class: 'empty', text: 'No chassis in this node.' }));
+        }
+
+        card.appendChild(el('div', { class: 'btnrow', style: 'margin-top:10px' }, [
+          el('button', { class: 'btn', onclick: () => {
+            S.bomScope = 'node:' + ni; show('bom');
+          } }, ['BOM']),
+          el('button', { class: 'btn ghost', onclick: () => {
+            S.nodes.splice(ni, 1); save(); renderNodeTab();
+          } }, ['Delete']),
+        ]));
+        grid.appendChild(card);
+      });
+      host.appendChild(grid);
+    }
+
+    /* --------------------------------------------------------- network tab */
+
+    function renderNetworkTab() {
+      const host = $('#tab-network');
+      host.innerHTML = '';
+      host.appendChild(el('div', { class: 'card' }, [
+        el('h3', { text: 'Network' }),
+        el('div', { class: 'note', text:
+          'Sites, each holding one or more nodes. The network BOM is every ' +
+          'site rolled together — what goes on a quote.' }),
+        el('div', { class: 'btnrow', style: 'margin-top:10px' }, [
+          el('button', { class: 'btn primary', onclick: () => {
+            S.sites.push({ name: 'Site ' + (S.sites.length + 1), members: {} });
+            save(); renderNetworkTab();
+          } }, ['Add site']),
+        ]),
+      ]));
+
+      if (!S.nodes.length) {
+        host.appendChild(el('div', { class: 'card' }, [el('div', { class: 'empty',
+          text: 'Build at least one node first.' })]));
+        return;
+      }
+
+      const grid = el('div', { class: 'nodegrid' });
+      S.sites.forEach((st, si) => {
+        const card = el('div', { class: 'card' });
+        const nm = el('input', { type: 'text', value: st.name });
+        nm.addEventListener('input', () => { st.name = nm.value; save(); });
+        card.appendChild(field('Site name', nm));
+
+        const ul = el('ul', { class: 'pick' });
+        S.nodes.forEach((n, ni) => {
+          const qty = el('input', { type: 'number', min: '0', step: '1',
+                                    value: st.members[ni] || 0 });
+          qty.addEventListener('input', () => {
+            const v = parseInt(qty.value, 10) || 0;
+            if (v > 0) st.members[ni] = v; else delete st.members[ni];
+            save(); renderNetworkTab();
+          });
+          ul.appendChild(el('li', {}, [el('span', { class: 'nm', text: n.name }), qty]));
+        });
+        card.appendChild(ul);
+
+        const roll = siteBOM(st);
+        if (roll) {
+          card.appendChild(el('div', { class: 'kv', style: 'margin-top:8px' }, [
+            el('span', { text: 'Rack units' }), el('b', { text: roll.summary.ru + ' RU' })]));
+          card.appendChild(el('div', { class: 'kv' }, [
+            el('span', { text: 'Weight' }),
+            el('b', { text: roll.summary.weightKg + ' kg' })]));
+          card.appendChild(el('div', { class: 'kv' }, [
+            el('span', { text: 'Power @ 40 °C' }),
+            el('b', { text: num(roll.summary.power.total[1]) + ' W' })]));
+        }
+        card.appendChild(el('div', { class: 'btnrow', style: 'margin-top:10px' }, [
+          el('button', { class: 'btn', onclick: () => {
+            S.bomScope = 'site:' + si; show('bom');
+          } }, ['BOM']),
+          el('button', { class: 'btn ghost', onclick: () => {
+            S.sites.splice(si, 1); save(); renderNetworkTab();
+          } }, ['Delete']),
+        ]));
+        grid.appendChild(card);
+      });
+      host.appendChild(grid);
+    }
+
+    /* ------------------------------------------------------------- BOM tab */
+
+    function nodeBOM(n) {
+      const boms = [], mult = [];
+      Object.keys(n.members).forEach(k => {
+        const c = S.configs[k];
+        if (!c) return;
+        boms.push(GXBOM.buildBOM(c)); mult.push(n.members[k]);
+      });
+      return boms.length ? GXBOM.mergeBOMs(boms, mult) : null;
+    }
+    function siteBOM(st) {
+      const boms = [], mult = [];
+      Object.keys(st.members).forEach(k => {
+        const n = S.nodes[k];
+        if (!n) return;
+        const b = nodeBOM(n);
+        if (b) { boms.push(b); mult.push(st.members[k]); }
+      });
+      return boms.length ? GXBOM.mergeBOMs(boms, mult) : null;
+    }
+
+    function scopeBOM() {
+      const [kind, idx] = String(S.bomScope).split(':');
+      const i = parseInt(idx, 10);
+      if (kind === 'config') return S.configs[i] ? GXBOM.buildBOM(S.configs[i]) : null;
+      if (kind === 'node') return S.nodes[i] ? nodeBOM(S.nodes[i]) : null;
+      if (kind === 'site') return S.sites[i] ? siteBOM(S.sites[i]) : null;
+      if (kind === 'network') {
+        const boms = S.sites.map(siteBOM).filter(Boolean);
+        return boms.length ? GXBOM.mergeBOMs(boms) : null;
+      }
+      return null;
+    }
+
+    function renderBomTab() {
+      const host = $('#tab-bom');
+      host.innerHTML = '';
+
+      const choices = [];
+      S.configs.forEach((c, i) => choices.push({ value: 'config:' + i,
+        label: 'Config — ' + c.name }));
+      S.nodes.forEach((n, i) => choices.push({ value: 'node:' + i,
+        label: 'Node — ' + n.name }));
+      S.sites.forEach((s, i) => choices.push({ value: 'site:' + i,
+        label: 'Site — ' + s.name }));
+      if (S.sites.length) choices.push({ value: 'network', label: 'Whole network' });
+
+      const scope = el('div', { class: 'scope' });
+      const sel = el('select');
+      opts(sel, choices, S.bomScope);
+      sel.addEventListener('change', () => { S.bomScope = sel.value; save(); renderBomTab(); });
+      scope.appendChild(sel);
+
+      const bom = scopeBOM();
+      scope.appendChild(el('button', { class: 'btn', disabled: !bom, onclick: () => {
+        if (!bom) return;
+        download(csvName() + '.csv', GXBOM.toCSV(bom, { sorted: true, sources: true }),
+                 'text/csv');
+      } }, ['Download CSV']));
+      scope.appendChild(el('button', { class: 'btn', disabled: !bom, onclick: () => {
+        if (!bom) return;
+        navigator.clipboard.writeText(GXBOM.toCSV(bom, { sorted: true }));
+      } }, ['Copy']));
+      host.appendChild(scope);
+
+      if (!bom) {
+        host.appendChild(el('div', { class: 'card' }, [el('div', { class: 'empty',
+          text: 'Nothing to roll up yet.' })]));
+        return;
+      }
+
+      const s = bom.summary;
+      const stats = el('div', { class: 'card' }, [
+        el('h3', { text: 'Roll-up' }),
+        el('div', { class: 'kv' }, [el('span', { text: 'Lines' }),
+          el('b', { text: s.lineCount })]),
+        el('div', { class: 'kv' }, [el('span', { text: 'Parts' }),
+          el('b', { text: s.partCount })]),
+        el('div', { class: 'kv' }, [el('span', { text: 'Weight' }),
+          el('b', { text: s.weightKg + ' kg' })]),
+        el('div', { class: 'kv' }, [el('span', { text: 'Rack units' }),
+          el('b', { text: (s.ru || '—') + ' RU' })]),
+        el('div', { class: 'kv' }, [el('span', { text: 'Power 25 / 40 / 55 °C' }),
+          el('b', { text: s.power.total.map(num).join(' / ') + ' W' })]),
+      ]);
+      bom.warnings.forEach(w => stats.appendChild(el('div', { class: 'flag', text: w })));
+      (s.notShippable || []).forEach(n => stats.appendChild(el('div', { class: 'flag',
+        text: n.pon + ' is ' + String(n.status).toLowerCase() +
+              (n.phase ? ' (' + String(n.phase).toLowerCase() + ')' : '') +
+              ' — check availability before quoting' })));
+      const unknown = bom.lines.filter(l => !l.known);
+      if (unknown.length) {
+        stats.appendChild(el('div', { class: 'flag', text: unknown.length +
+          ' part(s) not in the PON master: ' + unknown.map(l => l.pon).join(', ') }));
+      }
+
+      const table = el('table', { class: 'bom' });
+      table.appendChild(el('thead', {}, [el('tr', {}, [
+        el('th', { text: 'PON' }), el('th', { text: 'Description' }),
+        el('th', { text: 'Status' }), el('th', { text: 'Qty' })])]));
+      const tb = el('tbody');
+      const lines = bom.lines.slice().sort(GXBOM.sortLines);
+      let group = null;
+      lines.forEach(l => {
+        const g = l.typeLabel || 'Other';
+        if (g !== group) {
+          group = g;
+          tb.appendChild(el('tr', { class: 'grp' }, [el('td', { colspan: '4', text: g })]));
+        }
+        const shippable = !l.salesStatus || /shippable/i.test(l.salesStatus);
+        tb.appendChild(el('tr', {}, [
+          el('td', { class: 'pn' + (l.known ? '' : ' unknown'), text: l.pon }),
+          el('td', {}, [
+            document.createTextNode(l.description || ''),
+            l.sources && l.sources.length
+              ? el('span', { class: 'src', text: l.sources.join(' · ') })
+              : document.createTextNode(''),
+          ]),
+          el('td', { class: shippable ? '' : 'unknown',
+                     text: l.known ? (l.salesStatus || '') : 'not in PON master' }),
+          el('td', { class: 'q', text: l.qty }),
+        ]));
+      });
+      table.appendChild(tb);
+
+      const layout = el('div', { class: 'layout',
+        style: 'grid-template-columns: minmax(0,1fr) 290px' });
+      layout.appendChild(el('div', { class: 'card' }, [table]));
+      layout.appendChild(stats);
+      host.appendChild(layout);
+    }
+
+    function csvName() {
+      const [kind, idx] = String(S.bomScope).split(':');
+      const i = parseInt(idx, 10);
+      const nm = kind === 'config' ? (S.configs[i] || {}).name
+               : kind === 'node' ? (S.nodes[i] || {}).name
+               : kind === 'site' ? (S.sites[i] || {}).name : 'network';
+      return 'GX-BOM-' + String(nm || 'bom').replace(/[^A-Za-z0-9]+/g, '-');
+    }
+
+    function download(name, text, mime) {
+      const a = el('a', { href: URL.createObjectURL(new Blob([text], { type: mime })),
+                          download: name });
+      document.body.appendChild(a); a.click(); a.remove();
+    }
+
+    /* ---------------------------------------------------------------- shell */
+
+    function show(tab) {
+      S.tab = tab; save();
+      document.querySelectorAll('.tabs button[role=tab]').forEach(b =>
+        b.setAttribute('aria-selected', b.dataset.tab === tab ? 'true' : 'false'));
+      ['config', 'node', 'network', 'bom'].forEach(t =>
+        $('#tab-' + t).hidden = t !== tab);
+      if (tab === 'config') renderConfigTab();
+      if (tab === 'node') renderNodeTab();
+      if (tab === 'network') renderNetworkTab();
+      if (tab === 'bom') renderBomTab();
+    }
+
+    document.querySelectorAll('.tabs button[role=tab]').forEach(b =>
+      b.addEventListener('click', () => show(b.dataset.tab)));
+
+    $('#save').addEventListener('click', () =>
+      download('summa-gx-bom.json', JSON.stringify(S, null, 2), 'application/json'));
+    $('#load').addEventListener('click', () => $('#file').click());
+    $('#file').addEventListener('change', e => {
+      const f = e.target.files[0];
+      if (!f) return;
+      const r = new FileReader();
+      r.onload = () => {
+        try { S = Object.assign(S, JSON.parse(r.result)); save(); show(S.tab || 'config'); }
+        catch (err) { alert('That file is not a saved GX BOM workspace.'); }
+      };
+      r.readAsText(f);
+    });
+    $('#reset').addEventListener('click', () => {
+      if (!confirm('Clear every config, node and site?')) return;
+      S = { configs: [], nodes: [], sites: [], sel: 0, tab: 'config', bomScope: 'config:0' };
+      save(); show('config');
+    });
+
+    fetch('assets/gx-rules.json')
+      .then(r => r.json())
+      .then(rules => {
+        GXBOM.init(rules);
+        const m = rules.meta;
+        $('#src').textContent = m.source_file +
+          (m.tool_version ? '  ·  ' + m.tool_version : '') +
+          '  ·  extracted ' + (m.extracted_utc || '').slice(0, 10);
+        restore();
+        show(S.tab || 'config');
+      })
+      .catch(() => {
+        $('#src').textContent = 'rules not found';
+        $('#tab-config').innerHTML = '<div class="card"><div class="empty">' +
+          'assets/gx-rules.json is missing. Run ' +
+          '<code>python3 tools/extract-gx-rules.py "GX BOM Configurator V3.0.xlsm" ' +
+          '-o assets/gx-rules.json</code>.</div></div>';
+      });
+  }());
+  </script>
+</body>
+</html>
