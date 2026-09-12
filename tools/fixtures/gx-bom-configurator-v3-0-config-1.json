@@ -1,1 +1,107 @@
-
+{
+  "source": "GX BOM Configurator V3.0.xlsm",
+  "sheet": "CONFIG #1",
+  "config": {
+    "name": "CONFIG #1",
+    "chassisType": "G40",
+    "variant": "G40-MDE+",
+    "variantDesc": "G42 Chassis KIT with 4x DC PEMs and Enhanced IO",
+    "powerOption": "4 PEM - 1:3 (In the Kit)",
+    "controllerOption": "Dual Controller",
+    "mountingKit": null,
+    "powerCable": null,
+    "ethernetCable": null,
+    "dustFilter": false,
+    "airBaffle": false,
+    "cableGuide": false,
+    "fillers": true,
+    "release": "R9.1.0",
+    "swLevel": "Basic",
+    "encryption": false,
+    "nmsEnable": false,
+    "nmsType": "XPONDER",
+    "l0Restoration": false,
+    "l0l1Automation": false,
+    "slots": [
+      {
+        "sled": "CHM7-C8",
+        "line": {},
+        "client": {
+          "C0.0": "QSFP-DD 400G BASE-FR4",
+          "C0.1": "QSFP-DD 400G BASE-FR4",
+          "C0.2": "QSFP-DD 4x100G BASE-LR1"
+        }
+      },
+      {
+        "sled": "CHM7-C8",
+        "line": {},
+        "client": {
+          "C0.0": "QSFP-DD 400G BASE-FR4",
+          "C0.1": "QSFP-DD 400G BASE-FR4",
+          "C0.2": "QSFP-DD 4x100G BASE-LR1"
+        }
+      },
+      {
+        "sled": "CHM7-C8",
+        "line": {},
+        "client": {
+          "C0.0": "QSFP-DD 400G BASE-FR4",
+          "C0.1": "QSFP-DD 400G BASE-FR4",
+          "C0.2": "QSFP-DD 4x100G BASE-LR1"
+        }
+      },
+      {
+        "sled": "G42 FILLER",
+        "line": {},
+        "client": {}
+      }
+    ]
+  },
+  "expected": [
+    {
+      "pon": "G40-MDE+",
+      "description": "G42 Chassis KIT with 1x XMM4, 4x GX-PEM-DC, 1x GX-AIRFLTR, 1x GX-IOP-ENHCD",
+      "qty": 1
+    },
+    {
+      "pon": "XMM4",
+      "description": "XMM controller for GX",
+      "qty": 1
+    },
+    {
+      "pon": "CHM7-C8",
+      "description": "CHM7 Transponder, 2.4T Max capacity, Type 8, Super C-Band",
+      "qty": 3
+    },
+    {
+      "pon": "GS-CHM7-8",
+      "description": "GS SW License CHM7 Type 8",
+      "qty": 3
+    },
+    {
+      "pon": "GX-BLANK",
+      "description": "Active Blank for GX SLED Slot",
+      "qty": 1
+    },
+    {
+      "pon": "ZXS-QDF4ZZZZ-00",
+      "description": "QSFP-DD 400G BASE-FR4",
+      "qty": 6
+    },
+    {
+      "pon": "ZXS-QD4XLR1Z-00",
+      "description": "QSFP-DD 4x100G BASE-LR1",
+      "qty": 3
+    },
+    {
+      "pon": "GS-BP-9.1.0-XMM4",
+      "description": "R9.1.0 XMM4 Basic pckg SW CFG Option",
+      "qty": 2
+    },
+    {
+      "pon": "GS-BASIC-PKG-G40",
+      "description": "Basic G40 Converged OS Software package license per-chassis",
+      "qty": 1
+    }
+  ]
+}
