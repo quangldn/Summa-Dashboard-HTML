@@ -47,6 +47,12 @@
           blurb: 'Shelf geometry and slot ranges, the release timeline through ' +
                  'R27.Q4, the planning guide’s own 715-term glossary, and an ' +
                  'honest list of what the sources do not cover.' },
+        { group: 'Solutions', href: 'portfolio-insight.html',
+          label: 'Portfolio Insight', icon: 'PI',
+          blurb: 'The optical portfolio at a glance — what each shelf can host, ' +
+                 'the transponder rate ladder and capacity per slot, and the ' +
+                 'optical layer\u2019s spectrum, ROADM scale, span loss and ' +
+                 'add/drop classes. GX, PSS, or the two side by side.' },
         { group: 'Solutions', href: 'dci.html', label: 'DCI Picker', icon: 'DC',
           blurb: 'Give it the line rate, the client mix and the site, and it ' +
                  'ranks the GX and PSS transponders that can carry it — naming ' +

@@ -1,0 +1,1033 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio Insight — SUMMA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/theme.css" />
+  <link rel="stylesheet" href="assets/nav-bar.css" />
+  <link rel="stylesheet" href="assets/cmdk.css" />
+  <script src="assets/nav.js" defer></script>
+  <script src="assets/cmdk.js" defer></script>
+  <script src="assets/insight-charts.js" defer></script>
+
+  <style>
+  /* ====================================================================
+     Portfolio insight — three views over the same two platforms.
+
+     Chart colour lives in the --series-* roles below and is declared for
+     both themes, because dark is a selected palette rather than a flip.
+     The pair is categorical slot 1 (blue) and slot 2 (orange); both modes
+     pass every gate in the validator — lightness band, chroma floor, CVD
+     separation, normal-vision floor and contrast against the surface.
+     ==================================================================== */
+
+  :root {
+    --series-gx:   #2a78d6;   /* slot 1 — blue   */
+    --series-pss:  #eb6834;   /* slot 2 — orange */
+    --seq-lo:      #cde2fb;
+    --seq-hi:      #184f95;
+    --viz-grid:    #E6E8EF;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --series-gx:  #3987e5;
+      --series-pss: #d95926;
+      --seq-lo:     #17233B;
+      --seq-hi:     #6da7ec;
+      --viz-grid:   #272C36;
+    }
+  }
+  :root[data-theme="dark"] {
+    --series-gx:  #3987e5;
+    --series-pss: #d95926;
+    --seq-lo:     #17233B;
+    --seq-hi:     #6da7ec;
+    --viz-grid:   #272C36;
+  }
+
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 20px 64px; }
+  html { overflow-x: clip; }
+  [hidden] { display: none !important; }
+
+  .head { padding: 26px 0 14px; }
+  .head p { margin: 8px 0 0; color: var(--ink-2); font-size: 13.5px;
+            line-height: 1.55; max-width: 66ch; }
+
+  /* ------------------------------------------------- tabs + scope bar */
+  .bar { display: flex; gap: 14px 20px; align-items: center; flex-wrap: wrap;
+         padding: 12px 0 16px; border-bottom: 1px solid var(--line);
+         position: sticky; top: 0; z-index: 30; background: var(--bg); }
+  .tabs { display: flex; gap: 3px; }
+  .tabs button {
+    font: inherit; font-size: 13px; font-weight: 600; color: var(--ink-2);
+    background: transparent; border: 0; border-radius: var(--r-sm);
+    padding: 7px 13px; cursor: pointer;
+    transition: background var(--fast) var(--ease), color var(--fast) var(--ease);
+  }
+  .tabs button:hover { background: var(--surface-2); color: var(--ink); }
+  .tabs button[aria-selected="true"] { background: var(--accent-soft); color: var(--accent); }
+
+  .scope { display: flex; gap: 4px; margin-left: auto; align-items: center; }
+  .scope.views { margin-left: auto; }
+  .scope.views + .scope { margin-left: 0; }
+  .scope .t-label { margin-right: 4px; }
+  .scope button {
+    font: inherit; font-size: 12.5px; font-weight: 600; color: var(--ink-2);
+    background: var(--surface-2); border: 1px solid transparent;
+    border-radius: var(--r-sm); padding: 5px 12px; cursor: pointer;
+  }
+  .scope button:hover { background: var(--surface-3); color: var(--ink); }
+  .scope button[aria-pressed="true"] {
+    background: var(--accent); border-color: var(--accent); color: var(--ink-on-accent);
+  }
+
+  /* -------------------------------------------------------------- panels */
+  .panel { background: var(--surface); border: 1px solid var(--line);
+           border-radius: var(--r-lg); padding: 18px 20px 20px; margin-top: 18px; }
+  .panel > header { display: flex; gap: 12px; align-items: baseline;
+                    flex-wrap: wrap; margin-bottom: 4px; }
+  .panel > header h2 { font-size: 16px; }
+  .panel > header .sub { font-size: 12.5px; color: var(--ink-2); flex: 1 1 260px; }
+  .panel .note { margin: 10px 0 0; font-size: 12px; line-height: 1.55;
+                 color: var(--ink-2); max-width: 78ch; }
+  .panel .note b { color: var(--ink); font-weight: 600; }
+
+  .two { display: grid; gap: 18px; grid-template-columns: 1fr 1fr; }
+  @media (max-width: 900px) { .two { grid-template-columns: 1fr; } }
+
+  /* ------------------------------------------------- shelf spec sheets */
+  .sheets { display: grid; gap: 14px; margin-top: 14px;
+            grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); }
+  .sheet { background: var(--surface-2); border: 1px solid var(--line);
+           border-radius: var(--r); padding: 14px 15px 15px; }
+  .sheet > header h3 { display: flex; align-items: center; gap: 8px;
+                       flex-wrap: wrap; font-size: 15px; }
+  .sheet-sub { margin-top: 3px; font-size: 12px; color: var(--ink-2); }
+
+  .sheet-key { display: grid; grid-template-columns: 1.25fr 1fr 1fr; gap: 1px;
+               background: var(--line); border: 1px solid var(--line);
+               border-radius: var(--r-sm); overflow: hidden; margin: 12px 0 12px; }
+  .kf { background: var(--surface); padding: 8px 10px; min-width: 0; }
+  .kf-v { font-size: 17px; font-weight: 680; letter-spacing: -.02em;
+          line-height: 1.15; margin-top: 1px; }
+  .kf-s { font-size: 10.5px; color: var(--ink-3); margin-top: 1px;
+          line-height: 1.3; }
+
+  dl.spec { display: grid; grid-template-columns: 96px 1fr; gap: 5px 12px;
+            margin: 0 0 12px; font-size: 12px; }
+  dl.spec dt { color: var(--ink-3); }
+  dl.spec dd { margin: 0; color: var(--ink); line-height: 1.45; }
+
+  .kit { margin: 0 0 12px; }
+  .kit > .t-label { display: block; margin-bottom: 6px; }
+  .kit-r { display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+           padding: 3px 0; font-size: 11.5px; }
+  .kit-l { color: var(--ink-3); min-width: 84px; }
+  .kit-d { color: var(--ink-2); flex: 1 1 100%; font-size: 11px;
+           line-height: 1.4; padding-left: 92px; }
+  @media (max-width: 420px) { .kit-d { padding-left: 0; } }
+
+  .chipset { margin-top: 10px; }
+  .chipset > .t-label { display: block; margin-bottom: 5px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 4px; }
+  .chip { font-size: 10.5px; font-weight: 600; padding: 2px 7px;
+          border-radius: var(--r-pill); background: var(--surface);
+          border: 1px solid var(--line); color: var(--ink-2);
+          white-space: nowrap; }
+  .chip.more { background: transparent; border-style: dashed; color: var(--ink-3); }
+  .sheet-note { margin: 11px 0 0; font-size: 11.5px; line-height: 1.5;
+                color: var(--ink-2); font-style: italic; }
+  .sheet-warn { margin: 11px 0 0; font-size: 11.5px; line-height: 1.5;
+                color: var(--warn-ink); background: var(--warn-soft);
+                border-radius: var(--r-sm); padding: 8px 10px; }
+  .sheet-warn b { font-weight: 650; }
+
+  /* ------------------------------------------------------------ KPI row */
+  .viz-kpi { display: grid; gap: 1px; background: var(--line);
+             border: 1px solid var(--line); border-radius: var(--r);
+             grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+             overflow: hidden; }
+  .viz-kpi-c { background: var(--surface); padding: 12px 14px; }
+  .viz-kpi-v { font-size: 26px; font-weight: 680; letter-spacing: -.025em;
+               line-height: 1.1; margin-top: 2px; }
+  .viz-kpi-s { font-size: 11px; color: var(--ink-3); margin-top: 2px;
+               line-height: 1.35; }
+
+  /* --------------------------------------------------------- heat grid */
+  .viz-grid-wrap { overflow-x: auto; margin-top: 14px; }
+  table.viz-grid { border-collapse: separate; border-spacing: 2px; font-size: 12px; }
+  table.viz-grid th { font-weight: 600; color: var(--ink-2); text-align: left;
+                      padding: 4px 6px; white-space: nowrap; font-size: 11.5px; }
+  table.viz-grid thead th span { display: block; }
+  table.viz-grid tbody th { padding-right: 10px; }
+  table.viz-grid td { padding: 0; }
+  /* Fill and ink are both computed per cell in insight-charts.js, against
+     the ramp step the cell actually lands on — so the number is legible at
+     every step and the value can be read back by the contrast check. */
+  .viz-cell {
+    display: flex; align-items: center; justify-content: center;
+    min-width: 46px; height: 28px; border-radius: var(--r-sm);
+    font-size: 11.5px; font-weight: 650; font-variant-numeric: tabular-nums;
+    cursor: default;
+  }
+  .viz-cell:hover { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .viz-cell-0 { display: flex; align-items: center; justify-content: center;
+                min-width: 46px; height: 28px; color: var(--ink-3); }
+
+  /* ------------------------------------------------------------- charts */
+  .viz-svg { width: 100%; height: auto; display: block; margin-top: 12px; }
+  .viz-grid-l { stroke: var(--viz-grid); stroke-width: 1; }
+  .viz-tick { fill: var(--ink-3); font-size: 10px; font-weight: 600;
+              font-variant-numeric: tabular-nums; }
+  .viz-rowlab { fill: var(--ink-2); font-size: 11.5px; }
+  .viz-val { fill: var(--ink-2); font-size: 11px; font-weight: 600; }
+  .viz-track { fill: var(--viz-grid); }
+  .viz-mark { cursor: default; }
+  .viz-mark:hover path, .viz-mark:focus path { filter: brightness(1.12); }
+  .viz-mark:focus { outline: none; }
+  .viz-mark:focus-visible path { stroke: var(--ink); stroke-width: 1.5; }
+  .viz-empty { font-size: 12.5px; color: var(--ink-3); font-style: italic; }
+
+  .viz-legend { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 12px; }
+  .viz-legend-i { display: inline-flex; align-items: center; gap: 7px;
+                  font-size: 12px; color: var(--ink-2); }
+  .viz-legend-i i { width: 11px; height: 11px; border-radius: 3px; flex: none; }
+  .viz-legend-i i.line { height: 2px; border-radius: 1px; }
+
+  .viz-tip { position: fixed; z-index: 90; pointer-events: none;
+             background: var(--surface); border: 1px solid var(--line-strong);
+             border-radius: var(--r-sm); box-shadow: var(--float);
+             padding: 8px 10px; max-width: 260px; }
+  .viz-tip-h { font-size: 11.5px; font-weight: 650; color: var(--ink);
+               margin-bottom: 4px; }
+  .viz-tip-r { display: flex; align-items: baseline; gap: 7px; font-size: 12px;
+               color: var(--ink-2); }
+  .viz-tip-r i { width: 10px; height: 2px; border-radius: 1px; flex: none;
+                 align-self: center; }
+  .viz-tip-r b { color: var(--ink); font-weight: 650;
+                 font-variant-numeric: tabular-nums; }
+
+  /* -------------------------------------------------------- table view */
+  .tv { margin-top: 12px; }
+  .tv summary { cursor: pointer; font-size: 12px; font-weight: 600;
+                color: var(--ink-2); list-style: none; }
+  .tv summary::-webkit-details-marker { display: none; }
+  .tv summary::before { content: '▸ '; color: var(--ink-3); }
+  .tv[open] summary::before { content: '▾ '; }
+  .tv.open { margin-top: 14px; }
+  .tv-bar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+            margin-bottom: 6px; }
+  .tv-bar .btn { margin-left: auto; }
+  .tv table { width: 100%; border-collapse: collapse; margin-top: 10px;
+              font-size: 12px; }
+  .tv.open { overflow-x: auto; }
+  .tv.open table { min-width: 640px; }
+  .tv th.sortable { cursor: pointer; user-select: none; white-space: nowrap; }
+  .tv th.sortable:hover { color: var(--ink); }
+  .tv th.sortable span::after { content: ''; display: inline-block; width: 0;
+                                margin-left: 4px; }
+  .tv th[aria-sort="ascending"] span::after { content: ' \2191'; }
+  .tv th[aria-sort="descending"] span::after { content: ' \2193'; }
+  .tv th[aria-sort]:not([aria-sort="none"]) { color: var(--accent); }
+  .tv tbody tr:hover td { background: var(--surface-2); }
+  .tv th, .tv td { text-align: left; padding: 5px 10px 5px 0;
+                   border-bottom: 1px solid var(--line);
+                   vertical-align: top; }
+  .tv.open td { white-space: nowrap; max-width: 340px; overflow: hidden;
+                text-overflow: ellipsis; }
+  .tv.open td:hover { white-space: normal; overflow: visible; }
+  .tv th { color: var(--ink-3); font-weight: 650; font-size: 11px;
+           text-transform: uppercase; letter-spacing: .05em; }
+  .tv td.num, .tv th.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+  .foot { border-top: 1px solid var(--line); margin-top: 42px; padding: 18px 0 0;
+          color: var(--ink-3); font-size: 12px; line-height: 1.6; }
+  </style>
+</head>
+<body>
+
+  <header id="summa-nav"></header>
+
+  <main class="wrap">
+    <section class="head">
+      <h1>Portfolio Insight</h1>
+      <p>The reference sheet, not the sales pitch. Dimensions, operating
+         temperature, slots, the fastest line each shelf will carry and which
+         clients can land on it — then the transponder and optical numbers
+         behind those. Every figure is computed from the same sources the
+         configurators run on, so nothing here is a slide that has drifted
+         from the data.</p>
+    </section>
+
+    <div class="bar">
+      <div class="tabs" role="tablist" id="tabs"></div>
+      <div class="scope views">
+        <span class="t-label">View</span>
+        <button type="button" data-view="cards">Cards</button>
+        <button type="button" data-view="table">Table</button>
+      </div>
+      <div class="scope">
+        <span class="t-label">Platform</span>
+        <button type="button" data-scope="GX">GX</button>
+        <button type="button" data-scope="PSS">PSS</button>
+        <button type="button" data-scope="BOTH">Combined</button>
+      </div>
+    </div>
+
+    <section id="view"></section>
+
+    <footer class="foot" id="foot"></footer>
+  </main>
+
+<script>
+(function () {
+  'use strict';
+
+  var DATA = null;
+  var state = { tab: 'overview', scope: 'BOTH', view: 'cards' };
+
+  var TABS = [
+    { id: 'overview',   label: 'Portfolio overview' },
+    { id: 'transponder', label: 'Transponder insight' },
+    { id: 'optical',    label: 'Optical layer insight' },
+  ];
+
+  var $ = function (id) { return document.getElementById(id); };
+  var el, legend;
+
+  function colorFor(platform) {
+    return platform === 'GX' ? 'var(--series-gx)' : 'var(--series-pss)';
+  }
+  function platforms() {
+    return state.scope === 'BOTH' ? ['GX', 'PSS'] : [state.scope];
+  }
+  function seriesList() {
+    return platforms().map(function (p) {
+      return { label: p === 'GX' ? '1830 GX' : '1830 PSS / PSI', color: colorFor(p) };
+    });
+  }
+  function fmtG(v) {
+    if (v == null) return '—';
+    return v >= 1000 ? (v % 1000 ? (v / 1000).toFixed(1) : v / 1000) + 'T' : v + 'G';
+  }
+
+  /* In table mode the visual half of a panel is suppressed, so a caller
+     wraps its chart in this rather than branching at every call site. */
+  function chartOnly(node) { return state.view === 'table' ? null : node; }
+
+  function panel(title, sub, kids, note) {
+    var p = el('section', { class: 'panel' }, [
+      el('header', {}, [
+        el('h2', { text: title }),
+        sub ? el('div', { class: 'sub', text: sub }) : null,
+      ]),
+    ]);
+    (kids || []).forEach(function (k) { if (k) p.appendChild(k); });
+    if (note) p.appendChild(el('p', { class: 'note', html: note }));
+    return p;
+  }
+
+  /* Every chart ships a table view, so no value is gated behind a hover —
+     and in table mode the table IS the panel: open, sortable, and copyable,
+     because the numbers are worth pulling into a sheet of your own. */
+  function tableView(cols, rows, label) {
+    if (state.view === 'table') {
+      var box = el('div', { class: 'tv open' }, [
+        el('div', { class: 'tv-bar' }, [
+          el('span', { class: 't-label', text: label || (rows.length + ' rows') }),
+          el('button', { class: 'btn', type: 'button', text: 'Copy as TSV',
+            onclick: function (e) { copyTSV(cols, rows, e.target); } }),
+        ]),
+        dataTable(cols, rows),
+      ]);
+      return box;
+    }
+    var d = el('details', { class: 'tv' }, [
+      el('summary', { text: label || 'Table view' }),
+      dataTable(cols, rows),
+    ]);
+    return d;
+  }
+
+  /* Sort state lives on the table, not in page state — two tables on one
+     screen sort independently, which is what you expect of them. */
+  function dataTable(cols, rows) {
+    var t = el('table');
+    var sort = { key: null, dir: 1 };
+
+    function paint() {
+      var body = rows.slice();
+      if (sort.key) {
+        body.sort(function (a, b) {
+          var x = a[sort.key], y = b[sort.key];
+          if (x == null && y == null) return 0;
+          if (x == null) return 1;              // blanks last, either direction
+          if (y == null) return -1;
+          if (typeof x === 'number' && typeof y === 'number') return (x - y) * sort.dir;
+          return String(x).localeCompare(String(y), undefined, { numeric: true }) * sort.dir;
+        });
+      }
+      var tb = el('tbody');
+      body.forEach(function (r) {
+        tb.appendChild(el('tr', {}, cols.map(function (c) {
+          var v = r[c.key];
+          return el('td', { class: c.num ? 'num' : '',
+                            text: v == null || v === '' ? '—' : String(v) });
+        })));
+      });
+      var old = t.querySelector('tbody');
+      if (old) t.replaceChild(tb, old); else t.appendChild(tb);
+      Array.prototype.forEach.call(t.querySelectorAll('th'), function (th, i) {
+        var on = cols[i].key === sort.key;
+        th.setAttribute('aria-sort', on ? (sort.dir > 0 ? 'ascending' : 'descending') : 'none');
+      });
+    }
+
+    t.appendChild(el('thead', {}, [el('tr', {}, cols.map(function (c) {
+      return el('th', { class: c.num ? 'num sortable' : 'sortable',
+        scope: 'col', tabindex: '0', role: 'columnheader', 'aria-sort': 'none',
+        onclick: function () {
+          sort.dir = sort.key === c.key ? -sort.dir : 1;
+          sort.key = c.key; paint();
+        },
+        onkeydown: function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            sort.dir = sort.key === c.key ? -sort.dir : 1;
+            sort.key = c.key; paint();
+          }
+        },
+      }, [el('span', { text: c.label })]);
+    }))]));
+    paint();
+    return t;
+  }
+
+  /* TSV rather than CSV: it pastes straight into Excel and Sheets without a
+     delimiter dialog, and nothing here contains a tab. */
+  function copyTSV(cols, rows, btn) {
+    var lines = [cols.map(function (c) { return c.label; }).join('\t')];
+    rows.forEach(function (r) {
+      lines.push(cols.map(function (c) {
+        var v = r[c.key];
+        return v == null ? '' : String(v).replace(/[\t\r\n]+/g, ' ');
+      }).join('\t'));
+    });
+    var text = lines.join('\n');
+    var done = function () {
+      var was = btn.textContent;
+      btn.textContent = 'Copied ' + rows.length + ' rows';
+      setTimeout(function () { btn.textContent = was; }, 1600);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { fallback(text, done); });
+    } else { fallback(text, done); }
+  }
+
+  function fallback(text, done) {
+    var ta = el('textarea', { style: 'position:fixed;opacity:0;left:-9999px' });
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); done(); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
+  // =========================================================== overview
+  /* Not statistics — the sheet you actually reach for: how big it is, how
+     cold it will run, how many slots you get, the fastest line it will carry
+     and which clients can land on it. */
+  function viewOverview() {
+    var out = el('div');
+    var ps = platforms();
+    var shelves = DATA.shelves.filter(function (sh) {
+      return state.scope === 'BOTH' ? true
+        : state.scope === 'GX' ? sh.platform === 'GX' : sh.platform !== 'GX';
+    }).sort(function (a, b) {
+      return (b.maxLineG || 0) - (a.maxLineG || 0) ||
+             (b.slots || 0) - (a.slots || 0) ||
+             a.name.localeCompare(b.name);
+    });
+
+    var grid = el('div', { class: 'sheets' });
+    shelves.forEach(function (sh) { grid.appendChild(shelfCard(sh)); });
+
+    out.appendChild(panel(
+      'Shelf and chassis reference',
+      shelves.length + ' shelves — dimensions, environment, slots, and what each can carry',
+      [chartOnly(grid),
+       tableView([
+         { key: 'name', label: 'Shelf' },
+         { key: 'platform', label: 'Platform' },
+         { key: 'ru', label: 'RU', num: true },
+         { key: 'depthMm', label: 'Depth mm', num: true },
+         { key: 'dimensions', label: 'H × W × D' },
+         { key: 'weightKg', label: 'Weight kg', num: true },
+         { key: 'tempLo', label: 'Temp min °C', num: true },
+         { key: 'tempHi', label: 'Temp max °C', num: true },
+         { key: 'slots', label: 'Service slots', num: true },
+         { key: 'slotsHalf', label: 'Half-height', num: true },
+         { key: 'slotsFull', label: 'Full-height', num: true },
+         { key: 'slotsCommon', label: 'Common slots', num: true },
+         { key: 'slotsGrid', label: 'Grid total', num: true },
+         { key: 'grid', label: 'Grid' },
+         { key: 'dualCtrl', label: 'Dual controller' },
+         { key: 'fanCount', label: 'Fans', num: true },
+         { key: 'fanRedundancy', label: 'Fan scheme' },
+         { key: 'psuCount', label: 'PSU', num: true },
+         { key: 'psuRedundancy', label: 'PSU scheme' },
+         { key: 'maxLineG', label: 'Max line G', num: true },
+         { key: 'transponders', label: 'Transponders', num: true },
+         { key: 'nClients', label: 'Client types', num: true },
+         { key: 'clients', label: 'Client services' },
+         { key: 'bandList', label: 'Bands' },
+         { key: 'mounting', label: 'Mounting' },
+         { key: 'powerSupply', label: 'Feed' },
+         { key: 'pemCapacity', label: 'PEM capacity' },
+         { key: 'applications', label: 'Applications' },
+         { key: 'release', label: 'Release' },
+       ], shelves.map(function (sh) {
+         var r = {}; for (var k in sh) r[k] = sh[k];
+         r.nClients = (sh.clientServices || []).length;
+         r.clients = (sh.clientServices || []).join(', ');
+         r.bandList = (sh.bands || []).join(', ');
+         r.grid = sh.gridRows && sh.gridCols
+           ? sh.gridRows + ' x ' + sh.gridCols : null;
+         r.dualCtrl = sh.controllerDual === true ? 'Yes'
+                    : sh.controllerDual === false ? 'No' : null;
+         return r;
+       }), 'Full comparison table')],
+      'Depth and operating temperature are the two figures that decide a site. ' +
+      'Where a source does not state one it is left blank rather than filled ' +
+      'in — the GX datasheets carry no operating range, so those cells are ' +
+      'empty rather than guessed.'));
+
+    return out;
+  }
+
+  function chips(label, items, limit) {
+    if (!items || !items.length) return null;
+    var shown = limit ? items.slice(0, limit) : items;
+    var box = el('div', { class: 'chipset' }, [
+      el('span', { class: 't-label', text: label }),
+    ]);
+    var row = el('div', { class: 'chips' });
+    shown.forEach(function (t) { row.appendChild(el('span', { class: 'chip', text: t })); });
+    if (limit && items.length > limit) {
+      row.appendChild(el('span', { class: 'chip more',
+        text: '+' + (items.length - limit) + ' more' }));
+    }
+    box.appendChild(row);
+    return box;
+  }
+
+  function shelfCard(sh) {
+    var card = el('article', { class: 'sheet' });
+
+    card.appendChild(el('header', {}, [
+      el('h3', {}, [
+        el('span', { text: sh.name }),
+        el('span', { class: 'pill mute', text: sh.platform }),
+        sh.status === 'por' || sh.status === 'poi'
+          ? el('span', { class: 'pill warn', text: sh.release || 'roadmap' }) : null,
+      ]),
+      el('div', { class: 'sheet-sub', text:
+        [sh.ru ? sh.ru + ' RU' : null,
+         sh.depthMm ? sh.depthMm + ' mm deep' : null,
+         sh.applications].filter(Boolean).join(' · ') }),
+    ]));
+
+    // The three figures that answer "will this work here?"
+    card.appendChild(el('div', { class: 'sheet-key' }, [
+      keyFig('Service slots', sh.slotsFull != null && sh.slotsHalf != null
+        ? num(sh.slotsHalf) + ' / ' + num(sh.slotsFull)
+        : (sh.slots != null ? num(sh.slots) : '—'),
+        slotSub(sh)),
+      keyFig('Max line', sh.maxLineG ? fmtG(sh.maxLineG) : '—',
+        sh.transponders
+          ? sh.transponders + (sh.transponders === 1 ? ' transponder' : ' transponders')
+          : 'no transponder listed'),
+      keyFig('Temp', sh.tempLo != null ? sh.tempLo + '° to ' + sh.tempHi + '°' : '—',
+        sh.tempLo != null ? 'operating' : 'not stated'),
+    ]));
+
+    var dl = el('dl', { class: 'spec' });
+    [['Dimensions', sh.dimensions],
+     ['Shelf grid', sh.gridRows && sh.gridCols
+       ? sh.gridRows + ' rows x ' + sh.gridCols + ' columns' +
+         (sh.slotsGrid ? ' = ' + num(sh.slotsGrid) + ' positions' : '') : null],
+     ['Weight', sh.weightKg ? sh.weightKg + ' kg' : null],
+     ['Mounting', sh.mounting],
+     ['Feed', sh.powerSupply],
+     ['PEM capacity', sh.pemCapacity],
+     ['Airflow', sh.fans],
+     ['Draw', sh.powerRaw],
+    ].forEach(function (kv) {
+      if (!kv[1]) return;
+      dl.appendChild(el('dt', { text: kv[0] }));
+      dl.appendChild(el('dd', { text: kv[1] }));
+    });
+    if (dl.children.length) card.appendChild(dl);
+
+    var kit = commonKit(sh);
+    if (kit) card.appendChild(kit);
+
+    var cs = chips('Client types', sh.clientServices, 8);
+    if (cs) card.appendChild(cs);
+    var bs = chips('Bands', sh.bands);
+    if (bs) card.appendChild(bs);
+    var hs = chips('Hosts', (sh.hosts || []).map(function (h) {
+      return h.function + ' ' + h.count;
+    }));
+    if (hs) card.appendChild(hs);
+
+    if (sh.note) card.appendChild(el('p', { class: 'sheet-note', text: sh.note }));
+    return card;
+  }
+
+  function num(v) { return v == null ? '—' : String(v); }
+
+  /* A slot count is only useful if you know what it counts. The datasheet
+     figure is service slots — sled positions — and the common equipment sits
+     outside it, so say so and say how many extra positions it takes. */
+  function slotSub(sh) {
+    var parts = [];
+    if (sh.slotsHalf != null && sh.slotsFull != null) parts.push('half / full');
+    if (sh.slotsCommon) {
+      parts.push('+' + num(sh.slotsCommon) + ' common');
+    } else if (sh.slotsIncludesCommon === false) {
+      parts.push('common not counted');
+    }
+    return parts.join(' · ') || 'service slots';
+  }
+
+  /* Controller redundancy, fans and power modules — the three things that
+     decide whether the shelf survives a single failure, and the three counts
+     a BOM needs. */
+  function commonKit(sh) {
+    var rows = [];
+
+    if (sh.controllerDual != null || sh.controller) {
+      rows.push({
+        label: 'Controller',
+        value: sh.controllerDual === true ? 'Dual capable'
+             : sh.controllerDual === false ? 'Single only' : '—',
+        state: sh.controllerDual === true ? 'ok'
+             : sh.controllerDual === false ? 'warn' : 'mute',
+        detail: sh.controller,
+      });
+    }
+    if (sh.fanCount || sh.fans) {
+      rows.push({
+        label: 'Fans',
+        value: sh.fanCount ? sh.fanCount + (sh.fanRedundancy ? ' · ' + sh.fanRedundancy : '') : '—',
+        state: 'mute', detail: sh.fans,
+      });
+    }
+    if (sh.psuCount || sh.psuRedundancy || sh.powerSupply) {
+      rows.push({
+        label: 'Power modules',
+        value: sh.psuCount
+          ? sh.psuCount + (sh.psuRedundancy ? ' · ' + sh.psuRedundancy : '')
+          : (sh.psuRedundancy || '—'),
+        state: 'mute', detail: sh.psuType || sh.powerSupply,
+      });
+    }
+    if (!rows.length) return null;
+
+    var box = el('div', { class: 'kit' }, [
+      el('span', { class: 't-label', text: 'Common equipment' }),
+    ]);
+    rows.forEach(function (r) {
+      box.appendChild(el('div', { class: 'kit-r' }, [
+        el('span', { class: 'kit-l', text: r.label }),
+        el('span', { class: 'pill ' + r.state, text: r.value }),
+        r.detail ? el('span', { class: 'kit-d', text: r.detail }) : null,
+      ]));
+    });
+    return box;
+  }
+
+  function keyFig(label, value, sub) {
+    return el('div', { class: 'kf' }, [
+      el('span', { class: 't-label', text: label }),
+      el('div', { class: 'kf-v num', text: value }),
+      el('div', { class: 'kf-s', text: sub }),
+    ]);
+  }
+
+  // ======================================================== transponder
+  function viewTransponder() {
+    var out = el('div');
+    var ps = platforms();
+    var xs = DATA.transponders.filter(function (x) { return ps.indexOf(x.platform) >= 0; });
+
+    // --- rate ladder: a span with a start and an end
+    var ladder = xs.slice()
+      .filter(function (x) { return x.lineMaxG; })
+      .sort(function (a, b) { return b.lineMaxG - a.lineMaxG || b.lineMinG - a.lineMinG; })
+      .slice(0, 18)
+      .map(function (x) {
+        return {
+          label: x.name, lo: x.lineMinG, hi: x.lineMaxG,
+          series: colorFor(x.platform),
+          note: fmtG(x.lineMinG) + '–' + fmtG(x.lineMaxG),
+          rows: [
+            { key: colorFor(x.platform), label: 'line rate range',
+              value: fmtG(x.lineMinG) + ' to ' + fmtG(x.lineMaxG) },
+            { label: 'carriers', value: x.carriers },
+            { label: 'slots', value: x.slots },
+          ],
+        };
+      });
+    out.appendChild(panel(
+      'Line rate ladder',
+      'the span each card covers, widest ceiling first',
+      [chartOnly(VIZ.rangeBars({ items: ladder, fmt: fmtG, from: 0,
+                       ticks: [0, 400, 800, 1200], title: 'line rate ladder' })),
+       chartOnly(legend(seriesList())),
+       tableView([
+         { key: 'name', label: 'Card' }, { key: 'platform', label: 'Platform' },
+         { key: 'lineMinG', label: 'Min G', num: true },
+         { key: 'lineMaxG', label: 'Max G', num: true },
+         { key: 'carriers', label: 'Carriers', num: true },
+         { key: 'slots', label: 'Slots', num: true },
+       ], xs.slice().sort(function (a, b) { return b.lineMaxG - a.lineMaxG; }),
+         'All ' + xs.length + ' transponders')],
+      'A wide bar is a flexible card, not a fast one — the right-hand end is the ' +
+      'ceiling, and the left-hand end is how far down it will still tune. A card ' +
+      'that starts at 100G is the one that will carry a slow service without a ' +
+      'second card behind it.'));
+
+    // --- capacity per slot
+    var perSlot = xs.slice()
+      .filter(function (x) { return x.perSlotG; })
+      .sort(function (a, b) { return b.perSlotG - a.perSlotG; })
+      .slice(0, 14);
+    out.appendChild(panel(
+      'Capacity per slot',
+      'line capacity divided by the slots the card occupies',
+      [chartOnly(VIZ.groupBars({
+        groups: perSlot.map(function (x) {
+          return { label: x.name,
+                   values: [{ series: colorFor(x.platform), name: x.platform +
+                              ' · ' + fmtG(x.perSlotG) + ' per slot', value: x.perSlotG }] };
+        }), title: 'capacity per slot',
+      })),
+       chartOnly(legend(seriesList())),
+       tableView([
+         { key: 'name', label: 'Card' }, { key: 'platform', label: 'Platform' },
+         { key: 'capacityG', label: 'Capacity G', num: true },
+         { key: 'slots', label: 'Slots', num: true },
+         { key: 'perSlotG', label: 'G per slot', num: true },
+         { key: 'cages', label: 'Client cages', num: true },
+       ], perSlot)],
+      'The number that decides how much a shelf is worth. A two-slot card at the ' +
+      'same line rate as a one-slot card is half the density, and on a full shelf ' +
+      'that is the difference between one chassis and two.'));
+
+    // --- shape of the client side
+    var byCages = {};
+    xs.forEach(function (x) {
+      (x.cageTypes || []).forEach(function (c) {
+        var k = c.type;
+        byCages[k] = byCages[k] || { GX: 0, PSS: 0 };
+        byCages[k][x.platform] += c.qty;
+      });
+    });
+    var cageGroups = Object.keys(byCages)
+      .sort(function (a, b) {
+        var s = function (k) { return byCages[k].GX + byCages[k].PSS; };
+        return s(b) - s(a);
+      }).slice(0, 10)
+      .map(function (k) {
+        return { label: k, values: ps.map(function (p) {
+          return { series: colorFor(p), name: p + ' cages', value: byCages[k][p] };
+        }) };
+      });
+    out.appendChild(panel(
+      'Client cage population',
+      'total cages of each form factor across the transponder set',
+      [chartOnly(VIZ.groupBars({ groups: cageGroups, labelW: 150, title: 'client cages' })),
+       chartOnly(legend(seriesList())),
+       tableView([
+         { key: 'type', label: 'Cage type' },
+         { key: 'GX', label: 'GX cages', num: true },
+         { key: 'PSS', label: 'PSS cages', num: true },
+         { key: 'total', label: 'Total', num: true },
+       ], Object.keys(byCages).map(function (k) {
+         return { type: k, GX: byCages[k].GX, PSS: byCages[k].PSS,
+                  total: byCages[k].GX + byCages[k].PSS };
+       }).sort(function (a, b) { return b.total - a.total; }), 'All cage types')],
+      'What the client side is actually made of. The QSFP-DD count is the 400G-and-up ' +
+      'story; the SFP+ count is what is left for sub-100G, and it is thin on both ' +
+      'platforms — which is why a handful of 10G services usually means a cascade.'));
+
+    return out;
+  }
+
+  // ============================================================ optical
+  function viewOptical() {
+    var out = el('div');
+    var ps = platforms();
+    var O = DATA.optical;
+
+    // --- spectrum ladder
+    var spec = O.spectrum.filter(function (s) {
+      return ps.some(function (p) { return s[p].length; });
+    });
+    var specItems = [];
+    spec.forEach(function (s) {
+      ps.forEach(function (p) {
+        if (!s[p].length) return;
+        var thz = p === 'GX' ? s.thzGX : s.thzPSS;
+        if (!thz) return;
+        specItems.push({
+          label: s.band + (state.scope === 'BOTH' ? ' · ' + p : ''),
+          lo: 0, hi: thz, series: colorFor(p),
+          note: thz + ' THz · ' + s[p].length + ' module' + (s[p].length > 1 ? 's' : ''),
+          rows: [{ key: colorFor(p), label: 'THz of spectrum', value: thz },
+                 { label: 'modules reaching it', value: s[p].length }],
+        });
+      });
+    });
+    var disagree = spec.filter(function (s) { return s.thzDisagrees; });
+    out.appendChild(panel(
+      'Spectrum reach',
+      'how much spectrum each band step opens, and how many modules reach it',
+      [chartOnly(VIZ.rangeBars({ items: specItems, fmt: function (v) { return v + 'T'; },
+                       from: 0, ticks: [0, 6, 12], labelW: 150, valueW: 150,
+                       title: 'spectrum reach' })),
+       chartOnly(legend(seriesList())),
+       tableView([
+         { key: 'band', label: 'Band' },
+         { key: 'thzGX', label: 'GX THz', num: true },
+         { key: 'thzPSS', label: 'PSS THz', num: true },
+         { key: 'nGX', label: 'GX modules', num: true },
+         { key: 'nPSS', label: 'PSS modules', num: true },
+       ], O.spectrum.map(function (s) {
+         return { band: s.band, thzGX: s.thzGX, thzPSS: s.thzPSS,
+                  nGX: s.GX.length, nPSS: s.PSS.length };
+       }))],
+      disagree.length
+        ? 'The two sources do not agree on how wide <b>' +
+          disagree.map(function (s) { return s.band; }).join(', ') +
+          '</b> is — the GX datasheets say ' + disagree[0].thzGX + ' THz and the PSS ' +
+          'roadmap says ' + disagree[0].thzPSS + ' THz. That is a real difference in ' +
+          'where each draws the super-L edge, so both are shown rather than one ' +
+          'being picked as the truth.'
+        : 'Each bar is the usable spectrum that band step opens.'));
+
+    // --- ROADM degree
+    var roadm = O.roadm.filter(function (r) { return ps.indexOf(r.platform) >= 0; });
+    var byPorts = {};
+    roadm.forEach(function (r) {
+      var n = r.wssPorts || r.degrees;
+      if (!n) return;
+      var k = n + ' port';
+      byPorts[k] = byPorts[k] || { GX: 0, PSS: 0, n: n };
+      byPorts[k][r.platform]++;
+    });
+    var portGroups = Object.keys(byPorts)
+      .sort(function (a, b) { return byPorts[a].n - byPorts[b].n; })
+      .map(function (k) {
+        return { label: k, values: ps.map(function (p) {
+          return { series: colorFor(p), name: p + ' modules', value: byPorts[k][p] };
+        }) };
+      });
+    out.appendChild(panel(
+      'ROADM scale',
+      'modules by WSS port count — what it takes to build a big node',
+      [chartOnly(VIZ.groupBars({ groups: portGroups, labelW: 96, title: 'ROADM WSS ports' })),
+       chartOnly(legend(seriesList())),
+       tableView([
+         { key: 'name', label: 'Module' }, { key: 'platform', label: 'Platform' },
+         { key: 'wssPorts', label: 'WSS ports', num: true },
+         { key: 'degrees', label: 'Degrees', num: true },
+         { key: 'band', label: 'Band' },
+         { key: 'slots', label: 'Slots', num: true },
+         { key: 'release', label: 'Release' },
+       ], roadm)],
+      'Port count is the node ceiling: a 32-port WSS is a 32-degree node from one ' +
+      'module, where a 9-port needs stacking. Slot cost is in the table, and it is ' +
+      'the other half of the decision.'));
+
+    // --- amplifier span loss
+    var amps = O.amp.filter(function (a) {
+      return ps.indexOf(a.platform) >= 0 && a.spanLossHi;
+    }).sort(function (a, b) { return b.spanLossHi - a.spanLossHi; }).slice(0, 16);
+    if (amps.length) {
+      out.appendChild(panel(
+        'Amplifier span loss',
+        'the loss window each amplifier closes without Raman',
+        [chartOnly(VIZ.rangeBars({
+          items: amps.map(function (a) {
+            return { label: a.name, lo: a.spanLossLo || 0, hi: a.spanLossHi,
+                     series: colorFor(a.platform),
+                     note: (a.spanLossLo || 0) + '–' + a.spanLossHi + ' dB',
+                     rows: [{ key: colorFor(a.platform), label: 'dB span loss',
+                              value: (a.spanLossLo || 0) + ' to ' + a.spanLossHi },
+                            { label: a.kind, value: '' },
+                            { label: 'band', value: a.band || '—' }] };
+          }), fmt: function (v) { return v + ' dB'; }, from: 0,
+          ticks: [0, 17, 34], title: 'amplifier span loss',
+        })),
+         chartOnly(legend(seriesList())),
+         tableView([
+           { key: 'name', label: 'Amplifier' }, { key: 'platform', label: 'Platform' },
+           { key: 'kind', label: 'Type' }, { key: 'band', label: 'Band' },
+           { key: 'spanLossLo', label: 'From dB', num: true },
+           { key: 'spanLossHi', label: 'To dB', num: true },
+           { key: 'slots', label: 'Slots', num: true },
+         ], O.amp.filter(function (a) { return ps.indexOf(a.platform) >= 0; }),
+           'All ' + O.amp.filter(function (a) { return ps.indexOf(a.platform) >= 0; }).length +
+           ' amplifiers')],
+        'Without Raman the portfolio tops out around 33 dB. Past that the answer is ' +
+        'a Raman or hybrid module, which is why the Raman count matters more on long ' +
+        'regional builds than the EDFA count does.'));
+    }
+
+    // --- add/drop architecture
+    var ad = O.addDrop.filter(function (a) { return ps.indexOf(a.platform) >= 0; });
+    var byType = {};
+    ad.forEach(function (a) {
+      var k = a.adType || 'Unclassified';
+      byType[k] = byType[k] || { GX: 0, PSS: 0 };
+      byType[k][a.platform]++;
+    });
+    var adGroups = Object.keys(byType).sort().map(function (k) {
+      return { label: k, values: ps.map(function (p) {
+        return { series: colorFor(p), name: p + ' modules', value: byType[k][p] };
+      }) };
+    });
+    if (adGroups.length) {
+      out.appendChild(panel(
+        'Add / drop architecture',
+        'colourless, directionless and contentionless options by class',
+        [chartOnly(VIZ.groupBars({ groups: adGroups, labelW: 140, title: 'add drop classes' })),
+         chartOnly(legend(seriesList())),
+         tableView([
+           { key: 'name', label: 'Module' }, { key: 'platform', label: 'Platform' },
+           { key: 'adType', label: 'Class' },
+           { key: 'channels', label: 'Add/drop count' },
+           { key: 'band', label: 'Band' },
+           { key: 'slots', label: 'Slots', num: true },
+         ], ad)],
+        '<b>CDC-F</b> is colourless, directionless and contentionless with flexgrid — ' +
+        'any wavelength, any degree, no blocking. A fixed <b>AWG</b> is cheaper and ' +
+        'closes the door on both. The gap between those two is usually where the ' +
+        'conversation about future-proofing actually happens.'));
+    }
+
+    return out;
+  }
+
+  // =============================================================== shell
+  function render() {
+    VIZ.hideTip();
+    var host = $('view');
+    host.textContent = '';
+    var v = state.tab === 'overview' ? viewOverview()
+          : state.tab === 'transponder' ? viewTransponder()
+          : viewOptical();
+    host.appendChild(v);
+
+    Array.prototype.forEach.call($('tabs').children, function (b) {
+      b.setAttribute('aria-selected', b.dataset.tab === state.tab ? 'true' : 'false');
+    });
+    document.querySelectorAll('.scope button').forEach(function (b) {
+      var on = b.dataset.view ? b.dataset.view === state.view
+                              : b.dataset.scope === state.scope;
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+
+    var h = '#' + state.tab +
+      (state.scope === 'BOTH' ? '' : '&scope=' + state.scope) +
+      (state.view === 'cards' ? '' : '&view=' + state.view);
+    if (location.hash !== h) history.replaceState(null, '', h);
+  }
+
+  function fromHash() {
+    var h = location.hash.replace(/^#/, '');
+    if (!h) return;
+    var parts = h.split('&');
+    if (TABS.some(function (t) { return t.id === parts[0]; })) state.tab = parts[0];
+    parts.forEach(function (p) {
+      if (p.indexOf('scope=') === 0) {
+        var v = p.slice(6).toUpperCase();
+        if (['GX', 'PSS', 'BOTH'].indexOf(v) >= 0) state.scope = v;
+      }
+      if (p.indexOf('view=') === 0) {
+        var w = p.slice(5).toLowerCase();
+        if (['cards', 'table'].indexOf(w) >= 0) state.view = w;
+      }
+    });
+  }
+
+  function init() {
+    if (!window.VIZ) return setTimeout(init, 30);
+    el = VIZ.el; legend = VIZ.legend;
+
+    fetch('assets/insight-data.json')
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        DATA = d;
+
+        var tabs = $('tabs');
+        TABS.forEach(function (t) {
+          var b = el('button', { type: 'button', role: 'tab', text: t.label,
+            'aria-selected': 'false',
+            onclick: function () { state.tab = t.id; render(); } });
+          b.dataset.tab = t.id;
+          tabs.appendChild(b);
+        });
+        document.querySelectorAll('.scope button').forEach(function (b) {
+          b.addEventListener('click', function () {
+            if (b.dataset.view) state.view = b.dataset.view;
+            else state.scope = b.dataset.scope;
+            render();
+          });
+        });
+
+        $('foot').textContent = 'Sources: ' + d.meta.sources.join('  ·  ') +
+          '. Figures are computed at build time by tools/build-insight-data.py — ' +
+          'where a source does not state a number it is left blank rather than ' +
+          'estimated.';
+
+        fromHash();
+        render();
+
+        // The sequential ramp is resolved in JS, so a theme change has to
+        // redraw rather than just restyle.
+        new MutationObserver(render).observe(document.documentElement,
+          { attributes: true, attributeFilter: ['data-theme'] });
+        matchMedia('(prefers-color-scheme: dark)')
+          .addEventListener('change', render);
+
+        if (window.SUMMA_CMDK) {
+          window.SUMMA_CMDK.register('Insight', TABS.map(function (t) {
+            return { label: t.label, hint: 'portfolio insight',
+              keywords: 'chart portfolio overview transponder optical',
+              run: function () { state.tab = t.id; render(); } };
+          }));
+        }
+      })
+      .catch(function () {
+        $('view').appendChild(el('p', { class: 'viz-empty',
+          text: 'Could not load assets/insight-data.json. If you opened this file ' +
+                'directly from disk the browser blocks the fetch — serve the folder ' +
+                'over http instead.' }));
+      });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else { init(); }
+}());
+</script>
+</body>
+</html>

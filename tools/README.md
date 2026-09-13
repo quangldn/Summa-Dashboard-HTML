@@ -283,3 +283,123 @@ a design review uses:
   wavelengths appear under "ruled out" naming that constraint. With it on, the
   wavelength count is reported as a cost, because wavelengths are the expensive
   unit on the line system.
+
+### The three-step method
+
+The page is now shaped around the way the decision is actually made, rather
+than around a rate you have to know in advance:
+
+1. **How much traffic?** The client mix gives a total load. This is the only
+   number the design really starts with.
+2. **How hard is the link?** A level from 1 to 5. Levels 1–4 derate every card
+   off *its own* ceiling — 100 / 80 / 60 / 50 % — and snap the result to a
+   profile that card really has. Level 5 means you already have a rate from a
+   link budget and enter it directly.
+3. **Which card?** The engine picks, per card, the fewest wavelengths at the
+   lowest profile that carries the load without exceeding what the link allows,
+   and ranks on how fully the card is used.
+
+Deriving the rate per card rather than globally is the point. On a level-3 link
+an 800G card holds up 500G and a 1.2T card holds up 700G; comparing them at a
+single assumed rate would hide exactly the difference the choice turns on.
+
+The snap is nearest-profile, ties rounding up. On a dense 100G ladder that
+lands where "one step down / two steps down" lands; on a sparse ladder like
+S2AD800R's 400 / 600 / 800 it still lands on a rate the card has rather than
+inventing one — level 2 on that card gives 600G, which is the one-step-down
+answer as well.
+
+These are planning figures for shaping a bid. The real number comes out of
+WaveSuite, and the page says so.
+
+### How a card is ranked
+
+Weighted so that unsold capacity is what loses points:
+
+| Term | Max | Why |
+|---|---|---|
+| Client coverage, native vs cascade | 40 | A cascade is a second card and a second failure point |
+| Wavelength fill | 40 | Capacity lit and not sold |
+| Card used (rate × ports) | 22 | Measured across the whole card, because a card is bought whole |
+| Client cages right-sized | 14 | Idle cages are the same over-spec in another form |
+| Slot economy | 12 | |
+| Wavelengths lit | 10 | One 800G carrier costs less than two 400G |
+| Shipping now | 9 | |
+| Native profile at the asked rate | 8 | Level 5 only |
+| Fits a 600 mm cabinet | 5 | |
+
+"Card used" is rate × ports on purpose. For 800G of traffic it puts a
+1 × 800G card first, a 2 × 400G card a close second — same capacity, one more
+wavelength — and a 2 × 800G card well behind both, because only half of what
+the customer is quoted gets lit.
+
+---
+
+## Portfolio insight — `build-insight-data.py`, `check-insight-page.js`
+
+`portfolio-insight.html` is the at-a-glance surface: three tabs (portfolio
+overview, transponder insight, optical layer insight) over a GX / PSS /
+Combined switch.
+
+```bash
+python3 tools/build-insight-data.py    # -> assets/insight-data.json
+node    tools/check-insight-page.js    # headless: contrast, tabs, scopes
+```
+
+It derives nothing at render time — every figure is computed at build time so
+the page only draws. Sources are the four that already exist: `gx-data.js` for
+the GX optical fields nothing else carries (degree count, band in THz, span
+loss, WSS ports), `gx-rules.json` for slot legality, `pss-cards.json`, and
+`xpdr-data.json`.
+
+### Three things the data forced
+
+* **The GX matrix counts slot occupants, and 15 of the 17 OFP2 modules are not
+  slot occupants** — they ride in cages inside a ROADM or amplifier sled. Left
+  in the matrix they made GX look like it owned two amplifiers; they now sit
+  beside it as their own strip, classified by what they do rather than by the
+  workbook's "OFP2", which is a form factor.
+* **The two sources disagree on Super C+L.** GX datasheets say 12.2 THz, the
+  PSS roadmap says 11.6 — a real difference in where each draws the super-L
+  edge. Both are kept per platform and the page says so, rather than one being
+  silently picked.
+* **Degrees and WSS ports are not the same quantity.** GX carries a `deg`
+  field, PSS a port count; the headline tile now reads WSS ports on both sides
+  so the comparison is like for like.
+
+### Chart rules
+
+Built to the dataviz method, so the three tabs read as one system:
+
+* Headline numbers are stat tiles, not one-bar charts.
+* The coverage grid is sequential — one hue, light to dark. **One step is
+  missing from the middle of each ramp on purpose**: a single-hue ramp has a
+  crossover where the step is too dark for dark ink and too light for light
+  ink (light `#2a78d6` tops out at 4.42:1, dark `#2f74c4` at 4.14:1), so a
+  number on it could not clear AA whichever ink it wore. Fill and ink are both
+  computed per cell against the step it lands on.
+* GX and PSS are categorical slots 1 and 2 (blue / orange). The pair passes
+  every gate of `validate_palette.js` in both modes — lightness band, chroma
+  floor, CVD separation, normal-vision floor and contrast against the surface.
+* Marks cap at 22px with a 4px rounded data-end square at the baseline,
+  hairline solid grid, a legend whenever both platforms are on screen, and
+  every chart carries a table view so no value is gated behind a hover.
+* Text wears ink tokens, never a series colour.
+
+### Cards or table
+
+A **View** switch sits beside the platform scope. In table view every panel
+drops its chart and shows its full data table instead — open rather than
+collapsed, sortable on any column (click or keyboard), and with a **Copy as
+TSV** button, because the tables double as a data source worth pulling into a
+sheet. TSV rather than CSV: it pastes into Excel and Sheets without a delimiter
+dialog, and nothing in this data contains a tab.
+
+Sort state lives on each table rather than in page state, so two tables on one
+screen sort independently. Blanks sort last in both directions — a missing
+figure is not a small one.
+
+Both views carry the same numbers; the table is never a reduced version. The
+shelf comparison runs to 29 columns including the slot composition (service /
+half / full / common / grid total and the grid shape), controller redundancy,
+fan and PSU counts with their schemes, and the full client-service list.

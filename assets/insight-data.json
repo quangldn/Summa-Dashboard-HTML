@@ -1,0 +1,5500 @@
+{
+ "meta": {
+  "generated": "tools/build-insight-data.py",
+  "sources": [
+   "gx-data.js (GX datasheets)",
+   "gx-rules.json (GX BOM Configurator V3.0)",
+   "pss-cards.json (PSS guide + Aug-2026 roadmap)",
+   "xpdr-data.json (DCI transponder set)"
+  ],
+  "bandOrder": [
+   "Std C",
+   "Super C",
+   "Std L",
+   "Super L",
+   "Std C+L",
+   "Super C+L"
+  ]
+ },
+ "scale": {
+  "GX": {
+   "cards": 89,
+   "transponders": 42,
+   "shelves": 8,
+   "parts": 656,
+   "bands": [
+    "Std C",
+    "Super C",
+    "Super L",
+    "Std C+L",
+    "Super C+L"
+   ],
+   "maxLineG": 1200,
+   "maxDegrees": 66,
+   "shipping": 33,
+   "roadmap": 19
+  },
+  "PSS": {
+   "cards": 595,
+   "transponders": 55,
+   "shelves": 13,
+   "parts": 570,
+   "bands": [
+    "Std C",
+    "Super C",
+    "Std L",
+    "Super L",
+    "Std C+L",
+    "Super C+L"
+   ],
+   "maxLineG": 1200,
+   "maxDegrees": 32,
+   "shipping": 522,
+   "roadmap": 73
+  }
+ },
+ "shelves": [
+  {
+   "id": "G31",
+   "platform": "GX",
+   "name": "G31",
+   "ru": 1,
+   "depthMm": 600.0,
+   "widthMm": null,
+   "heightMm": null,
+   "dimensions": "1 RU / 600 mm",
+   "weightKg": 9.57,
+   "slots": 4,
+   "slotsHalf": null,
+   "slotsFull": 4,
+   "slotsRaw": "4",
+   "slotsIncludesCommon": false,
+   "slotsGrid": 4,
+   "slotsCommon": null,
+   "tempLo": null,
+   "tempHi": null,
+   "tempRaw": null,
+   "mounting": "19\" / 23\" / sliding rails",
+   "applications": null,
+   "controller": "Single",
+   "controllerDual": false,
+   "ioFru": "Single",
+   "fans": "3 rear, 1:N",
+   "fanCount": 3,
+   "fanRedundancy": "1:N",
+   "powerSupply": "2 PSU rear, 1+1",
+   "psuCount": 2,
+   "psuRedundancy": "1+1",
+   "psuType": "AC / DC",
+   "pemCapacity": null,
+   "powerRaw": "93.5 W typ \u00b7 321 W max (w/ fans + FRCU + 2 PEM)",
+   "release": "GA",
+   "status": "ga",
+   "note": "Single controller only \u2014 excluded from hyperscaler builds for that reason.",
+   "source": "gx-data.js",
+   "gridRows": 1,
+   "gridCols": 4,
+   "transponders": 8,
+   "maxLineG": 1200,
+   "clientServices": [
+    "800GE",
+    "400GE",
+    "100GE",
+    "OTU4",
+    "40GE",
+    "10GE",
+    "1GE",
+    "OC-48"
+   ],
+   "hosts": [
+    {
+     "function": "Transponder",
+     "count": 8
+    },
+    {
+     "function": "ROADM / Raman",
+     "count": 11
+    },
+    {
+     "function": "Monitoring",
+     "count": 1
+    }
+   ],
+   "bands": [
+    "Std C",
+    "Super C",
+    "Super L",
+    "Super C+L"
+   ]
+  },
+  {
+   "id": "G32",
+   "platform": "GX",
+   "name": "G32",
+   "ru": 2,
+   "depthMm": 600.0,
+   "widthMm": null,
+   "heightMm": null,
+   "dimensions": "2 RU / 600 mm",
+   "weightKg": 19.68,
+   "slots": 8,
+   "slotsHalf": null,
+   "slotsFull": 8,
+   "slotsRaw": "8 \u00b7 1 RU sleds",
+   "slotsIncludesCommon": false,
+   "slotsGrid": 10,
+   "slotsCommon": 2,
+   "tempLo": null,
+   "tempHi": null,
+   "tempRaw": null,
+   "mounting": "19\" / 23\" / sliding rails",
+   "applications": null,
+   "controller": "Single / dual (optional)",
+   "controllerDual": true,
+   "ioFru": "Dual",
+   "fans": "3 rear, 1:N",
+   "fanCount": 3,
+   "fanRedundancy": "1:N",
+   "powerSupply": "4 PSU rear, 1+1 or 1:N",
+   "psuCount": 4,
+   "psuRedundancy": "1+1",
+   "psuType": "AC / DC",
+   "pemCapacity": null,
+   "powerRaw": "140 W typ \u00b7 339 W max (w/ fans + FRCU + 3 PEM)",
+   "release": "GA",
+   "status": "ga",
+   "note": null,
+   "source": "gx-data.js",
+   "gridRows": 2,
+   "gridCols": 5,
+   "transponders": 8,
+   "maxLineG": 1200,
+   "clientServices": [
+    "800GE",
+    "400GE",
+    "100GE",
+    "OTU4",
+    "40GE",
+    "10GE",
+    "1GE",
+    "OC-48"
+   ],
+   "hosts": [
+    {
+     "function": "Transponder",
+     "count": 8
+    },
+    {
+     "function": "ROADM / Raman",
+     "count": 14
+    },
+    {
+     "function": "Monitoring",
+     "count": 1
+    }
+   ],
+   "bands": [
+    "Std C",
+    "Super C",
+    "Super L",
+    "Super C+L"
+   ]
+  },
+  {
+   "id": "G32E",
+   "platform": "GX",
+   "name": "G32E",
+   "ru": 2,
+   "depthMm": 600.0,
+   "widthMm": null,
+   "heightMm": null,
+   "dimensions": "2 RU / 600 mm",
+   "weightKg": null,
+   "slots": 8,
+   "slotsHalf": null,
+   "slotsFull": 8,
+   "slotsRaw": "8 \u00b7 2 RU sleds",
+   "slotsIncludesCommon": false,
+   "slotsGrid": null,
+   "slotsCommon": null,
+   "tempLo": null,
+   "tempHi": null,
+   "tempRaw": null,
+   "mounting": "19\" / 23\" / sliding rails",
+   "applications": null,
+   "controller": "Single / dual (optional)",
+   "controllerDual": true,
+   "ioFru": "Dual",
+   "fans": "3 rear, 1:N",
+   "fanCount": 3,
+   "fanRedundancy": "1:N",
+   "powerSupply": "4 PSU rear, 1+1 or 1:N",
+   "psuCount": 4,
+   "psuRedundancy": "1+1",
+   "psuType": "AC / DC",
+   "pemCapacity": null,
+   "powerRaw": "inherits G32 baseline",
+   "release": "GA",
+   "status": "ga",
+   "note": "The only shelf that takes RD66 \u2014 2 RU sled height is what the 6-slot ROADM needs.",
+   "source": "gx-data.js",
+   "transponders": 0,
+   "maxLineG": null,
+   "clientServices": [],
+   "hosts": [],
+   "bands": [
+    "Super C",
+    "Super L",
+    "Std C+L",
+    "Super C+L"
+   ]
+  },
+  {
+   "id": "G34L",
+   "platform": "GX",
+   "name": "G34L",
+   "ru": 4,
+   "depthMm": 600.0,
+   "widthMm": null,
+   "heightMm": null,
+   "dimensions": "4 RU / 600 mm",
+   "weightKg": null,
+   "slots": 8,
+   "slotsHalf": null,
+   "slotsFull": 8,
+   "slotsRaw": "8 \u00b7 1 and 2 RU sleds",
+   "slotsIncludesCommon": false,
+   "slotsGrid": null,
+   "slotsCommon": null,
+   "tempLo": null,
+   "tempHi": null,
+   "tempRaw": null,
+   "mounting": "19\" / 23\"",
+   "applications": null,
+   "controller": "Single / dual (optional)",
+   "controllerDual": true,
+   "ioFru": "Dual",
+   "fans": "3 rear, 1:N",
+   "fanCount": 3,
+   "fanRedundancy": "1:N",
+   "powerSupply": "2 PSU rear, 1+1",
+   "psuCount": 2,
+   "psuRedundancy": "1+1",
+   "psuType": "AC / DC",
+   "pemCapacity": null,
+   "powerRaw": null,
+   "release": "R9.2",
+   "status": "por",
+   "note": "R9.2 on OpenConfig OS, R10.1 on Converged OS \u2014 the date you can quote depends on which OS the customer runs.",
+   "source": "gx-data.js",
+   "transponders": 0,
+   "maxLineG": null,
+   "clientServices": [],
+   "hosts": [],
+   "bands": [
+    "Std C+L",
+    "Super C+L"
+   ]
+  },
+  {
+   "id": "G42",
+   "platform": "GX",
+   "name": "G42",
+   "ru": 3,
+   "depthMm": 600.0,
+   "widthMm": null,
+   "heightMm": null,
+   "dimensions": "3 RU / 600 mm",
+   "weightKg": 17.3,
+   "slots": 4,
+   "slotsHalf": null,
+   "slotsFull": 4,
+   "slotsRaw": "4",
+   "slotsIncludesCommon": false,
+   "slotsGrid": null,
+   "slotsCommon": null,
+   "tempLo": null,
+   "tempHi": null,
+   "tempRaw": null,
+   "mounting": "19\" / 23\"",
+   "applications": null,
+   "controller": "Single / dual (optional)",
+   "controllerDual": true,
+   "ioFru": "Single",
+   "fans": "5 rear, 1:N + 2 controller fans",
+   "fanCount": 5,
+   "fanRedundancy": "1:N",
+   "powerSupply": "4 PSU rear, 1+1 or 1:N",
+   "psuCount": 4,
+   "psuRedundancy": "1+1",
+   "psuType": "AC / DC",
+   "pemCapacity": "2200 W",
+   "powerRaw": null,
+   "release": "GA",
+   "status": "ga",
+   "note": "Transponder shelf \u2014 CHM6 / CHM7 / UCM4. Not an OLS shelf.",
+   "source": "gx-data.js",
+   "transponders": 33,
+   "maxLineG": 1200,
+   "clientServices": [
+    "800GE",
+    "400GE",
+    "100GE",
+    "OTU4",
+    "40GE",
+    "10GE",
+    "OC-192",
+    "OTU2",
+    "OTU2e",
+    "STM64"
+   ],
+   "hosts": [
+    {
+     "function": "Transponder",
+     "count": 33
+    }
+   ],
+   "bands": []
+  },
+  {
+   "id": "G34c / G34Xc",
+   "platform": "GX",
+   "name": "G34c / G34Xc",
+   "ru": 4,
+   "depthMm": 300.0,
+   "widthMm": null,
+   "heightMm": null,
+   "dimensions": "4 RU / 300 mm",
+   "weightKg": 12.56,
+   "slots": 8,
+   "slotsHalf": null,
+   "slotsFull": 8,
+   "slotsRaw": "8",
+   "slotsIncludesCommon": false,
+   "slotsGrid": 8,
+   "slotsCommon": null,
+   "tempLo": null,
+   "tempHi": null,
+   "tempRaw": null,
+   "mounting": "19\" / 23\" / sliding rails",
+   "applications": null,
+   "controller": "Single / dual (optional)",
+   "controllerDual": true,
+   "ioFru": "Integrated with controller",
+   "fans": "2 front, 1+1",
+   "fanCount": 2,
+   "fanRedundancy": "1+1",
+   "powerSupply": "2 PSU front, 1+1",
+   "psuCount": 2,
+   "psuRedundancy": "1+1",
+   "psuType": "AC / DC",
+   "pemCapacity": "1300 W",
+   "powerRaw": "69 W typ \u00b7 89 W max@40 \u00b0C \u00b7 381 W max@55 \u00b0C (fan ramp)",
+   "release": "GA",
+   "status": "ga",
+   "note": "The workhorse ILA shelf. G34Xc is the high-speed-backplane variant.",
+   "source": "gx-data.js",
+   "gridRows": 4,
+   "gridCols": 2,
+   "transponders": 1,
+   "maxLineG": 400,
+   "clientServices": [
+    "400GE",
+    "100GE",
+    "OTU4",
+    "40GE",
+    "10GE"
+   ],
+   "hosts": [
+    {
+     "function": "Transponder",
+     "count": 1
+    },
+    {
+     "function": "ROADM / Raman",
+     "count": 7
+    },
+    {
+     "function": "Amplifier",
+     "count": 2
+    },
+    {
+     "function": "Monitoring",
+     "count": 1
+    }
+   ],
+   "bands": [
+    "Std C",
+    "Super C",
+    "Super L",
+    "Std C+L",
+    "Super C+L"
+   ]
+  },
+  {
+   "id": "G32c",
+   "platform": "GX",
+   "name": "G32c",
+   "ru": 2,
+   "depthMm": 300.0,
+   "widthMm": null,
+   "heightMm": null,
+   "dimensions": "2 RU / 300 mm",
+   "weightKg": null,
+   "slots": 4,
+   "slotsHalf": null,
+   "slotsFull": 4,
+   "slotsRaw": "4",
+   "slotsIncludesCommon": false,
+   "slotsGrid": null,
+   "slotsCommon": null,
+   "tempLo": null,
+   "tempHi": null,
+   "tempRaw": null,
+   "mounting": "19\" / 23\" / sliding rails",
+   "applications": null,
+   "controller": "Single",
+   "controllerDual": false,
+   "ioFru": "Integrated with controller",
+   "fans": "1 front",
+   "fanCount": 1,
+   "fanRedundancy": null,
+   "powerSupply": "2 PSU front, 1+1",
+   "psuCount": 2,
+   "psuRedundancy": "1+1",
+   "psuType": "AC / DC",
+   "pemCapacity": null,
+   "powerRaw": null,
+   "release": "R9.3",
+   "status": "por",
+   "note": "Full ordering item set appeared in the Aug-2026 PN list \u2014 controller, fan, AC and DC PEM, six mount kits including a 600 mm-cabinet baffle.",
+   "source": "gx-data.js",
+   "transponders": 0,
+   "maxLineG": null,
+   "clientServices": [],
+   "hosts": [],
+   "bands": []
+  },
+  {
+   "id": "G38c",
+   "platform": "GX",
+   "name": "G38c",
+   "ru": 8,
+   "depthMm": 300.0,
+   "widthMm": null,
+   "heightMm": null,
+   "dimensions": "8 RU / 300 mm",
+   "weightKg": null,
+   "slots": 16,
+   "slotsHalf": null,
+   "slotsFull": 16,
+   "slotsRaw": "16",
+   "slotsIncludesCommon": false,
+   "slotsGrid": null,
+   "slotsCommon": null,
+   "tempLo": null,
+   "tempHi": null,
+   "tempRaw": null,
+   "mounting": "19\" / 23\"",
+   "applications": null,
+   "controller": "Single / dual (optional)",
+   "controllerDual": true,
+   "ioFru": "Integrated with controller",
+   "fans": "4 front, 1:N",
+   "fanCount": 4,
+   "fanRedundancy": "1:N",
+   "powerSupply": "TBD",
+   "psuCount": null,
+   "psuRedundancy": null,
+   "psuType": "AC / DC",
+   "pemCapacity": null,
+   "powerRaw": null,
+   "release": "R10.2",
+   "status": "poi",
+   "note": "Lab-trial in R10.1, GA in R10.2. Densest 300 mm shelf \u2014 16 slots.",
+   "source": "gx-data.js",
+   "transponders": 0,
+   "maxLineG": null,
+   "clientServices": [],
+   "hosts": [],
+   "bands": [
+    "Std C+L"
+   ]
+  },
+  {
+   "id": "PSS-4II",
+   "platform": "PSS",
+   "name": "PSS-4II",
+   "ru": 2,
+   "depthMm": 243.7,
+   "widthMm": 442.0,
+   "heightMm": 87.5,
+   "dimensions": "87.5 (2RU) x 442.0 x 243.7mm",
+   "weightKg": 4.4,
+   "slots": 4,
+   "slotsHalf": 4,
+   "slotsFull": 2,
+   "slotsRaw": "4 (half)/2 (full)",
+   "slotsIncludesCommon": false,
+   "slotsGrid": null,
+   "slotsCommon": null,
+   "tempLo": -5,
+   "tempHi": 65,
+   "tempRaw": "-5\u00b0C to +65\u00b0C",
+   "mounting": "19\u201d/21\u201d/23\u201d",
+   "applications": "L0/L1/L2 / WDM/ROADM / OTN/Packet / Shelf distributed switch / Shelf SyncE/PTP (R26.9)",
+   "controller": "Simplex",
+   "controllerDual": false,
+   "ioFru": null,
+   "fans": "1 FAN card (shelf right) / Airflow: right-left; front-back (23\", optional for 19\" 4-post); front-left (optional for 21\").",
+   "fanCount": 1,
+   "fanRedundancy": null,
+   "powerSupply": "DC -48V/-60V / AC 110/220V",
+   "psuCount": null,
+   "psuRedundancy": "redundant",
+   "psuType": "Redundant  / power modules",
+   "pemCapacity": null,
+   "powerRaw": null,
+   "release": "GA",
+   "status": null,
+   "note": null,
+   "cardCount": 32,
+   "source": "PSS planning guide + roadmap",
+   "transponders": 9,
+   "maxLineG": 800,
+   "clientServices": [
+    "800GE",
+    "400GE",
+    "OTUC4",
+    "100GE",
+    "100ZR",
+    "OTU4",
+    "25GE",
+    "FC16G",
+    "10GE",
+    "OC-192",
+    "OTU2",
+    "STM64",
+    "1GE",
+    "FE",
+    "3G-SDI",
+    "FC100",
+    "FC800",
+    "HD-SDI",
+    "OC-3",
+    "OTU1",
+    "SD-SDI",
+    "STM1"
+   ],
+   "hosts": [
+    {
+     "function": "Transponder",
+     "count": 9
+    },
+    {
+     "function": "ROADM",
+     "count": 3
+    },
+    {
+     "function": "Amplifier",
+     "count": 4
+    },
+    {
+     "function": "Add / drop",
+     "count": 2
+    },
+    {
+     "function": "Packet / OTN",
+     "count": 4
+    },
+    {
+     "function": "Protection",
+     "count": 2
+    },
+    {
+     "function": "Monitoring",
+     "count": 1
+    },
+    {
+     "function": "Controller",
+     "count": 2
+    },
+    {
+     "function": "Cooling",
+     "count": 1
+    }
+   ],
+   "bands": [
+    "Std C"
+   ]
+  },
+  {
+   "id": "PSS-8",
+   "platform": "PSS",
+   "name": "PSS-8",
+   "ru": 3,
+   "depthMm": 259.0,
+   "widthMm": 438.0,
+   "heightMm": 133.0,
+   "dimensions": "133 (3RU) x 438 x 259mm",
+   "weightKg": 5.6,
+   "slots": 8,
+   "slotsHalf": 8,
+   "slotsFull": 4,
+   "slotsRaw": "8 (half)/4 (full)",
+   "slotsIncludesCommon": false,
+   "slotsGrid": null,
+   "slotsCommon": null,
+   "tempLo": -40,
+   "tempHi": 65,
+   "tempRaw": "-40\u00b0C to +65\u00b0C  / (-30\u00b0C to +65\u00b0C for NG)",
+   "mounting": "19\u201d/21\u201d/23\u201d",
+   "applications": "L0/L1/L2 / WDM/ROADM / OTN/Packet / Shelf distributed switch / Shelf SyncE/PTP",
+   "controller": "Duplex, protected",
+   "controllerDual": true,
+   "ioFru": null,
+   "fans": "1 FAN card (shelf right) / Airflow: right-left; front-back (23\"); front-left (optional for 21\").",
+   "fanCount": 1,
+   "fanRedundancy": null,
+   "powerSupply": "DC -48V/-60V / AC 110/220V",
+   "psuCount": null,
+   "psuRedundancy": "redundant",
+   "psuType": "Redundant  / power modules",
+   "pemCapacity": null,
+   "powerRaw": null,
+   "release": "GA (NG R27.Q1)",
+   "status": null,
+   "note": null,
+   "cardCount": 136,
+   "source": "PSS planning guide + roadmap",
+   "transponders": 11,
+   "maxLineG": 800,
+   "clientServices": [
+    "800GE",
+    "400GE",
+    "OTUC4",
+    "100GE",
+    "100ZR",
+    "OTU4",
+    "25GE",
+    "FC16G",
+    "10GE",
+    "OC-192",
+    "OTU2",
+    "STM64",
+    "1GE",
+    "FE",
+    "3G-SDI",
+    "FC100",
+    "FC800",
+    "HD-SDI",
+    "OC-3",
+    "OTU1",
+    "SD-SDI",
+    "STM1"
+   ],
+   "hosts": [
+    {
+     "function": "Transponder",
+     "count": 30
+    },
+    {
+     "function": "ROADM",
+     "count": 21
+    },
+    {
+     "function": "Amplifier",
+     "count": 28
+    },
+    {
+     "function": "Add / drop",
+     "count": 14
+    },
+    {
+     "function": "Line card",
+     "count": 1
+    },
+    {
+     "function": "Packet / OTN",
+     "count": 8
+    },
+    {
+     "function": "Protection",
+     "count": 6
+    },
+    {
+     "function": "Monitoring",
+     "count": 6
+    },
+    {
+     "function": "Controller",
+     "count": 3
+    },
+    {
+     "function": "Timing",
+     "count": 2
+    },
+    {
+     "function": "Cooling",
+     "count": 1
+    }
+   ],
+   "bands": [
+    "Std C",
+    "Std L",
+    "Std C+L"
+   ]
+  },
+  {
+   "id": "PSS-16II",
+   "platform": "PSS",
+   "name": "PSS-16II",
+   "ru": 8,
+   "depthMm": 293.2,
+   "widthMm": 440.0,
+   "heightMm": null,
+   "dimensions": "DC shelf: 354.8 (8RU) x 440 x 293.2mm / AC/DC/NG shelf: 398.8 (9RU) x 440 x 290mm",
+   "weightKg": 11.6,
+   "slots": 16,
+   "slotsHalf": 16,
+   "slotsFull": 8,
+   "slotsRaw": "16 (half)/8 (full)",
+   "slotsIncludesCommon": false,
+   "slotsGrid": null,
+   "slotsCommon": null,
+   "tempLo": -5,
+   "tempHi": 50,
+   "tempRaw": "\u20135\u00b0C to 50\u00b0C",
+   "mounting": "19\u201d/21\u201d/23\u201d",
+   "applications": "L0/L1/L2 / WDM/ROADM / OTN/Packet / Shelf distributed switch / Shelf SyncE/PTP (DC shelf)",
+   "controller": "Duplex, protected",
+   "controllerDual": true,
+   "ioFru": null,
+   "fans": "1 FAN card (shelf bottom) / Airflow: front-left; front-back (optional for 23\").",
+   "fanCount": 1,
+   "fanRedundancy": null,
+   "powerSupply": "DC -48V/-60V / AC 110/220V",
+   "psuCount": null,
+   "psuRedundancy": "redundant",
+   "psuType": "Redundant  / power modules",
+   "pemCapacity": null,
+   "powerRaw": null,
+   "release": "GA (NG R27.Q3)",
+   "status": null,
+   "note": null,
+   "cardCount": 146,
+   "source": "PSS planning guide + roadmap",
+   "transponders": 16,
+   "maxLineG": 1200,
+   "clientServices": [
+    "800GE",
+    "400GE",
+    "OTUC4",
+    "100GE",
+    "100ZR",
+    "OTU4",
+    "25GE",
+    "FC16G",
+    "10GE",
+    "OC-192",
+    "OTU2",
+    "STM64",
+    "1GE",
+    "FE",
+    "3G-SDI",
+    "FC100",
+    "FC800",
+    "HD-SDI",
+    "OC-3",
+    "OTU1",
+    "SD-SDI",
+    "STM1"
+   ],
+   "hosts": [
+    {
+     "function": "Transponder",
+     "count": 30
+    },
+    {
+     "function": "ROADM",
+     "count": 22
+    },
+    {
+     "function": "Amplifier",
+     "count": 31
+    },
+    {
+     "function": "Add / drop",
+     "count": 18
+    },
+    {
+     "function": "Line card",
+     "count": 1
+    },
+    {
+     "function": "Packet / OTN",
+     "count": 8
+    },
+    {
+     "function": "Protection",
+     "count": 6
+    },
+    {
+     "function": "Monitoring",
+     "count": 7
+    },
+    {
+     "function": "Controller",
+     "count": 4
+    },
+    {
+     "function": "Timing",
+     "count": 2
+    },
+    {
+     "function": "Cooling",
+     "count": 1
+    }
+   ],
+   "bands": [
+    "Std C",
+    "Std L",
+    "Std C+L"
+   ]
+  },
+  {
+   "id": "PSS-32",
+   "platform": "PSS",
+   "name": "PSS-32",
+   "ru": 14,
+   "depthMm": 279.0,
+   "widthMm": 439.0,
+   "heightMm": 622.0,
+   "dimensions": "622 (14RU) x 439 x 279mm",
+   "weightKg": 13.0,
+   "slots": 32,
+   "slotsHalf": 32,
+   "slotsFull": 16,
+   "slotsRaw": "32 (half)/16 (full)",
+   "slotsIncludesCommon": false,
+   "slotsGrid": null,
+   "slotsCommon": null,
+   "tempLo": -5,
+   "tempHi": 50,
+   "tempRaw": "\u20135\u00b0C to 50\u00b0C",
+   "mounting": "19\u201d/21\u201d/23\u201d",
+   "applications": "L0/L1/L2 / WDM/ROADM / OTN/Packet",
+   "controller": "Duplex, protected",
+   "controllerDual": true,
+   "ioFru": null,
+   "fans": "1 FAN card (shelf top) / Airflow: front- top/back",
+   "fanCount": 1,
+   "fanRedundancy": null,
+   "powerSupply": "DC -48V/-60V",
+   "psuCount": null,
+   "psuRedundancy": "redundant",
+   "psuType": "Redundant  / power modules",
+   "pemCapacity": null,
+   "powerRaw": null,
+   "release": "GA",
+   "status": null,
+   "note": null,
+   "cardCount": 158,
+   "source": "PSS planning guide + roadmap",
+   "transponders": 7,
+   "maxLineG": 600,
+   "clientServices": [
+    "400GE",
+    "100GE",
+    "OTU4",
+    "10GE",
+    "OC-192",
+    "OTU2",
+    "STM64",
+    "1GE",
+    "FE",
+    "3G-SDI",
+    "FC100",
+    "FC800",
+    "HD-SDI",
+    "OC-3",
+    "OTU1",
+    "SD-SDI",
+    "STM1"
+   ],
+   "hosts": [
+    {
+     "function": "Transponder",
+     "count": 37
+    },
+    {
+     "function": "ROADM",
+     "count": 23
+    },
+    {
+     "function": "Amplifier",
+     "count": 32
+    },
+    {
+     "function": "Add / drop",
+     "count": 15
+    },
+    {
+     "function": "Packet / OTN",
+     "count": 3
+    },
+    {
+     "function": "Protection",
+     "count": 6
+    },
+    {
+     "function": "Monitoring",
+     "count": 7
+    },
+    {
+     "function": "Controller",
+     "count": 6
+    },
+    {
+     "function": "Timing",
+     "count": 2
+    },
+    {
+     "function": "Cooling",
+     "count": 1
+    }
+   ],
+   "bands": [
+    "Std C",
+    "Std L",
+    "Std C+L"
+   ]
+  },
+  {
+   "id": "PSI-8L",
+   "platform": "PSI",
+   "name": "PSI-8L",
+   "ru": 5,
+   "depthMm": 450.0,
+   "widthMm": null,
+   "heightMm": null,
+   "dimensions": "5RU/450mm",
+   "weightKg": null,
+   "slots": 8,
+   "slotsHalf": null,
+   "slotsFull": 8,
+   "slotsRaw": "8",
+   "slotsIncludesCommon": false,
+   "slotsGrid": null,
+   "slotsCommon": null,
+   "tempLo": null,
+   "tempHi": null,
+   "tempRaw": null,
+   "mounting": "19\u201d/23\u201d 2/4-post",
+   "applications": "L0",
+   "controller": "Single/dual",
+   "controllerDual": true,
+   "ioFru": null,
+   "fans": "3 fans, rear, 1:N",
+   "fanCount": 3,
+   "fanRedundancy": "1:N",
+   "powerSupply": "AC  / DC",
+   "psuCount": null,
+   "psuRedundancy": "1+1",
+   "psuType": "2 (optional 4) PSU, Rear, 1+1",
+   "pemCapacity": null,
+   "powerRaw": null,
+   "release": "GA",
+   "status": null,
+   "note": null,
+   "cardCount": 64,
+   "source": "PSS planning guide + roadmap",
+   "transponders": 0,
+   "maxLineG": null,
+   "clientServices": [],
+   "hosts": [
+    {
+     "function": "ROADM",
+     "count": 15
+    },
+    {
+     "function": "Amplifier",
+     "count": 17
+    },
+    {
+     "function": "Add / drop",
+     "count": 10
+    },
+    {
+     "function": "Protection",
+     "count": 5
+    },
+    {
+     "function": "Monitoring",
+     "count": 4
+    },
+    {
+     "function": "Controller",
+     "count": 2
+    },
+    {
+     "function": "Timing",
+     "count": 2
+    },
+    {
+     "function": "Cooling",
+     "count": 1
+    }
+   ],
+   "bands": [
+    "Std C",
+    "Std L",
+    "Std C+L"
+   ]
+  },
+  {
+   "id": "PSI-4L",
+   "platform": "PSI",
+   "name": "PSI-4L",
+   "ru": 3,
+   "depthMm": 450.0,
+   "widthMm": null,
+   "heightMm": null,
+   "dimensions": "3RU/450mm",
+   "weightKg": null,
+   "slots": 4,
+   "slotsHalf": null,
+   "slotsFull": 4,
+   "slotsRaw": "4",
+   "slotsIncludesCommon": false,
+   "slotsGrid": null,
+   "slotsCommon": null,
+   "tempLo": null,
+   "tempHi": null,
+   "tempRaw": null,
+   "mounting": "19\u201d/23\u201d 2/4-post",
+   "applications": "L0",
+   "controller": "Single/dual",
+   "controllerDual": true,
+   "ioFru": null,
+   "fans": "2 fans, rear, 1+1",
+   "fanCount": 2,
+   "fanRedundancy": "1+1",
+   "powerSupply": "AC / DC",
+   "psuCount": 2,
+   "psuRedundancy": "1+1",
+   "psuType": "2 PSU, Rear, 1+1",
+   "pemCapacity": null,
+   "powerRaw": null,
+   "release": "GA",
+   "status": null,
+   "note": null,
+   "cardCount": 63,
+   "source": "PSS planning guide + roadmap",
+   "transponders": 0,
+   "maxLineG": null,
+   "clientServices": [],
+   "hosts": [
+    {
+     "function": "ROADM",
+     "count": 15
+    },
+    {
+     "function": "Amplifier",
+     "count": 17
+    },
+    {
+     "function": "Add / drop",
+     "count": 10
+    },
+    {
+     "function": "Protection",
+     "count": 5
+    },
+    {
+     "function": "Monitoring",
+     "count": 4
+    },
+    {
+     "function": "Controller",
+     "count": 2
+    },
+    {
+     "function": "Timing",
+     "count": 1
+    },
+    {
+     "function": "Cooling",
+     "count": 1
+    }
+   ],
+   "bands": [
+    "Std C",
+    "Std L",
+    "Std C+L"
+   ]
+  },
+  {
+   "id": "PSI-M",
+   "platform": "PSI",
+   "name": "PSI-M",
+   "ru": 1,
+   "depthMm": 600.0,
+   "widthMm": null,
+   "heightMm": null,
+   "dimensions": "1RU/600mm",
+   "weightKg": null,
+   "slots": 4,
+   "slotsHalf": null,
+   "slotsFull": 4,
+   "slotsRaw": "4",
+   "slotsIncludesCommon": false,
+   "slotsGrid": null,
+   "slotsCommon": null,
+   "tempLo": null,
+   "tempHi": null,
+   "tempRaw": null,
+   "mounting": "19\u201d/23\u201d 2/4-post, sliding rails",
+   "applications": "L1",
+   "controller": "Single/dual",
+   "controllerDual": true,
+   "ioFru": null,
+   "fans": "5 fans, rear, 1:N",
+   "fanCount": 5,
+   "fanRedundancy": "1:N",
+   "powerSupply": "AC / DC, HVDC (China market)",
+   "psuCount": 2,
+   "psuRedundancy": "1+1",
+   "psuType": "2 PSU, Rear, 1+1",
+   "pemCapacity": null,
+   "powerRaw": null,
+   "release": "GA",
+   "status": null,
+   "note": null,
+   "cardCount": null,
+   "source": "PSS planning guide + roadmap",
+   "transponders": 0,
+   "maxLineG": null,
+   "clientServices": [],
+   "hosts": [],
+   "bands": []
+  },
+  {
+   "id": "PSS-8x",
+   "platform": "PSS",
+   "name": "PSS-8x",
+   "ru": 10,
+   "depthMm": 300.0,
+   "widthMm": null,
+   "heightMm": null,
+   "dimensions": "10RU/300mm",
+   "weightKg": null,
+   "slots": 8,
+   "slotsHalf": null,
+   "slotsFull": 8,
+   "slotsRaw": "8",
+   "slotsIncludesCommon": false,
+   "slotsGrid": null,
+   "slotsCommon": null,
+   "tempLo": null,
+   "tempHi": null,
+   "tempRaw": null,
+   "mounting": "19\u201d/21\u201d/23\u201d",
+   "applications": "L1 / 1T6, 4T",
+   "controller": "Dual",
+   "controllerDual": true,
+   "ioFru": "8",
+   "fans": "3 fans, top, 1:N",
+   "fanCount": 3,
+   "fanRedundancy": "1:N",
+   "powerSupply": "D/C",
+   "psuCount": 2,
+   "psuRedundancy": "1+1",
+   "psuType": "2 PSU, Front, 1+1",
+   "pemCapacity": null,
+   "powerRaw": null,
+   "release": "GA",
+   "status": null,
+   "note": null,
+   "cardCount": null,
+   "source": "PSS planning guide + roadmap",
+   "transponders": 0,
+   "maxLineG": null,
+   "clientServices": [],
+   "hosts": [],
+   "bands": []
+  },
+  {
+   "id": "PSS-12x",
+   "platform": "PSS",
+   "name": "PSS-12x",
+   "ru": 21,
+   "depthMm": 300.0,
+   "widthMm": null,
+   "heightMm": null,
+   "dimensions": "21RU/300mm",
+   "weightKg": null,
+   "slots": 24,
+   "slotsHalf": null,
+   "slotsFull": 24,
+   "slotsRaw": "24",
+   "slotsIncludesCommon": false,
+   "slotsGrid": null,
+   "slotsCommon": null,
+   "tempLo": null,
+   "tempHi": null,
+   "tempRaw": null,
+   "mounting": "21\u201d/23\u201d",
+   "applications": "L1 / 4T8, 12T",
+   "controller": "Dual",
+   "controllerDual": true,
+   "ioFru": "24",
+   "fans": "3 fans, top, 1:N",
+   "fanCount": 3,
+   "fanRedundancy": "1:N",
+   "powerSupply": "D/C",
+   "psuCount": 2,
+   "psuRedundancy": "1+1",
+   "psuType": "2 PSU, Front, 1+1",
+   "pemCapacity": null,
+   "powerRaw": null,
+   "release": "GA",
+   "status": null,
+   "note": null,
+   "cardCount": null,
+   "source": "PSS planning guide + roadmap",
+   "transponders": 0,
+   "maxLineG": null,
+   "clientServices": [],
+   "hosts": [],
+   "bands": []
+  },
+  {
+   "id": "PSS-24x",
+   "platform": "PSS",
+   "name": "PSS-24x",
+   "ru": 23,
+   "depthMm": 450.0,
+   "widthMm": null,
+   "heightMm": null,
+   "dimensions": "23RU/450mm",
+   "weightKg": null,
+   "slots": 24,
+   "slotsHalf": null,
+   "slotsFull": 24,
+   "slotsRaw": "24",
+   "slotsIncludesCommon": false,
+   "slotsGrid": null,
+   "slotsCommon": null,
+   "tempLo": null,
+   "tempHi": null,
+   "tempRaw": null,
+   "mounting": "21\u201d/23\u201d",
+   "applications": "L1 / 9T6, 24T, 48T and L2",
+   "controller": "Dual",
+   "controllerDual": true,
+   "ioFru": "24",
+   "fans": "3 fans, top, 1:N",
+   "fanCount": 3,
+   "fanRedundancy": "1:N",
+   "powerSupply": "D/C",
+   "psuCount": 4,
+   "psuRedundancy": "1+1",
+   "psuType": "4 PSU, Rear, 1+1",
+   "pemCapacity": null,
+   "powerRaw": null,
+   "release": "GA",
+   "status": null,
+   "note": null,
+   "cardCount": null,
+   "source": "PSS planning guide + roadmap",
+   "transponders": 0,
+   "maxLineG": null,
+   "clientServices": [],
+   "hosts": [],
+   "bands": []
+  },
+  {
+   "id": "PSS-4hc",
+   "platform": "PSS",
+   "name": "PSS-4hc",
+   "ru": 6,
+   "depthMm": 450.0,
+   "widthMm": null,
+   "heightMm": null,
+   "dimensions": "6RU/450mm",
+   "weightKg": null,
+   "slots": 4,
+   "slotsHalf": null,
+   "slotsFull": 4,
+   "slotsRaw": "4",
+   "slotsIncludesCommon": false,
+   "slotsGrid": null,
+   "slotsCommon": null,
+   "tempLo": null,
+   "tempHi": null,
+   "tempRaw": null,
+   "mounting": "19\u201d/21\u201d/23\u201d",
+   "applications": "L1, TDS",
+   "controller": "Dual",
+   "controllerDual": true,
+   "ioFru": "4",
+   "fans": "4 fans, rear, N+1",
+   "fanCount": 4,
+   "fanRedundancy": null,
+   "powerSupply": "A/C / D/C",
+   "psuCount": 4,
+   "psuRedundancy": "2+2",
+   "psuType": "4 PSU, rear, N+N, N+1 (2+2 DC or AC)",
+   "pemCapacity": null,
+   "powerRaw": null,
+   "release": "R26.6",
+   "status": null,
+   "note": null,
+   "cardCount": 5,
+   "source": "PSS planning guide + roadmap",
+   "transponders": 0,
+   "maxLineG": null,
+   "clientServices": [],
+   "hosts": [],
+   "bands": []
+  },
+  {
+   "id": "PSS-10hc",
+   "platform": "PSS",
+   "name": "PSS-10hc",
+   "ru": 15,
+   "depthMm": 450.0,
+   "widthMm": null,
+   "heightMm": null,
+   "dimensions": "15RU/450mm",
+   "weightKg": null,
+   "slots": 10,
+   "slotsHalf": null,
+   "slotsFull": 10,
+   "slotsRaw": "10",
+   "slotsIncludesCommon": false,
+   "slotsGrid": null,
+   "slotsCommon": null,
+   "tempLo": null,
+   "tempHi": null,
+   "tempRaw": null,
+   "mounting": "19\u201d/21\u201d/23\u201d",
+   "applications": "L1, TDS",
+   "controller": "Dual",
+   "controllerDual": true,
+   "ioFru": "10",
+   "fans": "3 fans, rear, N+1",
+   "fanCount": 3,
+   "fanRedundancy": null,
+   "powerSupply": "A/C / D/C",
+   "psuCount": 12,
+   "psuRedundancy": "5+5",
+   "psuType": "12 PSU, rear, N+N, N+1 (5+5, 3+3 DC, 5+2, 3+2 AC)",
+   "pemCapacity": null,
+   "powerRaw": null,
+   "release": "R26.6",
+   "status": null,
+   "note": null,
+   "cardCount": 5,
+   "source": "PSS planning guide + roadmap",
+   "transponders": 0,
+   "maxLineG": null,
+   "clientServices": [],
+   "hosts": [],
+   "bands": []
+  },
+  {
+   "id": "PSS-16",
+   "platform": "PSS",
+   "name": "PSS-16",
+   "ru": null,
+   "depthMm": null,
+   "widthMm": null,
+   "heightMm": null,
+   "dimensions": null,
+   "weightKg": null,
+   "slots": null,
+   "slotsHalf": null,
+   "slotsFull": null,
+   "slotsRaw": null,
+   "slotsIncludesCommon": false,
+   "slotsGrid": null,
+   "slotsCommon": null,
+   "tempLo": null,
+   "tempHi": null,
+   "tempRaw": null,
+   "mounting": null,
+   "applications": null,
+   "controller": null,
+   "controllerDual": null,
+   "ioFru": null,
+   "fans": null,
+   "fanCount": null,
+   "fanRedundancy": null,
+   "powerSupply": null,
+   "psuCount": null,
+   "psuRedundancy": null,
+   "psuType": null,
+   "pemCapacity": null,
+   "powerRaw": null,
+   "release": null,
+   "status": null,
+   "note": null,
+   "cardCount": 60,
+   "source": "PSS planning guide + roadmap",
+   "transponders": 0,
+   "maxLineG": null,
+   "clientServices": [],
+   "hosts": [],
+   "bands": []
+  }
+ ],
+ "coverage": {
+  "GX": {
+   "shelves": [
+    "G31",
+    "G32",
+    "G34c",
+    "G42"
+   ],
+   "categories": [
+    "Transponder",
+    "ROADM / Raman",
+    "Amplifier",
+    "Monitoring"
+   ],
+   "cells": {
+    "Transponder|G31": 8,
+    "ROADM / Raman|G31": 11,
+    "Monitoring|G31": 1,
+    "Transponder|G32": 8,
+    "ROADM / Raman|G32": 14,
+    "Monitoring|G32": 1,
+    "ROADM / Raman|G34c": 7,
+    "Amplifier|G34c": 2,
+    "Monitoring|G34c": 1,
+    "Transponder|G34c": 1,
+    "Transponder|G42": 33
+   },
+   "ofp2": [
+    {
+     "function": "Amplifier",
+     "count": 5
+    },
+    {
+     "function": "Add / drop",
+     "count": 3
+    },
+    {
+     "function": "Monitoring",
+     "count": 3
+    },
+    {
+     "function": "Protection",
+     "count": 2
+    },
+    {
+     "function": "ROADM / Raman",
+     "count": 1
+    }
+   ]
+  },
+  "PSS": {
+   "shelves": [
+    "PSS-4II",
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU",
+    "PSS-32",
+    "PSI-4L",
+    "PSI-8L"
+   ],
+   "categories": [
+    "Transponder",
+    "ROADM",
+    "Amplifier",
+    "Add / drop",
+    "Line card",
+    "Packet / OTN",
+    "Protection",
+    "Monitoring",
+    "Controller",
+    "Timing",
+    "Cooling"
+   ],
+   "cells": {
+    "Transponder|PSS-8": 30,
+    "Transponder|PSS-16II DC 8RU": 30,
+    "Transponder|PSS-32": 37,
+    "Packet / OTN|PSS-8": 8,
+    "Packet / OTN|PSS-16II DC 8RU": 8,
+    "Packet / OTN|PSS-32": 3,
+    "Packet / OTN|PSS-4II": 4,
+    "Transponder|PSS-4II": 9,
+    "Transponder|PSS-16II AC/DC 9RU": 13,
+    "Packet / OTN|PSS-16II AC/DC 9RU": 1,
+    "Line card|PSS-8": 1,
+    "Line card|PSS-16II DC 8RU": 1,
+    "Controller|PSS-16II DC 8RU": 4,
+    "Controller|PSS-16II AC/DC 9RU": 4,
+    "Controller|PSS-32": 6,
+    "Add / drop|PSS-32": 15,
+    "Controller|PSS-4II": 2,
+    "Controller|PSS-8": 3,
+    "Amplifier|PSS-8": 28,
+    "Amplifier|PSS-16II DC 8RU": 31,
+    "Amplifier|PSS-32": 32,
+    "Amplifier|PSS-16II AC/DC 9RU": 20,
+    "Amplifier|PSS-4II": 4,
+    "Amplifier|PSI-4L": 17,
+    "Amplifier|PSI-8L": 17,
+    "Add / drop|PSS-8": 14,
+    "Add / drop|PSS-16II DC 8RU": 18,
+    "Add / drop|PSS-16II AC/DC 9RU": 18,
+    "Add / drop|PSI-4L": 10,
+    "Add / drop|PSI-8L": 10,
+    "ROADM|PSS-8": 21,
+    "ROADM|PSS-16II DC 8RU": 22,
+    "ROADM|PSS-32": 23,
+    "Cooling|PSS-4II": 1,
+    "Cooling|PSS-8": 1,
+    "Cooling|PSS-16II DC 8RU": 1,
+    "Cooling|PSS-16II AC/DC 9RU": 1,
+    "Cooling|PSS-32": 1,
+    "Cooling|PSI-4L": 1,
+    "Cooling|PSI-8L": 1,
+    "ROADM|PSS-16II AC/DC 9RU": 17,
+    "ROADM|PSI-4L": 15,
+    "ROADM|PSI-8L": 15,
+    "ROADM|PSS-4II": 3,
+    "Controller|PSI-4L": 2,
+    "Controller|PSI-8L": 2,
+    "Monitoring|PSS-8": 6,
+    "Monitoring|PSS-16II DC 8RU": 7,
+    "Monitoring|PSS-16II AC/DC 9RU": 4,
+    "Monitoring|PSS-32": 7,
+    "Monitoring|PSS-4II": 1,
+    "Monitoring|PSI-4L": 4,
+    "Monitoring|PSI-8L": 4,
+    "Protection|PSS-8": 6,
+    "Protection|PSS-16II DC 8RU": 6,
+    "Protection|PSS-16II AC/DC 9RU": 6,
+    "Protection|PSS-32": 6,
+    "Protection|PSI-4L": 5,
+    "Protection|PSI-8L": 5,
+    "Protection|PSS-4II": 2,
+    "Timing|PSS-8": 2,
+    "Timing|PSS-16II DC 8RU": 2,
+    "Timing|PSS-32": 2,
+    "Timing|PSI-4L": 1,
+    "Timing|PSI-8L": 2,
+    "Add / drop|PSS-4II": 2
+   }
+  }
+ },
+ "transponders": [
+  {
+   "name": "CHM6-C4",
+   "platform": "GX",
+   "family": "CHM6",
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "carriers": 1,
+   "capacityG": 800,
+   "perSlotG": 800,
+   "slots": 1,
+   "cages": 16,
+   "cageTypes": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "embedded",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM6-C6",
+   "platform": "GX",
+   "family": "CHM6",
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "carriers": 1,
+   "capacityG": 800,
+   "perSlotG": 800,
+   "slots": 1,
+   "cages": 16,
+   "cageTypes": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "embedded",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM6-C8",
+   "platform": "GX",
+   "family": "CHM6",
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "carriers": 1,
+   "capacityG": 800,
+   "perSlotG": 800,
+   "slots": 1,
+   "cages": 16,
+   "cageTypes": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "embedded",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM6-C9",
+   "platform": "GX",
+   "family": "CHM6",
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "carriers": 1,
+   "capacityG": 800,
+   "perSlotG": 800,
+   "slots": 1,
+   "cages": 16,
+   "cageTypes": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "embedded",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM6S-C13",
+   "platform": "GX",
+   "family": "CHM6",
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "carriers": 1,
+   "capacityG": 800,
+   "perSlotG": 800,
+   "slots": 1,
+   "cages": 16,
+   "cageTypes": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "embedded",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM6S-C14",
+   "platform": "GX",
+   "family": "CHM6",
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "carriers": 1,
+   "capacityG": 800,
+   "perSlotG": 800,
+   "slots": 1,
+   "cages": 16,
+   "cageTypes": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "embedded",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM6S-C15",
+   "platform": "GX",
+   "family": "CHM6",
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "carriers": 1,
+   "capacityG": 800,
+   "perSlotG": 800,
+   "slots": 1,
+   "cages": 16,
+   "cageTypes": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "embedded",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM6-L6",
+   "platform": "GX",
+   "family": "CHM6",
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "carriers": 1,
+   "capacityG": 800,
+   "perSlotG": 800,
+   "slots": 1,
+   "cages": 16,
+   "cageTypes": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "band": [
+    "L"
+   ],
+   "lineType": "embedded",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM6-L8",
+   "platform": "GX",
+   "family": "CHM6",
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "carriers": 1,
+   "capacityG": 800,
+   "perSlotG": 800,
+   "slots": 1,
+   "cages": 16,
+   "cageTypes": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "band": [
+    "L"
+   ],
+   "lineType": "embedded",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM6B-C6",
+   "platform": "GX",
+   "family": "CHM6",
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "carriers": 1,
+   "capacityG": 800,
+   "perSlotG": 800,
+   "slots": 1,
+   "cages": 16,
+   "cageTypes": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM6B-C8",
+   "platform": "GX",
+   "family": "CHM6",
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "carriers": 1,
+   "capacityG": 800,
+   "perSlotG": 800,
+   "slots": 1,
+   "cages": 16,
+   "cageTypes": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM6B-C9",
+   "platform": "GX",
+   "family": "CHM6",
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "carriers": 1,
+   "capacityG": 800,
+   "perSlotG": 800,
+   "slots": 1,
+   "cages": 16,
+   "cageTypes": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM6SB-C13",
+   "platform": "GX",
+   "family": "CHM6",
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "carriers": 1,
+   "capacityG": 800,
+   "perSlotG": 800,
+   "slots": 1,
+   "cages": 16,
+   "cageTypes": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM6SB-C14",
+   "platform": "GX",
+   "family": "CHM6",
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "carriers": 1,
+   "capacityG": 800,
+   "perSlotG": 800,
+   "slots": 1,
+   "cages": 16,
+   "cageTypes": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM6SB-C15",
+   "platform": "GX",
+   "family": "CHM6",
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "carriers": 1,
+   "capacityG": 800,
+   "perSlotG": 800,
+   "slots": 1,
+   "cages": 16,
+   "cageTypes": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM6B-L6",
+   "platform": "GX",
+   "family": "CHM6",
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "carriers": 1,
+   "capacityG": 800,
+   "perSlotG": 800,
+   "slots": 1,
+   "cages": 16,
+   "cageTypes": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "band": [
+    "L"
+   ],
+   "lineType": "pluggable",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM6B-L8",
+   "platform": "GX",
+   "family": "CHM6",
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "carriers": 1,
+   "capacityG": 800,
+   "perSlotG": 800,
+   "slots": 1,
+   "cages": 16,
+   "cageTypes": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "band": [
+    "L"
+   ],
+   "lineType": "pluggable",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM6P-C6",
+   "platform": "GX",
+   "family": "CHM6",
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "carriers": 2,
+   "capacityG": 1600,
+   "perSlotG": 1600,
+   "slots": 1,
+   "cages": 16,
+   "cageTypes": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM6P-C8",
+   "platform": "GX",
+   "family": "CHM6",
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "carriers": 2,
+   "capacityG": 1600,
+   "perSlotG": 1600,
+   "slots": 1,
+   "cages": 16,
+   "cageTypes": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM6P-C9",
+   "platform": "GX",
+   "family": "CHM6",
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "carriers": 2,
+   "capacityG": 1600,
+   "perSlotG": 1600,
+   "slots": 1,
+   "cages": 16,
+   "cageTypes": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM6SP-C13",
+   "platform": "GX",
+   "family": "CHM6",
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "carriers": 2,
+   "capacityG": 1600,
+   "perSlotG": 1600,
+   "slots": 1,
+   "cages": 16,
+   "cageTypes": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM6SP-C14",
+   "platform": "GX",
+   "family": "CHM6",
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "carriers": 2,
+   "capacityG": 1600,
+   "perSlotG": 1600,
+   "slots": 1,
+   "cages": 16,
+   "cageTypes": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM6SP-C15",
+   "platform": "GX",
+   "family": "CHM6",
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "carriers": 2,
+   "capacityG": 1600,
+   "perSlotG": 1600,
+   "slots": 1,
+   "cages": 16,
+   "cageTypes": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM6P-L6",
+   "platform": "GX",
+   "family": "CHM6",
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "carriers": 2,
+   "capacityG": 1600,
+   "perSlotG": 1600,
+   "slots": 1,
+   "cages": 16,
+   "cageTypes": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "band": [
+    "L"
+   ],
+   "lineType": "pluggable",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM6P-L8",
+   "platform": "GX",
+   "family": "CHM6",
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "carriers": 2,
+   "capacityG": 1600,
+   "perSlotG": 1600,
+   "slots": 1,
+   "cages": 16,
+   "cageTypes": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "band": [
+    "L"
+   ],
+   "lineType": "pluggable",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM7-C8",
+   "platform": "GX",
+   "family": "CHM7",
+   "lineMinG": 100,
+   "lineMaxG": 1200,
+   "carriers": 1,
+   "capacityG": 1200,
+   "perSlotG": 1200,
+   "slots": 1,
+   "cages": 6,
+   "cageTypes": [
+    {
+     "type": "QSFP-DD",
+     "qty": 6
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "800GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "embedded",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM7s-C14",
+   "platform": "GX",
+   "family": "CHM7",
+   "lineMinG": 100,
+   "lineMaxG": 1200,
+   "carriers": 1,
+   "capacityG": 1200,
+   "perSlotG": 1200,
+   "slots": 1,
+   "cages": 6,
+   "cageTypes": [
+    {
+     "type": "QSFP-DD",
+     "qty": 6
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "800GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "embedded",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM7B-C8",
+   "platform": "GX",
+   "family": "CHM7",
+   "lineMinG": 100,
+   "lineMaxG": 1200,
+   "carriers": 1,
+   "capacityG": 1200,
+   "perSlotG": 1200,
+   "slots": 1,
+   "cages": 6,
+   "cageTypes": [
+    {
+     "type": "QSFP-DD",
+     "qty": 6
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "800GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM7SB-C14",
+   "platform": "GX",
+   "family": "CHM7",
+   "lineMinG": 100,
+   "lineMaxG": 1200,
+   "carriers": 1,
+   "capacityG": 1200,
+   "perSlotG": 1200,
+   "slots": 1,
+   "cages": 6,
+   "cageTypes": [
+    {
+     "type": "QSFP-DD",
+     "qty": 6
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "800GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM7P-C8",
+   "platform": "GX",
+   "family": "CHM7",
+   "lineMinG": 100,
+   "lineMaxG": 1200,
+   "carriers": 2,
+   "capacityG": 2400,
+   "perSlotG": 2400,
+   "slots": 1,
+   "cages": 6,
+   "cageTypes": [
+    {
+     "type": "QSFP-DD",
+     "qty": 6
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "800GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM7SP-C14",
+   "platform": "GX",
+   "family": "CHM7",
+   "lineMinG": 100,
+   "lineMaxG": 1200,
+   "carriers": 2,
+   "capacityG": 2400,
+   "perSlotG": 2400,
+   "slots": 1,
+   "cages": 6,
+   "cageTypes": [
+    {
+     "type": "QSFP-DD",
+     "qty": 6
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "800GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM7P-C8-1.6T+",
+   "platform": "GX",
+   "family": "CHM7",
+   "lineMinG": 100,
+   "lineMaxG": 1200,
+   "carriers": 2,
+   "capacityG": 2400,
+   "perSlotG": 2400,
+   "slots": 1,
+   "cages": 6,
+   "cageTypes": [
+    {
+     "type": "QSFP-DD",
+     "qty": 6
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "800GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "CHM7X-C6",
+   "platform": "GX",
+   "family": "CHM7X",
+   "lineMinG": 100,
+   "lineMaxG": 1200,
+   "carriers": 1,
+   "capacityG": 1200,
+   "perSlotG": 600,
+   "slots": 2,
+   "cages": 6,
+   "cageTypes": [
+    {
+     "type": "QSFP-DD",
+     "qty": 6
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "embedded",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G31",
+    "G32"
+   ]
+  },
+  {
+   "name": "CHM7X-C8",
+   "platform": "GX",
+   "family": "CHM7X",
+   "lineMinG": 100,
+   "lineMaxG": 1200,
+   "carriers": 1,
+   "capacityG": 1200,
+   "perSlotG": 600,
+   "slots": 2,
+   "cages": 6,
+   "cageTypes": [
+    {
+     "type": "QSFP-DD",
+     "qty": 6
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "embedded",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G31",
+    "G32"
+   ]
+  },
+  {
+   "name": "CHM7X-C14",
+   "platform": "GX",
+   "family": "CHM7X",
+   "lineMinG": 100,
+   "lineMaxG": 1200,
+   "carriers": 1,
+   "capacityG": 1200,
+   "perSlotG": 600,
+   "slots": 2,
+   "cages": 6,
+   "cageTypes": [
+    {
+     "type": "QSFP-DD",
+     "qty": 6
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "embedded",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G31",
+    "G32"
+   ]
+  },
+  {
+   "name": "CHMQ6",
+   "platform": "GX",
+   "family": "CHMQ6",
+   "lineMinG": 100,
+   "lineMaxG": 400,
+   "carriers": 1,
+   "capacityG": 400,
+   "perSlotG": 400,
+   "slots": 1,
+   "cages": 6,
+   "cageTypes": [
+    {
+     "type": "QSFP-DD",
+     "qty": 6
+    }
+   ],
+   "services": [
+    "400GE",
+    "800GE"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "embedded",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G31",
+    "G32"
+   ]
+  },
+  {
+   "name": "UCM4",
+   "platform": "GX",
+   "family": "UCM4",
+   "lineMinG": 100,
+   "lineMaxG": 100,
+   "carriers": 4,
+   "capacityG": 400,
+   "perSlotG": 400,
+   "slots": 1,
+   "cages": 10,
+   "cageTypes": [
+    {
+     "type": "QSFP+/QSFP28",
+     "qty": 10
+    }
+   ],
+   "services": [
+    "100GE",
+    "10GE",
+    "40GE",
+    "OC-192",
+    "OTU2",
+    "OTU2e",
+    "STM64"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G40"
+   ]
+  },
+  {
+   "name": "UTM2",
+   "platform": "GX",
+   "family": "UTM2",
+   "lineMinG": 100,
+   "lineMaxG": 400,
+   "carriers": 2,
+   "capacityG": 800,
+   "perSlotG": 400,
+   "slots": 2,
+   "cages": 14,
+   "cageTypes": [
+    {
+     "type": "QSFP28",
+     "qty": 2
+    },
+    {
+     "type": "SFP+/SFP28",
+     "qty": 12
+    }
+   ],
+   "services": [
+    "100GE",
+    "10GE",
+    "1GE",
+    "40GE",
+    "OC-48",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G31",
+    "G32"
+   ]
+  },
+  {
+   "name": "CHM1R",
+   "platform": "GX",
+   "family": "CHM1R",
+   "lineMinG": 100,
+   "lineMaxG": 400,
+   "carriers": 2,
+   "capacityG": 800,
+   "perSlotG": 800,
+   "slots": 1,
+   "cages": 4,
+   "cageTypes": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 4
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G31",
+    "G32"
+   ]
+  },
+  {
+   "name": "CHM2TX",
+   "platform": "GX",
+   "family": "CHM2TX",
+   "lineMinG": 100,
+   "lineMaxG": 500,
+   "carriers": 1,
+   "capacityG": 500,
+   "perSlotG": 250,
+   "slots": 2,
+   "cages": 12,
+   "cageTypes": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 6
+    },
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 6
+    }
+   ],
+   "services": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "embedded",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G31",
+    "G32"
+   ]
+  },
+  {
+   "name": "SPN2",
+   "platform": "GX",
+   "family": "SPN2",
+   "lineMinG": 100,
+   "lineMaxG": 400,
+   "carriers": 4,
+   "capacityG": 1600,
+   "perSlotG": 800,
+   "slots": 2,
+   "cages": 6,
+   "cageTypes": [
+    {
+     "type": "QSFP28/QSFP+",
+     "qty": 6
+    }
+   ],
+   "services": [
+    "100GE",
+    "10GE",
+    "400GE",
+    "40GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G31",
+    "G32"
+   ]
+  },
+  {
+   "name": "SPN2C",
+   "platform": "GX",
+   "family": "SPN2C",
+   "lineMinG": 100,
+   "lineMaxG": 400,
+   "carriers": 4,
+   "capacityG": 1600,
+   "perSlotG": 800,
+   "slots": 2,
+   "cages": 6,
+   "cageTypes": [
+    {
+     "type": "QSFP28/QSFP+",
+     "qty": 2
+    },
+    {
+     "type": "QSFP28/QSFP+",
+     "qty": 4
+    }
+   ],
+   "services": [
+    "100GE",
+    "10GE",
+    "400GE",
+    "40GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "G34c/G34Xc"
+   ]
+  },
+  {
+   "name": "12P120S",
+   "platform": "PSS",
+   "family": "LSEO OTN",
+   "lineMinG": 10,
+   "lineMaxG": 10,
+   "carriers": 6,
+   "capacityG": 60,
+   "perSlotG": 60,
+   "slots": 1,
+   "cages": 6,
+   "cageTypes": [
+    {
+     "type": "SFP+",
+     "qty": 6
+    }
+   ],
+   "services": [
+    "10GE",
+    "OTU2",
+    "OC-192",
+    "STM64",
+    "FC800"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "PSS-4II",
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-32"
+   ]
+  },
+  {
+   "name": "16P200",
+   "platform": "PSS",
+   "family": "LSEO OTN",
+   "lineMinG": 100,
+   "lineMaxG": 100,
+   "carriers": 2,
+   "capacityG": 200,
+   "perSlotG": 200,
+   "slots": 1,
+   "cages": 14,
+   "cageTypes": [
+    {
+     "type": "SFP+/SFP28",
+     "qty": 12
+    },
+    {
+     "type": "QSFP+/QSFP28",
+     "qty": 2
+    }
+   ],
+   "services": [
+    "100GE",
+    "10GE",
+    "OTU4",
+    "OTU2",
+    "OC-192",
+    "STM64"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "PSS-4II",
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU",
+    "PSS-32"
+   ]
+  },
+  {
+   "name": "8P20B",
+   "platform": "PSS",
+   "family": "LSEO OTN",
+   "lineMinG": 10,
+   "lineMaxG": 10,
+   "carriers": 2,
+   "capacityG": 20,
+   "perSlotG": 20,
+   "slots": 1,
+   "cages": 8,
+   "cageTypes": [
+    {
+     "type": "SFP",
+     "qty": 8
+    }
+   ],
+   "services": [
+    "1GE",
+    "FE",
+    "OTU1",
+    "OC-3",
+    "STM1",
+    "FC100",
+    "HD-SDI",
+    "SD-SDI",
+    "3G-SDI"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": null,
+   "baudGBd": [],
+   "spacingGHz": [],
+   "shipping": true,
+   "hosts": [
+    "PSS-4II",
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-32"
+   ]
+  },
+  {
+   "name": "D4AD1T6H",
+   "platform": "PSS",
+   "family": "HSEO super-coherent",
+   "lineMinG": 400,
+   "lineMaxG": 800,
+   "carriers": 2,
+   "capacityG": 1600,
+   "perSlotG": 800,
+   "slots": 2,
+   "cages": 4,
+   "cageTypes": [
+    {
+     "type": "QSFP56-DD",
+     "qty": 4
+    }
+   ],
+   "services": [
+    "400GE",
+    "100GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "embedded",
+   "dsp": "PSE-6s",
+   "baudGBd": [
+    130.0
+   ],
+   "spacingGHz": [
+    137.5,
+    150.0
+   ],
+   "shipping": true,
+   "hosts": [
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU"
+   ]
+  },
+  {
+   "name": "D6A2T4E",
+   "platform": "PSS",
+   "family": "HSEO super-coherent",
+   "lineMinG": 400,
+   "lineMaxG": 1200,
+   "carriers": 2,
+   "capacityG": 2400,
+   "perSlotG": 1200,
+   "slots": 2,
+   "cages": 6,
+   "cageTypes": [
+    {
+     "type": "QSFP56-DD",
+     "qty": 4
+    },
+    {
+     "type": "QSFP56-DD/DD800",
+     "qty": 2
+    }
+   ],
+   "services": [
+    "800GE",
+    "400GE",
+    "100GE",
+    "OTUC4",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "embedded",
+   "dsp": "PSE-6s",
+   "baudGBd": [
+    130.0,
+    140.0
+   ],
+   "spacingGHz": [
+    137.5,
+    150.0
+   ],
+   "shipping": true,
+   "hosts": [
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU"
+   ]
+  },
+  {
+   "name": "D6A2T4EEL",
+   "platform": "PSS",
+   "family": "HSEO super-coherent",
+   "lineMinG": 400,
+   "lineMaxG": 1200,
+   "carriers": 2,
+   "capacityG": 2400,
+   "perSlotG": 1200,
+   "slots": 2,
+   "cages": 6,
+   "cageTypes": [
+    {
+     "type": "QSFP56-DD",
+     "qty": 4
+    },
+    {
+     "type": "QSFP56-DD/DD800",
+     "qty": 2
+    }
+   ],
+   "services": [
+    "800GE",
+    "400GE",
+    "100GE",
+    "OTUC4",
+    "OTU4"
+   ],
+   "band": [
+    "L"
+   ],
+   "lineType": "embedded",
+   "dsp": "PSE-6s",
+   "baudGBd": [
+    130.0,
+    140.0
+   ],
+   "spacingGHz": [
+    137.5,
+    150.0
+   ],
+   "shipping": false,
+   "hosts": [
+    "PSS-16II DC 8RU"
+   ]
+  },
+  {
+   "name": "D6AD2T4H",
+   "platform": "PSS",
+   "family": "HSEO super-coherent",
+   "lineMinG": 300,
+   "lineMaxG": 1200,
+   "carriers": 2,
+   "capacityG": 2400,
+   "perSlotG": 1200,
+   "slots": 2,
+   "cages": 6,
+   "cageTypes": [
+    {
+     "type": "QSFP56-DD",
+     "qty": 6
+    }
+   ],
+   "services": [
+    "800GE",
+    "400GE",
+    "100GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "embedded",
+   "dsp": "PSE-6s",
+   "baudGBd": [
+    130.0
+   ],
+   "spacingGHz": [
+    137.5,
+    150.0
+   ],
+   "shipping": true,
+   "hosts": [
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU"
+   ]
+  },
+  {
+   "name": "D6AD2T4L",
+   "platform": "PSS",
+   "family": "HSEO super-coherent",
+   "lineMinG": 300,
+   "lineMaxG": 1200,
+   "carriers": 2,
+   "capacityG": 2400,
+   "perSlotG": 1200,
+   "slots": 2,
+   "cages": 6,
+   "cageTypes": [
+    {
+     "type": "QSFP56-DD",
+     "qty": 6
+    }
+   ],
+   "services": [
+    "800GE",
+    "400GE",
+    "100GE",
+    "OTU4"
+   ],
+   "band": [
+    "L"
+   ],
+   "lineType": "embedded",
+   "dsp": "PSE-6s",
+   "baudGBd": [
+    130.0
+   ],
+   "spacingGHz": [
+    137.5,
+    150.0
+   ],
+   "shipping": true,
+   "hosts": [
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU"
+   ]
+  },
+  {
+   "name": "S13X400E",
+   "platform": "PSS",
+   "family": "HSEO compact",
+   "lineMinG": 100,
+   "lineMaxG": 400,
+   "carriers": 1,
+   "capacityG": 400,
+   "perSlotG": 400,
+   "slots": 1,
+   "cages": 13,
+   "cageTypes": [
+    {
+     "type": "SFP28/+",
+     "qty": 10
+    },
+    {
+     "type": "QSFP28",
+     "qty": 2
+    },
+    {
+     "type": "QSFP56-DD",
+     "qty": 1
+    }
+   ],
+   "services": [
+    "400GE",
+    "100GE",
+    "25GE",
+    "10GE",
+    "OTU4",
+    "OTU2",
+    "100ZR",
+    "FC16G"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": "PSEVc",
+   "baudGBd": [
+    33.0,
+    62.0,
+    67.0
+   ],
+   "spacingGHz": [
+    50.0,
+    75.0,
+    87.5
+   ],
+   "shipping": true,
+   "hosts": [
+    "PSS-4II",
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU"
+   ]
+  },
+  {
+   "name": "S13X400H",
+   "platform": "PSS",
+   "family": "HSEO compact",
+   "lineMinG": 100,
+   "lineMaxG": 400,
+   "carriers": 1,
+   "capacityG": 400,
+   "perSlotG": 400,
+   "slots": 1,
+   "cages": 13,
+   "cageTypes": [
+    {
+     "type": "SFP28/+",
+     "qty": 10
+    },
+    {
+     "type": "QSFP28",
+     "qty": 2
+    },
+    {
+     "type": "QSFP56-DD",
+     "qty": 1
+    }
+   ],
+   "services": [
+    "400GE",
+    "100GE",
+    "25GE",
+    "10GE",
+    "OTU4",
+    "OTU2",
+    "100ZR",
+    "FC16G"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": "PSEVc",
+   "baudGBd": [
+    33.0,
+    62.0,
+    67.0
+   ],
+   "spacingGHz": [
+    50.0,
+    75.0,
+    87.5
+   ],
+   "shipping": true,
+   "hosts": [
+    "PSS-4II",
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU"
+   ]
+  },
+  {
+   "name": "S2AD800H",
+   "platform": "PSS",
+   "family": "HSEO compact",
+   "lineMinG": 400,
+   "lineMaxG": 800,
+   "carriers": 1,
+   "capacityG": 800,
+   "perSlotG": 800,
+   "slots": 1,
+   "cages": 4,
+   "cageTypes": [
+    {
+     "type": "QSFP56-DD/DD-800",
+     "qty": 2
+    },
+    {
+     "type": "QSFP28-DD",
+     "qty": 2
+    }
+   ],
+   "services": [
+    "800GE",
+    "400GE",
+    "100GE",
+    "OTUC4",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": "Garda DSP",
+   "baudGBd": [],
+   "spacingGHz": [
+    75.0,
+    137.5,
+    150.0
+   ],
+   "shipping": false,
+   "hosts": [
+    "PSS-4II",
+    "PSS-8",
+    "PSS-16II DC 8RU"
+   ]
+  },
+  {
+   "name": "S2AD800R",
+   "platform": "PSS",
+   "family": "HSEO compact",
+   "lineMinG": 400,
+   "lineMaxG": 800,
+   "carriers": 1,
+   "capacityG": 800,
+   "perSlotG": 800,
+   "slots": 1,
+   "cages": 4,
+   "cageTypes": [
+    {
+     "type": "QSFP56-DD/DD-800",
+     "qty": 2
+    },
+    {
+     "type": "QSFP28-DD",
+     "qty": 2
+    }
+   ],
+   "services": [
+    "800GE",
+    "400GE",
+    "100GE"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": "Tahoe DSP",
+   "baudGBd": [],
+   "spacingGHz": [
+    75.0,
+    137.5,
+    150.0
+   ],
+   "shipping": true,
+   "hosts": [
+    "PSS-4II",
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU"
+   ]
+  },
+  {
+   "name": "S5AD400H",
+   "platform": "PSS",
+   "family": "HSEO compact",
+   "lineMinG": 100,
+   "lineMaxG": 400,
+   "carriers": 1,
+   "capacityG": 400,
+   "perSlotG": 400,
+   "slots": 1,
+   "cages": 5,
+   "cageTypes": [
+    {
+     "type": "QSFP28",
+     "qty": 4
+    },
+    {
+     "type": "QSFP56-DD",
+     "qty": 1
+    }
+   ],
+   "services": [
+    "400GE",
+    "100GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "pluggable",
+   "dsp": "PSEVc",
+   "baudGBd": [
+    33.0,
+    62.0,
+    67.0
+   ],
+   "spacingGHz": [
+    50.0,
+    75.0,
+    87.5
+   ],
+   "shipping": true,
+   "hosts": [
+    "PSS-4II",
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU",
+    "PSS-32"
+   ]
+  },
+  {
+   "name": "S6AD600E",
+   "platform": "PSS",
+   "family": "HSEO super-coherent",
+   "lineMinG": 200,
+   "lineMaxG": 600,
+   "carriers": 1,
+   "capacityG": 600,
+   "perSlotG": 300,
+   "slots": 2,
+   "cages": 6,
+   "cageTypes": [
+    {
+     "type": "QSFP28",
+     "qty": 5
+    },
+    {
+     "type": "QSFP28/56-DD",
+     "qty": 1
+    }
+   ],
+   "services": [
+    "400GE",
+    "100GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "embedded",
+   "dsp": "PSEVs",
+   "baudGBd": [
+    90.0
+   ],
+   "spacingGHz": [
+    100.0,
+    112.5
+   ],
+   "shipping": true,
+   "hosts": [
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU",
+    "PSS-32"
+   ]
+  },
+  {
+   "name": "S6AD600H",
+   "platform": "PSS",
+   "family": "HSEO super-coherent",
+   "lineMinG": 200,
+   "lineMaxG": 600,
+   "carriers": 1,
+   "capacityG": 600,
+   "perSlotG": 300,
+   "slots": 2,
+   "cages": 6,
+   "cageTypes": [
+    {
+     "type": "QSFP28",
+     "qty": 5
+    },
+    {
+     "type": "QSFP28/56-DD",
+     "qty": 1
+    }
+   ],
+   "services": [
+    "400GE",
+    "100GE",
+    "OTU4"
+   ],
+   "band": [
+    "C"
+   ],
+   "lineType": "embedded",
+   "dsp": "PSEVs",
+   "baudGBd": [
+    90.0
+   ],
+   "spacingGHz": [
+    100.0,
+    112.5
+   ],
+   "shipping": true,
+   "hosts": [
+    "PSS-4II",
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU",
+    "PSS-32"
+   ]
+  },
+  {
+   "name": "S6AD600L",
+   "platform": "PSS",
+   "family": "HSEO super-coherent",
+   "lineMinG": 200,
+   "lineMaxG": 600,
+   "carriers": 1,
+   "capacityG": 600,
+   "perSlotG": 300,
+   "slots": 2,
+   "cages": 6,
+   "cageTypes": [
+    {
+     "type": "QSFP28",
+     "qty": 5
+    },
+    {
+     "type": "QSFP28/56-DD",
+     "qty": 1
+    }
+   ],
+   "services": [
+    "400GE",
+    "100GE",
+    "OTU4"
+   ],
+   "band": [
+    "L"
+   ],
+   "lineType": "embedded",
+   "dsp": "PSEVs",
+   "baudGBd": [
+    90.0
+   ],
+   "spacingGHz": [
+    100.0,
+    112.5
+   ],
+   "shipping": true,
+   "hosts": [
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU",
+    "PSS-32"
+   ]
+  }
+ ],
+ "optical": {
+  "roadm": [
+   {
+    "name": "RD09SM-N1",
+    "platform": "GX",
+    "pn": "G3S-G2RD09SM-N1",
+    "band": "Std C",
+    "thz": 4.8,
+    "slots": 2,
+    "shelves": [
+     "G31",
+     "G32"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "source": "gx-data.js",
+    "degrees": 9,
+    "wssBanks": 1,
+    "wssPorts": 9,
+    "wssType": "Single WSS, medium performance",
+    "spanLossLo": 0.0,
+    "spanLossHi": 30.0,
+    "lBandExtendable": "No",
+    "cdcAddDrop": "\u2014",
+    "colourlessAddDrop": "CAD16 (max 16 ch)"
+   },
+   {
+    "name": "RD20TM",
+    "platform": "GX",
+    "pn": "G3S-G2RD20TM-N0",
+    "band": "Std C",
+    "thz": 4.8,
+    "slots": 2,
+    "shelves": [
+     "G31",
+     "G32"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "source": "gx-data.js",
+    "degrees": 20,
+    "wssBanks": 1,
+    "wssPorts": 20,
+    "wssType": "Twin WSS, medium performance",
+    "spanLossLo": 0.0,
+    "spanLossHi": 32.5,
+    "lBandExtendable": "No",
+    "cdcAddDrop": "CDC8D6",
+    "colourlessAddDrop": "CAD10"
+   },
+   {
+    "name": "RD12TI",
+    "platform": "GX",
+    "pn": "G3S-C2RD12TI-W0",
+    "band": "Super C",
+    "thz": 6.1,
+    "slots": 2,
+    "shelves": [
+     "G34c"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": 80.0,
+    "wattsMax": 110.0,
+    "source": "gx-data.js",
+    "degrees": 12,
+    "wssBanks": 1,
+    "wssPorts": 12,
+    "wssType": "Twin WSS, intermediate range",
+    "spanLossLo": 0.0,
+    "spanLossHi": 29.0,
+    "lBandExtendable": "No",
+    "cdcAddDrop": "CDC4D4",
+    "colourlessAddDrop": "CAD16"
+   },
+   {
+    "name": "RD32TH-C",
+    "platform": "GX",
+    "pn": "G3S-G3RD32TH-X0",
+    "band": "Super C",
+    "thz": 6.1,
+    "slots": 3,
+    "shelves": [
+     "G32",
+     "G32E"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": 93.0,
+    "wattsMax": 130.0,
+    "source": "gx-data.js",
+    "degrees": 32,
+    "wssBanks": 1,
+    "wssPorts": 32,
+    "wssType": "Twin WSS, high performance",
+    "spanLossLo": 0.0,
+    "spanLossHi": 33.0,
+    "lBandExtendable": "Yes \u2014 1 upgrade port for Super L",
+    "cdcAddDrop": "CDC8D6",
+    "colourlessAddDrop": "CAD10"
+   },
+   {
+    "name": "RD66TM",
+    "platform": "GX",
+    "pn": "G3S-H3RD66TM-Z0",
+    "band": "Std C+L",
+    "thz": 9.6,
+    "slots": 6,
+    "shelves": [
+     "G32E"
+    ],
+    "release": "R8.1",
+    "status": "ga",
+    "wattsTyp": 185.0,
+    "wattsMax": 255.0,
+    "source": "gx-data.js",
+    "degrees": 66,
+    "wssBanks": 1,
+    "wssPorts": 66,
+    "wssType": "Twin WSS, medium performance",
+    "spanLossLo": 0.0,
+    "spanLossHi": 33.0,
+    "lBandExtendable": null,
+    "cdcAddDrop": "No",
+    "colourlessAddDrop": "Y-cable \u2014 R9.3 tbc"
+   },
+   {
+    "name": "RD66TH",
+    "platform": "GX",
+    "pn": "G3S-H3RD66TH-Z0",
+    "band": "Std C+L",
+    "thz": 9.6,
+    "slots": 6,
+    "shelves": [
+     "G32E"
+    ],
+    "release": "R9.3",
+    "status": "por",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "source": "gx-data.js",
+    "degrees": 66,
+    "wssBanks": 1,
+    "wssPorts": 66,
+    "wssType": "Twin WSS, high performance",
+    "spanLossLo": 0.0,
+    "spanLossHi": 33.0,
+    "lBandExtendable": null,
+    "cdcAddDrop": "No",
+    "colourlessAddDrop": "Y-cable \u2014 R9.3 tbc"
+   },
+   {
+    "name": "RD32TH-L",
+    "platform": "GX",
+    "pn": "G3S-G3RD32TH-L0",
+    "band": "Super L",
+    "thz": 5.5,
+    "slots": 3,
+    "shelves": [
+     "G32",
+     "G32E"
+    ],
+    "release": "R10.0",
+    "status": "por",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "source": "gx-data.js",
+    "degrees": 32,
+    "wssBanks": 1,
+    "wssPorts": 32,
+    "wssType": "Twin WSS, high performance",
+    "spanLossLo": 0.0,
+    "spanLossHi": 33.0,
+    "lBandExtendable": null,
+    "cdcAddDrop": "CDC8D6",
+    "colourlessAddDrop": "CAD4 in R10.1"
+   },
+   {
+    "name": "IR20",
+    "platform": "PSS",
+    "pn": null,
+    "band": "Std C",
+    "thz": 4.8,
+    "slots": 1.0,
+    "shelves": [
+     "PSS-8",
+     "PSS-16II DC 8RU",
+     "PSS-16II AC/DC 9RU",
+     "PSS-32",
+     "PSI-4L",
+     "PSI-8L"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "chassisDepth": "300mm & 450mm",
+    "source": "1830 PSS roadmap, Aug-2026",
+    "degrees": null,
+    "wssBanks": 2,
+    "wssPorts": 20,
+    "wssType": null,
+    "spanLossLo": 0.0,
+    "spanLossHi": 33.0,
+    "lBandExtendable": "No",
+    "cdcAddDrop": null,
+    "colourlessAddDrop": null
+   },
+   {
+    "name": "IR20LP",
+    "platform": "PSS",
+    "pn": null,
+    "band": "Std C",
+    "thz": 4.8,
+    "slots": 1.0,
+    "shelves": [
+     "PSS-8",
+     "PSS-16II DC 8RU",
+     "PSS-16II AC/DC 9RU",
+     "PSS-32",
+     "PSI-4L",
+     "PSI-8L"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "chassisDepth": "300mm & 450mm",
+    "source": "1830 PSS roadmap, Aug-2026",
+    "degrees": null,
+    "wssBanks": 2,
+    "wssPorts": 20,
+    "wssType": null,
+    "spanLossLo": 0.0,
+    "spanLossHi": 33.0,
+    "lBandExtendable": "No",
+    "cdcAddDrop": null,
+    "colourlessAddDrop": null
+   },
+   {
+    "name": "IR32",
+    "platform": "PSS",
+    "pn": null,
+    "band": "Std C",
+    "thz": 4.8,
+    "slots": 1.0,
+    "shelves": [
+     "PSS-8",
+     "PSS-16II DC 8RU",
+     "PSS-16II AC/DC 9RU",
+     "PSS-32",
+     "PSI-4L",
+     "PSI-8L"
+    ],
+    "release": "R25.12",
+    "status": "ga",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "chassisDepth": "300mm & 450mm",
+    "source": "1830 PSS roadmap, Aug-2026",
+    "degrees": null,
+    "wssBanks": 2,
+    "wssPorts": 32,
+    "wssType": null,
+    "spanLossLo": 0.0,
+    "spanLossHi": 32.0,
+    "lBandExtendable": "Yes (via OMDCL)",
+    "cdcAddDrop": null,
+    "colourlessAddDrop": null
+   },
+   {
+    "name": "IR32L",
+    "platform": "PSS",
+    "pn": null,
+    "band": "Std L",
+    "thz": 4.8,
+    "slots": 1.0,
+    "shelves": [
+     "PSS-8",
+     "PSS-16II DC 8RU",
+     "PSS-16II AC/DC 9RU",
+     "PSS-32",
+     "PSI-4L",
+     "PSI-8L"
+    ],
+    "release": "R26.6",
+    "status": "ga",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "chassisDepth": "300mm & 450mm",
+    "source": "1830 PSS roadmap, Aug-2026",
+    "degrees": null,
+    "wssBanks": 2,
+    "wssPorts": 32,
+    "wssType": null,
+    "spanLossLo": 0.0,
+    "spanLossHi": 32.0,
+    "lBandExtendable": "-",
+    "cdcAddDrop": null,
+    "colourlessAddDrop": null
+   },
+   {
+    "name": "IR32SC",
+    "platform": "PSS",
+    "pn": null,
+    "band": "Super C",
+    "thz": 6.1,
+    "slots": 1.0,
+    "shelves": [],
+    "release": "R27.Q4",
+    "status": "por",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "chassisDepth": "300mm & 450mm",
+    "source": "1830 PSS roadmap, Aug-2026",
+    "degrees": null,
+    "wssBanks": 2,
+    "wssPorts": 32,
+    "wssType": null,
+    "spanLossLo": 0.0,
+    "spanLossHi": 32.0,
+    "lBandExtendable": "Yes",
+    "cdcAddDrop": null,
+    "colourlessAddDrop": null
+   },
+   {
+    "name": "IR32SL",
+    "platform": "PSS",
+    "pn": null,
+    "band": "Super L",
+    "thz": 5.5,
+    "slots": 1.0,
+    "shelves": [],
+    "release": "R28.1H",
+    "status": "por",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "chassisDepth": "300mm & 450mm",
+    "source": "1830 PSS roadmap, Aug-2026",
+    "degrees": null,
+    "wssBanks": 2,
+    "wssPorts": 32,
+    "wssType": null,
+    "spanLossLo": 0.0,
+    "spanLossHi": 32.0,
+    "lBandExtendable": "-",
+    "cdcAddDrop": null,
+    "colourlessAddDrop": null
+   },
+   {
+    "name": "IR4",
+    "platform": "PSS",
+    "pn": null,
+    "band": "Std C",
+    "thz": 4.8,
+    "slots": 1.0,
+    "shelves": [
+     "PSS-4II",
+     "PSS-8",
+     "PSS-16II DC 8RU",
+     "PSS-16II AC/DC 9RU",
+     "PSS-32",
+     "PSI-4L",
+     "PSI-8L"
+    ],
+    "release": "R27.Q3",
+    "status": "ga",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "chassisDepth": "300mm & 450mm",
+    "source": "1830 PSS roadmap, Aug-2026",
+    "degrees": null,
+    "wssBanks": 1,
+    "wssPorts": 4,
+    "wssType": null,
+    "spanLossLo": 0.0,
+    "spanLossHi": 31.0,
+    "lBandExtendable": "No",
+    "cdcAddDrop": null,
+    "colourlessAddDrop": null
+   },
+   {
+    "name": "IR9",
+    "platform": "PSS",
+    "pn": null,
+    "band": "Std C",
+    "thz": 4.8,
+    "slots": 1.0,
+    "shelves": [
+     "PSS-4II",
+     "PSS-8",
+     "PSS-16II DC 8RU",
+     "PSS-16II AC/DC 9RU",
+     "PSS-32",
+     "PSI-4L",
+     "PSI-8L"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "chassisDepth": "300mm & 450mm",
+    "source": "1830 PSS roadmap, Aug-2026",
+    "degrees": null,
+    "wssBanks": 1,
+    "wssPorts": 9,
+    "wssType": null,
+    "spanLossLo": 0.0,
+    "spanLossHi": 33.0,
+    "lBandExtendable": "No",
+    "cdcAddDrop": null,
+    "colourlessAddDrop": null
+   },
+   {
+    "name": "IR9LP",
+    "platform": "PSS",
+    "pn": null,
+    "band": "Std C",
+    "thz": 4.8,
+    "slots": 1.0,
+    "shelves": [
+     "PSS-4II",
+     "PSS-8",
+     "PSS-16II DC 8RU",
+     "PSS-16II AC/DC 9RU",
+     "PSS-32",
+     "PSI-4L",
+     "PSI-8L"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "chassisDepth": "300mm & 450mm",
+    "source": "1830 PSS roadmap, Aug-2026",
+    "degrees": null,
+    "wssBanks": 1,
+    "wssPorts": 9,
+    "wssType": null,
+    "spanLossLo": 0.0,
+    "spanLossHi": 33.0,
+    "lBandExtendable": "No",
+    "cdcAddDrop": null,
+    "colourlessAddDrop": null
+   },
+   {
+    "name": "IRDM32",
+    "platform": "PSS",
+    "pn": null,
+    "band": "Std C",
+    "thz": 4.8,
+    "slots": 1.0,
+    "shelves": [
+     "PSS-8",
+     "PSS-16II DC 8RU",
+     "PSS-16II AC/DC 9RU",
+     "PSS-32",
+     "PSI-4L",
+     "PSI-8L"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "chassisDepth": "300mm & 450mm",
+    "source": "1830 PSS roadmap, Aug-2026",
+    "degrees": null,
+    "wssBanks": 2,
+    "wssPorts": 32,
+    "wssType": null,
+    "spanLossLo": 0.0,
+    "spanLossHi": 32.0,
+    "lBandExtendable": "Yes (via OMDCL)",
+    "cdcAddDrop": null,
+    "colourlessAddDrop": null
+   },
+   {
+    "name": "IRDM32L",
+    "platform": "PSS",
+    "pn": null,
+    "band": "Std L",
+    "thz": 4.8,
+    "slots": 1.0,
+    "shelves": [
+     "PSS-8",
+     "PSS-16II DC 8RU",
+     "PSS-16II AC/DC 9RU",
+     "PSS-32",
+     "PSI-4L",
+     "PSI-8L"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "chassisDepth": "300mm & 450mm",
+    "source": "1830 PSS roadmap, Aug-2026",
+    "degrees": null,
+    "wssBanks": 2,
+    "wssPorts": 32,
+    "wssType": null,
+    "spanLossLo": 0.0,
+    "spanLossHi": 32.0,
+    "lBandExtendable": "-",
+    "cdcAddDrop": null,
+    "colourlessAddDrop": null
+   },
+   {
+    "name": "IRDM32LP",
+    "platform": "PSS",
+    "pn": null,
+    "band": "Std C",
+    "thz": 4.8,
+    "slots": 1.0,
+    "shelves": [
+     "PSS-8",
+     "PSS-16II DC 8RU",
+     "PSS-16II AC/DC 9RU",
+     "PSS-32",
+     "PSI-4L",
+     "PSI-8L"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "chassisDepth": "300mm & 450mm",
+    "source": "1830 PSS roadmap, Aug-2026",
+    "degrees": null,
+    "wssBanks": 2,
+    "wssPorts": 32,
+    "wssType": null,
+    "spanLossLo": 0.0,
+    "spanLossHi": 32.0,
+    "lBandExtendable": "Yes (via OMDCL)",
+    "cdcAddDrop": null,
+    "colourlessAddDrop": null
+   }
+  ],
+  "amp": [
+   {
+    "name": "O2BAXZZZ-00",
+    "platform": "GX",
+    "pn": "ZXS-O2BAXZZZ-00",
+    "band": "Std C",
+    "thz": 4.8,
+    "slots": 0,
+    "shelves": [
+     "G31",
+     "G32",
+     "G30c"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": null,
+    "wattsMax": 11.0,
+    "source": "gx-data.js",
+    "kind": "EDFA",
+    "edfaType": "VGA \u2014 variable gain",
+    "configurations": "Terminal",
+    "spanLossLo": 0.0,
+    "spanLossHi": 35.0,
+    "maxOutputDbm": "20.8 dBm",
+    "maxGainDb": "22 dB",
+    "nfDb": "5.2 dB",
+    "midStage": null
+   },
+   {
+    "name": "PAOHxR-R6",
+    "platform": "GX",
+    "pn": "81.71T-O2PAOHxR-R6",
+    "band": "Std C",
+    "thz": 4.8,
+    "slots": 0,
+    "shelves": [
+     "G31",
+     "G32",
+     "G30c"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": null,
+    "wattsMax": 11.0,
+    "source": "gx-data.js",
+    "kind": "EDFA",
+    "edfaType": "VGA \u2014 variable gain",
+    "configurations": "Terminal (pre-amp)",
+    "spanLossLo": null,
+    "spanLossHi": null,
+    "maxOutputDbm": "21.3 dBm",
+    "maxGainDb": "I / L / E: 18 / 26 / 35 dB",
+    "nfDb": "I / L / E: 7.2 / 6.0 / 6.0 dB",
+    "midStage": null
+   },
+   {
+    "name": "D2ILASGM-Z0",
+    "platform": "GX",
+    "pn": "G3S-D2ILASGM-Z0",
+    "band": "Std C+L",
+    "thz": 9.6,
+    "slots": 4,
+    "shelves": [
+     "G34c"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": 110.0,
+    "wattsMax": 145.0,
+    "source": "gx-data.js",
+    "kind": "EDFA",
+    "edfaType": "SGA \u2014 switched gain",
+    "configurations": "ILA / Terminal",
+    "spanLossLo": 0.0,
+    "spanLossHi": 30.0,
+    "maxOutputDbm": "21.8 dBm",
+    "maxGainDb": "27 dB",
+    "nfDb": "6.6 dB",
+    "midStage": "No"
+   },
+   {
+    "name": "G2PBALZZ-N0",
+    "platform": "GX",
+    "pn": "G3S-G2PBALZZ-N0",
+    "band": "Std C",
+    "thz": 4.8,
+    "slots": 2,
+    "shelves": [
+     "G31",
+     "G32"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": null,
+    "wattsMax": 120.0,
+    "source": "gx-data.js",
+    "kind": "EDFA",
+    "edfaType": "VGA \u2014 variable gain",
+    "configurations": "Terminal",
+    "spanLossLo": 0.0,
+    "spanLossHi": 30.0,
+    "maxOutputDbm": "22.3 dBm (BA) \u00b7 20.5 dBm (PA)",
+    "maxGainDb": "22 dB (BA) \u00b7 26 dB (PA)",
+    "nfDb": "5.1 dB (BA) \u00b7 5.8 dB (PA)",
+    "midStage": "No"
+   },
+   {
+    "name": "G4ILA4SG-Z0 / G4ILA4SM-Z0",
+    "platform": "GX",
+    "pn": "G3S-G4ILA4SM-Z0",
+    "band": "Std C+L",
+    "thz": 9.6,
+    "slots": 4,
+    "shelves": [
+     "G34L",
+     "G32E"
+    ],
+    "release": "R9.2",
+    "status": "por",
+    "wattsTyp": null,
+    "wattsMax": 275.0,
+    "source": "gx-data.js",
+    "kind": "EDFA",
+    "edfaType": "SGA \u2014 switched gain",
+    "configurations": "ILA / Terminal",
+    "spanLossLo": 0.0,
+    "spanLossHi": 30.0,
+    "maxOutputDbm": "22.5 dBm (C) \u00b7 21.5 dBm (L)",
+    "maxGainDb": "27 dB",
+    "nfDb": "6.0 dB",
+    "midStage": "No"
+   },
+   {
+    "name": "C2ILASGH-X0",
+    "platform": "GX",
+    "pn": "G3S-C2ILASGH-X0",
+    "band": "Super C",
+    "thz": 6.1,
+    "slots": 2,
+    "shelves": [
+     "G34c"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": 62.0,
+    "wattsMax": 90.0,
+    "source": "gx-data.js",
+    "kind": "EDFA",
+    "edfaType": "SGA \u2014 switched gain",
+    "configurations": "ILA / Terminal",
+    "spanLossLo": 0.0,
+    "spanLossHi": 33.0,
+    "maxOutputDbm": "22.9 dBm",
+    "maxGainDb": "28 dB",
+    "nfDb": "5.4 dB",
+    "midStage": "Yes"
+   },
+   {
+    "name": "C2ILASQH-L0",
+    "platform": "GX",
+    "pn": null,
+    "band": "Super L",
+    "thz": 5.5,
+    "slots": 2,
+    "shelves": [
+     "G34c"
+    ],
+    "release": "R10.0",
+    "status": "por",
+    "wattsTyp": null,
+    "wattsMax": 120.0,
+    "source": "gx-data.js",
+    "kind": "EDFA",
+    "edfaType": "SGA \u2014 switched gain",
+    "configurations": "ILA",
+    "spanLossLo": 0.0,
+    "spanLossHi": 33.0,
+    "maxOutputDbm": "23.2 dBm",
+    "maxGainDb": "29.5 dB",
+    "nfDb": "7.9 dB",
+    "midStage": "No"
+   },
+   {
+    "name": "C2ILASGH-L0",
+    "platform": "GX",
+    "pn": "G3S-C2ILASGH-L0",
+    "band": "Super L",
+    "thz": 5.5,
+    "slots": 2,
+    "shelves": [
+     "G34c"
+    ],
+    "release": "R10.2",
+    "status": "poi",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "source": "gx-data.js",
+    "kind": "EDFA",
+    "edfaType": null,
+    "configurations": null,
+    "spanLossLo": null,
+    "spanLossHi": null,
+    "maxOutputDbm": null,
+    "maxGainDb": null,
+    "nfDb": null,
+    "midStage": null
+   },
+   {
+    "name": "C2ILASGH-X1",
+    "platform": "GX",
+    "pn": null,
+    "band": "Super C",
+    "thz": 6.1,
+    "slots": 2,
+    "shelves": [
+     "G34c"
+    ],
+    "release": "R10.2",
+    "status": "poi",
+    "wattsTyp": null,
+    "wattsMax": 90.0,
+    "source": "gx-data.js",
+    "kind": "EDFA",
+    "edfaType": "SGA \u2014 switched gain",
+    "configurations": "ILA",
+    "spanLossLo": 0.0,
+    "spanLossHi": 33.0,
+    "maxOutputDbm": "24 dBm",
+    "maxGainDb": "28 dB",
+    "nfDb": "6.0 dB",
+    "midStage": null
+   },
+   {
+    "name": "C2ILASQH-X1",
+    "platform": "GX",
+    "pn": null,
+    "band": "Super C",
+    "thz": 6.1,
+    "slots": 2,
+    "shelves": [
+     "G34c"
+    ],
+    "release": "R10.2",
+    "status": "poi",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "source": "gx-data.js",
+    "kind": "EDFA",
+    "edfaType": null,
+    "configurations": null,
+    "spanLossLo": null,
+    "spanLossHi": null,
+    "maxOutputDbm": null,
+    "maxGainDb": null,
+    "nfDb": null,
+    "midStage": null
+   },
+   {
+    "name": "G1RPBM-Wx",
+    "platform": "GX",
+    "pn": "G3S-G1RPBMZZ-W0 / -W1 / -W2",
+    "band": "Super C",
+    "thz": 6.1,
+    "slots": 1,
+    "shelves": [
+     "G31",
+     "G32"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": 33.0,
+    "wattsMax": 80.0,
+    "source": "gx-data.js",
+    "kind": "Raman",
+    "edfaType": null,
+    "configurations": null,
+    "spanLossLo": null,
+    "spanLossHi": null,
+    "maxOutputDbm": null,
+    "maxGainDb": null,
+    "nfDb": null,
+    "midStage": null
+   },
+   {
+    "name": "G1RPBM-Yx",
+    "platform": "GX",
+    "pn": "G3S-G1RPBMZZ-Y0 / -Y1 / -Y2",
+    "band": "Super C+L",
+    "thz": 12.2,
+    "slots": 1,
+    "shelves": [
+     "G31",
+     "G32"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": 35.0,
+    "wattsMax": 80.0,
+    "source": "gx-data.js",
+    "kind": "Raman",
+    "edfaType": null,
+    "configurations": null,
+    "spanLossLo": null,
+    "spanLossHi": null,
+    "maxOutputDbm": null,
+    "maxGainDb": null,
+    "nfDb": null,
+    "midStage": null
+   },
+   {
+    "name": "C2RPBL-Wx",
+    "platform": "GX",
+    "pn": "G3S-C2RPBLZZ-W0 / -W1 / -W2",
+    "band": "Super C",
+    "thz": 6.1,
+    "slots": 2,
+    "shelves": [
+     "G34c"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": 37.0,
+    "wattsMax": 60.0,
+    "source": "gx-data.js",
+    "kind": "Raman",
+    "edfaType": null,
+    "configurations": null,
+    "spanLossLo": null,
+    "spanLossHi": null,
+    "maxOutputDbm": null,
+    "maxGainDb": null,
+    "nfDb": null,
+    "midStage": null
+   },
+   {
+    "name": "C2RPBM-Yx",
+    "platform": "GX",
+    "pn": "G3S-C2RPBMZZ-Y0 / -Y1 / -Y2",
+    "band": "Super C+L",
+    "thz": 12.2,
+    "slots": 2,
+    "shelves": [
+     "G34c"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": 54.0,
+    "wattsMax": 85.0,
+    "source": "gx-data.js",
+    "kind": "Raman",
+    "edfaType": null,
+    "configurations": null,
+    "spanLossLo": null,
+    "spanLossHi": null,
+    "maxOutputDbm": null,
+    "maxGainDb": null,
+    "nfDb": null,
+    "midStage": null
+   },
+   {
+    "name": "C2RPBL4-Z2",
+    "platform": "GX",
+    "pn": null,
+    "band": "Std C+L",
+    "thz": 9.6,
+    "slots": 2,
+    "shelves": [
+     "G34c"
+    ],
+    "release": "R10.1",
+    "status": "por",
+    "wattsTyp": null,
+    "wattsMax": 90.0,
+    "source": "gx-data.js",
+    "kind": "Raman",
+    "edfaType": null,
+    "configurations": null,
+    "spanLossLo": null,
+    "spanLossHi": null,
+    "maxOutputDbm": null,
+    "maxGainDb": null,
+    "nfDb": null,
+    "midStage": null
+   },
+   {
+    "name": "C2RPBM5-Y2",
+    "platform": "GX",
+    "pn": null,
+    "band": "Super C+L",
+    "thz": 12.2,
+    "slots": 2,
+    "shelves": [
+     "G34c"
+    ],
+    "release": "R10.1",
+    "status": "por",
+    "wattsTyp": null,
+    "wattsMax": 90.0,
+    "source": "gx-data.js",
+    "kind": "Raman",
+    "edfaType": null,
+    "configurations": null,
+    "spanLossLo": null,
+    "spanLossHi": null,
+    "maxOutputDbm": null,
+    "maxGainDb": null,
+    "nfDb": null,
+    "midStage": null
+   },
+   {
+    "name": "G2RPB4M-Y2",
+    "platform": "GX",
+    "pn": "G3S-G2RPB4M-Y2",
+    "band": "Super C+L",
+    "thz": 12.2,
+    "slots": 2,
+    "shelves": [
+     "G32E",
+     "G34L"
+    ],
+    "release": "TBD",
+    "status": "poi",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "source": "gx-data.js",
+    "kind": "Raman",
+    "edfaType": null,
+    "configurations": null,
+    "spanLossLo": null,
+    "spanLossHi": null,
+    "maxOutputDbm": null,
+    "maxGainDb": null,
+    "nfDb": null,
+    "midStage": null
+   },
+   {
+    "name": "D2IRB1SM-Z2",
+    "platform": "GX",
+    "pn": "G3S-D2IRB1SM-Z2",
+    "band": "Std C+L",
+    "thz": 9.6,
+    "slots": 4,
+    "shelves": [
+     "G34c",
+     "G38c"
+    ],
+    "release": "R10.2",
+    "status": "poi",
+    "wattsTyp": null,
+    "wattsMax": 180.0,
+    "source": "gx-data.js",
+    "kind": "Hybrid Raman/EDFA",
+    "edfaType": null,
+    "configurations": "ILA",
+    "spanLossLo": null,
+    "spanLossHi": null,
+    "maxOutputDbm": "22.5 dBm (C) \u00b7 20.5 dBm (L)",
+    "maxGainDb": null,
+    "nfDb": null,
+    "midStage": null
+   },
+   {
+    "name": "H4IRB4SG-Z2 / H4IRB4SM-Z2",
+    "platform": "GX",
+    "pn": "G3S-H4IRB4SG-Z2",
+    "band": "Std C+L",
+    "thz": 9.6,
+    "slots": 8,
+    "shelves": [
+     "G34L",
+     "G32E"
+    ],
+    "release": "R10.1",
+    "status": "por",
+    "wattsTyp": null,
+    "wattsMax": 550.0,
+    "source": "gx-data.js",
+    "kind": "Hybrid Raman/EDFA",
+    "edfaType": null,
+    "configurations": "ILA / Terminal",
+    "spanLossLo": null,
+    "spanLossHi": null,
+    "maxOutputDbm": "22.5 dBm (C) \u00b7 21.5 dBm (L)",
+    "maxGainDb": null,
+    "nfDb": null,
+    "midStage": null
+   },
+   {
+    "name": "ASG",
+    "platform": "PSS",
+    "pn": null,
+    "band": "Std C",
+    "thz": 4.8,
+    "slots": 1.0,
+    "shelves": [
+     "PSS-4II",
+     "PSS-8",
+     "PSS-16II DC 8RU",
+     "PSS-16II AC/DC 9RU",
+     "PSS-32",
+     "PSI-4L",
+     "PSI-8L"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "chassisDepth": "300mm & 450mm",
+    "source": "1830 PSS roadmap, Aug-2026",
+    "kind": "EDFA",
+    "edfaType": "EDFA",
+    "configurations": null,
+    "spanLossLo": 0.0,
+    "spanLossHi": 33.0,
+    "maxOutputDbm": null,
+    "maxGainDb": null,
+    "nfDb": null,
+    "midStage": null
+   },
+   {
+    "name": "ASGLP",
+    "platform": "PSS",
+    "pn": null,
+    "band": "Std C",
+    "thz": 4.8,
+    "slots": 1.0,
+    "shelves": [
+     "PSS-4II",
+     "PSS-8",
+     "PSS-16II DC 8RU",
+     "PSS-16II AC/DC 9RU",
+     "PSS-32",
+     "PSI-4L",
+     "PSI-8L"
+    ],
+    "release": "R27.Q1",
+    "status": "ga",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "chassisDepth": "300mm & 450mm",
+    "source": "1830 PSS roadmap, Aug-2026",
+    "kind": "EDFA",
+    "edfaType": "EDFA",
+    "configurations": null,
+    "spanLossLo": 0.0,
+    "spanLossHi": 33.0,
+    "maxOutputDbm": null,
+    "maxGainDb": null,
+    "nfDb": null,
+    "midStage": null
+   },
+   {
+    "name": "ASGSC",
+    "platform": "PSS",
+    "pn": null,
+    "band": "Super C",
+    "thz": 6.1,
+    "slots": 1.0,
+    "shelves": [],
+    "release": "R28.2H",
+    "status": "por",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "chassisDepth": "300mm & 450mm",
+    "source": "1830 PSS roadmap, Aug-2026",
+    "kind": "EDFA",
+    "edfaType": "EDFA",
+    "configurations": null,
+    "spanLossLo": 0.0,
+    "spanLossHi": 29.0,
+    "maxOutputDbm": null,
+    "maxGainDb": null,
+    "nfDb": null,
+    "midStage": null
+   },
+   {
+    "name": "AWBILA",
+    "platform": "PSS",
+    "pn": null,
+    "band": "Std C+L",
+    "thz": 9.6,
+    "slots": 2.0,
+    "shelves": [
+     "PSS-8",
+     "PSS-16II DC 8RU",
+     "PSS-16II AC/DC 9RU",
+     "PSS-32",
+     "PSI-4L",
+     "PSI-8L"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "chassisDepth": "300mm & 450mm",
+    "source": "1830 PSS roadmap, Aug-2026",
+    "kind": "EDFA",
+    "edfaType": "EDFA",
+    "configurations": null,
+    "spanLossLo": 0.0,
+    "spanLossHi": 29.0,
+    "maxOutputDbm": null,
+    "maxGainDb": null,
+    "nfDb": null,
+    "midStage": null
+   },
+   {
+    "name": "EILA",
+    "platform": "PSS",
+    "pn": null,
+    "band": "Std C",
+    "thz": 4.8,
+    "slots": 1.0,
+    "shelves": [
+     "PSS-8",
+     "PSS-16II DC 8RU",
+     "PSS-16II AC/DC 9RU",
+     "PSS-32",
+     "PSI-4L",
+     "PSI-8L"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "chassisDepth": "300mm & 450mm",
+    "source": "1830 PSS roadmap, Aug-2026",
+    "kind": "EDFA",
+    "edfaType": "EDFA/DGE",
+    "configurations": null,
+    "spanLossLo": 0.0,
+    "spanLossHi": 32.0,
+    "maxOutputDbm": null,
+    "maxGainDb": null,
+    "nfDb": null,
+    "midStage": null
+   },
+   {
+    "name": "EILAL",
+    "platform": "PSS",
+    "pn": null,
+    "band": "Std L",
+    "thz": 4.8,
+    "slots": 1.0,
+    "shelves": [
+     "PSS-8",
+     "PSS-16II DC 8RU",
+     "PSS-16II AC/DC 9RU",
+     "PSS-32",
+     "PSI-4L",
+     "PSI-8L"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "chassisDepth": "300mm & 450mm",
+    "source": "1830 PSS roadmap, Aug-2026",
+    "kind": "EDFA",
+    "edfaType": "EDFA/DGE",
+    "configurations": null,
+    "spanLossLo": 0.0,
+    "spanLossHi": 32.0,
+    "maxOutputDbm": null,
+    "maxGainDb": null,
+    "nfDb": null,
+    "midStage": null
+   },
+   {
+    "name": "EILASC",
+    "platform": "PSS",
+    "pn": null,
+    "band": "Super C",
+    "thz": 6.1,
+    "slots": 1.0,
+    "shelves": [],
+    "release": "R27.Q4",
+    "status": "por",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "chassisDepth": "300mm & 450mm",
+    "source": "1830 PSS roadmap, Aug-2026",
+    "kind": "EDFA",
+    "edfaType": "EDFA/DGE",
+    "configurations": null,
+    "spanLossLo": 0.0,
+    "spanLossHi": 32.0,
+    "maxOutputDbm": null,
+    "maxGainDb": null,
+    "nfDb": null,
+    "midStage": null
+   },
+   {
+    "name": "EILASL",
+    "platform": "PSS",
+    "pn": null,
+    "band": "Super L",
+    "thz": 5.5,
+    "slots": 1.0,
+    "shelves": [],
+    "release": "R28.1H",
+    "status": "por",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "chassisDepth": "300mm & 450mm",
+    "source": "1830 PSS roadmap, Aug-2026",
+    "kind": "EDFA",
+    "edfaType": "EDFA/DGE",
+    "configurations": null,
+    "spanLossLo": 0.0,
+    "spanLossHi": 32.0,
+    "maxOutputDbm": null,
+    "maxGainDb": null,
+    "nfDb": null,
+    "midStage": null
+   },
+   {
+    "name": "ILAICL",
+    "platform": "PSS",
+    "pn": null,
+    "band": "Std C+L",
+    "thz": 9.6,
+    "slots": 2.0,
+    "shelves": [],
+    "release": "R28.1H",
+    "status": "por",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "chassisDepth": "300mm & 450mm",
+    "source": "1830 PSS roadmap, Aug-2026",
+    "kind": "EDFA",
+    "edfaType": "EDFA",
+    "configurations": null,
+    "spanLossLo": 0.0,
+    "spanLossHi": 29.0,
+    "maxOutputDbm": null,
+    "maxGainDb": null,
+    "nfDb": null,
+    "midStage": null
+   },
+   {
+    "name": "ILASCL",
+    "platform": "PSS",
+    "pn": null,
+    "band": "Super C+L",
+    "thz": 11.6,
+    "slots": 2.0,
+    "shelves": [],
+    "release": "R28.1H",
+    "status": "por",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "chassisDepth": "300mm & 450mm",
+    "source": "1830 PSS roadmap, Aug-2026",
+    "kind": "EDFA",
+    "edfaType": "EDFA",
+    "configurations": null,
+    "spanLossLo": 0.0,
+    "spanLossHi": 29.0,
+    "maxOutputDbm": null,
+    "maxGainDb": null,
+    "nfDb": null,
+    "midStage": null
+   },
+   {
+    "name": "RA2P-96",
+    "platform": "PSS",
+    "pn": null,
+    "band": "Std C",
+    "thz": 4.8,
+    "slots": 1.0,
+    "shelves": [
+     "PSS-8",
+     "PSS-16 main",
+     "PSS-16 extension",
+     "PSS-16II DC 8RU",
+     "PSS-16II AC/DC 9RU",
+     "PSS-32",
+     "PSI-4L",
+     "PSI-8L"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "chassisDepth": "300mm & 450mm",
+    "source": "1830 PSS roadmap, Aug-2026",
+    "kind": "Raman",
+    "edfaType": "Raman",
+    "configurations": null,
+    "spanLossLo": null,
+    "spanLossHi": null,
+    "maxOutputDbm": null,
+    "maxGainDb": null,
+    "nfDb": null,
+    "midStage": null
+   },
+   {
+    "name": "RA4P",
+    "platform": "PSS",
+    "pn": null,
+    "band": "Std C",
+    "thz": 4.8,
+    "slots": 1.0,
+    "shelves": [
+     "PSS-8",
+     "PSS-16II DC 8RU",
+     "PSS-16II AC/DC 9RU",
+     "PSS-32",
+     "PSI-4L",
+     "PSI-8L"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "chassisDepth": "300mm & 450mm",
+    "source": "1830 PSS roadmap, Aug-2026",
+    "kind": "Raman",
+    "edfaType": "Raman",
+    "configurations": null,
+    "spanLossLo": null,
+    "spanLossHi": null,
+    "maxOutputDbm": null,
+    "maxGainDb": null,
+    "nfDb": null,
+    "midStage": null
+   },
+   {
+    "name": "RA4PSC",
+    "platform": "PSS",
+    "pn": null,
+    "band": "Super C",
+    "thz": 6.1,
+    "slots": 1.0,
+    "shelves": [],
+    "release": "R28.2H",
+    "status": "por",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "chassisDepth": "300mm & 450mm",
+    "source": "1830 PSS roadmap, Aug-2026",
+    "kind": "Raman",
+    "edfaType": "EDFA",
+    "configurations": null,
+    "spanLossLo": null,
+    "spanLossHi": null,
+    "maxOutputDbm": null,
+    "maxGainDb": null,
+    "nfDb": null,
+    "midStage": null
+   },
+   {
+    "name": "RA5PB",
+    "platform": "PSS",
+    "pn": null,
+    "band": "Std C+L",
+    "thz": 9.6,
+    "slots": 1.0,
+    "shelves": [
+     "PSS-8",
+     "PSS-16II DC 8RU",
+     "PSS-16II AC/DC 9RU",
+     "PSS-32",
+     "PSI-4L",
+     "PSI-8L"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "chassisDepth": "300mm & 450mm",
+    "source": "1830 PSS roadmap, Aug-2026",
+    "kind": "Raman",
+    "edfaType": "Raman",
+    "configurations": null,
+    "spanLossLo": null,
+    "spanLossHi": null,
+    "maxOutputDbm": null,
+    "maxGainDb": null,
+    "nfDb": null,
+    "midStage": null
+   },
+   {
+    "name": "RA5PSCL",
+    "platform": "PSS",
+    "pn": null,
+    "band": "Super C+L",
+    "thz": 11.6,
+    "slots": 1.0,
+    "shelves": [],
+    "release": "R27.Q4",
+    "status": "por",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "chassisDepth": "300mm & 450mm",
+    "source": "1830 PSS roadmap, Aug-2026",
+    "kind": "Raman",
+    "edfaType": "Raman",
+    "configurations": null,
+    "spanLossLo": null,
+    "spanLossHi": null,
+    "maxOutputDbm": null,
+    "maxGainDb": null,
+    "nfDb": null,
+    "midStage": null
+   }
+  ],
+  "addDrop": [
+   {
+    "name": "CAD10A-W0",
+    "platform": "GX",
+    "pn": "G3S-G1CAD10A-W0",
+    "band": "Super C",
+    "thz": 6.1,
+    "slots": 1,
+    "shelves": [
+     "G31",
+     "G32"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": 24.0,
+    "wattsMax": 30.0,
+    "source": "gx-data.js",
+    "adType": "Colourless",
+    "channels": null,
+    "degrees": null
+   },
+   {
+    "name": "CDC8D6-Y0",
+    "platform": "GX",
+    "pn": "G3S-G1CDC8D6-Y0",
+    "band": "Super C+L",
+    "thz": 12.2,
+    "slots": 1,
+    "shelves": [
+     "G31",
+     "G32"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": 8.9,
+    "wattsMax": 9.6,
+    "source": "gx-data.js",
+    "adType": "CDC",
+    "channels": null,
+    "degrees": null
+   },
+   {
+    "name": "CDC4D4-Y0",
+    "platform": "GX",
+    "pn": "ZXS-O2CDC4D4-Y0",
+    "band": "Super C+L",
+    "thz": 12.2,
+    "slots": 0,
+    "shelves": [
+     "G31",
+     "G32",
+     "G34c"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": 0.4,
+    "wattsMax": 0.5,
+    "source": "gx-data.js",
+    "adType": "CDC",
+    "channels": null,
+    "degrees": null
+   },
+   {
+    "name": "CAD16A-N0",
+    "platform": "GX",
+    "pn": "ZXS-O2CAD16A-00",
+    "band": "Std C",
+    "thz": 4.8,
+    "slots": 0,
+    "shelves": [
+     "G31",
+     "G32",
+     "G34c"
+    ],
+    "release": "GA",
+    "status": "ga",
+    "wattsTyp": 9.0,
+    "wattsMax": 11.0,
+    "source": "gx-data.js",
+    "adType": "Colourless",
+    "channels": null,
+    "degrees": null
+   },
+   {
+    "name": "CAD4AD-W0",
+    "platform": "GX",
+    "pn": null,
+    "band": "Super C",
+    "thz": 6.1,
+    "slots": 1,
+    "shelves": [
+     "G31",
+     "G32"
+    ],
+    "release": "R10.1",
+    "status": "por",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "source": "gx-data.js",
+    "adType": "Colourless",
+    "channels": null,
+    "degrees": null
+   },
+   {
+    "name": "CAD4AD-L0",
+    "platform": "GX",
+    "pn": null,
+    "band": "Super L",
+    "thz": 5.5,
+    "slots": 1,
+    "shelves": [
+     "G31",
+     "G32"
+    ],
+    "release": "R10.1",
+    "status": "por",
+    "wattsTyp": null,
+    "wattsMax": null,
+    "source": "gx-data.js",
+    "adType": "Colourless",
+    "channels": null,
+    "degrees": null
+   }
+  ],
+  "spectrum": [
+   {
+    "band": "Std C",
+    "thzGX": 4.8,
+    "thzPSS": 4.8,
+    "GX": [
+     "RD09SM-N1",
+     "RD20TM",
+     "O2BAXZZZ-00",
+     "PAOHxR-R6",
+     "G2PBALZZ-N0",
+     "CAD16A-N0"
+    ],
+    "PSS": [
+     "IR20",
+     "IR20LP",
+     "IR32",
+     "IR4",
+     "IR9",
+     "IR9LP",
+     "IRDM32",
+     "IRDM32LP",
+     "ASG",
+     "ASGLP",
+     "EILA",
+     "RA2P-96",
+     "RA4P"
+    ],
+    "thz": 4.8,
+    "thzDisagrees": false
+   },
+   {
+    "band": "Super C",
+    "thzGX": 6.1,
+    "thzPSS": 6.1,
+    "GX": [
+     "RD12TI",
+     "RD32TH-C",
+     "C2ILASGH-X0",
+     "C2ILASGH-X1",
+     "C2ILASQH-X1",
+     "G1RPBM-Wx",
+     "C2RPBL-Wx",
+     "CAD10A-W0",
+     "CAD4AD-W0"
+    ],
+    "PSS": [
+     "IR32SC",
+     "ASGSC",
+     "EILASC",
+     "RA4PSC"
+    ],
+    "thz": 6.1,
+    "thzDisagrees": false
+   },
+   {
+    "band": "Std L",
+    "thzGX": null,
+    "thzPSS": 4.8,
+    "GX": [],
+    "PSS": [
+     "IR32L",
+     "IRDM32L",
+     "EILAL"
+    ],
+    "thz": 4.8,
+    "thzDisagrees": false
+   },
+   {
+    "band": "Super L",
+    "thzGX": 5.5,
+    "thzPSS": 5.5,
+    "GX": [
+     "RD32TH-L",
+     "C2ILASQH-L0",
+     "C2ILASGH-L0",
+     "CAD4AD-L0"
+    ],
+    "PSS": [
+     "IR32SL",
+     "EILASL"
+    ],
+    "thz": 5.5,
+    "thzDisagrees": false
+   },
+   {
+    "band": "Std C+L",
+    "thzGX": 9.6,
+    "thzPSS": 9.6,
+    "GX": [
+     "RD66TM",
+     "RD66TH",
+     "D2ILASGM-Z0",
+     "G4ILA4SG-Z0 / G4ILA4SM-Z0",
+     "C2RPBL4-Z2",
+     "D2IRB1SM-Z2",
+     "H4IRB4SG-Z2 / H4IRB4SM-Z2"
+    ],
+    "PSS": [
+     "AWBILA",
+     "ILAICL",
+     "RA5PB"
+    ],
+    "thz": 9.6,
+    "thzDisagrees": false
+   },
+   {
+    "band": "Super C+L",
+    "thzGX": 12.2,
+    "thzPSS": 11.6,
+    "GX": [
+     "G1RPBM-Yx",
+     "C2RPBM-Yx",
+     "C2RPBM5-Y2",
+     "G2RPB4M-Y2",
+     "CDC8D6-Y0",
+     "CDC4D4-Y0"
+    ],
+    "PSS": [
+     "ILASCL",
+     "RA5PSCL"
+    ],
+    "thz": 12.2,
+    "thzDisagrees": true
+   }
+  ]
+ }
+}

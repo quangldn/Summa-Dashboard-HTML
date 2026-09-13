@@ -33,7 +33,7 @@ function show(r, n) {
 // ----------------------------------------------------------------
 console.log('\n[1] Plain 400G DCI, 4x 100GE clients, standard 600 mm site');
 let r = DCI.recommend(data, {
-  lineRateG: 400,
+  challenge: 5, lineRateG: 400,
   clients: [{ service: '100GE', qty: 4 }],
   depth: 'std',
 });
@@ -48,7 +48,7 @@ check('no deep-rack chassis in a 600 mm site',
 // ----------------------------------------------------------------
 console.log('\n[2] 800G DCI, 2x 400GE clients');
 r = DCI.recommend(data, {
-  lineRateG: 800,
+  challenge: 5, lineRateG: 800,
   clients: [{ service: '400GE', qty: 2 }],
   depth: 'any',
 });
@@ -61,7 +61,7 @@ check('line fill is 100%', r.ranked[0] && r.ranked[0].lineUtil === 100);
 // ----------------------------------------------------------------
 console.log('\n[3] Mixed load: 400G line, 2x 100GE + 4x 10GE  (the cascade case)');
 r = DCI.recommend(data, {
-  lineRateG: 400,
+  challenge: 5, lineRateG: 400,
   clients: [{ service: '100GE', qty: 2 }, { service: '10GE', qty: 4 }],
   depth: 'any',
 });
@@ -81,7 +81,7 @@ check('cascaded candidates name their aggregator',
 // ----------------------------------------------------------------
 console.log('\n[4] 800G line with a few 10GE — high rate forces a cascade');
 r = DCI.recommend(data, {
-  lineRateG: 800,
+  challenge: 5, lineRateG: 800,
   clients: [{ service: '400GE', qty: 1 }, { service: '100GE', qty: 2 },
             { service: '10GE', qty: 4 }],
   depth: 'any',
@@ -98,10 +98,10 @@ check('10GE is either native or cascaded, never silently dropped',
 // ----------------------------------------------------------------
 console.log('\n[5] Site constraint: 600 mm cabinet only');
 const deepOnly = DCI.recommend(data, {
-  lineRateG: 400, clients: [{ service: '100GE', qty: 4 }], depth: 'any',
+  challenge: 5, lineRateG: 400, clients: [{ service: '100GE', qty: 4 }], depth: 'any',
 }).rankedAll.filter(c => c.hosts.every(h => h.depthClass === 'deep'));
 const stdOnly = DCI.recommend(data, {
-  lineRateG: 400, clients: [{ service: '100GE', qty: 4 }], depth: 'std',
+  challenge: 5, lineRateG: 400, clients: [{ service: '100GE', qty: 4 }], depth: 'std',
 }).rankedAll;
 console.log('    deep-only cards when depth is unconstrained: %d', deepOnly.length);
 console.log('    survivors in a 600 mm site: %d', stdOnly.length);
@@ -112,7 +112,7 @@ check('the depth filter actually removes something', deepOnly.length > 0);
 // ----------------------------------------------------------------
 console.log('\n[6] WSON / L0 GMPLS required');
 r = DCI.recommend(data, {
-  lineRateG: 400, clients: [{ service: '100GE', qty: 4 }], depth: 'any', wson: true,
+  challenge: 5, lineRateG: 400, clients: [{ service: '100GE', qty: 4 }], depth: 'any', wson: true,
 });
 show(r, 3);
 const gx = r.rankedAll.filter(c => c.xpdr.platform === 'GX');
@@ -123,7 +123,7 @@ check('every GX candidate carries the PSS line-system note',
 // ----------------------------------------------------------------
 console.log('\n[7] Over-subscription is refused');
 r = DCI.recommend(data, {
-  lineRateG: 100,
+  challenge: 5, lineRateG: 100,
   clients: [{ service: '400GE', qty: 4 }],
   depth: 'any',
 });
@@ -135,10 +135,10 @@ check('rejections explain themselves',
 // ----------------------------------------------------------------
 console.log('\n[8] Roadmap cards are hidden unless asked for');
 const shipping = DCI.recommend(data, {
-  lineRateG: 800, clients: [{ service: '400GE', qty: 2 }], depth: 'any',
+  challenge: 5, lineRateG: 800, clients: [{ service: '400GE', qty: 2 }], depth: 'any',
 });
 const withRoadmap = DCI.recommend(data, {
-  lineRateG: 800, clients: [{ service: '400GE', qty: 2 }], depth: 'any',
+  challenge: 5, lineRateG: 800, clients: [{ service: '400GE', qty: 2 }], depth: 'any',
   includeRoadmap: true,
 });
 console.log('    shipping only: %d    including roadmap: %d',
@@ -150,7 +150,7 @@ check('shipping-only really is all shipping',
 // ----------------------------------------------------------------
 console.log('\n[9] L-band');
 r = DCI.recommend(data, {
-  lineRateG: 600, clients: [{ service: '100GE', qty: 4 }], band: 'L', depth: 'any',
+  challenge: 5, lineRateG: 600, clients: [{ service: '100GE', qty: 4 }], band: 'L', depth: 'any',
 });
 console.log('    viable L-band candidates: %d', r.counts.viable);
 r.ranked.slice(0, 3).forEach(c => console.log('      ' + c.xpdr.name + ' ' + JSON.stringify(c.xpdr.band)));
@@ -160,10 +160,10 @@ check('every L-band result really is L-band',
 // ----------------------------------------------------------------
 console.log('\n[11] Line technology: a higher-rate card is a valid lower-rate answer');
 const cls = DCI.recommend(data, {
-  lineRateG: 400, clients: [{ service: '100GE', qty: 4 }], depth: 'any',
+  challenge: 5, lineRateG: 400, clients: [{ service: '100GE', qty: 4 }], depth: 'any',
 });
 const exact = DCI.recommend(data, {
-  lineRateG: 400, clients: [{ service: '100GE', qty: 4 }], depth: 'any',
+  challenge: 5, lineRateG: 400, clients: [{ service: '100GE', qty: 4 }], depth: 'any',
   rateMatch: 'exact',
 });
 console.log('    class mode: %d viable    exact mode: %d viable',
@@ -176,7 +176,7 @@ check('exact mode really requires the profile',
 
 // A card with a gap in its ladder should run the next profile up and say so.
 const gap = DCI.recommend(data, {
-  lineRateG: 500, clients: [{ service: '400GE', qty: 1 }], depth: 'any',
+  challenge: 5, lineRateG: 500, clients: [{ service: '400GE', qty: 1 }], depth: 'any',
 });
 const rounded = gap.rankedAll.filter(c => c.effRateG > 500);
 console.log('    at 500G, %d candidate(s) round up to their next profile',
@@ -193,11 +193,11 @@ check('a native profile is credited as a fit',
 console.log('\n[12] Multi-wavelength toggle');
 // 800G of client on a 400G wavelength: impossible on one lambda, fine on two.
 const multi = DCI.recommend(data, {
-  lineRateG: 400, clients: [{ service: '400GE', qty: 2 }], depth: 'any',
+  challenge: 5, lineRateG: 400, clients: [{ service: '400GE', qty: 2 }], depth: 'any',
   rateMatch: 'exact', multiLambda: true,
 });
 const single = DCI.recommend(data, {
-  lineRateG: 400, clients: [{ service: '400GE', qty: 2 }], depth: 'any',
+  challenge: 5, lineRateG: 400, clients: [{ service: '400GE', qty: 2 }], depth: 'any',
   rateMatch: 'exact', multiLambda: false,
 });
 console.log('    multi-lambda: %d viable    single-lambda: %d viable',
@@ -220,7 +220,7 @@ check('single-lambda rejections name the constraint',
 // the case Quang raised. Both should be reachable, and the 2x400G one wins
 // on fill because 600G cannot carry 800G at all.
 const eight = DCI.recommend(data, {
-  lineRateG: 400, clients: [{ service: '400GE', qty: 2 }], depth: 'any',
+  challenge: 5, lineRateG: 400, clients: [{ service: '400GE', qty: 2 }], depth: 'any',
 });
 console.log('    800G of client at 400G/lambda: top = %s (%d x %s, %d%% fill)',
   eight.ranked[0] ? eight.ranked[0].xpdr.name : '—',
@@ -228,6 +228,51 @@ console.log('    800G of client at 400G/lambda: top = %s (%d x %s, %d%% fill)',
   eight.ranked[0] ? DCI.fmtRate(eight.ranked[0].effRateG) : '—',
   eight.ranked[0] ? eight.ranked[0].lineUtil : 0);
 check('800G of client finds an answer at 400G per lambda', eight.ranked.length > 0);
+
+// ----------------------------------------------------------------
+console.log('\n[13] Cost discipline: a right-sized card beats an over-specified one');
+r = DCI.recommend(data, {
+  challenge: 5, lineRateG: 400,
+  clients: [{ service: '100GE', qty: 4 }],
+  depth: 'any',
+});
+show(r, 5);
+const top = r.ranked[0];
+const byName = {};
+r.rankedAll.forEach(c => { byName[c.xpdr.name] = c; });
+
+console.log('    top pick line class: %s for a %s service',
+  DCI.fmtRate(top.xpdr.lineMaxG), '400G');
+check('the winner is not grossly over-specified',
+  top.xpdr.lineMaxG <= 800,
+  top.xpdr.name + ' is ' + DCI.fmtRate(top.xpdr.lineMaxG) + '-class');
+
+// A 400G-class card and a 1.2T-class card, same job: the 400G one must win.
+const rightSized = r.rankedAll.filter(c => c.xpdr.lineMaxG === 400);
+const overSpec = r.rankedAll.filter(c => c.xpdr.lineMaxG >= 1200);
+if (rightSized.length && overSpec.length) {
+  console.log('    best 400G-class: %s (%d)   best 1.2T-class: %s (%d)',
+    rightSized[0].xpdr.name, rightSized[0].score,
+    overSpec[0].xpdr.name, overSpec[0].score);
+  check('a 400G-class card outranks a 1.2T-class card for a 400G service',
+    rightSized[0].score > overSpec[0].score);
+} else {
+  check('both a right-sized and an over-specified candidate exist to compare',
+    false, 'right-sized ' + rightSized.length + ', over-spec ' + overSpec.length);
+}
+check('over-specified candidates say so in plain terms',
+  overSpec.every(c => c.costs.some(t => /card only \d+% used/.test(t))),
+  (overSpec.find(c => !c.costs.some(t => /card only \d+% used/.test(t))) || {})
+    .xpdr && (overSpec.find(c => !c.costs.some(t => /card only \d+% used/.test(t)))).xpdr.name);
+check('headroom is never scored as a fit any more',
+  r.rankedAll.every(c => !c.fits.some(t => /headroom above the/.test(t))));
+
+// Fill must dominate: a fuller wavelength wins even against a cheaper slot count.
+const fillSorted = r.ranked.slice().sort((a, b) => b.lineUtil - a.lineUtil);
+console.log('    top pick fill %d%%, best available fill %d%%',
+  top.lineUtil, fillSorted[0].lineUtil);
+check('the top pick is at or near the best fill available',
+  top.lineUtil >= fillSorted[0].lineUtil - 5);
 
 // ----------------------------------------------------------------
 console.log('\n[10] Sanity on the data itself');
@@ -246,6 +291,69 @@ check('every card names a host',
   data.xpdr.filter(x => !x.hosts.length).map(x => x.name).join(','));
 check('L-band cards are not also C-band',
   data.xpdr.filter(x => /L\d?$/.test(x.name) && x.band.length > 1).length === 0);
+
+
+// ----------------------------------------------------------------
+console.log('\n[14] Link challenge derates each card off its own ceiling');
+const traffic = [{ service: '400GE', qty: 2 }];   // 800G
+[1, 2, 3, 4].forEach(lvl => {
+  const res = DCI.recommend(data, { challenge: lvl, clients: traffic, depth: 'any' }, 3);
+  const t = res.ranked[0];
+  console.log('    L' + lvl +
+    ('  viable ' + res.counts.viable).padEnd(14) +
+    (t ? t.xpdr.name : '—').padEnd(13) +
+    ('ceiling ' + (t ? DCI.fmtRate(t.xpdr.lineMaxG) : '—')).padEnd(15) +
+    ('link ' + (t ? DCI.fmtRate(t.ceilingRateG) : '—')).padEnd(12) +
+    ('runs ' + (t ? t.carriersUsed + 'x' + DCI.fmtRate(t.effRateG) : '—')).padEnd(14) +
+    'card ' + (t ? t.cardUsePct : 0) + '%');
+});
+
+const easy = DCI.recommend(data, { challenge: 1, clients: traffic, depth: 'any' });
+const hard = DCI.recommend(data, { challenge: 4, clients: traffic, depth: 'any' });
+check('a harder link admits no more cards than an easy one',
+  hard.counts.viable <= easy.counts.viable);
+check('no card is ever asked to run above its own ceiling',
+  easy.rankedAll.concat(hard.rankedAll)
+      .every(c => c.effRateG <= c.xpdr.lineMaxG));
+check('the derated rate is always a profile the card really has',
+  hard.rankedAll.every(c => c.xpdr.lineRatesG.indexOf(c.ceilingRateG) >= 0));
+check('derating is stated as a cost',
+  hard.rankedAll.filter(c => c.ceilingRateG < c.xpdr.lineMaxG)
+      .every(c => c.costs.some(t => /link derates this card/.test(t))));
+
+// The snap rule, checked against the two ladder shapes that exist in the data.
+const dense = data.xpdr.find(x => x.name === 'CHM7-C8');      // 100G ladder to 1.2T
+const sparse = data.xpdr.find(x => x.name === 'S2AD800R');    // 400 / 600 / 800
+[[dense, 1, 1200], [dense, 2, 1000], [dense, 3, 700], [dense, 4, 600],
+ [sparse, 1, 800], [sparse, 2, 600], [sparse, 3, 400], [sparse, 4, 400]]
+  .forEach(([card, lvl, want]) => {
+    const got = DCI.achievableRate(card, lvl);
+    check(card.name + ' at level ' + lvl + ' -> ' + DCI.fmtRate(want),
+      got === want, 'got ' + DCI.fmtRate(got));
+  });
+
+// ----------------------------------------------------------------
+console.log('\n[15] Port shape: one fast wavelength beats two slow ones,');
+console.log('     but an over-sized dual-port card loses to a right-sized one');
+const port = DCI.recommend(data, { challenge: 1, clients: traffic, depth: 'any' }, 99);
+const find = n => port.rankedAll.find(c => c.xpdr.name === n);
+const one800 = find('S2AD800R');    // 1 port x 800G  -> 800G card, fully used
+const two400 = find('CHM1R');       // 2 ports x 400G -> 800G card, fully used
+const two800 = find('CHM6P-C6');    // 2 ports x 800G -> 1.6T card, half used
+[['1 x 800G', one800], ['2 x 400G', two400], ['2 x 800G', two800]].forEach(([lab, c]) => {
+  if (!c) return console.log('    %s: not viable', lab);
+  console.log('    ' + lab.padEnd(10) + c.xpdr.name.padEnd(12) +
+    ('card ' + c.cardUsePct + '% of ' + DCI.fmtRate(c.cardCapacityG)).padEnd(22) +
+    (c.carriersUsed + ' lambda').padEnd(10) + 'score ' + c.score);
+});
+check('1 x 800G beats 2 x 400G for 800G of traffic',
+  one800 && two400 && one800.score > two400.score);
+check('2 x 800G loses to 2 x 400G for 800G of traffic',
+  two800 && two400 && two400.score > two800.score);
+check('the over-sized dual-port card is only half used',
+  two800 && two800.cardUsePct <= 55, two800 && String(two800.cardUsePct));
+check('both fully-used cards report 100%',
+  one800 && two400 && one800.cardUsePct === 100 && two400.cardUsePct === 100);
 
 console.log('\n%d passed, %d failed\n', pass, fail);
 process.exit(fail ? 1 : 0);

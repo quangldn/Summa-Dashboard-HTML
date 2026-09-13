@@ -59,6 +59,26 @@
     color: var(--ink-on-accent);
   }
 
+  [hidden] { display: none !important; }
+  .ratecfg { display: grid; gap: 10px 18px; margin-top: 12px;
+             grid-template-columns: minmax(200px, 320px) auto;
+             align-items: start; }
+  @media (max-width: 560px) { .ratecfg { grid-template-columns: 1fr; } }
+  .ratecfg .f > .t-label { display: block; margin-bottom: 6px; }
+  .ratecfg select { width: 100%; }
+
+  /* numbered step heading */
+  .step { display: flex; align-items: center; gap: 9px; margin-bottom: 9px;
+          font-size: 13px; font-weight: 650; color: var(--ink);
+          letter-spacing: -.005em; }
+  .step i { flex: none; width: 19px; height: 19px; border-radius: 50%;
+            background: var(--accent); color: var(--ink-on-accent);
+            font-style: normal; font-size: 11px; font-weight: 700;
+            display: flex; align-items: center; justify-content: center; }
+  .hint { margin: 9px 0 0; font-size: 12px; line-height: 1.5;
+          color: var(--ink-2); max-width: 74ch; }
+  .hint b { color: var(--ink); font-weight: 600; }
+
   /* constraint grid */
   .cons { display: grid; gap: 12px 18px;
           grid-template-columns: repeat(auto-fit, minmax(168px, 1fr)); }
@@ -138,8 +158,9 @@
                  font-variant-numeric: tabular-nums; }
 
   /* the two meters */
-  .meters { display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+  .meters { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
             padding: 0 17px 13px; }
+  @media (max-width: 860px) { .meters { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 560px) { .meters { grid-template-columns: 1fr; } }
   .m .lab { display: flex; justify-content: space-between; align-items: baseline;
             gap: 8px; margin-bottom: 5px; }
@@ -244,18 +265,39 @@
     </section>
 
     <section class="req" id="req">
-      <div class="row">
-        <span class="t-label">Line rate per wavelength</span>
-        <div class="seg" id="rates"></div>
-      </div>
 
       <div class="row">
-        <span class="t-label">Client services</span>
+        <span class="step"><i>1</i> How much traffic?</span>
         <div class="clients" id="clients"></div>
         <button class="btn" id="addClient" style="margin-top:8px">+ Add client</button>
       </div>
 
       <div class="row">
+        <span class="step"><i>2</i> How hard is the link?</span>
+        <div class="seg" id="levels"></div>
+        <p class="hint" id="levelHint"></p>
+
+        <div class="ratecfg" id="knownRate" hidden>
+          <div class="f">
+            <span class="t-label">Known line rate</span>
+            <div class="seg" id="rates"></div>
+          </div>
+          <div class="f">
+            <span class="t-label">Matching</span>
+            <select id="rateMatch">
+              <option value="class">This rate or a higher-rate card</option>
+              <option value="exact">Only cards with this exact profile</option>
+            </select>
+          </div>
+        </div>
+
+        <label class="tg" style="margin-top:12px">
+          <input type="checkbox" id="multi"><span>Multiple wavelengths allowed</span>
+        </label>
+      </div>
+
+      <div class="row">
+        <span class="step"><i>3</i> What else constrains the card?</span>
         <div class="cons">
           <div class="f">
             <span class="t-label">Site depth</span>
@@ -314,6 +356,7 @@
     lineRateG: 400,
     clients: [{ service: '100GE', qty: 4 }],
     depth: 'any', band: 'any', platform: 'any',
+    challenge: 1, rateMatch: 'class', multiLambda: true,
     wson: false, includeRoadmap: false,
   };
 
@@ -354,12 +397,15 @@
   // ----------------------------------------------------------- hash state
   function toHash() {
     var p = [];
-    p.push('rate=' + need.lineRateG);
+    p.push('lvl=' + need.challenge);
+    if (need.challenge === 5) p.push('rate=' + need.lineRateG);
     p.push('c=' + need.clients.filter(function (c) { return c.service && c.qty > 0; })
       .map(function (c) { return c.service + ':' + c.qty; }).join(','));
     if (need.depth !== 'any') p.push('depth=' + need.depth);
     if (need.band !== 'any') p.push('band=' + need.band);
     if (need.platform !== 'any') p.push('plat=' + need.platform);
+    if (need.rateMatch !== 'class') p.push('match=' + need.rateMatch);
+    if (!need.multiLambda) p.push('single=1');
     if (need.wson) p.push('wson=1');
     if (need.includeRoadmap) p.push('roadmap=1');
     var h = '#' + p.join('&');
@@ -372,7 +418,8 @@
     h.split('&').forEach(function (kv) {
       var i = kv.indexOf('='); if (i < 0) return;
       var k = kv.slice(0, i), v = decodeURIComponent(kv.slice(i + 1));
-      if (k === 'rate') need.lineRateG = Number(v) || need.lineRateG;
+      if (k === 'lvl') need.challenge = Number(v) || 1;
+      else if (k === 'rate') need.lineRateG = Number(v) || need.lineRateG;
       else if (k === 'c' && v) {
         need.clients = v.split(',').map(function (s) {
           var p = s.split(':');
@@ -382,6 +429,8 @@
       else if (k === 'depth') need.depth = v;
       else if (k === 'band') need.band = v;
       else if (k === 'plat') need.platform = v;
+      else if (k === 'match') need.rateMatch = v;
+      else if (k === 'single') need.multiLambda = v !== '1';
       else if (k === 'wson') need.wson = v === '1';
       else if (k === 'roadmap') need.includeRoadmap = v === '1';
     });
@@ -398,6 +447,29 @@
         onclick: function () { need.lineRateG = r; paintRates(); run(); },
       }));
     });
+  }
+
+  function paintLevels() {
+    var host = $('levels');
+    host.textContent = '';
+    DCI.CHALLENGE.forEach(function (c) {
+      host.appendChild(el('button', {
+        class: need.challenge === c.level ? 'on' : '',
+        text: c.level + ' · ' + c.label,
+        onclick: function () { need.challenge = c.level; paintLevels(); run(); },
+      }));
+    });
+    var c = DCI.challengeOf(need.challenge);
+    $('knownRate').hidden = need.challenge !== 5;
+    $('levelHint').innerHTML = '';
+    $('levelHint').appendChild(document.createTextNode(c.hint));
+    if (c.factor != null) {
+      $('levelHint').appendChild(el('br'));
+      $('levelHint').appendChild(el('b', { text:
+        'Each card is derated off its own ceiling, then snapped to a rate it ' +
+        'really has — so the shortlist below shows what each one holds up on ' +
+        'a link this hard, not its datasheet number.' }));
+    }
   }
 
   function paintClients() {
@@ -447,6 +519,14 @@
       $(id).value = need[k];
       $(id).addEventListener('change', function (e) { need[k] = e.target.value; run(); });
     });
+    $('rateMatch').value = need.rateMatch;
+    $('rateMatch').addEventListener('change', function (e) {
+      need.rateMatch = e.target.value; run();
+    });
+    $('multi').checked = need.multiLambda;
+    $('multi').addEventListener('change', function (e) {
+      need.multiLambda = e.target.checked; run();
+    });
     $('wson').checked = need.wson;
     $('wson').addEventListener('change', function (e) { need.wson = e.target.checked; run(); });
     $('roadmap').checked = need.includeRoadmap;
@@ -472,6 +552,9 @@
         el('h3', {}, [
           el('span', { text: x.name }),
           pill('mute', x.platform),
+          pill('mute', FMT(r.lineClassG) + '-class'),
+          r.ceilingRateG && r.ceilingRateG < r.lineClassG
+            ? pill('warn', 'derated to ' + FMT(r.ceilingRateG)) : null,
           x.shipping ? pill('ok', 'shipping') : pill('warn', 'roadmap'),
           x.band.length === 1 && x.band[0] === 'L' ? pill('mute', 'L-band') : null,
         ]),
@@ -488,8 +571,11 @@
     ]));
 
     var cageUse = r.capacity ? Math.round(r.portsNeeded / r.capacity * 100) : 0;
+    var fillLabel = 'Wavelength fill · ' + r.carriersUsed + ' x ' + FMT(r.effRateG);
     card.appendChild(el('div', { class: 'meters' }, [
-      meter('Line fill', r.lineUtil + '%', r.lineUtil),
+      meter(fillLabel, r.lineUtil + '%', r.lineUtil),
+      meter('Card used · ' + r.carriersTotal + ' x ' + FMT(r.ceilingRateG),
+            r.cardUsePct + '%', r.cardUsePct),
       meter('Client cages', r.portsNeeded + ' of ' + r.capacity, cageUse),
     ]));
 
@@ -525,10 +611,11 @@
     card.appendChild(why);
 
     card.appendChild(el('div', { class: 'ft' }, [
-      el('span', { class: 'k', html: 'Line&nbsp;<b>' +
-        FMT(x.lineMinG) + '–' + FMT(x.lineMaxG) + '</b>' }),
-      el('span', { class: 'k', html: 'Carriers&nbsp;<b>' +
-        r.carriersUsed + ' of ' + r.carriersTotal + '</b>' }),
+      el('span', { class: 'k', html: 'Ceiling&nbsp;<b>' + FMT(x.lineMaxG) +
+        '</b>&nbsp;→ on this link&nbsp;<b>' + FMT(r.ceilingRateG) + '</b>' }),
+      el('span', { class: 'k', html: 'Wavelengths&nbsp;<b>' +
+        r.carriersUsed + ' of ' + r.carriersTotal + ' port' +
+        (r.carriersTotal > 1 ? 's' : '') + '</b>' }),
       el('span', { class: 'k', html: 'Footprint&nbsp;<b>' + r.slots +
         (r.slots > 1 ? ' slots' : ' slot') + '</b>' }),
       el('span', { class: 'sp' }),
@@ -546,12 +633,17 @@
     // ---- tally
     var t = $('tally');
     t.textContent = '';
-    var lineCap = need.lineRateG * (res.ranked[0] ? res.ranked[0].carriersUsed : 1);
+    var best = res.ranked[0];
+    var lvl = DCI.challengeOf(need.challenge);
     [
-      ['Client load', FMT(res.need.totalClientG), res.need.totalPorts + ' ports'],
-      ['Line rate', FMT(need.lineRateG), 'per wavelength'],
-      ['Best fill', res.ranked[0] ? res.ranked[0].lineUtil + '%' : '—',
-       res.ranked[0] ? 'on ' + res.ranked[0].xpdr.name : 'no match'],
+      ['Traffic', FMT(res.need.totalClientG), res.need.totalPorts + ' client ports'],
+      ['Link', lvl.level + ' · ' + lvl.label,
+       lvl.factor != null ? Math.round(lvl.factor * 100) + '% of each ceiling'
+                          : 'rate given, not derived'],
+      ['Line rate', best ? best.carriersUsed + ' x ' + FMT(best.effRateG) : '—',
+       best ? 'on ' + best.xpdr.name : 'no match'],
+      ['Card used', best ? best.cardUsePct + '%' : '—',
+       best ? best.carriersTotal + ' x ' + FMT(best.ceilingRateG) + ' available' : '—'],
       ['Viable', String(res.counts.viable), 'of ' + res.counts.considered + ' considered'],
     ].forEach(function (c) {
       t.appendChild(el('div', { class: 'c' }, [
@@ -730,6 +822,7 @@
           'tools/build-xpdr-data.py so they can be corrected there.';
 
         paintRates();
+        paintLevels();
         paintClients();
         bindControls();
         run();

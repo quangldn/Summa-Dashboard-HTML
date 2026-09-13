@@ -31,6 +31,63 @@
 
   var SUB100 = 100;   // anything below this is "sub-100G" for the cascade rule
 
+  /* ----------------------------------------------------------
+     Link challenge
+
+     Step 2 of the method: you rarely get a card's headline rate on a real
+     link. Reach, span loss, the number of ROADM hops and the OSNR on the day
+     all pull it down, and how far down is a property of the LINK, not of any
+     one card. So the challenge level derates each card off its OWN ceiling —
+     an 800G card and a 1.2T card on the same hard link land on different
+     rates, which is exactly the comparison worth seeing.
+
+     The factor is applied to the ceiling and then snapped to a profile the
+     card actually has, nearest wins, ties round up. On a dense 100G ladder
+     that lands where "one step down / two steps down" lands; on a sparse
+     ladder like S2AD800R's 400/600/800 it still lands on a real profile
+     instead of inventing one.
+
+     These are planning figures for shaping a bid, not a link budget. The
+     real number comes out of WaveSuite.
+     ---------------------------------------------------------- */
+  var CHALLENGE = [
+    { level: 1, factor: 1.00, label: 'Easy',
+      hint: 'Short DCI, metro, low span loss — the card runs at its ceiling.' },
+    { level: 2, factor: 0.80, label: 'Moderate',
+      hint: 'Metro-regional, a few spans or a ROADM hop or two. ~80% of ceiling.' },
+    { level: 3, factor: 0.60, label: 'Hard',
+      hint: 'Regional to long haul, many spans, meaningful OSNR pressure. ~60%.' },
+    { level: 4, factor: 0.50, label: 'Very hard',
+      hint: 'Long haul / ULH, high loss or heavily filtered. ~50% of ceiling.' },
+    { level: 5, factor: null, label: 'Known rate',
+      hint: 'You already have the rate from a link budget — enter it directly.' },
+  ];
+
+  function challengeOf(level) {
+    return CHALLENGE.filter(function (c) { return c.level === Number(level); })[0]
+           || CHALLENGE[0];
+  }
+
+  /* Snap a target rate to the nearest profile the card actually offers.
+     Ties round up, so a target sitting exactly between two profiles takes
+     the faster one rather than quietly costing capacity. */
+  function snapToProfile(rates, target) {
+    if (!rates || !rates.length) return null;
+    var best = null, bestGap = Infinity;
+    rates.forEach(function (r) {
+      var gap = Math.abs(r - target);
+      if (gap < bestGap || (gap === bestGap && r > best)) { best = r; bestGap = gap; }
+    });
+    return best;
+  }
+
+  /* The best rate this card can hold up on a link of this difficulty. */
+  function achievableRate(xpdr, level) {
+    var c = challengeOf(level);
+    if (c.factor == null) return xpdr.lineMaxG;      // level 5: caller supplies
+    return snapToProfile(xpdr.lineRatesG, (xpdr.lineMaxG || 0) * c.factor);
+  }
+
   // Cage classes, widest first. A cage can host anything in its own class
   // or narrower — a QSFP-DD cage takes a QSFP28 module, not the reverse.
   var CAGE_ORDER = ['QSFP-DD', 'QSFP28', 'QSFP+', 'SFP+', 'SFP'];
@@ -153,6 +210,10 @@
       //           good 400G transponder, and picking one card that covers
       //           several rates is how you end up carrying fewer types.
       // 'exact'  — only cards with a profile at exactly this rate.
+      // Step 2 of the method. Levels 1-4 derive the rate from the card's own
+      // ceiling; level 5 means the rate in lineRateG is a known number from a
+      // link budget and is used as given.
+      challenge: Number(req.challenge) || 1,
       rateMatch: req.rateMatch || 'class',
       // Whether the design may spend more than one wavelength. Two 400G ports
       // often beat one 600G port; that is a line-system decision, not the
@@ -235,27 +296,82 @@
       blockers.push(need.band + '-band not supported (' + (xpdr.band || []).join('/') + ' only)');
     }
 
-    /* Line rate. A transponder cannot always be run at its own ceiling —
-       reach, spacing and the OSNR on the day all pull it down — so the rate
-       the design asks for is a floor on the card's technology, not a label to
-       match. In class mode the card runs the lowest profile it has that meets
-       the ask; a card with no profile at or above it is genuinely out. */
+    /* Line rate — steps 2 and 3 of the method, resolved together.
+
+       The challenge level sets a CEILING: the best rate this particular card
+       can hold up on a link this hard. The traffic sets a FLOOR: what each
+       carrier has to run if the load is split across the ports the card has.
+       The answer is the cheapest point that satisfies both — the fewest
+       wavelengths, each at the lowest profile that carries its share.
+
+       Working the port count out here rather than assuming one carrier is
+       what lets a 2x400G card and a 1x800G card be compared honestly for the
+       same 800G of traffic. */
     var rates = xpdr.lineRatesG || [];
-    var effRate = need.lineRateG;
-    if (need.lineRateG) {
-      if (need.rateMatch === 'exact') {
-        if (rates.indexOf(need.lineRateG) < 0) {
-          blockers.push('no ' + fmtRate(need.lineRateG) + ' profile on the line');
+    var ports = xpdr.lineCarriers || 1;
+    var portsAllowed = need.multiLambda ? ports : 1;
+    var ceilingRate, effRate = null, carriersUsed = 1;
+
+    if (need.challenge === 5) {
+      // With a known rate there is no derate to apply, so what this card can
+      // do on this link is simply its own ceiling. Using the ASKED rate here
+      // instead would make every card look fully used — a 1.2T card told to
+      // run 400G would read as right-sized, which is the exact over-spec the
+      // scoring exists to catch.
+      ceilingRate = xpdr.lineMaxG;
+      // A known rate is a rate, not a ceiling to plan under: honour it, and
+      // fall back to the class/exact matching that governed it before.
+      if (need.lineRateG) {
+        if (need.rateMatch === 'exact') {
+          if (rates.indexOf(need.lineRateG) < 0) {
+            blockers.push('no ' + fmtRate(need.lineRateG) + ' profile on the line');
+          }
+          effRate = need.lineRateG;
+        } else {
+          var at = rates.filter(function (r) { return r >= need.lineRateG; });
+          if (!at.length) {
+            blockers.push('line tops out at ' + fmtRate(xpdr.lineMaxG) +
+                          ' — below the ' + fmtRate(need.lineRateG) + ' asked for');
+            effRate = xpdr.lineMaxG;
+          } else {
+            effRate = at[0];
+          }
         }
       } else {
-        var at = rates.filter(function (r) { return r >= need.lineRateG; });
-        if (!at.length) {
-          blockers.push('line tops out at ' + fmtRate(xpdr.lineMaxG) +
-                        ' — below the ' + fmtRate(need.lineRateG) + ' asked for');
-        } else {
-          effRate = at[0];
+        effRate = xpdr.lineMaxG;
+      }
+      carriersUsed = effRate ? Math.min(portsAllowed, Math.max(1,
+        Math.ceil(need.totalClientG / effRate))) : 1;
+    } else {
+      ceilingRate = achievableRate(xpdr, need.challenge);
+      if (!ceilingRate) {
+        blockers.push('no line profile recorded for this card');
+      } else {
+        // Fewest wavelengths first, so one 800G beats two 400G when both work.
+        for (var c = 1; c <= portsAllowed; c++) {
+          var perCarrier = need.totalClientG / c;
+          var fit = rates.filter(function (r) {
+            return r >= perCarrier && r <= ceilingRate;
+          });
+          if (fit.length) { effRate = fit[0]; carriersUsed = c; break; }
+        }
+        if (effRate == null) {
+          effRate = ceilingRate;
+          carriersUsed = portsAllowed;
+          blockers.push('client load ' + fmtRate(need.totalClientG) +
+            ' will not fit — on a level-' + need.challenge + ' link this card ' +
+            'holds up ' + fmtRate(ceilingRate) + ' per carrier' +
+            (portsAllowed > 1 ? ' across ' + portsAllowed + ' carriers' : '') +
+            ' (ceiling ' + fmtRate(xpdr.lineMaxG) + ')');
         }
       }
+    }
+
+    if (need.challenge !== 5 && ceilingRate && xpdr.lineMaxG &&
+        ceilingRate < xpdr.lineMaxG) {
+      costs.push('link derates this card from ' + fmtRate(xpdr.lineMaxG) +
+                 ' to ' + fmtRate(ceilingRate) + ' at challenge level ' +
+                 need.challenge);
     }
 
     var hosts = hostsFor(xpdr, data, need);
@@ -331,16 +447,18 @@
     // — not 15% full across both. Reporting it the second way would punish
     // multi-carrier cards for capacity the design is not buying.
     var rate = effRate || xpdr.lineMaxG || 0;
-    var ports = xpdr.lineCarriers || 1;
-    // A single-wavelength design may still sit on a two-port card — it just
-    // only lights one of them.
-    var maxCarriers = need.multiLambda ? ports : 1;
-    var carriersUsed = rate ? Math.min(maxCarriers, Math.max(1,
-      Math.ceil(need.totalClientG / rate))) : 1;
+    var maxCarriers = portsAllowed;
     var lineCap = rate * carriersUsed;
     var util = lineCap ? Math.round(need.totalClientG / lineCap * 100) : 0;
 
-    if (lineCap && need.totalClientG > rate * maxCarriers) {
+    // What the whole card could carry on this link, versus what it is asked
+    // to. This is the number that separates a 2x400G card from a 2x800G card
+    // for the same 800G of traffic — both light their ports, but only one of
+    // them is being paid for at the rate it is used.
+    var cardCap = (ceilingRate || rate) * ports;
+    var cardUse = cardCap ? need.totalClientG / cardCap : 0;
+
+    if (lineCap && need.totalClientG > rate * maxCarriers && !blockers.length) {
       blockers.push('client load ' + fmtRate(need.totalClientG) + ' exceeds ' +
         (maxCarriers > 1
           ? 'line capacity ' + fmtRate(rate * maxCarriers) + ' across all ' +
@@ -354,6 +472,9 @@
         xpdr: xpdr, host: hosts[0] || null, hosts: hosts, score: 0,
         blockers: blockers, fits: fits, costs: costs, cascade: cascade,
         inventory: inv, lineUtil: util, disqualified: true,
+        effRateG: effRate, ceilingRateG: ceilingRate,
+        carriersUsed: carriersUsed, carriersTotal: ports,
+        lineClassG: xpdr.lineMaxG,
       };
     }
 
@@ -375,11 +496,21 @@
                  uplinks + 'x ' + cascade.via.handsOff + ' into this card');
     }
 
-    // 2. Line fill. Running a wavelength at 30% is money on the floor;
-    //    running it at 100% leaves nothing for the next service.
-    if (util >= 70 && util <= 100) { score += 25; fits.push('line runs at ' + util + '% fill'); }
-    else if (util >= 45) { score += 16; costs.push('line only ' + util + '% filled'); }
-    else if (util > 0) { score += 4; costs.push('line only ' + util + '% filled — the rate is oversized for this client load'); }
+    // 2. Wavelength fill. This is the heaviest term in the whole model, and
+    //    deliberately so: an under-filled wavelength is capacity paid for and
+    //    not sold, which is how a bid gets beaten on price by someone who
+    //    sized the same traffic properly.
+    if (util >= 95) { score += 40; fits.push('wavelength runs at ' + util + '% fill'); }
+    else if (util >= 85) { score += 34; fits.push('wavelength runs at ' + util + '% fill'); }
+    else if (util >= 70) { score += 26; fits.push('wavelength runs at ' + util + '% fill'); }
+    else if (util >= 55) { score += 16; costs.push('wavelength only ' + util + '% filled'); }
+    else if (util >= 40) { score += 8;
+      costs.push('wavelength only ' + util + '% filled — ' +
+                 fmtRate(lineCap - need.totalClientG) + ' of capacity bought and unused'); }
+    else if (util > 0) {
+      costs.push('wavelength only ' + util + '% filled — ' +
+                 fmtRate(lineCap - need.totalClientG) +
+                 ' of capacity bought and unused; this rate is oversized for the load'); }
 
     // Wavelengths are the expensive unit on the line system, so say plainly
     // when the answer needs more than one, and when ports are left dark.
@@ -404,13 +535,19 @@
 
     // 3. Port headroom. Some spare is good; a wall of spare cages is a card
     //    bought for a job it is not doing.
+    //    A wall of idle cages is the same over-spec problem as an idle line
+    //    rate: the customer is quoted a card sized for a bigger job.
     var spare = cap - portsOnCard;
-    if (spare >= 1 && spare <= Math.max(2, portsOnCard)) {
+    if (spare >= 1 && spare <= Math.max(2, Math.ceil(portsOnCard / 2))) {
       score += 14; fits.push(spare + ' spare client cage' + (spare > 1 ? 's' : '') + ' for growth');
     } else if (spare === 0) {
-      score += 9; costs.push('every client cage used — no room to grow');
+      score += 11; costs.push('every client cage used — no room to grow');
+    } else if (spare <= portsOnCard) {
+      score += 8; costs.push(spare + ' client cages left unused');
     } else if (spare > 0) {
-      score += 6; costs.push(spare + ' client cages left unused');
+      score += 2;
+      costs.push(spare + ' of ' + cap + ' client cages left unused — the card is ' +
+                 'sized for a bigger job than this one');
     }
 
     // 4. Slot economy.
@@ -422,13 +559,43 @@
     if (xpdr.shipping) { score += 9; }
     else { costs.push('not shipping yet — ' + (xpdr.release || 'roadmap only')); }
 
-    // 6. Rate headroom on the card itself: a card whose ceiling is well above
-    //    the asked rate leaves an upgrade path in place.
-    if (xpdr.lineMaxG && need.lineRateG && xpdr.lineMaxG > need.lineRateG) {
-      score += 6;
-      fits.push('line ceiling ' + fmtRate(xpdr.lineMaxG) + ' — headroom above the ' +
-                fmtRate(need.lineRateG) + ' asked for');
+    // 6. Right-sizing the card against the rate it will actually run.
+    //
+    //    This term used to run the other way: a ceiling above the asked rate
+    //    scored a bonus, on the reasoning that headroom leaves an upgrade
+    //    path. That is true and it is also how you lose on price — a 1.2T
+    //    card asked to carry 400G is silicon the customer pays for and the
+    //    design never lights. Headroom is still reported, because it is worth
+    //    knowing, but it is a note rather than a reward, and gross over-spec
+    //    now costs the candidate its place.
+    //    Measured across the whole card — rate times ports — because a card
+    //    is bought whole. Two 400G ports carrying 800G is fully used; two
+    //    800G ports carrying the same 800G is half-used and will be priced
+    //    like the bigger card it is.
+    if (cardCap) {
+      var pct = Math.round(cardUse * 100);
+      var shape = ports + ' x ' + fmtRate(ceilingRate || rate);
+      if (cardUse >= 0.9) {
+        score += 22;
+        fits.push('card fully used — ' + shape + ' on this link, ' + pct + '% taken');
+      } else if (cardUse >= 0.7) {
+        score += 15;
+        fits.push('card ' + pct + '% used (' + shape + ' on this link)');
+      } else if (cardUse >= 0.5) {
+        score += 6;
+        costs.push('card only ' + pct + '% used — ' + shape +
+                   ' on this link, so it is priced above what the design carries');
+      } else {
+        costs.push('card only ' + pct + '% used — ' + shape + ' on this link ' +
+                   'against ' + fmtRate(need.totalClientG) + ' of traffic; a ' +
+                   'smaller card carries this service for less');
+      }
     }
+
+    // 6b. Wavelengths. Between two cards that are equally well used, the one
+    //     lighting fewer wavelengths wins — one 800G carrier costs less on
+    //     the line system than two 400G carriers for the same traffic.
+    score += carriersUsed === 1 ? 10 : carriersUsed === 2 ? 5 : 1;
 
     // 7. Depth. A card that also fits a shallow site is worth flagging as a fit;
     //    one that forces a deep rack is worth flagging as a cost.
@@ -463,6 +630,9 @@
       carriersAllowed: maxCarriers,
       lineCapacityG: lineCap,
       effRateG: effRate,
+      ceilingRateG: ceilingRate,
+      cardCapacityG: cardCap,
+      cardUsePct: Math.round(cardUse * 100),
       lineClassG: xpdr.lineMaxG,
       disqualified: false,
     };
@@ -525,6 +695,10 @@
   }
 
   return {
+    CHALLENGE: CHALLENGE,
+    challengeOf: challengeOf,
+    achievableRate: achievableRate,
+    snapToProfile: snapToProfile,
     recommend: recommend,
     evaluate: evaluate,
     normalise: normalise,

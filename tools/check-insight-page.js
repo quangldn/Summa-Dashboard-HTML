@@ -1,9 +1,9 @@
-/* Headless check of dci.html: console errors, rendering, contrast in both
+/* Headless check of portfolio-insight.html: console errors, rendering, contrast in both
    themes, and mobile width. node tools/check-dci-page.js */
 
 const { chromium } = require('playwright');
 
-const URL = 'http://localhost:8899/dci.html';
+const URL = 'http://localhost:8899/portfolio-insight.html';
 
 // Relative luminance / contrast, per WCAG.
 const CONTRAST_FN = `(() => {
@@ -93,15 +93,15 @@ const CONTRAST_FN = `(() => {
 
     await page.goto(URL, { waitUntil: 'networkidle' });
     await page.evaluate(t => document.documentElement.setAttribute('data-theme', t), theme);
-    await page.waitForSelector('.card', { timeout: 5000 }).catch(() => {});
+    await page.waitForSelector('.panel', { timeout: 6000 }).catch(() => {});
     await page.waitForTimeout(250);
 
-    const cards = await page.$$eval('.card', n => n.length);
-    const tally = await page.$$eval('.tally .c', n => n.length);
-    const rates = await page.$$eval('#rates button', n => n.length);
+    const cards = await page.$$eval('.panel', n => n.length);
+    const tally = await page.$$eval('.viz-kpi-c', n => n.length);
+    const rates = await page.$$eval('svg.viz-svg', n => n.length);
 
     console.log('\n== %s ==', theme);
-    console.log('  result cards: %d   tally cells: %d   rate buttons: %d',
+    console.log('  panels: %d   kpi cells: %d   charts: %d',
       cards, tally, rates);
     if (!cards) { console.log('  FAIL no result cards rendered'); fail++; }
     if (errors.length) {
@@ -112,7 +112,8 @@ const CONTRAST_FN = `(() => {
       console.log('  ok   no console errors');
     }
 
-    const bad = await page.evaluate(CONTRAST_FN);
+    const CF = CONTRAST_FN;
+    const bad = await page.evaluate(CF);
     if (bad.length) {
       console.log('  FAIL %d contrast failures:', bad.length);
       bad.slice(0, 12).forEach(b => console.log(
@@ -123,45 +124,59 @@ const CONTRAST_FN = `(() => {
       console.log('  ok   contrast clean');
     }
 
-    // Interaction: change the rate, add a client, open the drawer.
     const before = errors.length;
     if (cards) {
-      // Step 2: walk the challenge levels, then land on 5 so the known-rate
-      // row unhides and the rate buttons become clickable.
-      await page.click('#levels button:nth-child(3)');
-      await page.waitForTimeout(180);
-      const hiddenAt3 = await page.$eval('#knownRate', n => n.hasAttribute('hidden'));
-      console.log('  known-rate row hidden at level 3: %s', hiddenAt3);
-      if (!hiddenAt3) { console.log('  FAIL known-rate row leaks at level 3'); fail++; }
-      await page.click('#levels button:last-child');
-      await page.waitForTimeout(180);
-      const shownAt5 = await page.$eval('#knownRate', n => !n.hasAttribute('hidden'));
-      console.log('  known-rate row shown at level 5: %s', shownAt5);
-      if (!shownAt5) { console.log('  FAIL known-rate row missing at level 5'); fail++; }
-      await page.click('#rates button:last-child');
-      await page.waitForTimeout(150);
-      await page.click('#addClient');
-      await page.waitForTimeout(150);
-      const after = await page.$$eval('.cl', n => n.length);
-      console.log('  client rows after add: %d', after);
-      if (after < 2) { console.log('  FAIL add-client did not add a row'); fail++; }
-
-      const btn = await page.$('.card .ft .btn');
-      if (btn) {
-        await btn.click();
-        await page.waitForTimeout(320);
-        const open = await page.$eval('#drawer', d => d.classList.contains('on'));
-        console.log('  drawer opens: %s', open);
-        if (!open) { console.log('  FAIL drawer did not open'); fail++; }
-        await page.keyboard.press('Escape');
+      const tabs = await page.$$eval('#tabs button', n => n.length);
+      console.log('  tabs: %d', tabs);
+      if (tabs !== 3) { console.log('  FAIL expected 3 tabs'); fail++; }
+      for (const t of [1, 2]) {
+        await page.click('#tabs button:nth-child(' + (t + 1) + ')');
+        await page.waitForTimeout(260);
+        const panels = await page.$$eval('.panel', n => n.length);
+        const svgs = await page.$$eval('svg.viz-svg', n => n.length);
+        console.log('  tab ' + (t + 1) + ' -> ' + panels + ' panels, ' + svgs + ' charts');
+        if (!panels) { console.log('  FAIL tab rendered nothing'); fail++; }
+        const b2 = await page.evaluate(CF);
+        if (b2.length) {
+          console.log('  FAIL %d contrast failures on tab %d:', b2.length, t + 1);
+          b2.slice(0, 8).forEach(x => console.log('    %s.%s %s:1 (needs %s) %spx "%s"',
+            x.tag, String(x.cls).split(' ')[0], x.ratio, x.min, x.size, x.text));
+          fail++;
+        }
+      }
+      for (const v of ['table', 'cards']) {
+        await page.click('.scope button[data-view="' + v + '"]');
+        await page.waitForTimeout(240);
+        const charts = await page.$$eval('svg.viz-svg', n => n.length);
+        const open = await page.$$eval('.tv.open', n => n.length);
+        const sheets = await page.$$eval('.sheets', n => n.length);
+        console.log('  view ' + v.padEnd(6) + '-> ' + charts + ' charts, ' +
+          open + ' open tables, ' + sheets + ' card grids');
+        if (v === 'table' && (charts || sheets)) {
+          console.log('  FAIL charts still drawn in table view'); fail++;
+        }
+        if (v === 'table' && !open) { console.log('  FAIL no open table'); fail++; }
+        if (v === 'cards' && open) { console.log('  FAIL table left open in card view'); fail++; }
+        const b3 = await page.evaluate(CF);
+        if (b3.length) {
+          console.log('  FAIL %d contrast failures in %s view:', b3.length, v);
+          b3.slice(0, 6).forEach(x => console.log('    %s.%s %s:1 needs %s "%s"',
+            x.tag, String(x.cls).split(' ')[0], x.ratio, x.min, x.text));
+          fail++;
+        }
+      }
+      for (const sc of ['GX', 'PSS', 'BOTH']) {
+        await page.click('.scope button[data-scope="' + sc + '"]');
+        await page.waitForTimeout(220);
+        const panels = await page.$$eval('.panel', n => n.length);
+        console.log('  scope ' + sc.padEnd(5) + '-> ' + panels + ' panels');
+        if (!panels) { console.log('  FAIL scope rendered nothing'); fail++; }
       }
       if (errors.length > before) {
         console.log('  FAIL new errors after interaction:');
         errors.slice(before).forEach(e => console.log('    ' + e));
         fail++;
-      } else {
-        console.log('  ok   interaction clean');
-      }
+      } else { console.log('  ok   interaction clean'); }
     }
 
     await page.close();
@@ -172,7 +187,7 @@ const CONTRAST_FN = `(() => {
   const merr = [];
   page.on('pageerror', e => merr.push(e.message));
   await page.goto(URL, { waitUntil: 'networkidle' });
-  await page.waitForSelector('.card', { timeout: 5000 }).catch(() => {});
+  await page.waitForSelector('.panel', { timeout: 6000 }).catch(() => {});
   const overflow = await page.evaluate(() => ({
     doc: document.documentElement.scrollWidth,
     win: window.innerWidth,
