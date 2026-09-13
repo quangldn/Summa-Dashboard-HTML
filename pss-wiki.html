@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PSS / PSI Wiki — SUMMA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/theme.css" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="stylesheet" href="assets/nav-bar.css" />
+  <link rel="stylesheet" href="assets/cmdk.css" />
+  <script src="assets/nav.js" defer></script>
+  <script src="assets/cmdk.js" defer></script>
+  <style>
+    .wrap { max-width: 1280px; margin: 0 auto; padding: 18px 20px 80px; }
+
+    .hero { display: flex; align-items: flex-end; justify-content: space-between;
+            gap: 20px; flex-wrap: wrap; margin-bottom: 12px; }
+    .hero h1 { margin: 0 0 4px; font-size: 26px; color: var(--nokia-blue-deep); }
+    .hero p { margin: 0; color: var(--text-muted); max-width: 76ch; font-size: 13.5px; }
+    .src { font-size: 11.5px; color: var(--text-faint); text-align: right;
+           line-height: 1.5; }
+
+    .tabs { display: flex; gap: 4px; border-bottom: 2px solid var(--border);
+            margin-bottom: 16px; flex-wrap: wrap; }
+    .tabs button { border: none; background: none; font: inherit; font-size: 13.5px;
+                   font-weight: 600; color: var(--text-muted); padding: 9px 14px;
+                   cursor: pointer; border-bottom: 2px solid transparent;
+                   margin-bottom: -2px; border-radius: 6px 6px 0 0; }
+    .tabs button:hover { background: var(--surface-2); color: var(--text); }
+    .tabs button[aria-selected="true"] { color: var(--nokia-blue);
+                   border-bottom-color: var(--nokia-blue); }
+
+    .card { background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius); box-shadow: var(--shadow-sm);
+            padding: 16px; margin-bottom: 14px; }
+    .card > h3 { margin: 0 0 10px; font-size: 12px; letter-spacing: .08em;
+                 text-transform: uppercase; color: var(--text-faint); }
+    .lead { font-size: 13.5px; color: var(--text-muted); margin: 0 0 14px;
+            max-width: 80ch; }
+
+    /* shelf cards */
+    .shelfgrid { display: grid; gap: 13px;
+                 grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+    .shelf { background: var(--surface); border: 1px solid var(--border);
+             border-radius: var(--radius); padding: 14px; }
+    .shelf h4 { margin: 0; font-size: 17px; color: var(--nokia-blue-deep);
+                font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .shelf .fam { font-size: 11px; color: var(--text-faint); text-transform: uppercase;
+                  letter-spacing: .06em; font-weight: 700; margin: 2px 0 9px; }
+    .shelf dl { margin: 0; }
+    .kv { display: flex; gap: 10px; font-size: 12.5px; padding: 3px 0;
+          border-bottom: 1px solid var(--surface-2); }
+    .kv:last-child { border-bottom: none; }
+    .kv dt { flex: 0 0 44%; color: var(--text-muted); }
+    .kv dd { margin: 0; flex: 1; font-weight: 500; white-space: pre-wrap; }
+    .shelf .big { display: flex; gap: 16px; margin: 8px 0 10px; }
+    .shelf .big div { font-size: 11px; color: var(--text-faint);
+                      text-transform: uppercase; letter-spacing: .05em; }
+    .shelf .big b { display: block; font-size: 20px; color: var(--nokia-blue-deep);
+                    font-variant-numeric: tabular-nums; letter-spacing: -.5px; }
+    .more { border: none; background: none; font: inherit; font-size: 12px;
+            color: var(--nokia-blue); cursor: pointer; padding: 6px 0 0; }
+
+    /* timeline */
+    .rel { display: grid; grid-template-columns: 96px minmax(0,1fr); gap: 0 16px; }
+    .rel > .tag { font-weight: 700; color: var(--nokia-blue-deep); font-size: 14px;
+                  padding: 14px 0 0; font-variant-numeric: tabular-nums; }
+    .rel > .body { border-left: 2px solid var(--border); padding: 14px 0 18px 18px;
+                   position: relative; }
+    .rel > .body::before { content: ''; position: absolute; left: -6px; top: 19px;
+                           width: 10px; height: 10px; border-radius: 50%;
+                           background: var(--nokia-blue); }
+    .rel h4 { margin: 0 0 6px; font-size: 14px; color: var(--text); }
+    .rel ul { margin: 0; padding-left: 18px; font-size: 13px; color: var(--text-muted); }
+    .rel li { margin-bottom: 3px; }
+    .rel .shipped { color: var(--ok-ink); }
+    .rel .dom { font-size: 11px; text-transform: uppercase; letter-spacing: .07em;
+                font-weight: 700; color: var(--nokia-blue); margin: 10px 0 4px; }
+
+    /* glossary */
+    .glossbar { display: flex; gap: 8px; align-items: center; margin-bottom: 12px;
+                flex-wrap: wrap; }
+    input[type="search"] { font: inherit; font-size: 13px; padding: 7px 10px;
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      background: var(--surface); min-width: 240px; flex: 1; }
+    input:focus { outline: 2px solid var(--nokia-blue-light); outline-offset: -1px; }
+    .letters { display: flex; flex-wrap: wrap; gap: 3px; }
+    .letters button { border: 1px solid var(--border); background: var(--surface);
+                      font: inherit; font-size: 11.5px; font-weight: 600;
+                      width: 25px; height: 25px; border-radius: 5px; cursor: pointer;
+                      color: var(--text-muted); }
+    .letters button[aria-pressed="true"] { background: var(--nokia-blue);
+                      color: #fff; border-color: var(--nokia-blue); }
+    .terms dt { font-weight: 700; color: var(--nokia-blue-deep); font-size: 13px;
+                margin-top: 11px; }
+    .terms dd { margin: 2px 0 0; font-size: 13px; color: var(--text-muted);
+                max-width: 88ch; }
+
+    table.t { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+    table.t th { text-align: left; font-size: 10.5px; letter-spacing: .06em;
+                 text-transform: uppercase; color: var(--text-faint);
+                 border-bottom: 1px solid var(--border); padding: 6px 8px; }
+    table.t td { padding: 5px 8px; border-bottom: 1px solid var(--surface-2);
+                 vertical-align: top; }
+    table.t td.n { text-align: right; font-variant-numeric: tabular-nums; }
+    table.t td.pn { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+                    font-weight: 600; color: var(--nokia-blue-deep); }
+    .scroll { overflow-x: auto; }
+
+    .flag { font-size: 12.5px; padding: 9px 11px; border-radius: var(--radius-sm);
+            background: var(--warn-soft); border: 1px solid var(--warn-soft); color: var(--warn-ink);
+            margin-bottom: 8px; }
+    .note { font-size: 12px; color: var(--text-faint); margin-top: 10px; }
+    .empty { color: var(--text-faint); font-size: 13px; padding: 20px 4px; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+           font-size: 11.5px; background: var(--surface-2); padding: 1px 4px;
+           border-radius: 3px; }
+    a.x { font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <header id="summa-nav"></header>
+
+  <main class="wrap">
+    <div class="hero">
+      <div>
+        <h1>1830 PSS / PSI Wiki</h1>
+        <p>How the PSS and PSI families fit together — which shelf is which,
+           what is coming in each release, and what the acronyms on the
+           faceplates mean. Card-level detail lives in the
+           <a class="x" href="pss-portfolio.html">PSS Portfolio</a>.</p>
+      </div>
+      <div class="src" id="src">loading…</div>
+    </div>
+
+    <div class="tabs" role="tablist">
+      <button role="tab" data-tab="shelves" aria-selected="true">Shelves</button>
+      <button role="tab" data-tab="releases">Releases</button>
+      <button role="tab" data-tab="glossary">Glossary</button>
+      <button role="tab" data-tab="sources">Sources &amp; gaps</button>
+    </div>
+
+    <section id="tab-shelves"></section>
+    <section id="tab-releases" hidden></section>
+    <section id="tab-glossary" hidden></section>
+    <section id="tab-sources" hidden></section>
+  </main>
+
+  <footer class="footer">
+    Built for Quang · Nokia ON Sales Engineering · Vietnam (GMT+7)
+  </footer>
+
+  <script>
+  (function () {
+    'use strict';
+
+    const $ = s => document.querySelector(s);
+    const el = (tag, attrs, kids) => {
+      const n = document.createElement(tag);
+      for (const k in (attrs || {})) {
+        if (k === 'class') n.className = attrs[k];
+        else if (k === 'text') n.textContent = attrs[k];
+        else if (k === 'html') n.innerHTML = attrs[k];
+        else if (k.startsWith('on')) n.addEventListener(k.slice(2), attrs[k]);
+        else if (attrs[k] === true) n.setAttribute(k, '');
+        else if (attrs[k] !== false && attrs[k] != null) n.setAttribute(k, attrs[k]);
+      }
+      (kids || []).forEach(c => c != null && n.appendChild(
+        typeof c === 'string' ? document.createTextNode(c) : c));
+      return n;
+    };
+
+    let D = null, ROADMAP = null, RELEASE_SLIDES = null;
+    const G = { q: '', letter: '' };
+
+    /* -------------------------------------------------------------- shelves */
+
+    /* The families as Nokia positions them, in the order a design conversation
+       walks through them: the WDM shelves first, then the compact L0 shelves,
+       then the packet-optical and high-capacity variants. */
+    const FAMILIES = [
+      ['PSS — WDM / ROADM / OTN shelves', ['PSS-4II', 'PSS-8', 'PSS-16', 'PSS-16II', 'PSS-32']],
+      ['PSI — compact line shelves', ['PSI-4L', 'PSI-8L', 'PSI-M']],
+      ['PSS-HC — high capacity', ['PSS-4hc', 'PSS-10hc']],
+      ['PSS-x — packet optical', ['PSS-8x', 'PSS-12x', 'PSS-24x']],
+    ];
+
+    const KEY_ATTRS = ['Applications', 'Dimensions (HxWxD)', 'Footprint/depth',
+      'Service slots', 'Mounting', 'Weight', 'Controller', 'Controller FRU',
+      'Fan and airflow', 'Airflow', 'Fans', 'Power modules',
+      'Power supply config', 'Power supply', 'Operating temperature',
+      'Management interfaces'];
+
+    function renderShelves() {
+      const host = $('#tab-shelves');
+      host.innerHTML = '';
+      host.appendChild(el('p', { class: 'lead' }, [
+        'Slot counts and legal slot ranges come from the planning guide; ',
+        'dimensions, mounting, controller redundancy and operating range come ',
+        'from the August 2026 roadmap. Card counts are how many cards in the ',
+        'catalogue are legal in that shelf.',
+      ]));
+
+      FAMILIES.forEach(([title, names]) => {
+        const present = names.filter(n => D.shelves[n]);
+        if (!present.length) return;
+        const sec = el('div', { class: 'card' }, [el('h3', { text: title })]);
+        const grid = el('div', { class: 'shelfgrid' });
+        present.forEach(n => grid.appendChild(shelfCard(D.shelves[n])));
+        sec.appendChild(grid);
+        host.appendChild(sec);
+      });
+    }
+
+    function shelfCard(s) {
+      const a = s.attributes || {};
+      const box = el('div', { class: 'shelf' }, [
+        el('h4', { text: s.name }),
+        el('div', { class: 'fam',
+          text: (s.release ? s.release + ' · ' : '') + (s.family || '').replace('1830 ', '') }),
+      ]);
+
+      const big = el('div', { class: 'big' });
+      const slots = a['Service slots'];
+      if (slots) big.appendChild(el('div', {}, [el('b', { text: String(slots).split(' ')[0] }), 'slots']));
+      if (s.cardCount) big.appendChild(el('div', {}, [el('b', { text: s.cardCount }), 'cards']));
+      const ru = (a['Dimensions (HxWxD)'] || a['Footprint/depth'] || '').match(/(\d+)\s*RU/i);
+      if (ru) big.appendChild(el('div', {}, [el('b', { text: ru[1] }), 'RU']));
+      if (big.children.length) box.appendChild(big);
+
+      const dl = el('dl');
+      const ranges = Object.entries(s.slotRanges || {});
+      if (ranges.length) {
+        ranges.forEach(([col, rng]) => dl.appendChild(el('div', { class: 'kv' }, [
+          el('dt', { text: 'Slot range' + (ranges.length > 1 ? ' · ' + col.replace(s.name, '').trim() : '') }),
+          el('dd', { text: rng })])));
+      }
+      const shelfRows = (s.shelf || []).concat(s.kits || []);
+      shelfRows.slice(0, 3).forEach(r => {
+        if (r.weightKg == null) return;
+        dl.appendChild(el('div', { class: 'kv' }, [
+          el('dt', { text: (r.description || r.component || '').slice(0, 42) }),
+          el('dd', { text: r.weightKg + ' kg' +
+            (r.pMax ? '  ·  ' + r.pMax + ' W max' : '') })]));
+      });
+      KEY_ATTRS.forEach(k => {
+        if (!a[k]) return;
+        dl.appendChild(el('div', { class: 'kv' }, [
+          el('dt', { text: k }), el('dd', { text: a[k] })]));
+      });
+      box.appendChild(dl);
+
+      const rest = Object.keys(a).filter(k => !KEY_ATTRS.includes(k) && k !== 'Release');
+      if (rest.length) {
+        const extra = el('dl', { hidden: true });
+        rest.forEach(k => extra.appendChild(el('div', { class: 'kv' }, [
+          el('dt', { text: k }), el('dd', { text: a[k] })])));
+        const btn = el('button', { class: 'more', onclick: () => {
+          extra.hidden = !extra.hidden;
+          btn.textContent = extra.hidden ? '+ ' + rest.length + ' more' : '− less';
+        }, text: '+ ' + rest.length + ' more' });
+        box.appendChild(btn);
+        box.appendChild(extra);
+      }
+      return box;
+    }
+
+    /* ------------------------------------------------------------- releases */
+
+    /* The deck's "what's new" slides, in release order. Anything at or before
+       R26.6 is what the planning guide documents; everything after it is a
+       plan, and the page says so rather than blurring the two. */
+    const SHIPPED_THROUGH = 'R26.6';
+
+    /* The deck writes a whole release into one cell, items separated by " / "
+       and grouped under domain headings. These are the headings it uses; an
+       item that is not one of them is a feature. Guessing from item length
+       instead would promote short feature names like "Line side encryption"
+       into headings. */
+    const DOMAINS = new Set(['Electro-Optics', 'Electro-Optics & Switching',
+      'Transmission', 'GMRE', 'Platform', 'Packet', 'Sync', 'Security',
+      'Management', 'PSI-M', 'PSD', 'PSD-200', 'PSS-4II', 'PSS-x', 'PSS-HC']);
+
+    const tidy = s => String(s || '')
+      .replace(/[-]/g, '→')    // PowerPoint's Wingdings arrows
+      .replace(/ /g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    function renderReleases() {
+      const host = $('#tab-releases');
+      host.innerHTML = '';
+      const slides = (RELEASE_SLIDES || []).filter(s =>
+        /\bR2\d/.test(s.title || '') && /PSS|PSI/i.test(s.title || ''));
+      if (!slides.length) {
+        host.appendChild(el('div', { class: 'empty',
+          text: 'No release slides found in the roadmap deck.' }));
+        return;
+      }
+      host.appendChild(el('p', { class: 'lead' }, [
+        'The roadmap deck’s "what’s new" lists, one release per row. The ',
+        'planning guide behind the Portfolio documents ',
+        el('b', { text: SHIPPED_THROUGH }),
+        ' — everything after it is a plan of record, not a commitment.',
+      ]));
+
+      const wrap = el('div', { class: 'card' });
+      const rel = el('div', { class: 'rel' });
+      const relKey = t => {
+        const m = (t || '').match(/R(\d+)\.Q?(\d+)/);
+        return m ? Number(m[1]) * 100 + Number(m[2]) : 0;
+      };
+      slides
+        .sort((a, b) => relKey(a.title) - relKey(b.title))
+        .forEach(s => {
+          const ver = (s.title.match(/R2\d[.\w]*/) || ['—'])[0];
+          const shipped = ver <= SHIPPED_THROUGH;
+          rel.appendChild(el('div', { class: 'tag' + (shipped ? ' shipped' : ''),
+                                      text: ver }));
+          const body = el('div', { class: 'body' });
+          const when = (s.products[0] || {}).name || '';
+          body.appendChild(el('h4', {
+            text: tidy(s.title) + (when.match(/\((.*?)\)/) ?
+              '  ·  ' + when.match(/\((.*?)\)/)[1] : '') }));
+
+          let ul = null;
+          // on these slides the table is not key/value: the whole release is
+          // written into cells, so the attribute key carries content too
+          const cells = [];
+          s.products.forEach(p => Object.entries(p.attributes || {})
+            .forEach(([k, v]) => { cells.push(k); cells.push(v); }));
+          cells.forEach(v => {
+            tidy(v).split(' / ').forEach(raw => {
+              const item = raw.trim();
+              if (item.length < 3) return;
+              if (DOMAINS.has(item)) {
+                body.appendChild(el('div', { class: 'dom', text: item }));
+                ul = el('ul');
+                body.appendChild(ul);
+                return;
+              }
+              if (!ul) { ul = el('ul'); body.appendChild(ul); }
+              ul.appendChild(el('li', { text: item }));
+            });
+          });
+          rel.appendChild(body);
+        });
+      wrap.appendChild(rel);
+      host.appendChild(wrap);
+    }
+
+    /* ------------------------------------------------------------- glossary */
+
+    function renderGlossary() {
+      const host = $('#tab-glossary');
+      host.innerHTML = '';
+      const all = D.glossary || [];
+      host.appendChild(el('p', { class: 'lead',
+        text: all.length + ' terms, lifted from the planning guide’s own ' +
+              'glossary. Search matches the term and the definition.' }));
+
+      const bar = el('div', { class: 'glossbar' });
+      const inp = el('input', { type: 'search', value: G.q,
+                                placeholder: 'ROADM, OSNR, FIT rate…' });
+      inp.addEventListener('input', () => { G.q = inp.value.trim(); paint(); });
+      bar.appendChild(inp);
+      const letters = el('div', { class: 'letters' });
+      const initials = [...new Set(all.map(t => t.term[0].toUpperCase()))]
+        .filter(c => /[A-Z]/.test(c)).sort();
+      ['#'].concat(initials).forEach(c => letters.appendChild(el('button', {
+        'aria-pressed': G.letter === c ? 'true' : 'false',
+        onclick: () => { G.letter = G.letter === c ? '' : c; paint(); }, text: c })));
+      bar.appendChild(letters);
+      host.appendChild(bar);
+
+      const box = el('div', { class: 'card' });
+      const dl = el('dl', { class: 'terms' });
+      box.appendChild(dl);
+      host.appendChild(box);
+
+      function paint() {
+        document.querySelectorAll('.letters button').forEach(b =>
+          b.setAttribute('aria-pressed', b.textContent === G.letter ? 'true' : 'false'));
+        dl.innerHTML = '';
+        const q = G.q.toLowerCase();
+        const list = all.filter(t => {
+          if (G.letter === '#' && /[A-Za-z]/.test(t.term[0])) return false;
+          if (G.letter && G.letter !== '#' &&
+              t.term[0].toUpperCase() !== G.letter) return false;
+          if (!q) return true;
+          return (t.term + ' ' + t.definition).toLowerCase().includes(q);
+        });
+        if (!list.length) {
+          dl.appendChild(el('div', { class: 'empty', text: 'No term matches that.' }));
+          return;
+        }
+        list.slice(0, 400).forEach(t => {
+          dl.appendChild(el('dt', { text: t.term }));
+          dl.appendChild(el('dd', { text: t.definition }));
+        });
+        if (list.length > 400) {
+          dl.appendChild(el('div', { class: 'note',
+            text: 'Showing the first 400 of ' + list.length + '.' }));
+        }
+      }
+      paint();
+    }
+
+    /* -------------------------------------------------------- sources & gaps */
+
+    function renderSources() {
+      const host = $('#tab-sources');
+      host.innerHTML = '';
+      const g = D.meta.guide, r = D.meta.roadmap;
+      const cards = D.cards;
+
+      const s1 = el('div', { class: 'card' }, [el('h3', { text: 'What this is built from' })]);
+      const dl = el('dl');
+      [['Planning guide', (g.title || '').trim()],
+       ['', g.issue || g.source_file],
+       ['Read on', (g.extracted_utc || '').slice(0, 10)],
+       ['Roadmap deck', r.source_file],
+       ['Read on', (r.extracted_utc || '').slice(0, 10)]]
+        .forEach(([k, v]) => v && dl.appendChild(el('div', { class: 'kv' }, [
+          el('dt', { text: k }), el('dd', { text: v })])));
+      s1.appendChild(dl);
+      s1.appendChild(el('div', { class: 'note', html:
+        'Both are re-read by the tools in <code>tools/</code> — ' +
+        '<code>extract-pss-guide.py</code>, <code>extract-pss-roadmap.py</code> ' +
+        'and <code>build-pss-cards.py</code>. A new issue of either source is ' +
+        'three commands, not a week of retyping.' }));
+      host.appendChild(s1);
+
+      const s2 = el('div', { class: 'card' }, [el('h3', { text: 'Coverage' })]);
+      const tb = el('table', { class: 't' });
+      tb.appendChild(el('thead', {}, [el('tr', {}, [
+        el('th', { text: 'What' }), el('th', { text: 'Cards' }),
+        el('th', { text: 'Where it comes from' })])]));
+      const body = el('tbody');
+      [['In the planning guide', cards.filter(c => c.shipping).length,
+        'Shipping today: part numbers, legal slots, weight and power.'],
+       ['On the roadmap only', cards.filter(c => c.planned).length,
+        'Named in the deck but absent from the R26.6 guide — not yet shipping.'],
+       ['With a part number', cards.filter(c => c.partNumbers.length).length,
+        'Orderable items from Table 5-1 and 5-2.'],
+       ['With slot legality', cards.filter(c => c.shelfList.length).length,
+        'Table 5-3 and 5-4.'],
+       ['With power and weight', cards.filter(c => c.pMax != null).length,
+        'Table 7-147.'],
+       ['With roadmap detail', cards.filter(c => c.roadmap).length,
+        'Ports, spectrum, span loss, capacity — the deck’s attribute sheets.']]
+        .forEach(([k, n, w]) => body.appendChild(el('tr', {}, [
+          el('td', { text: k }), el('td', { class: 'n', text: n }),
+          el('td', { text: w })])));
+      tb.appendChild(body);
+      s2.appendChild(tb);
+      host.appendChild(s2);
+
+      const s3 = el('div', { class: 'card' }, [el('h3', { text: 'Known gaps' })]);
+      const noDesc = cards.filter(c => !c.description).length;
+      const noType = cards.filter(c => c.type === 'Other').length;
+      [
+        noDesc + ' cards carry no description. They appear in the guide’s slot ' +
+        'and power tables but not in its orderable-items list — legacy cards ' +
+        'still supported in a shelf, no longer sold.',
+        noType + ' cards could not be typed from any text the sources give them, ' +
+        'so they sit under "Other" rather than being guessed into a category.',
+        'The guide covers PSS-4II/8/16/16II/32, PSI-4L/8L and PSS-4hc/10hc. ' +
+        'PSS-8x/12x/24x and PSI-M appear in the roadmap only, so those cards ' +
+        'have no part numbers, slot legality or power here.',
+        'Card width is only stated in the guide as footnotes 7 and 8 of ' +
+        'Table 7-147 ("two-slot wide", "three-slot wide"). Cards without either ' +
+        'footnote are taken to be one slot wide.',
+      ].forEach(t => s3.appendChild(el('div', { class: 'flag', text: t })));
+      host.appendChild(s3);
+    }
+
+    /* ---------------------------------------------------------------- shell */
+
+    function show(tab) {
+      document.querySelectorAll('.tabs button[role=tab]').forEach(b =>
+        b.setAttribute('aria-selected', b.dataset.tab === tab ? 'true' : 'false'));
+      ['shelves', 'releases', 'glossary', 'sources'].forEach(t =>
+        $('#tab-' + t).hidden = t !== tab);
+      if (tab === 'shelves') renderShelves();
+      if (tab === 'releases') renderReleases();
+      if (tab === 'glossary') renderGlossary();
+      if (tab === 'sources') renderSources();
+    }
+
+    document.querySelectorAll('.tabs button[role=tab]').forEach(b =>
+      b.addEventListener('click', () => show(b.dataset.tab)));
+
+    Promise.all([
+      fetch('assets/pss-cards.json').then(r => r.json()),
+      fetch('assets/pss-roadmap.json').then(r => r.json()).catch(() => null),
+    ]).then(([cards, roadmap]) => {
+      D = cards;
+      ROADMAP = roadmap ? roadmap.narrative : [];
+      RELEASE_SLIDES = roadmap ? roadmap.tables : [];
+      const g = D.meta.guide;
+      $('#src').innerHTML = '';
+      $('#src').appendChild(el('div', { text: g.issue || g.source_file }));
+      $('#src').appendChild(el('div', { text: D.meta.roadmap.source_file }));
+      $('#src').appendChild(el('div', {
+        text: Object.keys(D.shelves).length + ' shelves · ' +
+              (D.glossary || []).length + ' glossary terms' }));
+      show('shelves');
+
+      /* The glossary is the most-searched thing on this page, so it goes in
+         the palette rather than only behind a tab. */
+      if (window.SUMMA_CMDK) {
+        window.SUMMA_CMDK.register('PSS shelf', Object.values(D.shelves).map(s => ({
+          label: s.name, mono: true,
+          hint: [(s.attributes || {})['Service slots'], s.cardCount ?
+                 s.cardCount + ' cards' : null].filter(Boolean).join(' \u00b7 '),
+          keywords: JSON.stringify(s.attributes || {}),
+          run: () => { show('shelves'); location.hash = ''; },
+        })));
+        window.SUMMA_CMDK.register('Glossary', (D.glossary || []).map(t => ({
+          label: t.term, hint: t.definition.slice(0, 90),
+          keywords: t.definition,
+          run: () => { show('glossary');
+                       const i = document.querySelector('#tab-glossary input');
+                       if (i) { i.value = t.term; i.dispatchEvent(new Event('input')); } },
+        })));
+      }
+    }).catch(() => {
+      $('#src').textContent = 'data not found';
+      $('#tab-shelves').innerHTML = '<div class="empty">assets/pss-cards.json is ' +
+        'missing. Run the tools in <code>tools/</code> to rebuild it.</div>';
+    });
+  }());
+  </script>
+</body>
+</html>

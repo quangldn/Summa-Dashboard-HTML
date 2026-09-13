@@ -4,7 +4,15 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>1830 GX Portfolio — SUMMA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/theme.css" />
   <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="stylesheet" href="assets/nav-bar.css" />
+  <link rel="stylesheet" href="assets/cmdk.css" />
+  <script src="assets/nav.js" defer></script>
+  <script src="assets/cmdk.js" defer></script>
 <style>
 /* ============================================================
    GX Portfolio — explorer
@@ -14,18 +22,18 @@
      magnitude   = one sequential blue ramp, light -> dark, length carries value
    ============================================================ */
 .gxp {
-  --good:    #0ca30c;   /* available today */
-  --warn-s:  #fab219;   /* plan of record  */
-  --neutral: #9AA3B7;   /* plan of intent  */
+  --good:    var(--ok);   /* available today */
+  --warn-s:  var(--warn);   /* plan of record  */
+  --neutral: var(--ink-3);   /* plan of intent  */
   --good-ink:#06630 6;
-  --good-ink:#066306;
-  --warn-ink:#7A5600;
-  --neut-ink:#4E5568;
-  --seq-1: #EAF1FB;
-  --seq-2: #C3D8F2;
-  --seq-3: #7FA8E0;
-  --seq-4: #3F7BCB;
-  --seq-5: #124191;
+  --good-ink:var(--ok-ink);
+  --warn-ink:var(--warn-ink);
+  --neut-ink:var(--ink-2);
+  --seq-1: var(--accent-soft);
+  --seq-2: var(--accent-line);
+  --seq-3: var(--accent-line);
+  --seq-4: var(--accent);
+  --seq-5: var(--accent);
 }
 
 /* ---------- hero ---------- */
@@ -71,7 +79,7 @@
 .searchwrap { position: relative; display: flex; align-items: center; }
 .searchwrap input {
   font-family: inherit; font-size: 13px; padding: 7px 28px 7px 30px; border: 1px solid var(--border);
-  border-radius: 999px; background: #fff; width: 100%; min-width: 0; color: var(--text); outline: none;
+  border-radius: 999px; background: var(--surface); width: 100%; min-width: 0; color: var(--text); outline: none;
 }
 .searchwrap input:focus { border-color: var(--nokia-blue); box-shadow: 0 0 0 3px rgba(18,65,145,.12); }
 .searchwrap .sicon { position: absolute; left: 11px; font-size: 12px; color: var(--text-faint); pointer-events: none; }
@@ -84,19 +92,19 @@
 .reshead { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
 .reshead .count { font-size: 13px; color: var(--text-muted); }
 .reshead .count b { color: var(--nokia-blue-deep); font-size: 17px; font-variant-numeric: tabular-nums; }
-.sortsel { font-family: inherit; font-size: 12px; padding: 5px 8px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: #fff; color: var(--text); }
+.sortsel { font-family: inherit; font-size: 12px; padding: 5px 8px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); color: var(--text); }
 .activefilters { display: flex; flex-wrap: wrap; gap: 5px; }
-.afchip { font-size: 11px; background: #EAF3FF; color: var(--nokia-blue-deep); border: 1px solid #CFE0F7; border-radius: 999px; padding: 2px 6px 2px 9px; display: inline-flex; align-items: center; gap: 5px; }
+.afchip { font-size: 11px; background: var(--accent-soft); color: var(--nokia-blue-deep); border: 1px solid var(--accent-line); border-radius: 999px; padding: 2px 6px 2px 9px; display: inline-flex; align-items: center; gap: 5px; }
 .afchip button { border: 0; background: none; cursor: pointer; color: inherit; font-size: 13px; line-height: 1; padding: 0 2px; }
 
 /* ---------- lifecycle pills ---------- */
 .lc { display: inline-flex; align-items: center; gap: 5px; font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 4px; white-space: nowrap; border: 1px solid; }
 .lc i { width: 7px; height: 7px; border-radius: 50%; flex: none; }
-.lc.ga  { background: #E8F7E8; color: var(--good-ink); border-color: #C6E9C6; }
+.lc.ga  { background: var(--ok-soft); color: var(--good-ink); border-color: var(--ok-soft); }
 .lc.ga i  { background: var(--good); }
-.lc.por { background: #FFF6DF; color: var(--warn-ink); border-color: #F3E2B4; }
+.lc.por { background: var(--warn-soft); color: var(--warn-ink); border-color: var(--warn-soft); }
 .lc.por i { background: var(--warn-s); }
-.lc.poi { background: #EFF1F6; color: var(--neut-ink); border-color: #DDE1EA; }
+.lc.poi { background: var(--surface-2); color: var(--neut-ink); border-color: var(--line); }
 .lc.poi i { background: var(--neutral); }
 
 /* ---------- cards ---------- */
@@ -123,8 +131,8 @@
 .cardbody { padding: 0 13px 10px; }
 .rowline { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 7px; }
 .b { font-size: 10.5px; font-weight: 600; padding: 2px 7px; border-radius: 4px; background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border); white-space: nowrap; }
-.b.shelf { background: #EAF3FF; color: var(--nokia-blue-deep); border-color: #CFE0F7; }
-.b.cap { background: #fff; color: var(--nokia-blue); border-color: #CFE0F7; }
+.b.shelf { background: var(--accent-soft); color: var(--nokia-blue-deep); border-color: var(--accent-line); }
+.b.cap { background: var(--surface); color: var(--nokia-blue); border-color: var(--accent-line); }
 
 /* spectrum bar — magnitude: length = usable THz, one sequential hue */
 .spec-bar { margin: 2px 0 8px; }
@@ -157,7 +165,7 @@ table.gxt th:hover { color: var(--nokia-blue); }
 table.gxt th .ar { font-size: 9px; color: var(--nokia-blue); }
 table.gxt td { padding: 7px 10px; border-bottom: 1px solid var(--border); vertical-align: middle; white-space: nowrap; }
 table.gxt tbody tr { cursor: pointer; }
-table.gxt tbody tr:hover { background: #FAFBFE; }
+table.gxt tbody tr:hover { background: var(--surface-2); }
 table.gxt td.num { text-align: right; font-variant-numeric: tabular-nums; }
 table.gxt td.pnm { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 11px; color: var(--text-muted); }
 .barcell { display: flex; align-items: center; gap: 6px; justify-content: flex-end; }
@@ -171,13 +179,13 @@ table.gxt td.pnm { font-family: ui-monospace, Menlo, Consolas, monospace; font-s
   padding: 9px 13px; cursor: pointer; font-family: inherit; text-align: left; min-width: 128px;
 }
 .shelfbtn:hover { border-color: var(--nokia-blue); }
-.shelfbtn.on { border-color: var(--nokia-blue); background: #EAF3FF; box-shadow: inset 0 0 0 1px var(--nokia-blue); }
+.shelfbtn.on { border-color: var(--nokia-blue); background: var(--accent-soft); box-shadow: inset 0 0 0 1px var(--nokia-blue); }
 .shelfbtn .s-n { font-weight: 700; font-size: 14px; color: var(--nokia-blue-deep); }
 .shelfbtn .s-m { font-size: 11px; color: var(--text-muted); }
 .slotmap { display: flex; gap: 3px; margin-top: 7px; }
 .slotmap i { flex: 1; height: 9px; border-radius: 2px; background: var(--surface-2); border: 1px solid var(--border); }
 .slotmap i.used { background: var(--seq-4); border-color: var(--seq-5); }
-.slotmap i.over { background: #F3C9C9; border-color: #D03B3B; }
+.slotmap i.over { background: var(--bad-soft); border-color: var(--bad); }
 
 .buildbox { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; margin-bottom: 16px; }
 .buildbox h3 { margin: 0 0 3px; font-size: 14px; color: var(--nokia-blue-deep); }
@@ -185,14 +193,14 @@ table.gxt td.pnm { font-family: ui-monospace, Menlo, Consolas, monospace; font-s
 .buildlist { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
 .buildrow { display: flex; align-items: center; gap: 8px; font-size: 12.5px; background: var(--surface-2); border-radius: var(--radius-sm); padding: 6px 9px; }
 .buildrow .bn { font-weight: 600; color: var(--nokia-blue-deep); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
-.qtybtn { border: 1px solid var(--border); background: #fff; width: 22px; height: 22px; border-radius: 5px; cursor: pointer; font-size: 13px; line-height: 1; color: var(--nokia-blue); }
+.qtybtn { border: 1px solid var(--border); background: var(--surface); width: 22px; height: 22px; border-radius: 5px; cursor: pointer; font-size: 13px; line-height: 1; color: var(--nokia-blue); }
 .qtybtn:hover { border-color: var(--nokia-blue); }
 .qv { min-width: 18px; text-align: center; font-variant-numeric: tabular-nums; font-weight: 700; }
 .budget { display: grid; grid-template-columns: repeat(auto-fit, minmax(92px, 1fr)); gap: 8px; }
 .bud { background: var(--surface-2); border-radius: var(--radius-sm); padding: 8px 10px; }
 .bud .k { font-size: 9.5px; text-transform: uppercase; letter-spacing: .5px; color: var(--text-faint); }
 .bud .v { font-size: 17px; font-weight: 700; color: var(--nokia-blue-deep); font-variant-numeric: tabular-nums; }
-.bud.bad .v { color: #B02121; }
+.bud.bad .v { color: var(--bad-ink); }
 .bud .sub2 { font-size: 10px; color: var(--text-faint); }
 
 /* ---------- roadmap view ---------- */
@@ -202,7 +210,7 @@ table.gxt td.pnm { font-family: ui-monospace, Menlo, Consolas, monospace; font-s
 .rmhead div:first-child { border-left: 0; text-align: left; padding-left: 12px; }
 .rmhead div .dt { display: block; font-weight: 400; font-size: 9.5px; color: var(--text-faint); }
 .rmrow { display: grid; align-items: center; border-bottom: 1px solid var(--border); }
-.rmrow:hover { background: #FAFBFE; }
+.rmrow:hover { background: var(--surface-2); }
 .rmrow .lbl { padding: 6px 12px; font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; cursor: pointer; }
 .rmrow .lbl b { color: var(--nokia-blue-deep); }
 .rmcell { height: 100%; border-left: 1px solid var(--border); position: relative; }
@@ -210,7 +218,7 @@ table.gxt td.pnm { font-family: ui-monospace, Menlo, Consolas, monospace; font-s
 .rmbar.ga  { background: var(--good); }
 .rmbar.por { background: var(--warn-s); color: var(--warn-ink); }
 .rmbar.poi { background: var(--neutral); }
-.rmgrp { padding: 9px 12px 4px; font-size: 10px; text-transform: uppercase; letter-spacing: .8px; color: var(--text-faint); font-weight: 700; background: #FAFBFE; border-bottom: 1px solid var(--border); }
+.rmgrp { padding: 9px 12px 4px; font-size: 10px; text-transform: uppercase; letter-spacing: .8px; color: var(--text-faint); font-weight: 700; background: var(--surface-2); border-bottom: 1px solid var(--border); }
 
 /* ---------- drawer ---------- */
 .scrim { position: fixed; inset: 0; background: rgba(10,20,45,.35); opacity: 0; pointer-events: none; transition: opacity .18s ease; z-index: 40; }
@@ -234,7 +242,7 @@ table.gxt td.pnm { font-family: ui-monospace, Menlo, Consolas, monospace; font-s
 .dtable td:first-child { color: var(--text-faint); width: 44%; }
 .callout { font-size: 12px; line-height: 1.55; border-radius: var(--radius); padding: 10px 12px; }
 .callout.note { background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border); }
-.callout.conf { background: #FFF6DF; color: var(--warn-ink); border: 1px solid #F3E2B4; }
+.callout.conf { background: var(--warn-soft); color: var(--warn-ink); border: 1px solid var(--warn-soft); }
 .relatedlist { display: flex; flex-direction: column; gap: 5px; }
 .relitem { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 7px 10px; font-size: 12.5px; cursor: pointer; }
 .relitem:hover { border-color: var(--nokia-blue); }
@@ -242,7 +250,7 @@ table.gxt td.pnm { font-family: ui-monospace, Menlo, Consolas, monospace; font-s
 
 /* ---------- compare tray ---------- */
 .tray {
-  position: fixed; left: 0; right: 0; bottom: 0; background: var(--nokia-blue-deep); color: #fff;
+  position: fixed; left: 0; right: 0; bottom: 0; background: var(--bar-bg); color: #fff;
   padding: 10px 20px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
   transform: translateY(110%); transition: transform .2s ease; z-index: 35; box-shadow: 0 -4px 18px rgba(0,31,95,.25);
 }
@@ -251,7 +259,7 @@ table.gxt td.pnm { font-family: ui-monospace, Menlo, Consolas, monospace; font-s
 .traychips { display: flex; gap: 6px; flex-wrap: wrap; flex: 1; }
 .traychip { background: rgba(255,255,255,.14); border-radius: 999px; padding: 3px 6px 3px 11px; font-size: 12px; display: inline-flex; align-items: center; gap: 6px; }
 .traychip button { border: 0; background: none; color: #fff; cursor: pointer; font-size: 13px; line-height: 1; opacity: .8; padding: 0 2px; }
-.traybtn { border: 0; border-radius: 999px; padding: 7px 16px; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; background: var(--accent); color: #00332E; }
+.traybtn { border: 0; border-radius: 999px; padding: 7px 16px; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; background: var(--accent); color: var(--ink-on-accent); }
 .traybtn.ghost { background: rgba(255,255,255,.14); color: #fff; font-weight: 600; }
 
 .cmpwrap { position: fixed; inset: 0; background: rgba(10,20,45,.45); z-index: 50; display: none; padding: 34px 20px; overflow: auto; }
@@ -263,10 +271,10 @@ table.gxt td.pnm { font-family: ui-monospace, Menlo, Consolas, monospace; font-s
 .cmptable th, .cmptable td { padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
 .cmptable th { background: var(--surface-2); font-size: 11px; color: var(--nokia-blue-deep); position: sticky; top: 0; }
 .cmptable td:first-child, .cmptable th:first-child { color: var(--text-faint); font-weight: 600; width: 180px; }
-.cmptable td.best { background: #E8F7E8; font-weight: 700; color: var(--good-ink); }
+.cmptable td.best { background: var(--ok-soft); font-weight: 700; color: var(--good-ink); }
 
 .emptystate { padding: 44px 20px; text-align: center; color: var(--text-muted); background: var(--surface); border: 1px dashed var(--border); border-radius: var(--radius); }
-mark.hit { background: #FFF0A8; border-radius: 2px; padding: 0 1px; }
+mark.hit { background: var(--warn-soft); border-radius: 2px; padding: 0 1px; }
 
 @media (max-width: 900px) {
   .gx-layout { grid-template-columns: 1fr; }
@@ -278,23 +286,7 @@ mark.hit { background: #FFF0A8; border-radius: 2px; padding: 0 1px; }
 </head>
 <body class="gxp">
 
-  <header class="topbar">
-    <div class="brand">
-      <span class="dot"></span>
-      SUMMA
-      <span class="sub">Nokia ON · Sales Engineering Workbench</span>
-    </div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="gx-wiki.html">GX Wiki</a>
-      <a href="gx-portfolio.html" class="active">GX Portfolio</a>
-      <a href="gx-bom.html">GX BOM</a>
-      <a href="portfolio.html">HS Portfolio</a>
-      <a href="mofn.html">MOFN Deck</a>
-      <a href="market-insight.html">Market Insight</a>
-    </nav>
-  </header>
+  <header id="summa-nav"></header>
 
   <main class="container">
 
@@ -537,7 +529,7 @@ mark.hit { background: #FFF0A8; border-radius: 2px; padding: 0 1px; }
     const countBy = fn => v => GX.filter(d => fn(d, v)).length;
 
     buildChips($('lcChips'), ['ga','por','poi'].map(k => [k, LC_LABEL[k], GX.filter(d => d.status===k).length]), S.lc,
-      { swatch: k => ({ ga:'#0ca30c', por:'#fab219', poi:'#9AA3B7' }[k]) });
+      { swatch: k => ({ ga:'var(--ok)', por:'var(--warn)', poi:'var(--ink-3)' }[k]) });
     buildChips($('catChips'), CAT_ORDER.filter(c => GX.some(d => d.cat===c))
       .map(c => [c, CAT_LABEL[c], GX.filter(d => d.cat===c).length]), S.cats);
     const ALL_SHELVES = [...new Set(GX.flatMap(d => d.shelf||[]))].sort();
@@ -1018,6 +1010,22 @@ mark.hit { background: #FFF0A8; border-radius: 2px; padding: 0 1px; }
     render();
     if (location.hash.startsWith('#pn=')) openDrawer(decodeURIComponent(location.hash.slice(4)));
   })();
-  </script>
+  
+  /* Every GX module reachable from the palette, from any page. */
+  /* The palette loads deferred, so registration waits for it rather than
+     running inline and finding nothing there. */
+  document.addEventListener('DOMContentLoaded', function () {
+    if (!window.SUMMA_CMDK || typeof GX === 'undefined') return;
+    window.SUMMA_CMDK.register('GX module', GX.map(function (d) {
+      return {
+        label: d.name, mono: true,
+        hint: [d.cat, d.pn, d.rel].filter(Boolean).join(' \u00b7 '),
+        keywords: [d.pn, d.cat, d.band, d.rel,
+                   JSON.stringify(d.spec || {})].filter(Boolean).join(' '),
+        href: 'gx-portfolio.html#pn=' + encodeURIComponent(d.name),
+      };
+    }));
+  });
+</script>
 </body>
 </html>

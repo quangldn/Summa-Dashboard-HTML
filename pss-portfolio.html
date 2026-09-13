@@ -1,0 +1,986 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PSS / PSI Portfolio — SUMMA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/theme.css" />
+  <link rel="stylesheet" href="assets/nav-bar.css" />
+  <link rel="stylesheet" href="assets/cmdk.css" />
+  <script src="assets/nav.js" defer></script>
+  <script src="assets/cmdk.js" defer></script>
+  <style>
+        /* The drawer is parked off the right edge; `clip` keeps it from widening
+       the page without breaking the sticky command row the way overflow:hidden
+       would. */
+    html { overflow-x: clip; }
+    .wrap { max-width: 1560px; margin: 0 auto; padding: 20px 22px 90px; }
+
+    /* ---- page head: title, the cue, the theme switch --------------- */
+    .head { display: flex; align-items: flex-start; justify-content: space-between;
+            gap: 20px; flex-wrap: wrap; margin-bottom: 18px; }
+    .head p { margin: 5px 0 0; color: var(--ink-2); max-width: 62ch;
+              font-size: 13.5px; }
+    .head .tools { display: flex; align-items: center; gap: 8px; }
+    .iconbtn { width: 30px; height: 30px; display: grid; place-items: center;
+               border: 1px solid var(--line); background: var(--surface);
+               border-radius: var(--r-sm); cursor: pointer; color: var(--ink-2);
+               transition: border-color var(--fast) var(--ease); }
+    .iconbtn:hover { border-color: var(--line-strong); color: var(--ink); }
+    .iconbtn svg { width: 15px; height: 15px; }
+
+    /* ---- stat strip ------------------------------------------------ */
+    .stats { display: grid; gap: 10px; margin-bottom: 16px;
+             grid-template-columns: repeat(auto-fit, minmax(148px, 1fr)); }
+    .stat { background: var(--surface); border: 1px solid var(--line);
+            border-radius: var(--r); padding: 12px 14px; }
+    .stat .v { font-size: 25px; font-weight: 680; letter-spacing: -.02em;
+               font-variant-numeric: tabular-nums; line-height: 1.1; }
+    .stat .k { font-size: 11px; color: var(--ink-3); margin-top: 3px;
+               font-weight: 550; }
+    .stat .sub { font-size: 11px; color: var(--ink-3); margin-top: 7px; }
+
+    /* ---- sticky command row ---------------------------------------- */
+    .bar { position: sticky; top: 0; z-index: 12;
+           background: color-mix(in srgb, var(--bg) 88%, transparent);
+           backdrop-filter: blur(10px);
+           border-bottom: 1px solid var(--line);
+           margin: 0 -22px 16px; padding: 10px 22px; }
+    .barrow { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .views { display: flex; gap: 2px; background: var(--surface-2);
+             border-radius: var(--r-sm); padding: 2px; flex-wrap: wrap; }
+    .views button { font: inherit; font-size: 12.5px; font-weight: 600;
+                    border: none; background: none; color: var(--ink-2);
+                    padding: 5px 12px; border-radius: 5px; cursor: pointer;
+                    transition: background var(--fast) var(--ease),
+                                color var(--fast) var(--ease); }
+    .views button:hover { color: var(--ink); }
+    .views button[aria-selected="true"] { background: var(--surface);
+                    color: var(--ink); box-shadow: var(--lift); }
+    .views .n { color: var(--ink-3); font-weight: 500; margin-left: 5px;
+                font-variant-numeric: tabular-nums; }
+
+    .find { position: relative; flex: 1; min-width: 190px; max-width: 340px; }
+    .find input { width: 100%; padding-left: 30px; }
+    .find svg { position: absolute; left: 9px; top: 50%; margin-top: -7px;
+                width: 14px; height: 14px; color: var(--ink-3); }
+    .find .slash { position: absolute; right: 8px; top: 50%; margin-top: -9px;
+                   font-size: 10px; color: var(--ink-3); border: 1px solid var(--line);
+                   border-radius: 4px; padding: 1px 5px; }
+
+    /* active filters read back as removable pills — the state is legible
+       without opening the panel */
+    .active { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+    .fpill { display: inline-flex; align-items: center; gap: 6px;
+             font-size: 11.5px; font-weight: 600; color: var(--ink-2);
+             background: var(--accent-soft); border: 1px solid var(--accent-line);
+             border-radius: var(--r-pill); padding: 3px 6px 3px 10px; }
+    .fpill b { font-weight: 650; color: var(--ink); }
+    .fpill button { border: none; background: none; cursor: pointer; color: inherit;
+                    font-size: 13px; line-height: 1; padding: 0 2px; opacity: .6; }
+    .fpill button:hover { opacity: 1; }
+
+    /* ---- layout ---------------------------------------------------- */
+    .layout { display: grid; grid-template-columns: 226px minmax(0, 1fr);
+              gap: 18px; align-items: start; }
+    @media (max-width: 960px) { .layout { grid-template-columns: 1fr; }
+                                .rail { display: none; }
+                                .layout.railopen { grid-template-columns: 1fr; }
+                                .layout.railopen .rail { display: block; } }
+    .rail { position: sticky; top: 62px; }
+    .grp { margin-bottom: 18px; }
+    .grp > .t-label { display: block; margin-bottom: 8px; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 5px; }
+    .chip { font-size: 11.5px; font-weight: 550; padding: 3.5px 10px;
+            border-radius: var(--r-pill); border: 1px solid var(--line);
+            background: var(--surface); color: var(--ink-2); cursor: pointer;
+            user-select: none; transition: border-color var(--fast) var(--ease),
+                        background var(--fast) var(--ease), color var(--fast) var(--ease); }
+    .chip:hover { border-color: var(--line-strong); color: var(--ink); }
+    .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent);
+            color: var(--ink-on-accent); }
+    .chip .n { opacity: .6; margin-left: 5px; font-variant-numeric: tabular-nums; }
+
+    /* ---- card grid ------------------------------------------------- */
+    .grid { display: grid; gap: 10px;
+            grid-template-columns: repeat(auto-fill, minmax(246px, 1fr)); }
+    .item { background: var(--surface); border: 1px solid var(--line);
+            border-radius: var(--r); padding: 13px 14px 12px; cursor: pointer;
+            position: relative; display: flex; flex-direction: column;
+            transition: border-color var(--fast) var(--ease),
+                        background var(--fast) var(--ease); }
+    .item:hover { border-color: var(--line-strong); background: var(--surface); }
+    .item:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+    .item.cursor { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+    .item.picked::before { content: ''; position: absolute; left: 0; top: 12px;
+            bottom: 12px; width: 3px; border-radius: 0 3px 3px 0;
+            background: var(--accent); }
+
+    .item .top { display: flex; align-items: flex-start; justify-content: space-between;
+                 gap: 8px; }
+    .item .nm { font-family: var(--mono); font-size: 13.5px; font-weight: 600;
+                color: var(--ink); letter-spacing: -.01em; }
+    .item .kind { font-size: 10.5px; color: var(--ink-3); font-weight: 600;
+                  margin-top: 2px; }
+    .item .desc { font-size: 12.5px; color: var(--ink-2); margin: 8px 0 10px;
+                  display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2;
+                  -webkit-box-orient: vertical; overflow: hidden; min-height: 36px; }
+
+    /* power as a bar you can scan, with the number kept beside it */
+    .pw { margin-bottom: 9px; }
+    .pw .row { display: flex; justify-content: space-between; font-size: 10.5px;
+               color: var(--ink-3); margin-bottom: 3px; }
+    .pw .row b { color: var(--ink-2); font-weight: 650;
+                 font-variant-numeric: tabular-nums; }
+
+    .facts { display: flex; flex-wrap: wrap; gap: 4px 9px; font-size: 11px;
+             color: var(--ink-3); font-variant-numeric: tabular-nums;
+             margin-bottom: 9px; }
+    .facts b { color: var(--ink-2); font-weight: 650; }
+    .shelves { display: flex; flex-wrap: wrap; gap: 3px; margin-top: auto; }
+    .sh { font-size: 9.5px; font-weight: 650; padding: 1.5px 6px; border-radius: 4px;
+          background: var(--surface-2); color: var(--ink-2); letter-spacing: .01em; }
+    .sh.hit { background: var(--accent-soft); color: var(--accent); }
+    .sh.none { color: var(--ink-3); font-weight: 550; }
+
+    .star { position: absolute; right: 10px; bottom: 10px; border: none;
+            background: none; cursor: pointer; color: var(--ink-3); padding: 2px;
+            opacity: 0; transition: opacity var(--fast) var(--ease); }
+    .item:hover .star, .star.on { opacity: 1; }
+    .star.on { color: var(--accent); }
+    .star svg { width: 14px; height: 14px; display: block; }
+
+    /* ---- pinned strip ---------------------------------------------- */
+    .pins { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 14px; }
+    .pin { display: inline-flex; align-items: center; gap: 7px; font-size: 12px;
+           font-family: var(--mono); font-weight: 600;
+           background: var(--surface); border: 1px solid var(--line);
+           border-radius: var(--r-pill); padding: 4px 11px; cursor: pointer;
+           color: var(--ink); }
+    .pin:hover { border-color: var(--accent-line); }
+
+    /* ---- matrix ---------------------------------------------------- */
+    .scroll { overflow-x: auto; border-radius: var(--r); }
+    table.mx { border-collapse: collapse; font-size: 12px; width: 100%;
+               background: var(--surface); }
+    table.mx th, table.mx td { padding: 7px 10px; text-align: left;
+               white-space: nowrap; border-bottom: 1px solid var(--line); }
+    table.mx thead th { position: sticky; top: 52px; background: var(--surface);
+               font-size: 10px; text-transform: uppercase; letter-spacing: .07em;
+               color: var(--ink-3); font-weight: 650; z-index: 2; }
+    table.mx tbody tr { cursor: pointer; }
+    table.mx tbody tr:hover td { background: var(--surface-2); }
+    table.mx td.pn { font-family: var(--mono); font-weight: 600; color: var(--ink); }
+    table.mx td.rng { font-variant-numeric: tabular-nums; color: var(--ink-2); }
+    table.mx td.no { color: var(--line-strong); }
+    table.mx td.num { text-align: right; font-variant-numeric: tabular-nums;
+                      color: var(--ink-2); }
+
+    /* ---- drawer ---------------------------------------------------- */
+    .scrim { position: fixed; inset: 0; background: rgba(10,14,22,.34);
+             opacity: 0; pointer-events: none; z-index: 40;
+             transition: opacity var(--med) var(--ease); }
+    .scrim.on { opacity: 1; pointer-events: auto; }
+    .drawer { position: fixed; top: 0; right: 0; height: 100%;
+              width: min(540px, 94vw); background: var(--surface); z-index: 41;
+              border-left: 1px solid var(--line);
+              box-shadow: var(--float);
+              transform: translateX(101%);
+              transition: transform var(--med) var(--ease),
+                          visibility 0s linear var(--med);
+              display: flex; flex-direction: column;
+              /* parked off-screen it would still widen the page, which on a
+                 phone shows up as a 12px horizontal scroll */
+              visibility: hidden; }
+    .drawer.on { transform: none; visibility: visible; transition-delay: 0s; }
+    .drawer .dh { padding: 18px 20px 14px; border-bottom: 1px solid var(--line);
+                  display: flex; justify-content: space-between; gap: 14px;
+                  align-items: flex-start; }
+    .drawer .dh .nm { font-family: var(--mono); font-size: 19px; font-weight: 600;
+                      letter-spacing: -.02em; }
+    .drawer .dh p { margin: 4px 0 0; font-size: 12.5px; color: var(--ink-2); }
+    .drawer .db { padding: 16px 20px 48px; overflow-y: auto; }
+    .drawer h4 { font-size: 10.5px; letter-spacing: .07em; text-transform: uppercase;
+                 color: var(--ink-3); margin: 20px 0 8px; font-weight: 650; }
+    .drawer h4:first-child { margin-top: 0; }
+    .kv { display: flex; gap: 14px; font-size: 12.5px; padding: 5px 0;
+          border-bottom: 1px solid var(--line); }
+    .kv dt { flex: 0 0 42%; color: var(--ink-3); }
+    .kv dd { margin: 0; flex: 1; color: var(--ink); }
+    dl { margin: 0; }
+    .pnrow { display: flex; gap: 10px; align-items: baseline; padding: 6px 0;
+             border-bottom: 1px solid var(--line); }
+    .pnrow b { font-family: var(--mono); font-size: 12px; font-weight: 600;
+               color: var(--ink); white-space: nowrap; }
+    .pnrow span { font-size: 11.5px; color: var(--ink-3); }
+    .copy { margin-left: auto; }
+
+    /* ---- compare tray ---------------------------------------------- */
+    .tray { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%) translateY(120%);
+            background: var(--ink); color: var(--bg); border-radius: var(--r-pill);
+            box-shadow: var(--float); padding: 8px 8px 8px 16px; display: flex;
+            gap: 12px; align-items: center; z-index: 30; max-width: 94vw;
+            transition: transform var(--med) var(--ease), opacity var(--fast) var(--ease);
+            opacity: 0; pointer-events: none; }
+    .tray.on { transform: translateX(-50%); opacity: 1; pointer-events: auto; }
+    .tray .t { font-size: 12.5px; }
+    .tray .t b { font-family: var(--mono); font-weight: 600; }
+    .tray button { font: inherit; font-size: 12px; font-weight: 650; padding: 5px 12px;
+                   border-radius: var(--r-pill); border: none; cursor: pointer;
+                   background: rgba(255,255,255,.16); color: inherit; }
+    .tray button.go { background: var(--bg); color: var(--ink); }
+
+    /* ---- skeleton + view transition -------------------------------- */
+    .sk { background: var(--surface); border: 1px solid var(--line);
+          border-radius: var(--r); height: 158px; overflow: hidden;
+          position: relative; }
+    .sk::after { content: ''; position: absolute; inset: 0;
+          background: linear-gradient(90deg, transparent, var(--surface-2), transparent);
+          transform: translateX(-100%); animation: sweep 1.3s infinite; }
+    @keyframes sweep { to { transform: translateX(100%); } }
+
+    .fade { animation: fade var(--med) var(--ease); }
+    @keyframes fade { from { opacity: 0; transform: translateY(3px); } }
+
+    .empty { color: var(--ink-3); font-size: 13px; padding: 40px 4px; text-align: center; }
+    .note { font-size: 11.5px; color: var(--ink-3); }
+    .srcline { font-size: 11px; color: var(--ink-3); text-align: right; line-height: 1.6; }
+  </style>
+</head>
+<body>
+
+  <header id="summa-nav"></header>
+
+  <main class="wrap">
+
+    <div class="head">
+      <div>
+        <h1>1830 PSS / PSI Portfolio</h1>
+        <p>Every card in the PSS and PSI families — which shelf and which slots
+           it is legal in, what it weighs and draws, and whether it ships today
+           or sits on the roadmap.</p>
+      </div>
+    </div>
+
+    <div class="stats" id="stats"></div>
+
+    <div class="bar">
+      <div class="barrow">
+        <div class="views" role="tablist" id="views"></div>
+        <label class="find">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6">
+            <circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5 14 14"/>
+          </svg>
+          <input type="text" id="q" placeholder="Filter these cards…" autocomplete="off" spellcheck="false" />
+          <span class="slash">/</span>
+        </label>
+        <div class="active" id="active"></div>
+      </div>
+    </div>
+
+    <div class="layout">
+      <aside class="rail" id="rail"></aside>
+      <div>
+        <div class="pins" id="pins"></div>
+        <section id="view"></section>
+      </div>
+    </div>
+  </main>
+
+  <div class="scrim" id="scrim"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true"></aside>
+  <div class="tray" id="tray"></div>
+
+  <script>
+  (function () {
+    'use strict';
+
+    const $ = s => document.querySelector(s);
+    const el = (tag, attrs, kids) => {
+      const n = document.createElement(tag);
+      for (const k in (attrs || {})) {
+        if (k === 'class') n.className = attrs[k];
+        else if (k === 'text') n.textContent = attrs[k];
+        else if (k === 'html') n.innerHTML = attrs[k];
+        else if (k.startsWith('on')) n.addEventListener(k.slice(2), attrs[k]);
+        else if (attrs[k] === true) n.setAttribute(k, '');
+        else if (attrs[k] !== false && attrs[k] != null) n.setAttribute(k, attrs[k]);
+      }
+      (kids || []).forEach(c => c != null && n.appendChild(
+        typeof c === 'string' ? document.createTextNode(c) : c));
+      return n;
+    };
+    const svg = d => {
+      const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      s.setAttribute('viewBox', '0 0 16 16');
+      s.setAttribute('fill', 'none');
+      s.setAttribute('stroke', 'currentColor');
+      s.setAttribute('stroke-width', '1.6');
+      s.setAttribute('stroke-linecap', 'round');
+      s.setAttribute('stroke-linejoin', 'round');
+      s.innerHTML = d;
+      return s;
+    };
+
+    let CARDS = [], SHELVES = [], META = null, MAXPOWER = 1;
+    const S = { q: '', types: new Set(), shelves: new Set(), status: 'all',
+                band: new Set(), view: 'cards', pick: [], sort: 'name',
+                cursor: -1, open: null };
+    const PINKEY = 'summa.pss.pins';
+    let PINS = [];
+
+    /* ------------------------------------------------------- url state
+       Filters and the open card live in the hash, so a view is a link. */
+
+    function writeHash() {
+      const p = new URLSearchParams();
+      if (S.q) p.set('q', S.q);
+      if (S.types.size) p.set('type', [...S.types].join('|'));
+      if (S.shelves.size) p.set('shelf', [...S.shelves].join('|'));
+      if (S.band.size) p.set('band', [...S.band].join('|'));
+      if (S.status !== 'all') p.set('status', S.status);
+      if (S.view !== 'cards') p.set('view', S.view);
+      if (S.sort !== 'name') p.set('sort', S.sort);
+      if (S.open) p.set('card', S.open);
+      const h = p.toString();
+      history.replaceState(null, '', h ? '#' + h : location.pathname);
+    }
+    function readHash() {
+      const p = new URLSearchParams(location.hash.slice(1));
+      S.q = p.get('q') || '';
+      S.types = new Set((p.get('type') || '').split('|').filter(Boolean));
+      S.shelves = new Set((p.get('shelf') || '').split('|').filter(Boolean));
+      S.band = new Set((p.get('band') || '').split('|').filter(Boolean));
+      S.status = p.get('status') || 'all';
+      S.view = p.get('view') || 'cards';
+      S.sort = p.get('sort') || 'name';
+      S.open = p.get('card') || null;
+    }
+
+    /* -------------------------------------------------------- filtering */
+
+    function matches(c) {
+      if (S.types.size && !S.types.has(c.type)) return false;
+      if (S.band.size && !S.band.has(c.band || '—')) return false;
+      if (S.status === 'shipping' && !c.shipping) return false;
+      if (S.status === 'planned' && !c.planned) return false;
+      if (S.status === 'pn' && !c.partNumbers.length) return false;
+      if (S.shelves.size && ![...S.shelves].every(s => c.shelves[s])) return false;
+      if (S.q) {
+        const q = S.q.toLowerCase();
+        const hay = [c.name, c.description, c.category, c.type, c.release,
+                     (c.aliases || []).join(' '),
+                     c.partNumbers.map(p => p.pn).join(' ')].join(' ').toLowerCase();
+        if (!q.split(/\s+/).every(t => hay.includes(t))) return false;
+      }
+      return true;
+    }
+
+    function visible() {
+      const out = CARDS.filter(matches);
+      out.sort((a, b) => {
+        if (S.sort === 'power') return (b.p100 || -1) - (a.p100 || -1);
+        if (S.sort === 'weight') return (b.weightKg || -1) - (a.weightKg || -1);
+        if (S.sort === 'shelves') return b.shelfList.length - a.shelfList.length;
+        if (S.sort === 'type') return (a.type || '').localeCompare(b.type || '') ||
+                                      a.name.localeCompare(b.name);
+        return a.name.localeCompare(b.name);
+      });
+      return out;
+    }
+
+    /* ------------------------------------------------------------ bits */
+
+    function shelfShort(s) {
+      return s.replace('PSS-16II DC 8RU', 'PSS-16II DC')
+              .replace('PSS-16II AC/DC 9RU', 'PSS-16II AC')
+              .replace('PSS-16 main', 'PSS-16')
+              .replace('PSS-16 extension', 'PSS-16 ext');
+    }
+
+    function counts(fn) {
+      const m = new Map();
+      CARDS.forEach(c => { const k = fn(c); if (k == null) return;
+                           m.set(k, (m.get(k) || 0) + 1); });
+      return [...m.entries()].sort((a, b) => b[1] - a[1]);
+    }
+
+    function loadPins() {
+      try { PINS = JSON.parse(localStorage.getItem(PINKEY) || '[]'); }
+      catch (e) { PINS = []; }
+    }
+    function savePins() {
+      try { localStorage.setItem(PINKEY, JSON.stringify(PINS.slice(0, 12))); }
+      catch (e) {}
+    }
+    function togglePin(name) {
+      const i = PINS.indexOf(name);
+      if (i >= 0) PINS.splice(i, 1); else PINS.unshift(name);
+      savePins(); renderPins(); renderView();
+    }
+
+    /* ------------------------------------------------------------ stats */
+
+    function renderStats() {
+      const host = $('#stats');
+      host.innerHTML = '';
+      const list = visible();
+      const ship = list.filter(c => c.shipping).length;
+      const plan = list.filter(c => c.planned).length;
+      const pwr = list.filter(c => c.p100 != null);
+      const med = pwr.length
+        ? pwr.map(c => c.p100).sort((a, b) => a - b)[Math.floor(pwr.length / 2)] : null;
+      const tiles = [
+        { v: list.length, k: 'cards in view',
+          sub: list.length === CARDS.length ? 'the whole catalogue'
+                                            : 'of ' + CARDS.length + ' total' },
+        { v: ship, k: 'in the planning guide', sub: 'part numbers, slots, power' },
+        { v: plan, k: 'roadmap only', sub: 'named in the deck, not yet shipping' },
+        { v: list.filter(c => c.shelfList.length).length, k: 'with slot legality',
+          sub: 'Table 5-3 and 5-4' },
+        { v: med != null ? med + ' W' : '—', k: 'median draw at 100 %',
+          sub: pwr.length + ' cards measured' },
+      ];
+      tiles.forEach(t => host.appendChild(el('div', { class: 'stat' }, [
+        el('div', { class: 'v', text: t.v }),
+        el('div', { class: 'k', text: t.k }),
+        el('div', { class: 'sub', text: t.sub }),
+      ])));
+    }
+
+    /* ------------------------------------------------------------- bar */
+
+    function renderBar() {
+      const views = $('#views');
+      views.innerHTML = '';
+      const n = visible().length;
+      [['cards', 'Cards', n],
+       ['matrix', 'Shelf matrix', visible().filter(c => c.shelfList.length).length],
+       ['roadmap', 'Roadmap', visible().filter(c => c.roadmap).length],
+       ['compare', 'Compare', S.pick.length]]
+        .forEach(([id, label, count]) => {
+          const b = el('button', { role: 'tab',
+            'aria-selected': S.view === id ? 'true' : 'false',
+            onclick: () => { S.view = id; sync(); } }, [label]);
+          if (count != null) b.appendChild(el('span', { class: 'n', text: count }));
+          views.appendChild(b);
+        });
+
+      const act = $('#active');
+      act.innerHTML = '';
+      const pills = [];
+      S.types.forEach(t => pills.push(['Type', t, () => S.types.delete(t)]));
+      S.shelves.forEach(s => pills.push(['Fits', shelfShort(s), () => S.shelves.delete(s)]));
+      S.band.forEach(b => pills.push(['Band', b, () => S.band.delete(b)]));
+      if (S.status !== 'all') {
+        const lbl = { shipping: 'in the guide', planned: 'roadmap only',
+                      pn: 'has a part number' }[S.status];
+        pills.push(['Status', lbl, () => { S.status = 'all'; }]);
+      }
+      pills.forEach(([k, v, drop]) => act.appendChild(el('span', { class: 'fpill' }, [
+        document.createTextNode(k + ' '), el('b', { text: v }),
+        el('button', { onclick: () => { drop(); sync(); },
+                       'aria-label': 'Remove filter', text: '×' }),
+      ])));
+      if (pills.length > 1) {
+        act.appendChild(el('button', { class: 'btn quiet', onclick: () => {
+          S.types.clear(); S.shelves.clear(); S.band.clear(); S.status = 'all'; sync();
+        } }, ['Clear all']));
+      }
+    }
+
+    /* ------------------------------------------------------------ rail */
+
+    function chipRow(entries, set) {
+      const box = el('div', { class: 'chips' });
+      entries.forEach(([k, n]) => box.appendChild(el('span', {
+        class: 'chip', role: 'button', tabindex: '0',
+        'aria-pressed': set.has(k) ? 'true' : 'false',
+        onclick: () => { set.has(k) ? set.delete(k) : set.add(k); sync(); },
+        onkeydown: e => { if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault(); set.has(k) ? set.delete(k) : set.add(k); sync(); } },
+      }, [k, el('span', { class: 'n', text: n })])));
+      return box;
+    }
+
+    function renderRail() {
+      const rail = $('#rail');
+      rail.innerHTML = '';
+
+      const sortGrp = el('div', { class: 'grp' }, [
+        el('span', { class: 't-label', text: 'Sort' })]);
+      const sel = el('select', { style: 'width:100%' });
+      [['name', 'Name'], ['type', 'Type'], ['power', 'Power, highest first'],
+       ['weight', 'Weight, heaviest first'], ['shelves', 'Most shelves first']]
+        .forEach(([v, t]) => sel.appendChild(
+          el('option', { value: v, selected: S.sort === v }, [t])));
+      sel.addEventListener('change', () => { S.sort = sel.value; sync(); });
+      sortGrp.appendChild(sel);
+      rail.appendChild(sortGrp);
+
+      const st = el('div', { class: 'grp' }, [
+        el('span', { class: 't-label', text: 'Status' })]);
+      const stc = el('div', { class: 'chips' });
+      [['all', 'Everything'], ['shipping', 'In the guide'],
+       ['planned', 'Roadmap only'], ['pn', 'Has a PN']]
+        .forEach(([v, t]) => stc.appendChild(el('span', {
+          class: 'chip', role: 'button', tabindex: '0',
+          'aria-pressed': S.status === v ? 'true' : 'false',
+          onclick: () => { S.status = S.status === v ? 'all' : v; sync(); } }, [t])));
+      st.appendChild(stc);
+      rail.appendChild(st);
+
+      rail.appendChild(el('div', { class: 'grp' }, [
+        el('span', { class: 't-label', text: 'Card type' }),
+        chipRow(counts(c => c.type), S.types)]));
+
+      rail.appendChild(el('div', { class: 'grp' }, [
+        el('span', { class: 't-label', text: 'Fits in shelf' }),
+        el('div', { class: 'note', style: 'margin-bottom:7px',
+          text: 'Pick several to find a card legal in all of them.' }),
+        chipRow(SHELVES.map(s => [s, CARDS.filter(c => c.shelves[s]).length]), S.shelves)]));
+
+      rail.appendChild(el('div', { class: 'grp' }, [
+        el('span', { class: 't-label', text: 'Band' }),
+        chipRow(counts(c => c.band), S.band)]));
+    }
+
+    /* ------------------------------------------------------------ pins */
+
+    function renderPins() {
+      const host = $('#pins');
+      host.innerHTML = '';
+      if (!PINS.length) return;
+      host.appendChild(el('span', { class: 't-label',
+        style: 'align-self:center;margin-right:2px', text: 'Pinned' }));
+      PINS.forEach(name => {
+        const c = CARDS.find(x => x.name === name);
+        if (!c) return;
+        host.appendChild(el('span', { class: 'pin',
+          onclick: () => openCard(c) }, [name]));
+      });
+    }
+
+    /* ----------------------------------------------------------- views */
+
+    function renderView() {
+      const host = $('#view');
+      host.innerHTML = '';
+      host.className = 'fade';
+      if (S.view === 'cards') return renderCards(host);
+      if (S.view === 'matrix') return renderMatrix(host);
+      if (S.view === 'roadmap') return renderRoadmap(host);
+      if (S.view === 'compare') return renderCompare(host);
+    }
+
+    function tile(c, i) {
+      const picked = S.pick.includes(c.name);
+      const pinned = PINS.includes(c.name);
+      const t = el('article', {
+        class: 'item' + (picked ? ' picked' : '') + (i === S.cursor ? ' cursor' : ''),
+        tabindex: '0', 'data-i': i,
+        onclick: () => openCard(c),
+        onkeydown: e => { if (e.key === 'Enter') openCard(c); },
+      });
+
+      t.appendChild(el('div', { class: 'top' }, [
+        el('div', {}, [
+          el('div', { class: 'nm', text: c.name }),
+          el('div', { class: 'kind',
+            text: c.type + (c.band ? ' · ' + c.band : '') }),
+        ]),
+        el('span', { class: 'pill ' + (c.planned ? 'warn' : 'ok') }, [
+          el('span', { class: 'dot' }),
+          c.planned ? (c.release || 'roadmap') : 'shipping']),
+      ]));
+
+      t.appendChild(el('p', { class: 'desc',
+        text: c.description || 'No description in the guide.' }));
+
+      if (c.p100 != null) {
+        const pct = Math.max(2, Math.min(100, (c.p100 / MAXPOWER) * 100));
+        t.appendChild(el('div', { class: 'pw' }, [
+          el('div', { class: 'row' }, [
+            el('span', { text: 'draw at 100 %' }),
+            el('b', { text: c.p100 + ' W' })]),
+          el('div', { class: 'mag' }, [
+            el('i', { style: 'width:' + pct + '%' })]),
+        ]));
+      }
+
+      const facts = el('div', { class: 'facts' });
+      if (c.slotsWide) facts.appendChild(el('span', {}, [
+        el('b', { text: c.slotsWide }), ' slot' + (c.slotsWide > 1 ? 's' : '')]));
+      if (c.weightKg != null) facts.appendChild(el('span', {}, [
+        el('b', { text: c.weightKg }), ' kg']));
+      if (c.partNumbers.length) facts.appendChild(el('span', {}, [
+        el('b', { text: c.partNumbers.length }), ' PN']));
+      if (facts.children.length) t.appendChild(facts);
+
+      const sh = el('div', { class: 'shelves' });
+      if (c.shelfList.length) {
+        c.shelfList.slice(0, 4).forEach(s => sh.appendChild(el('span', {
+          class: 'sh' + (S.shelves.has(s) ? ' hit' : ''), text: shelfShort(s) })));
+        if (c.shelfList.length > 4) sh.appendChild(el('span', {
+          class: 'sh', text: '+' + (c.shelfList.length - 4) }));
+      } else {
+        sh.appendChild(el('span', { class: 'sh none', text: 'no slot data' }));
+      }
+      t.appendChild(sh);
+
+      const star = el('button', {
+        class: 'star' + (pinned ? ' on' : ''),
+        title: pinned ? 'Unpin' : 'Pin',
+        onclick: e => { e.stopPropagation(); togglePin(c.name); },
+      });
+      star.appendChild(svg(pinned
+        ? '<path d="M8 1.8 10 6l4.4.5-3.3 3 .9 4.3L8 11.7 4 13.8l.9-4.3-3.3-3L6 6Z" fill="currentColor"/>'
+        : '<path d="M8 1.8 10 6l4.4.5-3.3 3 .9 4.3L8 11.7 4 13.8l.9-4.3-3.3-3L6 6Z"/>'));
+      t.appendChild(star);
+      return t;
+    }
+
+    function renderCards(host) {
+      const list = visible();
+      if (!list.length) {
+        host.appendChild(el('div', { class: 'empty',
+          text: 'Nothing matches those filters.' }));
+        return;
+      }
+      const grid = el('div', { class: 'grid', id: 'grid' });
+      list.slice(0, 300).forEach((c, i) => grid.appendChild(tile(c, i)));
+      host.appendChild(grid);
+      if (list.length > 300) {
+        host.appendChild(el('div', { class: 'note', style: 'margin-top:12px',
+          text: 'Showing the first 300 of ' + list.length +
+                ' — narrow the filters to see the rest.' }));
+      }
+    }
+
+    function renderMatrix(host) {
+      const list = visible().filter(c => c.shelfList.length);
+      if (!list.length) {
+        host.appendChild(el('div', { class: 'empty',
+          text: 'No cards with slot data match.' }));
+        return;
+      }
+      const wrap = el('div', { class: 'scroll surface' });
+      const tb = el('table', { class: 'mx' });
+      const head = el('tr', {}, [el('th', { text: 'Card' }), el('th', { text: 'Type' })]);
+      SHELVES.forEach(s => head.appendChild(el('th', { text: shelfShort(s) })));
+      head.appendChild(el('th', { text: 'W' }));
+      head.appendChild(el('th', { text: 'P100' }));
+      tb.appendChild(el('thead', {}, [head]));
+      const body = el('tbody');
+      list.forEach(c => {
+        const tr = el('tr', { onclick: () => openCard(c) }, [
+          el('td', { class: 'pn', text: c.name }),
+          el('td', { style: 'color:var(--ink-3)', text: c.type }),
+        ]);
+        SHELVES.forEach(s => {
+          const v = c.shelves[s];
+          tr.appendChild(el('td', { class: v ? 'rng' : 'no', text: v || '·' }));
+        });
+        tr.appendChild(el('td', { class: 'num', text: c.slotsWide || '' }));
+        tr.appendChild(el('td', { class: 'num',
+          text: c.p100 != null ? c.p100 : '' }));
+        body.appendChild(tr);
+      });
+      tb.appendChild(body);
+      wrap.appendChild(tb);
+      host.appendChild(wrap);
+    }
+
+    function renderRoadmap(host) {
+      const groups = new Map();
+      visible().filter(c => c.roadmap).forEach(c => {
+        const g = c.roadmap.group || 'Ungrouped';
+        if (!groups.has(g)) groups.set(g, []);
+        groups.get(g).push(c);
+      });
+      if (!groups.size) {
+        host.appendChild(el('div', { class: 'empty',
+          text: 'No cards in the roadmap deck match those filters.' }));
+        return;
+      }
+      [...groups.entries()].sort((a, b) => a[0].localeCompare(b[0]))
+        .forEach(([g, cs]) => {
+          host.appendChild(el('div', { style: 'margin:22px 0 10px' }, [
+            el('h3', { text: g }),
+            el('div', { class: 'note', text: cs.length + ' cards' }),
+          ]));
+          const grid = el('div', { class: 'grid' });
+          cs.sort((a, b) => a.name.localeCompare(b.name))
+            .forEach((c, i) => grid.appendChild(tile(c, -1)));
+          host.appendChild(grid);
+        });
+    }
+
+    function renderCompare(host) {
+      const cs = S.pick.map(n => CARDS.find(c => c.name === n)).filter(Boolean);
+      if (!cs.length) {
+        host.appendChild(el('div', { class: 'empty',
+          text: 'Open a card and choose “Compare” to put it side by side. Up to four.' }));
+        return;
+      }
+      const rows = [
+        ['Type', c => c.type], ['Band', c => c.band],
+        ['Status', c => c.planned ? 'roadmap only' : 'in the guide'],
+        ['Release', c => c.release], ['Slots wide', c => c.slotsWide],
+        ['Weight (kg)', c => c.weightKg],
+        ['P0 (W)', c => c.p0], ['P50 (W)', c => c.p50],
+        ['P100 (W)', c => c.p100], ['Pmax (W)', c => c.pMax],
+        ['Part numbers', c => c.partNumbers.map(p => p.pn).join('\n')],
+      ];
+      SHELVES.forEach(s => rows.push([shelfShort(s), c => c.shelves[s] || '—']));
+      const attrs = new Set();
+      cs.forEach(c => Object.keys((c.roadmap || {}).attributes || {})
+        .forEach(k => attrs.add(k)));
+      [...attrs].forEach(k => rows.push([k,
+        c => ((c.roadmap || {}).attributes || {})[k]]));
+
+      const wrap = el('div', { class: 'scroll surface' });
+      const tb = el('table', { class: 'mx' });
+      const head = el('tr', {}, [el('th', { text: '' })]);
+      cs.forEach(c => head.appendChild(el('th', { class: 'mono', text: c.name })));
+      tb.appendChild(el('thead', {}, [head]));
+      const body = el('tbody');
+      rows.forEach(([label, fn]) => {
+        const vals = cs.map(fn);
+        if (vals.every(v => v == null || v === '' || v === '—')) return;
+        const tr = el('tr', {}, [el('td', { style: 'color:var(--ink-3)', text: label })]);
+        vals.forEach(v => tr.appendChild(el('td', {
+          style: 'white-space:normal;max-width:250px',
+          text: v == null || v === '' ? '—' : String(v) })));
+        body.appendChild(tr);
+      });
+      tb.appendChild(body);
+      wrap.appendChild(tb);
+      host.appendChild(wrap);
+    }
+
+    /* ---------------------------------------------------------- drawer */
+
+    function openCard(c) {
+      S.open = c.name;
+      writeHash();
+      const d = $('#drawer');
+      d.innerHTML = '';
+      d.appendChild(el('div', { class: 'dh' }, [
+        el('div', {}, [
+          el('div', { class: 'nm', text: c.name }),
+          el('p', { text: c.description || 'No description in the guide.' }),
+        ]),
+        el('button', { class: 'iconbtn', onclick: closeDrawer,
+                       'aria-label': 'Close' },
+          [svg('<path d="M4 4l8 8M12 4l-8 8"/>')]),
+      ]));
+      const b = el('div', { class: 'db' });
+
+      b.appendChild(el('div', { style: 'display:flex;gap:7px;flex-wrap:wrap' }, [
+        el('span', { class: 'pill ' + (c.planned ? 'warn' : 'ok') }, [
+          el('span', { class: 'dot' }),
+          c.planned ? 'roadmap only' : 'in the R26.6 guide']),
+        c.release ? el('span', { class: 'pill mute', text: c.release }) : null,
+        el('span', { class: 'pill mute', text: c.type }),
+        c.band ? el('span', { class: 'pill mute', text: c.band + ' band' }) : null,
+      ]));
+
+      const facts = el('dl', { style: 'margin-top:14px' });
+      [['Category', c.category], ['Slots wide', c.slotsWide],
+       ['Slots high', c.slotsHigh],
+       ['Weight', c.weightKg != null ? c.weightKg + ' kg' : null],
+       ['Also known as', (c.aliases || []).join(', ')]]
+        .forEach(([k, v]) => { if (v == null || v === '') return;
+          facts.appendChild(el('div', { class: 'kv' }, [
+            el('dt', { text: k }), el('dd', { text: String(v) })])); });
+      if (facts.children.length) b.appendChild(facts);
+
+      if (c.pMax != null || c.p100 != null) {
+        b.appendChild(el('h4', { text: 'Power' }));
+        const p = el('div');
+        [['0 % utilisation', c.p0], ['50 %', c.p50], ['100 %', c.p100],
+         ['Maximum', c.pMax]].forEach(([k, v]) => {
+          if (v == null) return;
+          const pct = Math.max(2, Math.min(100, (v / MAXPOWER) * 100));
+          p.appendChild(el('div', { style: 'margin-bottom:9px' }, [
+            el('div', { class: 'pw' }, [
+              el('div', { class: 'row' }, [
+                el('span', { text: k }), el('b', { text: v + ' W' })]),
+              el('div', { class: 'mag' }, [el('i', { style: 'width:' + pct + '%' })]),
+            ]),
+          ]));
+        });
+        b.appendChild(p);
+        b.appendChild(el('div', { class: 'note',
+          text: 'Size a feed from Maximum and cooling from 100 %. Bars are ' +
+                'scaled against the heaviest card in the catalogue (' +
+                MAXPOWER + ' W).' }));
+      }
+
+      if (c.shelfList.length) {
+        b.appendChild(el('h4', { text: 'Legal slots' }));
+        const s = el('dl');
+        c.shelfList.forEach(sh => s.appendChild(el('div', { class: 'kv' }, [
+          el('dt', { text: shelfShort(sh) }),
+          el('dd', { class: 'num', text: c.shelves[sh] })])));
+        b.appendChild(s);
+      }
+
+      if (c.partNumbers.length) {
+        b.appendChild(el('h4', { text: 'Part numbers' }));
+        c.partNumbers.forEach(p => b.appendChild(el('div', { class: 'pnrow' }, [
+          el('b', { text: p.pn }),
+          p.description && p.description !== c.description
+            ? el('span', { text: p.description }) : null,
+          el('button', { class: 'btn quiet copy', onclick: () => {
+            navigator.clipboard.writeText(p.pn);
+          }, text: 'Copy' }),
+        ])));
+      }
+
+      if (c.roadmap) {
+        b.appendChild(el('h4', { text: 'Roadmap · ' + (c.roadmap.group || '') }));
+        const r = el('dl');
+        Object.entries(c.roadmap.attributes).forEach(([k, v]) =>
+          r.appendChild(el('div', { class: 'kv' }, [
+            el('dt', { text: k }),
+            el('dd', { style: 'white-space:pre-wrap', text: v })])));
+        b.appendChild(r);
+      }
+
+      b.appendChild(el('div', { style: 'display:flex;gap:7px;margin-top:22px' }, [
+        el('button', { class: 'btn', onclick: () => { togglePick(c.name); } },
+          [S.pick.includes(c.name) ? 'Remove from compare' : 'Compare']),
+        el('button', { class: 'btn', onclick: () => togglePin(c.name) },
+          [PINS.includes(c.name) ? 'Unpin' : 'Pin']),
+      ]));
+
+      d.appendChild(b);
+      d.classList.add('on');
+      d.setAttribute('aria-hidden', 'false');
+      $('#scrim').classList.add('on');
+    }
+
+    function closeDrawer() {
+      S.open = null; writeHash();
+      $('#drawer').classList.remove('on');
+      $('#drawer').setAttribute('aria-hidden', 'true');
+      $('#scrim').classList.remove('on');
+    }
+    $('#scrim').addEventListener('click', closeDrawer);
+
+    /* ----------------------------------------------------------- tray */
+
+    function togglePick(name) {
+      const i = S.pick.indexOf(name);
+      if (i >= 0) S.pick.splice(i, 1);
+      else if (S.pick.length < 4) S.pick.push(name);
+      sync();
+    }
+    function renderTray() {
+      const tray = $('#tray');
+      tray.innerHTML = '';
+      tray.className = 'tray' + (S.pick.length ? ' on' : '');
+      if (!S.pick.length) return;
+      tray.appendChild(el('span', { class: 't' }, [
+        'Comparing ', el('b', { text: S.pick.join(', ') })]));
+      tray.appendChild(el('button', { class: 'go',
+        onclick: () => { S.view = 'compare'; sync(); } }, ['Open']));
+      tray.appendChild(el('button', {
+        onclick: () => { S.pick = []; sync(); } }, ['Clear']));
+    }
+
+    /* ------------------------------------------------------- keyboard */
+
+    document.addEventListener('keydown', e => {
+      const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName);
+      if (e.key === 'Escape') {
+        if ($('#drawer').classList.contains('on')) { closeDrawer(); return; }
+        if (typing) { document.activeElement.blur(); return; }
+      }
+      if (typing || e.metaKey || e.ctrlKey || e.altKey) return;
+
+      const list = visible();
+      if (S.view !== 'cards' || !list.length) return;
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight' ||
+          e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        const cols = Math.max(1, Math.round(
+          $('#grid').clientWidth / ($('#grid').firstChild.offsetWidth + 10)));
+        const step = (e.key === 'ArrowDown') ? cols : (e.key === 'ArrowUp') ? -cols
+                   : (e.key === 'ArrowRight') ? 1 : -1;
+        S.cursor = Math.max(0, Math.min(list.length - 1,
+          (S.cursor < 0 ? 0 : S.cursor + step)));
+        renderView();
+        const node = document.querySelector('.item.cursor');
+        if (node) node.scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'Enter' && S.cursor >= 0) {
+        e.preventDefault(); openCard(list[S.cursor]);
+      } else if ((e.key === 'c' || e.key === 'C') && S.cursor >= 0) {
+        e.preventDefault(); togglePick(list[S.cursor].name);
+      } else if ((e.key === 'p' || e.key === 'P') && S.cursor >= 0) {
+        e.preventDefault(); togglePin(list[S.cursor].name);
+      }
+    });
+
+    $('#q').addEventListener('input', () => { S.q = $('#q').value.trim(); sync(); });
+
+    /* ------------------------------------------------------------ sync */
+
+    function sync() {
+      writeHash();
+      renderStats(); renderBar(); renderRail(); renderPins();
+      renderView(); renderTray();
+    }
+
+    /* ------------------------------------------------------------ boot */
+
+    function skeleton() {
+      const g = el('div', { class: 'grid' });
+      for (let i = 0; i < 8; i++) g.appendChild(el('div', { class: 'sk' }));
+      $('#view').appendChild(g);
+    }
+    skeleton();
+
+
+    fetch('assets/pss-cards.json')
+      .then(r => r.json())
+      .then(d => {
+        META = d.meta;
+        CARDS = d.cards;
+        SHELVES = d.meta.shelfOrder.filter(s => CARDS.some(c => c.shelves[s]));
+        MAXPOWER = Math.max(...CARDS.map(c => c.p100 || 0), 1);
+        loadPins();
+        readHash();
+        $('#q').value = S.q;
+
+        window.SUMMA_CMDK && window.SUMMA_CMDK.register('PSS card',
+          CARDS.map(c => ({
+            label: c.name, mono: true,
+            hint: [c.type, c.shelfList.length ? c.shelfList.length + ' shelves' : null,
+                   c.p100 != null ? c.p100 + ' W' : null].filter(Boolean).join(' · '),
+            keywords: [c.description, c.category, c.release,
+                       (c.aliases || []).join(' '),
+                       c.partNumbers.map(p => p.pn).join(' ')].filter(Boolean).join(' '),
+            run: () => { S.view = 'cards'; openCard(c); sync(); },
+          })));
+
+        sync();
+        if (S.open) {
+          const c = CARDS.find(x => x.name === S.open);
+          if (c) openCard(c);
+        }
+      })
+      .catch(() => {
+        $('#view').innerHTML = '<div class="empty">assets/pss-cards.json is ' +
+          'missing. Run the tools in tools/ to rebuild it.</div>';
+      });
+  }());
+  </script>
+</body>
+</html>

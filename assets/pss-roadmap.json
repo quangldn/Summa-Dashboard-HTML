@@ -1,0 +1,2443 @@
+{
+ "meta": {
+  "source_file": "ON Consolidated Roadmap Aug 2026 - PSS PSI-M PSD WaveSuite v1.0.pptx",
+  "extractor_version": "1.0",
+  "extracted_utc": "2026-09-13T01:35:36+00:00",
+  "slides": 68
+ },
+ "tables": [
+  {
+   "slide": 7,
+   "title": "Overall Product Portfolio",
+   "inScope": true,
+   "products": [
+    {
+     "name": "PSS",
+     "attributes": {
+      "Chassis": "PSS Chassis",
+      "ROADMs": "ROADM Modules",
+      "Amplifiers": "PSS Amplifiers",
+      "Band combiners": "PSS band combiner",
+      "Muxponders/Transponders": "PSS Xponders",
+      "L2/Packet Cards": "PSS IPT"
+     }
+    },
+    {
+     "name": "PSS-x",
+     "attributes": {
+      "Chassis": "PSS-X \u000bChassis",
+      "L2/Packet Cards": "PSS-x IPT",
+      "I/O cards": "PSS-8x/12x\u000bPSS-24x"
+     }
+    },
+    {
+     "name": "PSS-HC",
+     "attributes": {
+      "Chassis": "PSS-HC\u000bChassis",
+      "I/O cards": "PSS-HC I/O cards"
+     }
+    },
+    {
+     "name": "PSI",
+     "attributes": {
+      "Chassis": "PSI-L/ PSI-M Chassis",
+      "Muxponders/Transponders": "PSI-M Transponder sleds"
+     }
+    },
+    {
+     "name": "PSD",
+     "attributes": {
+      "Chassis": "PSD \u000bChassis",
+      "Interfaces/ features": "PSD-2 / PSD-200"
+     }
+    },
+    {
+     "name": "OLS",
+     "attributes": {
+      "Chassis": "OLS"
+     }
+    },
+    {
+     "name": "Subsea",
+     "attributes": {
+      "Chassis": "LX/SX4L"
+     }
+    }
+   ],
+   "captions": [
+    "Table of contents"
+   ]
+  },
+  {
+   "slide": 8,
+   "title": "1830 PSS: Chassis",
+   "inScope": true,
+   "products": [
+    {
+     "name": "PSS-4II",
+     "attributes": {
+      "Release": "GA",
+      "Applications": "L0/L1/L2 / WDM/ROADM / OTN/Packet / Shelf distributed switch / Shelf SyncE/PTP (R26.9)",
+      "Dimensions / (HxWxD)": "87.5 (2RU) x 442.0 x 243.7mm",
+      "Mounting": "19\u201d/21\u201d/23\u201d",
+      "Weight": "4.4 kg",
+      "Controller": "Simplex",
+      "Service slots": "4 (half)/2 (full)",
+      "Fan and airflow": "1 FAN card (shelf right) / Airflow: right-left; front-back (23\", optional for 19\" 4-post); front-left (optional for 21\").",
+      "Power modules": "Redundant  / power modules",
+      "Power supply": "DC -48V/-60V / AC 110/220V",
+      "Operating temperature": "-5\u00b0C to +65\u00b0C"
+     }
+    },
+    {
+     "name": "PSS-8 (NG)",
+     "attributes": {
+      "Release": "GA (NG R27.Q1)",
+      "Applications": "L0/L1/L2 / WDM/ROADM / OTN/Packet / Shelf distributed switch / Shelf SyncE/PTP",
+      "Dimensions / (HxWxD)": "133 (3RU) x 438 x 259mm",
+      "Mounting": "19\u201d/21\u201d/23\u201d",
+      "Weight": "5.6 kg",
+      "Controller": "Duplex, protected",
+      "Service slots": "8 (half)/4 (full)",
+      "Fan and airflow": "1 FAN card (shelf right) / Airflow: right-left; front-back (23\"); front-left (optional for 21\").",
+      "Power modules": "Redundant  / power modules",
+      "Power supply": "DC -48V/-60V / AC 110/220V",
+      "Operating temperature": "-40\u00b0C to +65\u00b0C  / (-30\u00b0C to +65\u00b0C for NG)"
+     }
+    },
+    {
+     "name": "PSS-16II (NG)",
+     "attributes": {
+      "Release": "GA (NG R27.Q3)",
+      "Applications": "L0/L1/L2 / WDM/ROADM / OTN/Packet / Shelf distributed switch / Shelf SyncE/PTP (DC shelf)",
+      "Dimensions / (HxWxD)": "DC shelf: 354.8 (8RU) x 440 x 293.2mm / AC/DC/NG shelf: 398.8 (9RU) x 440 x 290mm",
+      "Mounting": "19\u201d/21\u201d/23\u201d",
+      "Weight": "DC: 11.6 kg.  / AC/DC/NG:13.10 kg",
+      "Controller": "Duplex, protected",
+      "Service slots": "16 (half)/8 (full)",
+      "Fan and airflow": "1 FAN card (shelf bottom) / Airflow: front-left; front-back (optional for 23\").",
+      "Power modules": "Redundant  / power modules",
+      "Power supply": "DC -48V/-60V / AC 110/220V",
+      "Operating temperature": "\u20135\u00b0C to 50\u00b0C"
+     }
+    },
+    {
+     "name": "PSS-32",
+     "attributes": {
+      "Release": "GA",
+      "Applications": "L0/L1/L2 / WDM/ROADM / OTN/Packet",
+      "Dimensions / (HxWxD)": "622 (14RU) x 439 x 279mm",
+      "Mounting": "19\u201d/21\u201d/23\u201d",
+      "Weight": "13.0 kg",
+      "Controller": "Duplex, protected",
+      "Service slots": "32 (half)/16 (full)",
+      "Fan and airflow": "1 FAN card (shelf top) / Airflow: front- top/back",
+      "Power modules": "Redundant  / power modules",
+      "Power supply": "DC -48V/-60V",
+      "Operating temperature": "\u20135\u00b0C to 50\u00b0C"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 9,
+   "title": "1830 PSI: Chassis",
+   "inScope": true,
+   "products": [
+    {
+     "name": "PSI-8L",
+     "attributes": {
+      "Release": "GA",
+      "Applications": "L0",
+      "Footprint/depth": "5RU/450mm",
+      "Mounting": "19\u201d/23\u201d 2/4-post",
+      "Service slots": "8",
+      "Controller FRU": "Single/dual",
+      "Airflow": "Front-to-back",
+      "Management interfaces": "4 front / 4 back",
+      "Fans": "3 fans, rear, 1:N",
+      "Power supply config": "2 (optional 4) PSU, Rear, 1+1",
+      "Power supply": "AC  / DC"
+     }
+    },
+    {
+     "name": "PSI-4L",
+     "attributes": {
+      "Release": "GA",
+      "Applications": "L0",
+      "Footprint/depth": "3RU/450mm",
+      "Mounting": "19\u201d/23\u201d 2/4-post",
+      "Service slots": "4",
+      "Controller FRU": "Single/dual",
+      "Airflow": "Front-to-back",
+      "Management interfaces": "4 front / 4 back",
+      "Fans": "2 fans, rear, 1+1",
+      "Power supply config": "2 PSU, Rear, 1+1",
+      "Power supply": "AC / DC"
+     }
+    },
+    {
+     "name": "PSI-M",
+     "attributes": {
+      "Release": "GA",
+      "Applications": "L1",
+      "Footprint/depth": "1RU/600mm",
+      "Mounting": "19\u201d/23\u201d 2/4-post, sliding rails",
+      "Service slots": "4",
+      "Controller FRU": "Single/dual",
+      "Airflow": "Front-to-back",
+      "Management interfaces": "2 front / 3 back",
+      "Fans": "5 fans, rear, 1:N",
+      "Power supply config": "2 PSU, Rear, 1+1",
+      "Power supply": "AC / DC, HVDC (China market)"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 10,
+   "title": "1830 PSS: ROADM Modules",
+   "inScope": true,
+   "products": [
+    {
+     "name": "IR4",
+     "attributes": {
+      "Release": "GA",
+      "PSS shelf support": "PSS4II/PSS8/PSS16II/PSS32/PSI-4L/8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1-Slot",
+      "WSS ports": "1x4",
+      "Spectrum support": "4.8THz \u2013 Std. C",
+      "L-Band extendable": "No",
+      "Span Loss support (w/o Raman)": "0 \u2013 31dB",
+      "Mid stage access": "No",
+      "Direct connect supported": "Yes",
+      "Fixed Add/drop": "Yes",
+      "Supported C A/D structures": "PSC1-6",
+      "Supported CD A/D structures": "Yes - 2 NE",
+      "Supported CDC A/D structures": "-"
+     }
+    },
+    {
+     "name": "IR9/LP",
+     "attributes": {
+      "Release": "GA",
+      "PSS shelf support": "PSS8/PSS16II/PSS32/PSI-4L/8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1-Slot",
+      "WSS ports": "1x9",
+      "Spectrum support": "4.8THz \u2013 Std. C",
+      "L-Band extendable": "No",
+      "Span Loss support (w/o Raman)": "0 \u2013 33dB",
+      "Mid stage access": "No",
+      "Direct connect supported": "Yes",
+      "Fixed Add/drop": "Yes",
+      "Supported C A/D structures": "PSC1-6",
+      "Supported CD A/D structures": "Yes - 2 NE",
+      "Supported CDC A/D structures": "-"
+     }
+    },
+    {
+     "name": "IR20/LP",
+     "attributes": {
+      "Release": "GA",
+      "PSS shelf support": "PSS8/PSS16II/PSS32/PSI-4L/8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1-Slot",
+      "WSS ports": "2x20",
+      "Spectrum support": "4.8THz \u2013 Std. C",
+      "L-Band extendable": "No",
+      "Span Loss support (w/o Raman)": "0 \u2013 33dB",
+      "Mid stage access": "No",
+      "Direct connect supported": "Yes",
+      "Fixed Add/drop": "Yes",
+      "Supported C A/D structures": "PSC1-6/ASC4",
+      "Supported CD A/D structures": "Yes - 2 NE",
+      "Supported CDC A/D structures": "MCS & MXN"
+     }
+    },
+    {
+     "name": "IRDM32/LP",
+     "attributes": {
+      "Release": "GA",
+      "PSS shelf support": "PSS8/PSS16II/PSS32/PSI-4L/8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1-Slot",
+      "WSS ports": "2x32",
+      "Spectrum support": "4.8THz \u2013 Std. C",
+      "L-Band extendable": "Yes (via OMDCL)",
+      "Span Loss support (w/o Raman)": "0 - 32dB",
+      "Mid stage access": "No",
+      "Direct connect supported": "Yes",
+      "Fixed Add/drop": "Yes",
+      "Supported C A/D structures": "PSC1-6/ASC4",
+      "Supported CD A/D structures": "Yes - 2 NE",
+      "Supported CDC A/D structures": "MCS & MXN"
+     }
+    },
+    {
+     "name": "IRDM32L",
+     "attributes": {
+      "Release": "GA",
+      "PSS shelf support": "PSS8/PSS16II/PSS32/PSI-4L/8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1-Slot",
+      "WSS ports": "2x32",
+      "Spectrum support": "4.8THz \u2013 Std. L",
+      "L-Band extendable": "-",
+      "Span Loss support (w/o Raman)": "0 - 32dB",
+      "Mid stage access": "No",
+      "Direct connect supported": "Yes",
+      "Fixed Add/drop": "No",
+      "Supported C A/D structures": "PSC1-6/ASC4L",
+      "Supported CD A/D structures": "Yes - 2 NE",
+      "Supported CDC A/D structures": "MCS & MXN"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 11,
+   "title": "1830 PSS: ROADM Modules",
+   "inScope": true,
+   "products": [
+    {
+     "name": "IR32",
+     "attributes": {
+      "Release": "R25.12",
+      "PSS shelf support": "PSS8/PSS16II/PSS32/PSI-4L/8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1-Slot",
+      "WSS ports": "2x32",
+      "Spectrum support": "4.8THz \u2013 Std. C",
+      "L-Band extendable": "Yes (via OMDCL)",
+      "Span Loss support (w/o Raman)": "0 - 32dB",
+      "Mid stage access": "No",
+      "Direct connect supported": "Yes",
+      "Fixed Add/drop": "Yes",
+      "Supported C-F A/D structures": "PSC1-6/ASC4",
+      "Supported CD A/D structures": "Yes- 2 NE",
+      "Supported CDC A/D structures": "MCS & MXN"
+     }
+    },
+    {
+     "name": "IR32L",
+     "attributes": {
+      "Release": "R26.6",
+      "PSS shelf support": "PSS8/PSS16II/PSS32/PSI-4L/8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1-Slot",
+      "WSS ports": "2x32",
+      "Spectrum support": "4.8THz \u2013 Std. L",
+      "L-Band extendable": "-",
+      "Span Loss support (w/o Raman)": "0 \u2013 32dB",
+      "Mid stage access": "No",
+      "Direct connect supported": "Yes",
+      "Fixed Add/drop": "No",
+      "Supported C-F A/D structures": "PSC1-6/ASC4L",
+      "Supported CD A/D structures": "Yes - 2 NE",
+      "Supported CDC A/D structures": "MCS & MXN"
+     }
+    },
+    {
+     "name": "IR4 (ET Version)",
+     "attributes": {
+      "Release": "R27.Q3",
+      "PSS shelf support": "PSS8/PSS4II",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1-Slot",
+      "WSS ports": "1x4",
+      "Spectrum support": "4.8THz - Std C",
+      "L-Band extendable": "No",
+      "Span Loss support (w/o Raman)": "0-31dB",
+      "Mid stage access": "No",
+      "Direct connect supported": "Yes",
+      "Fixed Add/drop": "Yes",
+      "Supported C-F A/D structures": "PSC1-6",
+      "Supported CD A/D structures": "Yes-2 NE",
+      "Supported CDC A/D structures": "-"
+     }
+    },
+    {
+     "name": "IR32SC",
+     "attributes": {
+      "Release": "R27.Q4",
+      "PSS shelf support": "PSS8/PSS16II/PSS32/PSI-4L/8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1-Slot",
+      "WSS ports": "2x32",
+      "Spectrum support": "6.1THz \u2013 Super-C",
+      "L-Band extendable": "Yes",
+      "Span Loss support (w/o Raman)": "0 - 32dB",
+      "Mid stage access": "No",
+      "Direct connect supported": "Yes",
+      "Fixed Add/drop": "Yes",
+      "Supported C-F A/D structures": "ASC4SC",
+      "Supported CD A/D structures": "Yes- 2 NE",
+      "Supported CDC A/D structures": "MCS"
+     }
+    },
+    {
+     "name": "IR32SL",
+     "attributes": {
+      "Release": "R28.1H",
+      "PSS shelf support": "PSS8/PSS16II/PSS32/PSI-4L/8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1-Slot",
+      "WSS ports": "2x32",
+      "Spectrum support": "5.5THz \u2013 Super-L",
+      "L-Band extendable": "-",
+      "Span Loss support (w/o Raman)": "0 \u2013 32dB",
+      "Mid stage access": "No",
+      "Direct connect supported": "Yes",
+      "Fixed Add/drop": "No",
+      "Supported C-F A/D structures": "ASC4SL",
+      "Supported CD A/D structures": "Yes - 2 NE",
+      "Supported CDC A/D structures": "MCS"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 12,
+   "title": "1830 PSS: Amplifier Modules",
+   "inScope": true,
+   "products": [
+    {
+     "name": "ASG/LP",
+     "attributes": {
+      "Release": "GA",
+      "PSS shelf support": "PSS-4II/PSS-8/PSS-16II/PSS-32/PSI-4L/PSI-8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1-Slot",
+      "Spectrum support": "4.8THz-Std C",
+      "Span Loss support (w/o Raman)": "0-33dB",
+      "L-Band extendable": "No",
+      "Gain range": "Lo gain range[11,26]dB / Hi gain range[17,33]dB",
+      "Type": "EDFA"
+     }
+    },
+    {
+     "name": "AWBILA",
+     "attributes": {
+      "Release": "GA",
+      "PSS shelf support": "PSS-8/PSS-16II/PSS-32/PSI-4L/PSI-8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "2-Slot",
+      "Spectrum support": "9.6THz \u2013 Std. C+L",
+      "Span Loss support (w/o Raman)": "0-29dB",
+      "L-Band extendable": "-",
+      "Gain range": "Lo gain range[7,22]dB / Hi gain range[13,29]dB",
+      "Type": "EDFA"
+     }
+    },
+    {
+     "name": "RA2P-96",
+     "attributes": {
+      "Release": "GA",
+      "PSS shelf support": "PSS-8/PSS-16II/PSS-32/PSI-4L/PSI-8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1-Slot",
+      "Spectrum support": "4.8THz-Std C",
+      "Span Loss support (w/o Raman)": "-",
+      "L-Band extendable": "No",
+      "Type": "Raman"
+     }
+    },
+    {
+     "name": "RA4P",
+     "attributes": {
+      "Release": "GA",
+      "PSS shelf support": "PSS-8/PSS-16II/PSS-32/PSI-4L/PSI-8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1-Slot",
+      "Spectrum support": "4.8THz-Std C",
+      "Span Loss support (w/o Raman)": "-",
+      "L-Band extendable": "No",
+      "Type": "Raman"
+     }
+    },
+    {
+     "name": "RA5PB",
+     "attributes": {
+      "Release": "GA",
+      "PSS shelf support": "PSS-8/PSS-16II/PSS-32/PSI-4L/PSI-8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1-Slot",
+      "Spectrum support": "9.6THz \u2013 Std. C+L",
+      "Span Loss support (w/o Raman)": "-",
+      "L-Band extendable": "-",
+      "Type": "Raman"
+     }
+    },
+    {
+     "name": "EILA",
+     "attributes": {
+      "Release": "GA",
+      "PSS shelf support": "PSS-8/PSS-16II/PSS-32/PSI-4L/PSI-8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1-Slot",
+      "Spectrum support": "4.8THz-Std C",
+      "Span Loss support (w/o Raman)": "0-32dB",
+      "L-Band extendable": "Yes (via OMDCL)",
+      "Gain range": "Lo gain range[9,23]dB / Hi gain range[16,32]dB",
+      "Type": "EDFA/DGE"
+     }
+    },
+    {
+     "name": "EILAL",
+     "attributes": {
+      "Release": "GA",
+      "PSS shelf support": "PSS-8/PSS-16II/PSS-32/PSI-4L/PSI-8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1-Slot",
+      "Spectrum support": "4.8THz-Std L",
+      "Span Loss support (w/o Raman)": "0-32dB",
+      "L-Band extendable": "-",
+      "Gain range": "Lo gain range[9,23]dB / Hi gain range[16,32]dB",
+      "Type": "EDFA/DGE"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 13,
+   "title": "1830 PSS: Amplifier Modules",
+   "inScope": true,
+   "products": [
+    {
+     "name": "ASGLP (ET Version)",
+     "attributes": {
+      "Release": "R27.Q1",
+      "PSS shelf support": "PSS-8/PSS-4II",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1-Slot",
+      "Spectrum support": "4.8THz \u2013 Std. C",
+      "Span Loss support (w/o Raman)": "0-33dB",
+      "L-Band extendable": "-",
+      "Gain range": "Lo gain range [11,26]dB / Hi gain range / [17,33]dB",
+      "Type": "EDFA"
+     }
+    },
+    {
+     "name": "ILAICL",
+     "attributes": {
+      "Release": "R28.1H",
+      "PSS shelf support": "PSS-8/PSS-16II/PSS-32/PSI-4L/PSI-8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "2-Slot",
+      "Spectrum support": "9.6THz \u2013 Std. C+L",
+      "Span Loss support (w/o Raman)": "0-29dB",
+      "L-Band extendable": "-",
+      "Gain range": "Lo gain range[7,22]dB / Hi gain range[13,29]dB",
+      "Type": "EDFA"
+     }
+    },
+    {
+     "name": "EILASC",
+     "attributes": {
+      "Release": "R27.Q4",
+      "PSS shelf support": "PSS-8/PSS-16II/PSS-32/PSI-4L/PSI-8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1-Slot",
+      "Spectrum support": "6.1THz-Super C",
+      "Span Loss support (w/o Raman)": "0-32dB",
+      "L-Band extendable": "Yes",
+      "Gain range": "Lo gain range[9,23]dB / Hi gain range[16,32]dB",
+      "Type": "EDFA/DGE"
+     }
+    },
+    {
+     "name": "EILASL",
+     "attributes": {
+      "Release": "R28.1H",
+      "PSS shelf support": "PSS-8/PSS-16II/PSS-32/PSI-4L/PSI-8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1-Slot",
+      "Spectrum support": "5.5THz-Super L",
+      "Span Loss support (w/o Raman)": "0-32dB",
+      "L-Band extendable": "-",
+      "Gain range": "Lo gain range[9,23]dB / Hi gain range[16,32]dB",
+      "Type": "EDFA/DGE"
+     }
+    },
+    {
+     "name": "ILASCL",
+     "attributes": {
+      "Release": "R28.1H",
+      "PSS shelf support": "PSS-8/PSS-16II/PSS-32/PSI-4L/PSI-8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "2-Slot",
+      "Spectrum support": "11.6THz \u2013 Super C+L",
+      "Span Loss support (w/o Raman)": "0-29dB",
+      "L-Band extendable": "-",
+      "Gain range": "Lo gain range[7,22]dB / Hi gain range[13,29]dB",
+      "Type": "EDFA"
+     }
+    },
+    {
+     "name": "RA5PSCL",
+     "attributes": {
+      "Release": "R27.Q4",
+      "PSS shelf support": "PSS-8/PSS-16II/PSS-32/PSI-4L/PSI-8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1-Slot",
+      "Spectrum support": "11.6THz \u2013 Super C+L",
+      "Span Loss support (w/o Raman)": "-",
+      "L-Band extendable": "-",
+      "Type": "Raman"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 14,
+   "title": "1830 PSS: Amplifier Modules",
+   "inScope": true,
+   "products": [
+    {
+     "name": "RA4PSC",
+     "attributes": {
+      "Release": "R28.2H",
+      "PSS shelf support": "PSS-8/PSS-16II/PSS-32/PSI-4L/PSI-8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1-Slot",
+      "Spectrum support": "6.1THz-Super C",
+      "Span Loss support (w/o Raman)": "-",
+      "L-Band extendable": "-",
+      "Gain range": "-",
+      "Type": "EDFA"
+     }
+    },
+    {
+     "name": "ASGSC",
+     "attributes": {
+      "Release": "R28.2H",
+      "PSS shelf support": "PSS-8/PSS-16II/PSS-32/PSI-4L/PSI-8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1-Slot",
+      "Spectrum support": "6.1THz-Super C",
+      "Span Loss support (w/o Raman)": "0-29dB",
+      "L-Band extendable": "-",
+      "Gain range": "Lo gain range[7,22]dB / Hi gain range[13,29]dB",
+      "Type": "EDFA"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 15,
+   "title": "1830 PSS: Band Combiner",
+   "inScope": true,
+   "products": [
+    {
+     "name": "OMDCL",
+     "attributes": {
+      "Release": "GA",
+      "PSS shelf support": "PSS-8/PSS-16II/PSS-32/PSI-4L/PSI-8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1-Slot",
+      "Spectrum support": "9.6THz-Std C+L",
+      "Lines support": "2",
+      "Type": "C+L  / splitter& / combiner"
+     }
+    },
+    {
+     "name": "OMDWB",
+     "attributes": {
+      "Release": "R27.Q1",
+      "PSS shelf support": "PSS-8/PSS-16II/PSS-32/PSI-4L/PSI-8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1-Slot",
+      "Spectrum support": "9.6THz-Std C+L",
+      "Lines support": "2",
+      "Type": "C+L  / splitter& / combiner"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 16,
+   "title": "1830 PSS: Add / Drop",
+   "inScope": true,
+   "products": [
+    {
+     "name": "MCS1615",
+     "attributes": {
+      "Release": "GA",
+      "PSS shelf support": "PSS8/PSS16II/PSS32/PSI-4L/8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "2 slot",
+      "Add/drop type": "CDC-F",
+      "Band": "C band",
+      "Degree Support": "16 degree",
+      "Add/Drop count": "15"
+     }
+    },
+    {
+     "name": "MCS1615L",
+     "attributes": {
+      "Release": "GA",
+      "PSS shelf support": "PSS8/PSS16II/PSS32/PSI-4L/8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "2 slot",
+      "Add/drop type": "CDC-F",
+      "Band": "L band",
+      "Degree Support": "16 degree",
+      "Add/Drop count": "15"
+     }
+    },
+    {
+     "name": "MCS816",
+     "attributes": {
+      "Release": "GA",
+      "PSS shelf support": "PSS8/PSS16II/PSS32/PSI-4L/8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1 slot",
+      "Add/drop type": "CDC-F",
+      "Band": "C band",
+      "Degree Support": "8 degree",
+      "Add/Drop count": "16"
+     }
+    },
+    {
+     "name": "MCS816L",
+     "attributes": {
+      "Release": "GA",
+      "PSS shelf support": "PSS8/PSS16II/PSS32/PSI-4L/8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1 slot",
+      "Add/drop type": "CDC-F",
+      "Band": "L band",
+      "Degree Support": "8 degree",
+      "Add/Drop count": "16"
+     }
+    },
+    {
+     "name": "MXN824",
+     "attributes": {
+      "Release": "GA",
+      "PSS shelf support": "PSS8/PSS16II/PSS32/PSI-4L/8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "3 slot",
+      "Add/drop type": "CDC-F",
+      "Band": "C band",
+      "Degree Support": "8 degree",
+      "Add/Drop count": "24"
+     }
+    },
+    {
+     "name": "MXN824L",
+     "attributes": {
+      "Release": "GA",
+      "PSS shelf support": "PSS8/PSS16II/PSS32/PSI-4L/8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "3 slot",
+      "Add/drop type": "CDC-F",
+      "Band": "L band",
+      "Degree Support": "8 degree",
+      "Add/Drop count": "24"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 17,
+   "title": "1830 PSS: Add / Drop",
+   "inScope": true,
+   "products": [
+    {
+     "name": "PSC1-6",
+     "attributes": {
+      "Release": "GA",
+      "PSS shelf support": "N/A",
+      "Chassis support": "N/A",
+      "Slots required": "1RU",
+      "Add/drop type": "C-F",
+      "Band": "C & L band",
+      "Degree support": "-",
+      "Add/Drop count": "6"
+     }
+    },
+    {
+     "name": "ASC2",
+     "attributes": {
+      "Release": "GA",
+      "PSS shelf support": "PSS8/PSS16II/PSS32/PSI-4L/8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1 slot",
+      "Add/drop type": "Amplified C-F",
+      "Band": "C band",
+      "Degree support": "-",
+      "Add/Drop count": "2"
+     }
+    },
+    {
+     "name": "ASC2L",
+     "attributes": {
+      "Release": "GA",
+      "PSS shelf support": "PSS8/PSS16II/PSS32/PSI-4L/8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1 slot",
+      "Add/drop type": "Amplified C-F",
+      "Band": "L band",
+      "Degree support": "-",
+      "Add/Drop count": "2"
+     }
+    },
+    {
+     "name": "ASC4",
+     "attributes": {
+      "Release": "GA",
+      "PSS shelf support": "PSS8/PSS16II/PSS32/PSI-4L/8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "2 slot",
+      "Add/drop type": "Amplified C-F",
+      "Band": "C band",
+      "Degree support": "-",
+      "Add/Drop count": "4"
+     }
+    },
+    {
+     "name": "ASC4L",
+     "attributes": {
+      "Release": "GA",
+      "PSS shelf support": "PSS8/PSS16II/PSS32/PSI-4L/8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "2 slot",
+      "Add/drop type": "Amplified C-F",
+      "Band": "L Band",
+      "Degree support": "-",
+      "Add/Drop count": "4"
+     }
+    },
+    {
+     "name": "SFD48",
+     "attributes": {
+      "Release": "GA",
+      "PSS shelf support": "N/A",
+      "Chassis support": "N/A",
+      "Slots required": "2RU",
+      "Add/drop type": "AWG",
+      "Band": "C band",
+      "Degree support": "-",
+      "Add/Drop count": "48"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 18,
+   "title": "1830 PSS: Add / Drop",
+   "inScope": true,
+   "products": [
+    {
+     "name": "SFD64",
+     "attributes": {
+      "Release": "GA",
+      "PSS shelf support": "N/A",
+      "Chassis support": "N/A",
+      "Slots required": "2RU",
+      "Add/drop type": "AWG",
+      "Band": "C band",
+      "Degree support": "-",
+      "Add/Drop count": "64"
+     }
+    },
+    {
+     "name": "MCS44",
+     "attributes": {
+      "Release": "R26.9",
+      "PSS shelf support": "PSS8/PSS16II/PSS32/PSI-4L/8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "Half slot",
+      "Add/drop type": "CDC-F",
+      "Band": "C & L band",
+      "Degree support": "4 degree",
+      "Add/Drop count": "4"
+     }
+    },
+    {
+     "name": "MCS88",
+     "attributes": {
+      "Release": "R27.Q3",
+      "PSS shelf support": "PSS8/PSS16II/PSS32/PSI-4L/8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1 slot",
+      "Add/drop type": "CDC-F",
+      "Band": "C & L band",
+      "Degree support": "8 degree",
+      "Add/Drop count": "8"
+     }
+    },
+    {
+     "name": "MCS168",
+     "attributes": {
+      "Release": "R27.Q4",
+      "PSS shelf support": "PSS8/PSS16II/PSS32/PSI-4L/8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "1 slot",
+      "Add/drop type": "CDC-F",
+      "Band": "C & L band",
+      "Degree support": "16 degree",
+      "Add/Drop count": "8"
+     }
+    },
+    {
+     "name": "ASC4SC",
+     "attributes": {
+      "Release": "R27.Q4",
+      "PSS shelf support": "PSS8/PSS16II/PSS32/PSI-4L/8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "2 slot",
+      "Add/drop type": "Amplified C-F",
+      "Band": "Super-C band",
+      "Degree support": "-",
+      "Add/Drop count": "4"
+     }
+    },
+    {
+     "name": "ASC4SL",
+     "attributes": {
+      "Release": "R28.1H",
+      "PSS shelf support": "PSS8/PSS16II/PSS32/PSI-4L/8L",
+      "Chassis support": "300mm & 450mm",
+      "Slots required": "2 slot",
+      "Add/drop type": "Amplified C-F",
+      "Band": "Super-L Band",
+      "Degree support": "-",
+      "Add/Drop count": "4"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 19,
+   "title": "1830 PSS HSEO Transponders : Super Coherent (High Perf)",
+   "inScope": true,
+   "products": [
+    {
+     "name": "S6AD600H/L/E (2W,1H)",
+     "attributes": {
+      "Release": "GA (PSS8, PSS16II, PSS32)",
+      "Line side interface": "1xBMDCO6/e embedded (PSEVs) / 1 x 200G-600G / 90GBd / 100-112.5GHz / S6AD600H/E : Cband, 4.8THz / S6AD600L : Lband, 4.8THz / Unidirectional 3R mode with recoloring / Baud-flexible profiles / Fast SoP tracking mode",
+      "Client side interface": "5xQSFP28 + 1x dual QSFP28/56-DD",
+      "Client types": "400GE, 100GE, OTU4",
+      "Encryption capabilities": "S6AD600E : L1 line encryption",
+      "Monitoring": "Basic analog and digital inc DMp / Enhanced OCH monitors inc Flight recorder / Traffic Recovery Time (TRT) log",
+      "Protection": "1+1 OCHP (OPSUM) - SF/SD, unidirectional / 1+1 OLP/OMSP (OPSA) - SF, unidirectional / 1+1 OSNCP (OPSB5) - SF/SD, unidirectional / Control Plane (GMRE) / LFI/SSF/CSF HO timers",
+      "Operations and NE administration": "LLDP snooping / GCC0 processing for DCN / Cluster support / Hitless FW upgrades",
+      "Test": "Basic (ETH pattern generation)"
+     }
+    },
+    {
+     "name": "D6AD2T4H/L (2W, 2H)",
+     "attributes": {
+      "Release": "GA (PSS16II)",
+      "Line side interface": "2xBMDCO12 embedded (PSE6s) / 2 x 300G-1.2T / 130GBd / 137.5-150GHz / D6AD2T4H : Cband, 4.8THz / D6AD2T4L : Lband, 4.8THz / Dual carrier inverse muxing (3x400GE) / Unidirectional 3R mode with recoloring / Baud-flexible profiles / Fast SoP tracking mode",
+      "Client side interface": "6xQSFP56-DD (3+3)",
+      "Client types": "400GE, 100GE, OTU4, 800GE.",
+      "Encryption capabilities": "N/A",
+      "Monitoring": "Basic analog and digital inc DMp / Enhanced OCH monitors inc Flight recorder / Traffic Recovery Time (TRT) log",
+      "Protection": "1+1 OCHP (OPSUM) - SF, unidirectional / 1+1 OLP/OMSP (OPSA) - SF, unidirectional / 1+1 OSNCP (OPSB5) - SF/SD, unidirectional / Control Plane (GMRE) / LFI/SSF/CSF HO timers",
+      "Operations and NE administration": "LLDP snooping / GCC0 processing for DCN / Cluster support / Hitless FW upgrades",
+      "Test": "Enhanced (ETH/OTN pattern inc. checkers, controlled error insertion, WS automation)"
+     }
+    },
+    {
+     "name": "D4AD1T6H (2W, 2H)",
+     "attributes": {
+      "Release": "GA (PSS16II)",
+      "Line side interface": "2xBMDCO8 embedded (PSE6s) / 2 x 400G/500G/600G/700G/800G / 130GBd / 137.5-150GHz / Cband, 4.8THz",
+      "Client side interface": "4xQSFP56-DD (2+2)",
+      "Client types": "400GE, 100GE, OTU4",
+      "Encryption capabilities": "N/A",
+      "Monitoring": "Basic analog and digital inc DMp / Enhanced OCH monitors",
+      "Protection": "1+1 OCHP (OPSUM) - SF, unidirectional / 1+1 OLP/OMSP (OPSA) - SF, unidirectional / Control Plane (GMRE) / LFI HO timer",
+      "Operations and NE administration": "LLDP snooping / Cluster support / Hitless FW upgrades",
+      "Test": "Enhanced (ETH/OTN pattern inc. checkers, controlled error insertion, WS automation)"
+     }
+    },
+    {
+     "name": "D6A2T4E/EL (2W, 2H)",
+     "attributes": {
+      "Release": "R25.12.4 GA (PSS16II)",
+      "Line side interface": "2xBMDCO12E/LE embedded (PSE6s) / 2 x 400G - 1.2T @ 130GBd / 137.5-150GHz / 800G / 1T / 1T2 TC @ 140GBd / 150GHz (C + L) / 900G TC @ 140GBd / 150GHz (L) (26.6 PostCP).  / 900G / 1T1 TC @ 140GBd / 150GHz (R27.1Q) / D6A2T4E : Cband, 4.8THz / D6A2T4EL : Lband, 4.8THz / 3x400GE, 5x400GE (R26.6 PostCP), 800GE combos (Future) dual carrier inv. mux.  / Baud-flexible profiles (C band) (R26.6 PostCP) / Fast SoP tracking mode / 3R single carrier (R26.9), dual carrier (R27.1Q) / Single working fiber (Future)",
+      "Client side interface": "4xQSFP56-DD + 2xQSFP56-DD/DD800 (R27.1Q)",
+      "Client types": "400GE, 100GE, OTU4, 800GE (R27.1Q), OTUC4 (Future)",
+      "Encryption capabilities": "L1 enc. AES256 (R27.1Q)",
+      "Monitoring": "Basic analog and digital inc DMp / Enhanced OCH monitors  / Traffic Recovery Time (R27.1Q)",
+      "Protection": "1+1 OCHP (OPSUM) - SF, unidirectional single carrier. SD, dual carrier (R27.1Q) / 1+1 OLP/OMSP (OPSA) - SF, unidirectional / 1+1 OSNCP (OPSB5) - SF/SD, unidirectional / Control Plane (GMRE) / LFI/SSF/CSF HO timers (R27.1Q)",
+      "Operations and NE administration": "LLDP snooping / GCC0 processing for DCN line and client (Future) / Cluster support / Hitless FW upgrades / Seamless swap with D6AD2T4H/L (R27.1Q)",
+      "Test": "Enhanced (ETH/OTN pattern inc. checkers, controlled error insertion, WS automation)"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 20,
+   "title": "1830 PSS HSEO Transponders : Compact",
+   "inScope": true,
+   "products": [
+    {
+     "name": "S13X400H/E (1W, 2H)",
+     "attributes": {
+      "Release": "GA (PSS4II, PSS8, PSS16II)",
+      "Line side interface": "Muxponder and dual-card add/drop (ADM) : / 1xC2DCO4 (CFP2, PSEVc) / Cband, 4.8THz / 1 x 100G-400G, 33GBd / 50GHz, 62GBd / 75GHz, 67GBd / 87.5GHz / Unidirectional 3R via S5AD400H / Client port-as-line (CAL), 2xQSFP28 lines / 2xQDCO1 (OTU4 mode) / 2xQSFP28 dual-rate black&white",
+      "Client side interface": "10xSFP28/+, 2xQSFP28, 1xQSFP56-DD / N+1 mating 18CE300 in MUX and CAL",
+      "Client types": "10GE, 25GE, 100GE, 400GE, OTU4, OTU2/2e, FC16/32 (R26.9), 100ZR (R27.Q1)",
+      "Encryption capabilities": "S13X400E : L1 encryption. MUX, CAL, ADM",
+      "Monitoring": "Basic analog and digital inc DMp / Enhanced OCH monitors",
+      "Protection": "1+1 OCHP (OPSUM) - SF, unidirectional / 1+1 OLP/OMSP (OPSA) - SF, unidirectional / 1+1 OSNCP (OPSB5) - SF, unidirectional / 1+1 ODUk SNCP (ADM/CAL) - SF/SD, bidi (R27.Q1) / Control Plane (GMRE) / LFI/SSF/CSF HO timers (R27.Q1)",
+      "Operations and NE administration": "LLDP snooping / GCC0 for DCN (client R27.Q1 and line) / Cluster support / Hitless FW upgrades",
+      "Test and Sync.": "Basic (Pattern generation and monitoring) / PTP/SyncE insertion extraction"
+     }
+    },
+    {
+     "name": "S5AD400H (1W, 2H)",
+     "attributes": {
+      "Release": "GA (PSS4II, PSS8, PSS16II, PSS32)",
+      "Line side interface": "1xC2DCO4 (CFP2, PSEVc) / 1 x 100G-400G / 33GBd / 50GHz, 62GBd / 75GHz, 67GBd / 87.5GHz / Cband, 4.8THz / Unidirectional 3R mode including encrypted S13X400E traffic",
+      "Client side interface": "4xQSFP28 + 1xQSFP56-DD",
+      "Client types": "400GE, 100GE, OTU4",
+      "Encryption capabilities": "No plans",
+      "Monitoring": "Basic analog and digital inc DMp / Enhanced OCH monitors",
+      "Protection": "1+1 OCHP (OPSUM) - SF/SD, unidirectional / 1+1 OLP/OMSP (OPSA) - SF, unidirectional / 1+1 OSNCP (OPSB5) - SF, unidirectional / Control Plane (GMRE) / LFI/SSF/CSF HO timers",
+      "Operations and NE administration": "LLDP snooping / GCC0 processing for DCN (client and line) / Cluster support / Hitless FW upgrades",
+      "Test and Sync.": "Basic (Pattern generation and monitoring)"
+     }
+    },
+    {
+     "name": "S2AD800R (1W, 1H)",
+     "attributes": {
+      "Release": "R26.9 (PSS4II/16II), 27.Q1 (PSS8NG)",
+      "Line side interface": "1xICE-X 800 (Tahoe DSP)  / Cband, 4.8THz / 800G Nokia and OR6.0 / 150GHz / 400G/600G OR6.0 / 137.5 \u2013 150GHz / 600G Nokia / 150GHz (27.Q1) / 400ZR & OpenZR+ / 75GHz (27.Q1)",
+      "Client side interface": "2xQSFP56-DD/DD-800, 2xQSFP28-DD (R27.1Q)",
+      "Client types": "100GE, 400GE, and 800GE (27.Q1)",
+      "Encryption capabilities": "No plans",
+      "Monitoring": "Basic analog and digital / Path delay measurement (27.Q1) / Enhanced OCH monitors  / Traffic Recovery Time (27.Q1)",
+      "Protection": "1+1 OCHP (OPSUM) - SF, unidirectional / 1+1 OLP/OMSP (OPSA) - SF, unidirectional (27.Q1) / 1+1 OSNCP (OPSB5) - SF, unid. (27.Q1) / SD OPS (27.Q1) / Control Plane (GMRE) / LFI HO timer",
+      "Operations and NE administration": "LLDP snooping / ECC line processing for DCN (27.Q1) / Cluster support / Hitless FW upgrades",
+      "Test and Sync.": "Basic (Pattern generation and monitoring)"
+     }
+    },
+    {
+     "name": "S2AD800H (1W, 1H)",
+     "attributes": {
+      "Release": "R28.1H (PSS4II, PSS8NG, PSS16II)",
+      "Line side interface": "1xICE-X 800 pluggable (Garda DSP)  / Cband, 4.8THz / Profiles : parity with S2AD800R. Additional high-performance modes.",
+      "Client side interface": "2xQSFP56-DD/DD-800, 2xQSFP28-DD",
+      "Client types": "100GE, 400GE, 800GE, OTU4, OTUC4",
+      "Encryption capabilities": "FlexOSec",
+      "Monitoring": "Basic analog and digital / Path delay measurement (27.Q1) / Enhanced OCH monitors  / Traffic Recovery Time",
+      "Protection": "1+1 OCHP (OPSUM) - SF/SD, unidirectional / 1+1 OLP/OMSP (OPSA) - SF, unidirectional / 1+1 OSNCP (OPSB5) - SF/SD, unidirectional / SD OPS (Future) / Control Plane (GMRE) / LFI/SSF/CSF HO timers",
+      "Operations and NE administration": "LLDP snooping / ECC processing for DCN (client and line) / Cluster support / Hitless FW upgrades",
+      "Test and Sync.": "Basic (Pattern generation and monitoring)"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 21,
+   "title": "1830 PSS LSEO OTN Transponder/Muxponder",
+   "inScope": true,
+   "products": [
+    {
+     "name": "8P20B (Half Height, 1-slot)",
+     "attributes": {
+      "Release": "GA (PSS-4II/8/16II/32)",
+      "Line side interface": "2 x SFP+ line ports (L1, L2) / OTU2/2e line rates / RSFEC/EFEC/NOFEC / B&W, CWDM, DWDM pluggables / VA1 and VA2 ports support VOA to tune line power.",
+      "Client side interface": "8xSFP client ports (C1-C8)  / B&W, electrical pluggables / Note: C7 and L1 share one port; C8 and L2 share one port; / C5 and VA1 share one port; C6 and VA2 share one port.",
+      "Client types": "FE, 1 GE, OC-3/12/48, STM-1/4/16, FC-100/200/400, 3GSDI, HD-SDI, SD-SDI, OTU1",
+      "Encryption capabilities": "N/A",
+      "Monitoring": "Optical, OTN/FEC, Ethernet/SDH/SONET/FC PMs / ODUk Path delay measurement",
+      "Protection": "1+1 ODU line SNCP \u2013SF/SD, unidirectional / 1+1 OSNCP (OPSB5) - SF, unidirectional",
+      "Operations and NE administration": "GCC0/GCC1/GCC2 communications channel / Facility /Terminal Loopbacks",
+      "Test": "-"
+     }
+    },
+    {
+     "name": "16P200 (Full Height, 1-slot)",
+     "attributes": {
+      "Release": "GA (PSS-4II/8/16II/32)",
+      "Line side interface": "2 x QSFP28 line ports (L1, L2) / OTU4 line rate / RSFEC/SCFEC/NOFEC / B&W, CWDM, Coherent 100GZR pluggables.",
+      "Client side interface": "12xSFP+/SFP28 client ports (C1-C12) / 2xQSFP+/QSFP28 client ports (C13-16, C17-20) / B&W, CWDM, DWDM pluggables",
+      "Client types": "10GE, OTU2/2e, OC-192/STM64, FC-8G/16G/32G, 100GE, OTU4",
+      "Encryption capabilities": "N/A",
+      "Monitoring": "Optical, OTN/FEC, Ethernet/SDH/SONET/FC PMs / ODUk Path delay measurement",
+      "Protection": "1+1 ODU line SNCP \u2013SF/SD, uni/bidirectional / 1+1 OSNCP (OPSB5) - SF/SD, unidirectional",
+      "Operations and NE administration": "GCC0/GCC1/GCC2 communications channel / Facility / Terminal Loopbacks",
+      "Test": "-"
+     }
+    },
+    {
+     "name": "12P120S (Full Height, 1-slot)",
+     "attributes": {
+      "Release": "GA (PSS-8/16II/32)",
+      "Line side interface": "6 x SFP+ line ports (L1 \u2013 L6) / OTU2/2e line rates / RSFEC/EFEC/EFEC2/NOFEC / Cross-regen between line ports / B&W, CWDM, DWDM pluggable / VA1 -VA6 ports support VOA to tune line power.",
+      "Client side interface": "6 x SFP+ client ports (C1 \u2013 C6) / B&W, CWDM, DWDM pluggable",
+      "Client types": "10GE, OC-192/STM64, OTU-2/2e, FC-800/1200",
+      "Encryption capabilities": "N/A",
+      "Monitoring": "Optical, OTN/FEC, Ethernet/SDH/SONET/FC PMs / ODUk Path delay measurement",
+      "Protection": "1+1 ODU line SNCP \u2013SF/SD, uni/bidirectional / 1+1 OLP/OMSP (OPSA) - SF, unidirectional / 1+1 OSNCP (OPSB5) - SF, unidirectional / 1+1 Standard Y-cable - SF/SD, uni/bidirectional",
+      "Operations and NE administration": "GCC0/GCC1/GCC2 communications channel / Facility / Terminal Loopbacks",
+      "Test": "-"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 22,
+   "title": "1830 PSS Integrated Packet Transport",
+   "inScope": true,
+   "products": [
+    {
+     "name": "12CE120 (Full Height,1-slot)",
+     "attributes": {
+      "Release": "GA (PSS-4II, PSS-8, PSS-16II)",
+      "Interface": "Flexible client/line, ETH/OTN configuration / 12 x SFP+ ports  / 10GE / OTU2e, selectable per port / B&W, Bidir, CWDM, DWDM, fixed or tunable transceivers",
+      "Backplane interface": "Backplane N+1 ILKN mating with uplinks 20P200, S13X100R, S13X100E, S13X400H, S13X400E",
+      "Port Rate": "10G",
+      "Services": "10GE, OTU2e",
+      "Packet networking": "IEEE 802.1Q Provider Bridging with S-VLAN and/or C-VLANs manipulation for connectionless packet transport / MPLS-TP for connection-oriented packet transport + VPLS-TP",
+      "MEF services": "All Carrier Ethernet service types: E-Line, E-LAN, E-Tree, Access E-Line, Transit E-Line / Private (port-based) and virtual (VLAN-based) services",
+      "QoS": "Multi-CoS architecture aligned with MEF, using SR OS service model with deep packet buffering / Flexible ingress classification, rate control/policing, queuing, congestion management, and scheduling options",
+      "Protection": "Ethernet Ring Protection (ERP) with ring interconnection (ITU-T G.8032) / Link Aggregation (IEEE 802.1AX), including Multi-Chassis LAG, LAG PSFD / MPLS-TP 1:1 LSP Protection (RFC 6378, ITU-T G.8131), Pseudowire Redundancy (RFC 6718) / Self-measurement of Ethernet protection switching time",
+      "Security": "IEEE 802.1X PNAC",
+      "OAM": "IEEE 802.1ag, ITU-T Y.1731, MEF17/30/35.1 Ethernet Service OAM, IEEE 802.3ah (EFM)  / MPLS-TP OAM (IETF/ITU-T G.8113.2) / Performance monitoring for SLAs for proactive/predictive maintenance at all granularities: port, SAP, ingress CoS, queue  / ITU-T Y.1564 SAT and EVC loopback / Port and service mirroring"
+     }
+    },
+    {
+     "name": "12CE121 (Full Height,1-slot)",
+     "attributes": {
+      "Release": "GA (PSS-4II, PSS-8, PSS-16II)",
+      "Interface": "Flexible client/line configuration / 12 x SFP / SFP+ ports  / FE / 1GE / 10GE selectable per port / B&W, Bidir, CWDM, DWDM, fixed or tunable transceivers  / TSoP, CSoP, TPoP Smart SFPs",
+      "Port Rate": "0.1G - 10G",
+      "Services": "FE, 1GE, 10GE"
+     }
+    },
+    {
+     "name": "1CE100Q (Full Height,1-slot)",
+     "attributes": {
+      "Release": "GA (PSS-4II, PSS-8, PSS-16II)",
+      "Interface": "1 x QSFP28 (100GE) / 100GBASE - SR4 / LR4 / CWDM4 / 4WDM-10 / ER4-lite / FR1 / LR1",
+      "Port Rate": "100G",
+      "Services": "100GE"
+     }
+    },
+    {
+     "name": "18CE300 (Full Height,1-slot)",
+     "attributes": {
+      "Release": "GA (PSS-4II, PSS-8, PSS-16II, PSS-32)",
+      "Interface": "1 x 100GE QSFP28 (DWDM or B&W) / 4 x 10GE or OTU2e SFP+ or 4 x 25GE SFP28 or 1 x 100GE QSFP28 (DWDM or B&W) / 100G ZR DCO  / 12 x SFP/SFP+ (FE/GE/10GE) / TSoP, CSoP, TPoP Smart SFPs",
+      "Port Rate": "0.1G - 100G",
+      "Services": "FE, 1GE, 10GE, 25GE, 100GE, OTU2e"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 23,
+   "title": "1830 PSI-M Transponder Sleds",
+   "inScope": true,
+   "products": [
+    {
+     "name": "SFM6/L/E",
+     "attributes": {
+      "Release": "GA",
+      "Line side interface": "1xBMDCO6/e embedded (PSEVs) / 1 x 200G-600G / 90GBd / 100-112.5GHz / SFM6/E : Cband, 4.8THz / SFM6L : Lband, 4.8THz / 3R mode with recoloring / Baud-flexible profiles / Fast SoP tracking mode",
+      "Client side interface": "5xQSFP28 + 1x QSFP28/56-DD",
+      "Client Types": "400GE, 100GE, OTU4, 100ZR",
+      "Encryption capabilities": "SFM6E : 100GE/OTU4/400GE L1 AES256 w/GCM",
+      "Monitoring": "Basic analog and digital inc DMp / Enhanced OCH monitors inc Flight recorder (Sensing) / Traffic Recovery Time (TRT) log / Streaming Telemetry",
+      "Protection": "1+1 OCHP (OPSUM), unidirectional / 1+1 OLP/OMSP (OPSA), unidirectional / 1+1 OSNCP (OPSB5) - SF/SD, unidirectional / Control Plane (GMRE) / LFI/SSF/CSF HO timers",
+      "Operations and NE administration": "LLDP snooping / GCC0 processing for DCN / Cluster support / Hitless FW upgrades / NETCONF/gNMI",
+      "Test": "Basic (ETH pattern generation)"
+     }
+    },
+    {
+     "name": "DMAT6/L",
+     "attributes": {
+      "Release": "GA",
+      "Line side interface": "2xBMDCO12 embedded (PSE6s) / 2 x 300G-1.2T / 130GBd / 137.5-150GHz / DMAT6 : Cband, 4.8THz / DMAT6L : Lband, 4.8THz / Dual carrier inverse muxing (3x400GE) / Baud-flexible profiles / Fast SoP tracking mode",
+      "Client side interface": "4xQSFP56-DD + 2xQSFP56-DD/DD800",
+      "Client Types": "400GE, 400ZR+, 100GE, OTU4, OTUC4, 800GE",
+      "Encryption capabilities": "N/A",
+      "Monitoring": "Basic analog and digital inc DMp / Enhanced OCH monitors inc Flight recorder (sensing) / Traffic Recovery Time (TRT) log / Streaming Telemetry",
+      "Protection": "1+1 OCHP (OPSUM), unidirectional / 1+1 OLP/OMSP (OPSA), unidirectional / 1+1 OSNCP (OPSB5) - SF/SD, unidirectional / Control Plane (GMRE) / LFI/SSF/CSF HO timers",
+      "Operations and NE administration": "LLDP snooping / GCC0 processing for DCN / Cluster support / Hitless FW upgrades / NETCONF/gNMI, MD-CLI",
+      "Test": "Enhanced (ETH/OTN pattern inc. checkers, controlled error insertion, WS automation)"
+     }
+    },
+    {
+     "name": "DMAT6E/EL",
+     "attributes": {
+      "Release": "R25.12.3 GA",
+      "Line side interface": "DMAT6E : Cband, 4.8THz; DMAT6EL : Lband, 4.8THz / 2 x 400G - 1.2T @ 130GBd / 137.5-150GHz / 800G, 1T, 1.2T TC @ 140GBd / 150-162.5GHz / 900G TC @ 140GBd / 150GHz (L) / 900G / 1T1 TC @ 140GBd / 150GHz (R27.1Q) / 3x400GE & 5x400GE dual carrier inv. mux.\u00a0(800GE - Future) / Baud-flexible profiles / Unidirectional 3R mode with recoloring / Fast SoP tracking mode",
+      "Client side interface": "4xQSFP56-DD + 2xQSFP56-DD/DD800",
+      "Client Types": "400GE, 400ZR+, 100GE, OTU4, 800GE. OTUC4 (Future)",
+      "Encryption capabilities": "L1 enc. (AES256). 100GE & 400GE. 800GE (Future)",
+      "Monitoring": "Basic analog and digital inc DMp / Enhanced OCH monitors  / Streaming Telemetry",
+      "Protection": "1+1 OCHP (OPSUM) - SF, unidirectional; dual carrier (R27.1Q) / 1+1 OLP/OMSP (OPSA, OPSCL) - SF, unidirectional / 1+1 OSNCP (OPSB5) - SF, unidirectional / Control Plane (GMRE) / LFI/SSF/CSF HO timers",
+      "Operations and NE administration": "LLDP snooping / GCC0 processing (line side) for DCN remote management / Cluster support / Hitless FW upgrades / NETCONF/gNMI, MD-CLI / Seamless swap of DMAT6/L (R27.1Q)",
+      "Test": "Enhanced (ETH/OTN pattern inc. checkers, controlled error insertion, WS automation)"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 24,
+   "title": "1830 PSI-M Transponder Sleds",
+   "inScope": true,
+   "products": [
+    {
+     "name": "SQX10",
+     "attributes": {
+      "Release": "GA",
+      "Line side interface": "OTU4 Muxponder / 1x OTU4 / QSFP28 Dual Rate SR4, LR4, FR1, LR1",
+      "Client side interface": "10xSFP+",
+      "Client types": "10GE, OTU2/2e, STM64/OC192, FC10",
+      "Encryption capabilities": "-",
+      "Monitoring": "Basic analog and digital inc DMp",
+      "Protection": "1+1 OCHP (OPSUM), cascade w/ coherent sled / 1+1 OLP/OMSP, cascade w/ coherent sled / LFI HO timers",
+      "Operations and NE administration": "LLDP snooping / Hitless FW upgrades / Path Delay Measurement / Streaming Telemetry (R26.9)",
+      "Test": "Basic (ETH pattern generation)"
+     }
+    },
+    {
+     "name": "DD2M4",
+     "attributes": {
+      "Release": "GA",
+      "Line side interface": "2x C2DCO4 (CFP2, PSEVc) / 2x 100G-400G / 33GBd / 50GHz, 62GBd / 75GHz, 67GBd / 87.5GHz / Cband, 4.8THz",
+      "Client side interface": "2xQSFP28 + 2xQSFP28/56-DD",
+      "Client types": "400GE, 100GE, OTU4",
+      "Encryption capabilities": "-",
+      "Monitoring": "Basic analog and digital inc DMp / Enhanced OCH monitors",
+      "Protection": "1+1 OCHP (OPSUM) - SF, unidirectional / 1+1 OLP/OMSP (OPSA) - SF, unidirectional / LFI/SSF/CSF HO timers",
+      "Operations and NE administration": "LLDP snooping / GCC0 remote management / Cluster support / Hitless FW upgrades",
+      "Test": "Basic (ETH pattern generation)"
+     }
+    },
+    {
+     "name": "DDQT2",
+     "attributes": {
+      "Release": "GA",
+      "Line side interface": "2x QSFP-DD 400ZR+ / ZR+ profiles : 400G @ 60Gbaud / 75, 100GHz / Cband, 4.8THz / 3R mode",
+      "Client side interface": "2x QSFP56-DD",
+      "Client types": "100GE, 400GE",
+      "Encryption capabilities": "-",
+      "Monitoring": "Basic analog and digital / Enhanced OCH monitors",
+      "Protection": "LFI HO timers / 1+1 OMSP/OLP (OPSA)",
+      "Operations and NE administration": "Cluster support",
+      "Test": "Future"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 25,
+   "title": "1830 PSS-X: Chassis",
+   "inScope": true,
+   "products": [
+    {
+     "name": "PSS-8x",
+     "attributes": {
+      "Release": "GA",
+      "Applications": "L1 / 1T6, 4T",
+      "Footprint/depth": "10RU/300mm",
+      "Mounting": "19\u201d/21\u201d/23\u201d",
+      "Service slots": "8",
+      "Controller FRU": "Dual",
+      "I/O FRU": "8",
+      "Fans": "3 fans, top, 1:N",
+      "Power supply config": "2 PSU, Front, 1+1",
+      "Power supply": "D/C"
+     }
+    },
+    {
+     "name": "PSS-12x",
+     "attributes": {
+      "Release": "GA",
+      "Applications": "L1 / 4T8, 12T",
+      "Footprint/depth": "21RU/300mm",
+      "Mounting": "21\u201d/23\u201d",
+      "Service slots": "24",
+      "Controller FRU": "Dual",
+      "I/O FRU": "24",
+      "Fans": "3 fans, top, 1:N",
+      "Power supply config": "2 PSU, Front, 1+1",
+      "Power supply": "D/C"
+     }
+    },
+    {
+     "name": "PSS-24x",
+     "attributes": {
+      "Release": "GA",
+      "Applications": "L1 / 9T6, 24T, 48T and L2",
+      "Footprint/depth": "23RU/450mm",
+      "Mounting": "21\u201d/23\u201d",
+      "Service slots": "24",
+      "Controller FRU": "Dual",
+      "I/O FRU": "24",
+      "Fans": "3 fans, top, 1:N",
+      "Power supply config": "4 PSU, Rear, 1+1",
+      "Power supply": "D/C"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 26,
+   "title": "1830 PSS-8x/-12x: I/O Card Overview",
+   "inScope": true,
+   "products": [
+    {
+     "name": "20MX80",
+     "attributes": {
+      "Release": "GA",
+      "Line side interface": "10G OTU2/2e tunable",
+      "Client side interface": "16xsub10G SFP / 4x10G",
+      "Client types": "FE/1GE, OTU1 / STM-64/OC192, 10GE, OTU2/2e, CWDM, BIDI",
+      "Encryption capabilities": "N/A",
+      "Switching and aggregation": "ODU0/1/2/2e/4/flex",
+      "Protection": "1+1 SNC/Nc/Ns/Ne,  / uni-/bidi-rectional, revertive / OPSB5, Y-cable / L1/L0/MRN Control Plane"
+     }
+    },
+    {
+     "name": "20AX200",
+     "attributes": {
+      "Release": "GA",
+      "Line side interface": "10G OTU2/2e tunable",
+      "Client side interface": "20x10G SFP+ / - STM-64/OC192, 10GE, OTU2/2e",
+      "Client types": "STM-64/OC192, 10GE, OTU2/2e, CWDM, BIDI",
+      "Encryption capabilities": "N/A",
+      "Switching and aggregation": "ODU0/1/2/2e/4/flex",
+      "Protection": "1+1 SNC/Nc/Ns/Ne,  / uni-/bidi-rectional, revertive / OPSB5, Y-cable / L1/L0/MRN Control Plane"
+     }
+    },
+    {
+     "name": "5MX500",
+     "attributes": {
+      "Release": "GA",
+      "Line side interface": "1 port  / 5x 100ZR / (2x 100ZR on 4MX200)",
+      "Client side interface": "5x100GE/OTU4 / 1x400GE / FlexO prepared",
+      "Client types": "400GE, 100GE, OTU4",
+      "Encryption capabilities": "N/A",
+      "Switching and aggregation": "ODU0/1/2/2e/4/flex",
+      "Protection": "1+1 SNC/Nc/Ns/Ne,  / uni-/bidi-rectional, revertive / OPSB5, Y-cable / L1/L0/MRN Control Plane"
+     }
+    },
+    {
+     "name": "2UX200",
+     "attributes": {
+      "Release": "GA",
+      "Line side interface": "2 port / 2x 100G QPSK 33GBaud / 1x 200G QPSK 33GBaud",
+      "Client side interface": "N/A",
+      "Client types": "N/A",
+      "Encryption capabilities": "N/A",
+      "Regeneration": "3R Support S2AD200",
+      "Switching and aggregation": "ODU0/1/2/2e/4/flex",
+      "Protection": "1+1 SNC/Nc/Ns/Ne,  / uni-/bidi-rectional, revertive / OLP, OMSP, OPSflex / L1/L0/MRN Control Plane"
+     }
+    },
+    {
+     "name": "2UX500",
+     "attributes": {
+      "Release": "GA",
+      "Line side interface": "2 port / 100G \u2026 400G / Up to 67GBaud",
+      "Client side interface": "N/A",
+      "Client types": "N/A",
+      "Encryption capabilities": "HW version needed* / No plans",
+      "Regeneration": "3R Support S5AD400H",
+      "Switching and aggregation": "ODU0/1/2/2e/4/C4/flex",
+      "Protection": "1+1 SNC/Nc/Ns/Ne,  / uni-/bidi-rectional, revertive / OLP, OMSP, OPSflex / L1/L0/MRN Control Plane"
+     }
+    },
+    {
+     "name": "1UX500/E",
+     "attributes": {
+      "Release": "GA",
+      "Line side interface": "1 port / 1x 200G \u2026 500G / Up to 87GBaud / OTU4/OTUC4",
+      "Client side interface": "N/A",
+      "Client types": "N/A",
+      "Encryption capabilities": "1UX500E HW prepared; L1 enc. AES256 (R27.1Q)",
+      "Regeneration": "3R Support S6AD600H",
+      "Switching and aggregation": "ODU0/1/2/2e/4/C4/flex",
+      "Protection": "1+1 SNC/Nc/Ns/Ne,  / uni-/bidi-rectional, revertive / OLP, OMSP, OPSUM / L1/L0/MRN Control Plane"
+     }
+    },
+    {
+     "name": "2UX1T",
+     "attributes": {
+      "Release": "R28.1H",
+      "Line side interface": "2 port / Pluggables (Garda DSP) / Port 1: 1x 400G / Port 2: 1x 400/600/800 / Up to 130+ GBaud",
+      "Client side interface": "N/A",
+      "Client types": "N/A",
+      "Encryption capabilities": "HW prepared",
+      "Regeneration": "3R support S2AD800H",
+      "Switching and aggregation": "ODU0/1/2/2e/4/C4/flex",
+      "Protection": "1+1 SNC/Nc/Ns/Ne,  / uni-/bidi-rectional, revertive / OLP, OMSP, OPSUM / L1/L0/MRN Control Plane"
+     }
+    }
+   ],
+   "captions": [
+    "1x 200G \u03bb\n2x 100G \u03bb",
+    "5x 100G ZR \u03bb",
+    "1x 400G \u03bb\n2x200G \u03bb",
+    "1x 500G \u03bb",
+    "CFP4-ACO",
+    "Embedded BMDCO6",
+    "CFP2-DCO",
+    "1x 800G \u03bb \n2x 400G \u03bb",
+    "QDCO1",
+    "ICE-X800",
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 27,
+   "title": "1830 PSS-24x: Line Card Overview",
+   "inScope": true,
+   "products": [
+    {
+     "name": "8UC1T",
+     "attributes": {
+      "Release": "GA",
+      "Line side interface": "8port / 8x 100G QPSK 33GBaud / 5x 200G QPSK 33GBaud",
+      "Client side interface": "N/A",
+      "Client types": "N/A",
+      "Encryption capabilities": "N/A",
+      "Regeneration": "3R Support S2AD200",
+      "Switching and aggregation": "ODU0/1/2/2e/4/flex",
+      "Protection": "1+1 SNC/Nc/Ns/Ne,  / uni-/bidi-rectional, revertive / OLP, OMSP, OPSflex / L1/L0/MRN Control Plane"
+     }
+    },
+    {
+     "name": "4UC1T",
+     "attributes": {
+      "Release": "GA",
+      "Line side interface": "4 port / 100G \u2026 400G / Up to 67GBaud",
+      "Client side interface": "N/A",
+      "Client types": "N/A",
+      "Encryption capabilities": "HW version needed* / No plans",
+      "Regeneration": "3R Support S5AD400H",
+      "Switching and aggregation": "ODU0/1/2/2e/4/C4/flex",
+      "Protection": "1+1 SNC/Nc/Ns/Ne,  / uni-/bidi-rectional, revertive / OLP, OMSP, OPSflex / L1/L0/MRN Control Plane"
+     }
+    },
+    {
+     "name": "2UC1T/E",
+     "attributes": {
+      "Release": "GA",
+      "Line side interface": "2 port / 2x 200G \u2026 500G / Up to 87GBaud / OTU4/OTUC4",
+      "Client side interface": "N/A",
+      "Client types": "N/A",
+      "Encryption capabilities": "2UC1TE version available",
+      "Regeneration": "3R Support S6AD600H",
+      "Switching and aggregation": "ODU0/1/2/2e/4/C4/flex",
+      "Protection": "1+1 SNC/Nc/Ns/Ne,  / uni-/bidi-rectional, revertive / OLP, OMSP, OPSUM / L1/L0/MRN Control Plane"
+     }
+    },
+    {
+     "name": "2UC1TH/E",
+     "attributes": {
+      "Release": "GA/R27.Q3",
+      "Line side interface": "2 port / Port 1: 1x 300G \u2026 500G / Port 2: 1x 300G \u2026 1T / Up to 130 / 140 GBaud / BMDCO12E/LE (27.Q1)",
+      "Client side interface": "N/A",
+      "Client types": "N/A",
+      "Encryption capabilities": "2UC1THE L1 enc. AES256 (R27.Q3)",
+      "Regeneration": "3R support D6A* versions",
+      "Switching and aggregation": "ODU0/1/2/2e/4/C4/flex",
+      "Protection": "1+1 SNC/Nc/Ns/Ne,  / uni-/bidi-rectional, revertive / OLP, OMSP, OPSUM / L1/L0/MRN Control Plane"
+     }
+    },
+    {
+     "name": "2UC1TC",
+     "attributes": {
+      "Release": "R28.1H",
+      "Line side interface": "2 port / Pluggables (Garda DSP) / Port 1: 1x 400G / Port 2: 1x 400/600/800G / Up to 130+ GBaud",
+      "Client side interface": "N/A",
+      "Client types": "N/A",
+      "Encryption capabilities": "HW prepared",
+      "Regeneration": "3R support S2AD800H",
+      "Switching and aggregation": "ODU0/1/2/2e/4/C4/flex",
+      "Protection": "1+1 SNC/Nc/Ns/Ne,  / uni-/bidi-rectional, revertive / OLP, OMSP, OPSUM / L1/L0/MRN Control Plane"
+     }
+    }
+   ],
+   "captions": [
+    "5x 200G \u03bb\n8x 100G \u03bb",
+    "2x 400G \u03bb\n4x200G \u03bb",
+    "2x 500G \u03bb",
+    "CFP4-ACO",
+    "BMDCO6/L",
+    "CFP2-DCO",
+    "BMDCO12/L\nBMDCO12E/LE",
+    "1x 1T \u03bb\n2x 500G \u03bb",
+    "1x 800G \u03bb\n2x 400G \u03bb",
+    "ICE-X800",
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 28,
+   "title": "1830 PSS-24x: Client Card Overview incl. Carrier Ethernet Cards",
+   "inScope": true,
+   "products": [
+    {
+     "name": "20AN80",
+     "attributes": {
+      "Release": "GA",
+      "Line side interface": "10G OTU2/2e tunable",
+      "Client side interface": "16xsub10G SFP / 4x10G",
+      "Client types": "FE/1GE, OTU1 / STM-64/OC192, 10GE, OTU2/2e, CWDM, BIDI",
+      "Encryption capabilities": "N/A",
+      "Switching and aggregation": "ODU0/1/2/2e/4/flex",
+      "Protection": "1+1 SNC/Nc/Ns/Ne,  / uni-/bidi-rectional, revertive / OPSB5, Y-cable / L1/L0/MRN Control Plane"
+     }
+    },
+    {
+     "name": "30AN300",
+     "attributes": {
+      "Release": "GA",
+      "Line side interface": "10G OTU2/2e tunable",
+      "Client side interface": "30x10G SFP+ / - STM-64/OC192, 10GE, OTU2/2e",
+      "Client types": "STM-64/OC192, 10GE, OTU2/2e, CWDM, BIDI",
+      "Encryption capabilities": "N/A",
+      "Switching and aggregation": "ODU0/1/2/2e/4/flex",
+      "Protection": "1+1 SNC/Nc/Ns/Ne,  / uni-/bidi-rectional, revertive / OPSB5, Y-cable / L1/L0/MRN Control Plane"
+     }
+    },
+    {
+     "name": "10AN1T",
+     "attributes": {
+      "Release": "GA",
+      "Line side interface": "10 port  / 10x 100ZR",
+      "Client side interface": "10x100GE/OTU4 / 2x400GE / FlexO prepared",
+      "Client types": "400GE, 100GE, OTU4",
+      "Encryption capabilities": "N/A",
+      "Switching and aggregation": "ODU0/1/2/2e/4/flex",
+      "Protection": "1+1 SNC/Nc/Ns/Ne,  / uni-/bidi-rectional, revertive / OPSB5, Y-cable / L1/L0/MRN Control Plane"
+     }
+    },
+    {
+     "name": "30SE300",
+     "attributes": {
+      "Release": "GA",
+      "Line side interface": "N/A",
+      "Client side interface": "30x 1/10GE / Mapping into ODU2e/4/flex",
+      "Client types": "IEEE 802.1Q Provider Bridging with S-VLAN and/or C-VLANs manipulation for connectionless packet transport / MPLS-TP for connection-oriented packet transport + VPLS-TP",
+      "Encryption capabilities": "All Carrier Ethernet service types: E-Line, E-LAN, E-Tree, Access E-Line, Transit E-Line / Private (port-based) and virtual (VLAN-based) services",
+      "Regeneration": "Multi-CoS architecture aligned with MEF, using SR OS service model with deep packet buffering / Flexible ingress classification, rate control/policing, queuing, congestion management, and scheduling options",
+      "Switching and aggregation": "Ethernet Ring Protection (ERP) with ring interconnection (ITU-T G.8032) / Link Aggregation (IEEE 802.1AX), including Multi-Chassis LAG, LAG PSFD / MPLS-TP 1:1 LSP Protection (RFC 6378, ITU-T G.8131), Pseudowire Redundancy (RFC 6718)",
+      "Protection": "IEEE 802.1ag, ITU-T Y.1731, MEF17/30/35.1 Ethernet Service OAM, IEEE 802.3ah (EFM)  / MPLS-TP OAM (IETF/ITU-T G.8113.2) / Performance monitoring for SLAs for proactive/predictive maintenance at all granularities: port, SAP, ingress CoS, queue  / ITU-T Y.1564 SAT and EVC loopback / Port and service mirroring / IEEE 802.1X PNAC"
+     }
+    },
+    {
+     "name": "6SE300",
+     "attributes": {
+      "Release": "GA",
+      "Line side interface": "N/A",
+      "Client side interface": "3x 100GE / Mapping into ODU2e/4/flex"
+     }
+    }
+   ],
+   "captions": [
+    "10x 100G ZR \u03bb",
+    "QDCO1",
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 29,
+   "title": "1830 PSS-HC: Chassis",
+   "inScope": true,
+   "products": [
+    {
+     "name": "PSS-4hc",
+     "attributes": {
+      "Release": "R26.6",
+      "Applications": "L1, TDS",
+      "Footprint/depth": "6RU/450mm",
+      "Mounting": "19\u201d/21\u201d/23\u201d",
+      "Service slots": "4",
+      "Controller FRU": "Dual",
+      "I/O FRU": "4",
+      "Fans": "4 fans, rear, N+1",
+      "Power supply config": "4 PSU, rear, N+N, N+1 (2+2 DC or AC)",
+      "Power Supply": "A/C / D/C"
+     }
+    },
+    {
+     "name": "PSS-10hc",
+     "attributes": {
+      "Release": "R26.6",
+      "Applications": "L1, TDS",
+      "Footprint/depth": "15RU/450mm",
+      "Mounting": "19\u201d/21\u201d/23\u201d",
+      "Service slots": "10",
+      "Controller FRU": "Dual",
+      "I/O FRU": "10",
+      "Fans": "3 fans, rear, N+1",
+      "Power supply config": "12 PSU, rear, N+N, N+1 (5+5, 3+3 DC, 5+2, 3+2 AC)",
+      "Power Supply": "A/C / D/C"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 30,
+   "title": "1830 PSS-HC: I/O Cards",
+   "inScope": true,
+   "products": [
+    {
+     "name": "4CP4T8",
+     "attributes": {
+      "Release": "R26.6.0",
+      "Line side interface": "(4) x 400G-1.2 Tb/s pluggable WDM line ports (BMDCO12E/LE, PSE6s, 130-140Gbaud / 150GHz) / BMDCO12E : Cband, 4.8THz / BMDCO12LE : Lband, 4.8THz / 400GE dual carrier inv. muxing. 800GE combos (Future) / Baud-flexible profiles (Cband only) / Fast SoP tracking mode / Client grouping for up to 1Tbps 100G LR4 traffic",
+      "Client side interface": "8 x QSFP56-DD  / 4 x QSFP56-DD/QSFPDD-800",
+      "Client types": "400GE / 800GE via LR4/FR4 / 100GE/OTU4 via 4xLR1/FR1 (DR4+/++) or 2xLR4 (QSFP28-DD) / OTUC4 (Future)",
+      "Encryption capabilities": "Per module BMDCO12E, BMDCO12LE and licensed (R27.Q1)",
+      "Monitoring": "Basic analog and digital inc DMp / Enhanced OCH monitors / Traffic Recovery Time (R27.Q1)",
+      "Regeneration": "Unidirectional 3R mode with recoloring (R27.Q1)",
+      "Operations and NE administration": "LLDP snooping / GCC0 processing for DCN (client and line) (R27.Q1) / Cluster support / Hitless FW upgrades",
+      "Protection": "OSNCP (OPSB5), OCHP (OPSUM), OLP/OMSP (OPSA),  / Digital OPS (R27.Q3) / L0/MRN Control Plane / LFI/SSF/CSF HO timers"
+     }
+    },
+    {
+     "name": "42P800",
+     "attributes": {
+      "Release": "R26.9",
+      "Line side interface": "2 x 400G QSFP56-DD connect to ClassicPonder cards for DWDM transport / DR4+/++ / DAC (R26.2H) / ICE-X800 400G mode (future)",
+      "Client side interface": "Up to 40x SFP+/SFP28",
+      "Client types": "20 + 20 x 10GbE / 16 + 16 x 25GbE (R27.Q1) / 20 + 20 x OTU2/2e (R27.Q1) / 20 + 20 x FC16 (R27.Q1) / 12 + 12 x FC32 (R27.Q1)",
+      "Encryption capabilities": "-",
+      "Monitoring": "Basic analog and digital",
+      "Regeneration": "N/A",
+      "Operations and NE administration": "LLDP snooping / GCC0 processing for DCN extension (R27.Q1) / Cluster support / Hitless FW upgrades",
+      "Protection": "OSNCP (OPSB5), OCHP (OPSUM), OLP/OMSP (OPSA), and Ycable (R27.Q1) / ODUk SNCP (R27.Q3) / LFI/SSF/CSF HO timers (R27.Q1)"
+     }
+    },
+    {
+     "name": "16CP12T8",
+     "attributes": {
+      "Release": "R27.Q1",
+      "Line side interface": "Up to 16 x 800Gb/s WDM line ports,  / QSFP-DD cages. / Compatible with ICEX800G lines (ICE8 Tahoe / Garda) both C-band and L-band / 400G/600G/800 HP and OR6.0 / OIF and ZR+ (Future) / Dual and Triple carrier Inverse multiplexing (Future)",
+      "Client side interface": "4 clients to 2 lines, 4TO2 : Up to 21 x QDD clients / 3 clients to 3 lines, 3TO3 (Future) : Up to 16 x QDD clients",
+      "Client types": "100GE/400GE / 800GE (R27.3Q) / OTU4 and OTUC4 (Future)",
+      "Encryption capabilities": "Per module ICE8 Garda and licensed (Future)",
+      "Monitoring": "Basic analog and digital / Enhanced OCH monitors  / Traffic Recovery Time (Future)",
+      "Regeneration": "Unidirectional / Bidirectional 3R (R27.3Q)",
+      "Operations and NE administration": "LLDP snooping / FCC processing for DCN extension (Future) / Cluster support / Hitless FW upgrades",
+      "Protection": "OSNCP (OPSB5), OCHP (OPSUM), OLP/OMSP (OPSA) / Digital OPS (Future) / L0/MRN Control Plane / LFI/SSF/CSF HO timers (Future)"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 31,
+   "title": "1830 PSD: Chassis",
+   "inScope": false,
+   "products": [
+    {
+     "name": "PSD-2",
+     "attributes": {
+      "Release": "GA",
+      "Applications": "L1",
+      "Footprint/depth": "40 mm (1.57 in) x 192mm (7.56 in) x 207 mm (8.15 in)",
+      "Mounting": "19\u201d/21\u201d/23\u201d",
+      "Service slots": "1",
+      "Controller FRU": "Single",
+      "I/O FRU": "Integrated",
+      "Fans": "Passive cooling",
+      "Power supply config": "2 PSU, Rear, 1+1",
+      "Power supply": "A/C / D/C"
+     }
+    },
+    {
+     "name": "PSD-200",
+     "attributes": {
+      "Release": "26.6",
+      "Applications": "L1",
+      "Footprint/depth": "44 mm (1.73 in) x 444mm (17.48 in) x 450 mm (17.71 in)",
+      "Mounting": "19\u201d/21\u201d/23\u201d",
+      "Service slots": "1",
+      "Controller FRU": "Single",
+      "I/O FRU": "Integrated",
+      "Fans": "2 fans, rear",
+      "Power supply config": "2 PSU, Rear, 1+1",
+      "Power supply": "A/C / D/C"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 32,
+   "title": "1830 PSD-2",
+   "inScope": false,
+   "products": [
+    {
+     "name": "PSD-2",
+     "attributes": {
+      "Release": "GA",
+      "Line side interface": "OTN: OTU1, OTU2/2e / Ethernet: 10 GbE / B&W, Bi-directional, CWDM, DWDM colored / Dual services support with SNCP",
+      "Client side interface": "2 port: Smart SFP, SFP, SFP+",
+      "Client types": "Ethernet: FE, 1 GbE, 10 GbE (LAN) / SDH/SONET: sub-2.5G, 2.5G, E1, T1 / OTN: OTU1, OTU2/2e / 2x GE/10GE ODUFlex (GFP-F) or 2xGE GFP-T ODU0 with ADM/SNCP for spur & ring applications",
+      "Encryption capabilities": "ODU2e Encryption, AES-256 with GCM for 10GE services, and GE and STM-16/0C-48 services by using smart SFP",
+      "Switching and aggregation": "20G OTN multiplexing with ADM support / Multiple system modes",
+      "OAM&P": "1830 PSS equivalent OAM functions (SNMP, OSPF, SSH, SFTP, FM/PM, etc.) / Zero Touch Provisioning,  / Dying gasp via SNMP notification",
+      "Protection capabilities": "Unidirectional 1+1 SNC Protection"
+     }
+    }
+   ],
+   "captions": [
+    "2x 10G \u03bb",
+    "Metro Edge Applications\nVertically integrated for cost optimization\nOTN Aggregation optimized Application\nSyncE and PTP transparency\nETR -15\u00b0C to 65\u00b0C, passive cooling\nZTP (remote commissioning)",
+    "Management/ craft\u000binterfaces",
+    "Dual Client interfaces\u000b(SFP/SFP+)",
+    "Dual Network interfaces\u000b(SFP+)",
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 33,
+   "title": "1830 PSD-200",
+   "inScope": false,
+   "products": [
+    {
+     "name": "PSD-200",
+     "attributes": {
+      "Release": "GA",
+      "Shelf and common parts": "1RU, 450mm depth shelf for CO and OSP deployment / ETR -10\u2218C to 65\u2218C / Front to back cooling with 1+1 fan redundancy / Redundant AC 1+1 or DC 1+1 power feeding / Installation option for 19\u201d/21\u201d/23\u201d rack or cabinet",
+      "Switching and aggregation": "200G OTN multiplexing",
+      "Line side interface": "2 x OTU4 / B&W, DWDM coherent",
+      "Client side interface": "2 x QSFP28/+ port: OTU4*, 100GE or 4 x 10GE / 12 x SFP28/+ : OTU2/2e, 10GE, STM64/OC192, FC 8/16/32G, 1GE (HW ready)",
+      "Aux function interface": "2 x QSFP-DD port for optional AMP, filter, OTDR, OPS, etc.*",
+      "Encryption capabilities*": "OTU4 Encryption, AES-256-GMAC*",
+      "Protection capabilities": "Unidirectional and bidirectional 1+1 SNC Protection",
+      "OAM&P": "1830 PSS common OAM functions (SNMP, OSPF, SSH, SFTP, FM/PM, etc.) / ZTP with PSS, PSS-x and PSD-200**  / Dying gasp via SNMP notification / Housekeeping alarm-in*"
+     }
+    }
+   ],
+   "captions": [
+    "Metro Edge Applications\nVertically integrated for cost optimization\nOTN aggregation or demarcation Application\nMature reference HW design\nLeverage common platform for other NID variants",
+    "2 x QSFP+/QSFP28",
+    "12x SFP28 client:",
+    "2 x QSFPDD Line",
+    "2 x QSFPDD AXF",
+    "* Planned in R27.1Q\n** direct OTU4 link only",
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 36,
+   "title": "1830 PSS/PSI-M/PSD R26.6",
+   "inScope": true,
+   "products": [
+    {
+     "name": "PSS/PSI-M/PSD R26. 6 (Jun 2026)",
+     "attributes": {
+      "Electro-Optics & Switching / 4CP4T8(BMDCO12E/LE): 400G-1000G Flex, 800G \u2013 1200TC, 100GE/OTU4/400GE clients, LFI/SSF/CSF hold-off timer, client grouping mode with 2xLR4 up to 1Tbps (stretch), OPSB5/OPSUM/OPSUML, OLP/OMSP (BMDCO12E),  / D6A2T4E/EL enhancements: SD OPSUM, Integrated test signal (post-CP completion), 5x400GE inverse muxing(post-CP completion), SF/SD OPSB5 protection. / S13X400H/E enhancements: Encryption enablement in CaL modes, Encryption enablement in add/drop / 1UX500E introduction: 200G/300G/400G/500G/500G (RRC0.1) Flex; OLP/OMSP/OPSUM, Configurable State of Polarization Tracking Speed, Trail (TCM) based latency measurement  /  Transmission / OPSCL enhancements: C band IOMSP+OPSUM (NE available), C+L cascade OPSCL (OLP) with OPSUM/OPSUML, optical protection switch (C+L band) - Differential Switching / Introduction of IR32L / RA5PB/RA4P APR recovery / C band protection configurations: IOMSP+Raman (NE available) / Custom profile on OTDR / OTS fiber mismatch alarm / MON-OTDR (OTDRFCL) - C+L introduction / SW support for seamless swap-out of RA2P-96 with RA4P / SW support for seamless swap-out of ASWG-L with AWBILA  / PSI-M / DMAT6E/EL enhancements: 5x400GE inverse muxing  / 900G TC (DMAT6EL)": "PSS-4II / 4EC3C: Compact variant introduction / I-temp 100GbE LR4 QSFP28 (16P200/18CE300) / PSD / PSD-200 introduction: Ethernet LF holdoff (10/100GE GFP) , SFP28, QSFP28/QSFP+, MMF SFP+ for 32G FC, ASAP alarm profiles, SW configuration option to disable USB port  / GMRE / EPN: Elastic restoration (PSE-6s, PSE-Vs)  / Serviceability enhancement (Failed restoration analysis) (NE available) / Platform / PSS-10hc/PSS-4hc shelf and commons introduction  / Google security requirements / SpaceX operational requirements  / OSPFv3 security enhancements  / Packet / 100G ZR QSFP28-DCO extended reach configuration on 18CE300 / I-temp 100GbE LR4 QSFP28 support on 18CE300 / IEEE 802.1X Port authentication / Sync / SyncE/PTP insertion/extraction over muxponder/transponder UNI IFs (10GE, 100GE) (S13X400H/E) / Support WTR Timer and Profile Version 2.8"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 37,
+   "title": "1830 PSS/PSI-M R26.9",
+   "inScope": true,
+   "products": [
+    {
+     "name": "PSS/PSI-M R26. 9 (Sept Mid Oct 2026)",
+     "attributes": {
+      "Electro-Optics & Switching / S2AD800R introduction: 800G Nokia proprietary and OpenROADM 6.0 @ 150GHz, 600G/400G OpenROADM 6.0 @ 137.5 - 150GHz, 100GE and 400GE clients, Client-type mix [Nx100GE + 1x400GE], LLDP, OPSUM/OLP/OMSP, LFI hold-off timer, enhanced test signal basic+, QSFP56-DD 400GBASE-FR4/LR4 w/ OPS, Enhance OCH PM's  / 4CP4T8(BMDCO12E/LE): 900G / 1100G OTUTCn @ 140GBd, 700G/900G Flex, Inverse Muxing [3x400GE / 2x600G], Custom Expert Profiles, client grouping mode with 2xLR4 up to 1Tbps (NE only) / D6A2T4E/EL enhancements: 3R configuration (unidirectional / single carrier) / 42P800 introduction: 10GE client, cascade to 4CP4T8 / S13X400H/E: FC16/32 client types / Transmission / Introduction of MCS44": "PSS-4II / 4EC3T: Full timing variant of equipment controller / GMRE / LSP bundling - L1 support / DMAT6E: 3R Configuration (Unidirectional / Single Carrier); Dynamic 3R support - fix assignment/flexible profile  / Platform  / GX (CHM6-C/L, CHM7-C/L, CHM7X, CHMQ6) over PSS/PSI-L photonic line / Sync / SyncE and PTP functionality (4EC3T) / Packet / L2 Packet cards regression with 4EC3T - 18CE300, 12CE121"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 38,
+   "title": "WaveSuite 26.6",
+   "inScope": false,
+   "products": [
+    {
+     "name": "WaveSuite R26.6 (June July 2026)",
+     "attributes": {
+      "Manage / New NE: / 1830 PSS R26.6, 1830 PSD-200 R26.6 management as per PSS/16P200 feature set / 1830 PSS-4hc/10hc with new OT (4CP4T8) / 1830 LX R26.6 / Platform & Security: / RHEL 9 support  / Support for Customer CA certificates without specific SAN entries for nspos-kafka, pm-kafka containers and NBI Kafka subscriptions / Deprecation of MD5 and SHA1 from all secure interfaces / CIS RHEL hardening benchmark / Network Configurations: / Extension of 1830 GX OT: CHM7x, UCM4 and extension features for CHM7 / 1830 GX OLS management with light integration* / 1830 GX Certificate Management / LR1 to LR4 converter  / 300GHz width for alien lambda / Elastic restoration management / Nested protection and SNCP 3-ended / Autonomous Network Enablers: / Link cost as routing criteria in automatic route detection / Platinum service: Ason reversion control & Recursive scheduler for SNC SwitchToNominal / OSA like view in OTS power graph  / Operate / Autonomous Network Enablers: / OTDR: new profiles for Fast scan, closed loop notification via MS Teams / Root cause detection based on alarm to alarm correlation / Synchronize / Synchronization: Expanded WS-S support for S13X100E / Synchronization: SyncE/PTP Support on S13X400H/E UNI Interfaces / Synchronization: Alarm Correlation with SyncE and PTP Services - Phase 1 / Enhanced System Resilience: prevents service inconsistencies during rollbacks": "TAPI & Pluggable / TAPI 2.5.1 Alarm support (GA) / TAPI 2.1.3 support with use case & feature parity of WSR25.6 / ZR+ Management  / ZR+ End to End Management Visualization Framework for Mngm of Nokia routes / Topology, Optical Power, Routing Display / End to End support of direct management of ZR+ with Nokia Routers (7750SR,7250 IXR (25.10/26.3)with certified ZR+ Pluggable on Nokia Routers [LA] / End to End Indirect management of ZR+ through NSP with Nokia Routers with certified ZR+ Pluggable on Nokia Router[LA] / Optimize / Autonomous Network enablers  / Ntw optimization: Channel Opt.: Support L-band (MP) & line profile rollback for CP ntw / Spectrum Streamline: Support 3R, protected and L-band (visualization) and Open Window algorithm / ESG / Automatic transition of cards in/out of standby mode [LA] / Support new shelves (PSS-4hc/10hc/PSD-200) / Analytics  / Trend analysis and preemptive network alerts / Monetize / Service Virtualization & Assurance:  / ODUFlex client support for L1 service  / Scheduled service utilization reporting and Email notification / Service Fulfillment / BoD: Modify scheduled service orders & Autofulfilment for ODU/ODUFlex operator service / Bulk service onboarding / AI (LA) / Conversational planning enhancements / Network health reports / Smart troubleshooting"
+     }
+    }
+   ],
+   "captions": [
+    "* Only for WS Brownfield scenario expansion. Will be added based upon business cases \u00a0and customer drivers",
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 39,
+   "title": "WaveSuite 26.9",
+   "inScope": false,
+   "products": [
+    {
+     "name": "WaveSuite R26.9 (Sept Mid Oct 2026)",
+     "attributes": {
+      "Manage / New NE: / 1830 PSS R26.9  / 1830 GX R9.1/R9.1.1(CHMQ6 and CHM7 L-band) / Platform / FAD access control for Analytics / Accessibility improvements WCAG2.2 (Accessibility/Barrier Freeness)  / Network Configurations: / 1830 GX as NE OT over 1830 PSS photonic line with cluster in MP / CHMQ6, CHM7x, CHM7 based on R9.1/R9.1.1 features set / Foreign Connection for OTN service  /  Service latency historical report / User experience  / Connection modification enhancement \u2013 change end ports / Automatic propagation of OPS name change to ODUk object  / Single command for bi-directional power adjustment / Power level in Routing Display w/ max/min threshold visualization / Constraint template for back-up route in GMPLS domain / Unpublish/modify/remove user-template by Admin user / Static background in the Map  / TCA configuration during service/connection creation  /  Operate / Autonomous Network Enablers: / NAD for GMPLS domain / E2E ZR+ Management for 400G ZR+, 800G ZR+ (ICE-X) on Third Party Routers (LA) / TAPI R2.5.1 for new OTs for PSS and GX": "Optimize / Channel Optimization / Support\u00a0channel optimization over MP networks (SMF6L and S6AD600L) / Support channel optimization over CP and MP networks (D6A2T4E) / Increase WSS/Amp type coverage (IR20, IR32) / Link Optimization / Increase WSS/Amp type coverage (IR20, IR32) / New node configuration (multiple ILAs on the same NE) / ESG / Enhancements to automatic transition of cards in/out of standby mode during removal/provisioning [GA]"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 40,
+   "title": "WaveSuite 26.9-FP1",
+   "inScope": false,
+   "products": [
+    {
+     "name": "WaveSuite R26.9-FP1 (Dec 2026)",
+     "attributes": {
+      "Manage / Platform / Certificate autoenrollment / Support RADIUS Accounting messages / CIT Access Control Profile / Generation of Compliance report Nokia DFSEC API Security Guidelines / CBOM / Improvements in FM App (differentiated user profile, multi-selection till 1000 alarms, more info in additional info)  / Kafka enhanced alarm clear messages / User experience  / Introduction of GMPLS layer in Map / De-commissioning of active services / Network Configurations: / 1830 GX OLS Light integration - top down for terrestrial configuration / E2E service for terrestrial 1830 PSS network (w/ & w/o GMPLS) and 1830 GX OLS subsea network  / ESM / Extended MPLS-TP domain support on 18CE300 with 100G-ZR pluggable optics / Flexible Layer 2 service support on 18CE300 + S13X400 PKT, including EPIPE (Line) and VPLS-TP (E-LAN) services within MPLS-TP domains / Advanced multipoint Ethernet services with VPLS-TP (E-Tree) support on 18CE300 / Operate / Network Configurations: / Harmonization of channel allocation criteria in WaveSuite Applications / TAPI OAM support with TAPI 2.5.1": "ZR+ Management / ICE-x ZR+ Direct Management support on Nokia & Third Party Router  / Protected (OCHP) configuration on ZR+ with Nokia Routers / ICE-x ZR+ Indirect Management via NSP on Nokia Routers / Synchronize / Synchronize: Multi-Vendor Equipment Integration via API / Synchronize: Optimization of Sync Service Management / Support for SyncE services on routes with Raman pumps (RA2P or RA2P-96). / Dynamic updates of synch services upon the failures / ILA visibility within the \"View Tree Routes\" feature  / Optimize / Link Optimization : L-band links (L, C-L, C+L) support / Ntw Optimization: Spectrum Streamline -3rd Party ntw and L-band support (defragmentation)  / Ntw Optimization: Multi-layer Analysis - L1CP, \u201cStop\u201d command  / Ntw Optimization: Foreign connection in L0 CP / Analytics: Correlation analysis and matrix visualization / Analytics: Faulty KPI localization feature extension to protected path / Monetize / Auto fulfillment option for shortest available path / Propagate tenant name to WS OTN customer name / Service order client port reservation /  Generalized parameter setting for provisioning of network connections / WS Network Director  / Support of Transcend as base NMS"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 41,
+   "title": "WaveSuite Planner 26.6",
+   "inScope": false,
+   "products": [
+    {
+     "name": "WaveSuite Planner R26.6 (June 2026)",
+     "attributes": {
+      "Manage / Network Element Support / 1830 PSS R26.1H  / 1830 GX R9.X on 1830PSS line / S2AD800R Introduction \u2013 Design Only / Extension of OTs and HW:  / PSS-HC, 4CP4T8, DMAT6E/EL, D6A2T4E/EL enhancements / Networking and Optical Engineering, NE Backlog / Enhancement of previous NE releases coverage ( e.g., 16P200 cascaded configuration improvement ) / DDQT2 support / OTN enabled design mode / Heterogeneous C-F node support in OTN enabled design / Two NEs clustered together and having an OTS between them. / Two nodes in the same NE having one derived from a CDC-F / Planning, Operations and Usability / Allow the user to edit MSH4-FSB AD ports for MCS, MXN, MLFSB / Isolate the add-drop blocks over two different MSH4s (partial fill) / WS BOM: license model enhancements, e.g., Spectrum Capacity  / Add Power Mode parameter per Add Drop Block Level / Flexibility between MSH8-FSM and AAR pack connection": "Operate / Add-Ons / 517 profile ID support on MxN port directly / Alien and Nokia native OT under same MCS Add/Drop blocks / Alien feasibility template under GMPLS network / External uplink support under GMPLS enabled Network / Integrated Features / Net Sync improvements - Improved unrecognized profile/configuration handling"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 42,
+   "title": "WaveSuite Planner 26.9",
+   "inScope": false,
+   "products": [
+    {
+     "name": "WaveSuite Planner R26.9-FP1 (Dec 2026)",
+     "attributes": {
+      "Manage / Network Element Support / 1830 PSS R26.9 / MCS44 , S2AD800R Introduction, 42P800 introduction,  / 1830 GX R9.1/9.1.1 on 1830PSS line / CHMQ6, CHM7L / Networking and Optical Engineering, NE Backlog / 8P20B configuration support / ICE-X 800G support as external uplink-Design only / 3R configuration-DMAT6E/L and Dynamic 3R / S13X400H/E-support of FC16/32 client services / OTN enabled design mode / Extend PSS-X shelf support: PSS-8X/PSS-12X, 2UX500/1UX500, 20AX200 / Guaranteed Restoration (GR) for Uplink-Uplink Trails / Asymmetric unprotected Uplink-Muxponder Trails  / Planning, Operations and Usability / Support of multiple ILAs in the same NE  / Design Wizard Improvements for eDCI Market / Automated Regenerator-Aware Path Computation with Customer-Specified Location Constraints Proof of Concept / Pricefile support / License entitlements for OTs and Uplinks / WS-P Standalone R26.9 on Rocky 9.8 / Operate / Integrated Features / Net Sync update\u00a0 - Improved unrecognized profile/configuration handling / Conversational AI planning with mail notification (LA)": "Manage / Networking and Optical Engineering, NE Backlog / OpenZR+ 400G -10dBm Expanded Node configuration Support / OPS solution for 400G OpenZR+ network architectures. / Coherent Routed channels (100G & 800G ZR/ZR+) support / S13X400H/E enhancements - support of 25GE client services / Node configuration support with Amplified Photonic configuration / Support SWU12OS OSC SFP and filter for ULH span / Enhancement on OSC Rx sensitivity & Amplified OSC on non-linear fibers / Support 1UX500 as compatible uplinks / Add/Drop OPSUM, OPSFLEX protected Trail working & protected path connection under same MCS A/D block / OTN enabled design mode / PSS-8X Support / Support of PSS-X on CD-F node configuration-IR9&IROADM9R based / Planning, Operations and Usability / Design Metrics Calculation and Comparison / Cold/user defined pluggable support / \"User\" provisioned, deployed, with service, WS-P managed pluggables / Spectrum Planning\u00a0Enhancements / Latency Management/Routing Constraints / Differential reports\u00a0 / Card View (EPT like) / Design Wizard Improvements for eDCI Market (WaveLink Parity) / Automated Regenerator-Aware Path Computation with Customer-Specified Location Constraints (completion) / Restore & backup Planner Database alone in Integrated environment / Manual Routing improvement: show available frequencies to avoid recoloring"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 45,
+   "title": "1830 PSS/PSI-M/PSD R27.Q1",
+   "inScope": true,
+   "products": [
+    {
+     "name": "PSS/PSI-M/PSD R27.Q1 (1Q 2027)",
+     "attributes": {
+      "Electro-Optics / 16CP12T8 (800G / 600G / 400G Nokia proprietary and OpenROADM 6.0, pluggable ICEX800G C and L band, 100GE/400GE clients, 1+1 protection) / S2AD800R enhancements / S2AD800Z introduction (800G/600G/400G OpenROADM6.0, 400G OpenZR+) / 800GE inverse muxing on PSE-6s (dual carrier) / PSE-6s payload encryption for 800GE clients.  / 4CP4T8 enhancements / 42P800 enhancements / 2UC1TH - BMDCO12E C-band Flex Carrier Profiles / 2UC1TH - BMDCO12LE L-band Flex Carrier Profiles / 1UX500E - encryption support / S13X400H/E enhancements (GCC0 clients, QDCO1 clients) / SD OPSUM (2UC1T/E/H, 1UX500, 4CP4T8) / Dual-carrier OPSUM/L (4CP4T8, D6A2T4E/EL) / Seamless swap of BMDCO12/L cards with BMDCO12E/LE cards / Interop Profiles for PSE-3c with PSE-Vc / Transmission / IR4 (ET version) & ASGLP (ET version)  / OMDWB support in PSS / AAR2X8AL pump degrade alarm / OPSCL enhancements (C band IOMSP, seamless swap from OPSA to OPSCL, single band OLP support) / IR4/IR9 heterogeneous node support (WS-P backlog) / PSD-200  / Line side encryption": "GMRE / GMPLS support for lambda splitting (non-quad) / Support of cascaded configurations in GMPLS (tunnel over tunnel)  / Distributed GMPLS CP with 1830 GX (requires GX R10.0) / Configuration parameters for protected LSPs to support 3-path scenarios / Platform / 8EC3C and 32EC3C introduction / Next generation PSS-8 / Improve extension shelf behavior in multi-shelf node (LTR) / Optical power RX/TX threshold reporting / New PSS-8 multi-shelf combinations / BGP & OSPF security enhancements / Encryption key retention as non-default option / TLS enhancements / UNC4C and UNC10C Introduction /   / Packet / Ethernet protection switch time measurement & reporting (MPLS-TP mode) / Integrated Packet Sniffer / Sync / SyncE and PTP functionality on PSS-4II (4EC3T) / Support WTR timer and profile version 2.8 / Support of sync PM for time sync service availability / 18CE300 working with SYNCTL to support PTP function in PSS-32 (Step 2)"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 46,
+   "title": "WaveSuite R27.Q1",
+   "inScope": false,
+   "products": [
+    {
+     "name": "WaveSuite R27.Q1 (1Q 2027)",
+     "attributes": {
+      "Manage / New NE: / 1830 PSS R27.Q1, 1830 GX R9.3 / Introduction new generation of 1830 PSS-8 / ZR/ZR+ New Pluggable Support\u00a0for IP/Optical Solution / Platform & Security / Cloud Native K8s deployment  / Compliance to European regulation Cyber Resilience Act / Alignment of Kafka Authentication mechanism across NI / Network Configurations: / Extension of 1830 GX management for OT features based on R9.3 and UTM2 / Routing enhancement for 3R passing twice on same OMS trail / Network Transf.: bulk move traffic from link, modify route for Mixed Plane, bulk SNCP  / TE Link Utilization report / Autonomous Network Enablers\u00a0 / Fiber cut geo-localization for dark fiber connection in the Map / Support of VNE in spectrum sharing  / 1830 GX in GMPLS domain with restored paths / ASON SNCP event management / Advanced node-level performance monitoring for troubleshooting / ESM/L2 / Integrated ITU-T Y.1564 Service Activation Test (SAT), enabling E2E service validation / Operate / Support OTDR closed-loop for 1830 GX platform / Application of Golden configuration to selected NEs  / Roll-back on failure option for OTSiG Tunnel creation  / TAPI 2.6/TAPI 2.7 introduction / ZR+ End to End Management Alarms & PM Support  / Harmonization of Dashboard, Insights and NHI  / Synchronization / PTP service splitting in multi-GM configuration / 3rd party support for e2e service view (LTR) / Integration of IP Edge Aggregation and Last-Mile Sync / Advanced Synchronization Alarm Correlation - Phase 2": "Optimize / Autonomous Network enablers - Network optimization / 1830 GX support / Defragmentation KPI / Configurable automatic lock for alien service  / Enhancement spectrum outlook  / Ch. Opt.: Analysis of recommended profiles against restoration routes / Multi-Layer Analysis: Support Elastic Restoration / Spectral efficiency reporting / Max nr of steps as user constraint / Comparison of spectrum outlook \u2013 historical reports and  / GUI enhancements to spectrum outlook grid / ESG / PSS-4II new power consumption calculation and Legacy CPE power reporting  / Standby-mode for optical equipment \u2013 improve robustness / Single interface data trending  / Monetize / Spectrum Sharing : Spectrum slice Virtualization / Filtering out common cards from Network Equipment / Fiber channel support / Encrypted services support / Resource management (free client interfaces per Location) / Conversational interface for intelligent service delivery \u2013 Tenant [Virtualization queries] / BoD: Service order client port reservation and Subscriber route selection / Sensing (LTR) / Management of new CSM sensing cards with Automation use cases / AI  / Resource forecasting / Smart\u00a0troubleshooting enhancement / Agentic Platform : WaveSuite and WaveSuite AI MCP\u200b / WS Network Director  / Monetization capabilities based on WS-SE / WS-ND integrated with NSP (IP/Optical Shared mode)"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 47,
+   "title": "WaveSuite Planner R27.Q1",
+   "inScope": false,
+   "products": [
+    {
+     "name": "WaveSuite Planner R27.Q1 (Q1 2027)",
+     "attributes": {
+      "Manage / Network Element Support / 1830 PSS R27.Q1  / 1830 GX 9.3 / ZR/ZR+ New Pluggable Support for IP/Optical Solution / Networking and Optical Engineering, NE Backlog / Enhancement of previous NE releases coverage / Support 2Deg ROADM as terminal without pass thru to A/D 32ch \"direct OT\" OCHP / Single Working Fiber (SWF) - SFM6/SFM6E / OTN enabled design mode / Asymmetric interworking scenarios / CD-F node configuration (moved up in R26.9FP1) / Planning, Operations and Usability / Multi-HW release support / Design Solution Improvement wizard / Support of OADM and ILAs in the same NE , in case in the same shelf / Option to allocate a separate OMDCL per E-ILA direction / Virtual Warehouse / Report customization / Custom Slotting / Functional Segmentation by Product/Domain, Part 1 / Edit/Modify/Clone Routed Trails enhancement  / Improved template management, including sharing / Generation of GNPy-compatible export files": "Operate / Integrated Features / Custom Catalog / Net Sync Improvements / External NE support (step2)"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 49,
+   "title": "1830 PSS/PSI-M/PSD R27.Q3",
+   "inScope": true,
+   "products": [
+    {
+     "name": "PSS/PSI-M/PSD R27.Q3 (3Q 2027)",
+     "attributes": {
+      "Electro-Optics / 800GE/2x400GE QSFP-DD800 clients (16CP12T8) / 16CP12T8 3R (Bidirectional / Single Carrier)  / 400GE and 800GE Inverse Muxing on 16CP12T8 / 2xER4-lite QSFP28-DD clients (16CP12T8, 4CP4T8, S2AD800R)  / Digital OPS (4CP4T8, 16CP12T8, D6A2T4E/EL) / SD OPSUM (4CP4T8, 16CP12T8) / 2UC1THE - encryption support / 2UC1TH 400GE Line Structure (Step2) / 400ZR/800ZR client support on 16CP12T8 and 4CP4T8 / Encryption on Inverse muxing and 3R on D6A2T4E/EL and 4CP4T8  / PSS-x Traffic recovery time OCHP, OLP/OMSP / PSS-x 400GE client OPSB5 Protection / Inverse multiplexing with 100G coexistence on PSE6s / Client ports hairpin (16P200, 8P20B) / PRBS on 16P200 / Transmission / IR4 (ET version)  / MCS88 Introduction / AAR Introduction / OPSCL enhancements (C band IOMSP, seamless swap from OPSA to OPSCL, single band OLP support)": "GMRE / LSP bundling - L1 support / LSP bundling \u2013 L0/MRN support / GMPLS CP on 1830 GX - CHMQ6 and L-band / GMPLS CP restoration across STDBY resources - R27.1H / Elastic photonic networking (S2AD800+16CP12T8) / Automatic ASONTOPO clearance with PCT tool  / Native GMPLS CP support of Nokia pluggable modules in external devices / Platform / UNC4C and UNC10C Introduction / Improve extension shelf behavior in multi-shelf node / Next generation PSS-16II / TLS enhancements /   / Packet / 18CE300 - Ethernet DEG / Signal Degrade Detection (G.8021) / 18CE300 - Ethernet Transient Error Detection / Sync / 18CE300 working with SYNCTL to support PTP function in PSS-32 (Step 2)"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 50,
+   "title": "WaveSuite R27.Q3",
+   "inScope": false,
+   "products": [
+    {
+     "name": "WaveSuite R27.Q3 (3Q 2027)",
+     "attributes": {
+      "Manage / New NE: / 1830 PSS R27.Q3 / 1830 GX R10.x (x=0,1) / Multi-rail (ILA) management for PSS network  / Platform & Security / Support for Secure Boot / WaveSuite Post quantum cryptography support / Troubleshooting & diagnostic / Optical power management via tomography / EQM - One consolidated view showing all DCN interfaces / RTT trace collection from WS / Network configurations  / 1830 GX in GMPLS domain / Improvement of HW/NE info reporting - report slots suitable for transmission packs only / Network Golden configuration (import NEs, Links from WS-P) / Spectrum management enhancement: constraints management (guardband, spectrum slicing) for Manage Plane application / ESM / Fast CCM support on Up MEP / Configurable LAG priority parameters / SAT (Service Activation Test) support extended to E-Tree services  / Operate / Troubleshooting & diagnostic / Root-cause enhancement: on-deman correlated alarms suppression  / OTDR pass-through (OTDR scan for multi spans) and event notification for OTDR scan / Resource & Controller / ZR/ZR+ New Pluggable Support for IP/Optical Solution / TAPI Streaming Stabilization / GMRE Support for Nokia ZR+ (ICE-X & Nokia Router certified pluggable)": "Synchronization / Multi-Vendor Equipment Integration via API (Step2 \u2013 Network Discovery and Alarm Correlation) / Alarm filtering and navigation support / Optimize / Link Optimization : Support MP networks (C-band and L-band) / Multi-Layer Analysis: Support L1+L0 overlay networks / Spectrum Streamline : Schedule defragmentation analysis / Network transformation : Recommendations for network transformation to improve spectral efficiency, energy consumption, latency / ESG / Report on circularity, physical footprint (rack space and weight) / Support Streaming Telemetry PUSH mechanism for shelf power / Monetize / Virtualization / Spectrum slice virtualization (Spectrum Sharing Ph4) / Quantum-safe service virtualization / Service Fulfillment / Subscriber initiated rate adjustment / Auto-fulfillment for OCH services (Spectrum Sharing Ph3) / Sensing (LTR) / Management of new CSM sensing cards with Automation use cases / AI  / Dynamic GUI and dashboard / WS Network Director  / Inter-domain link ROADM-2-ROADM / Enhancement to NE SW management dashboard"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 51,
+   "title": "WaveSuite Planner R27.Q3",
+   "inScope": false,
+   "products": [
+    {
+     "name": "WaveSuite Planner R27.Q3 (3Q 2027)",
+     "attributes": {
+      "Manage / New NE: / 1830 PSS R27.Q3 / 1830 GX R10.x (x=0,1) / Multi-rail (ILA) management for PSS network  / Networking and Optical Engineering, NE Backlog / S13X400H/E Add/drop configuration (ADM) - Backplane mating / 137.5GHz Tight channel spacing  / Heterogeneous IR4/IR9 / OTN enabled design mode / WS-P: Support of PSS-X on CD-F node configuration IR4 based / Asymmetric interworking extension / Planning, Operations and Usability / Design and netsync of Cold Pluggables / Report customization / Custom Slotting / Spectrum Planning\u00a0Enhancements / Latency Management/Routing Constraints / Differential reports\u00a0 / Full GNPy Support": "Operate / Integrated Features / Optional \"move all autodiscovered trails to Externally verified\" on the netsync wizard / Netsync upgrade"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 53,
+   "title": "1830 PSS/PSI-M/PSD R27.Q4",
+   "inScope": true,
+   "products": [
+    {
+     "name": "PSS/PSI-M/PSD R27.Q4 (4Q 2027)",
+     "attributes": {
+      "Electro-Optics /  introduction (ICEX800G Garda PSS muxponder) / 16CP12T8 with Garda ICEX800G / OTUC4 client / 4CP4T8 / OTUC4 client / D6AD2T4E/EL / 2UX1T Introduction \uf0e0 2028 / 2UC1TC Introduction \uf0e0 2028 / 1X800L Introduction \uf0e02028 / 1X800 Introduction \uf0e0 2028 / 42P800 standalone - ICEX800 Garda \uf0e0 2028 / Transmission / MCS168 Introduction / Alien Wave Power Management / SCOT-PWRADJFAIL loss threshold alarm / Inferred LOS alarm: IROADM ADT port": "GMRE / 1UX500E GMPLS CP support / GMPLS CP support for OVPN / GMPLS CP support for encrypted protocol communication / Platform / MEC3L/MFC3 Introduction\u00a0\uf0e0\u00a0future / Optical Power Rx/Tx Threshold Reporting [Phase 2] / Discontinuation of Unsigned Software Package Solutions / Introduction of Optical Management Interfaces in 1830 PSS / Automatic dynamic SW loading for RNEs / Consistent high security standards for all platform users / Include corrective action statements in NE systemcheck report / Support PSS-HC multi-shelf with new PSS-16II / Retrieve power usage of coherent line modules /   / Sync / Support of performance-based PTP holdover mechanism (F-CRUs, SYNCTL, 4EC3T) / PTP security - authentication TLV support in PTP messages / License for White Rabbit-certified PTP OTC / New Bidi filter and new pluggables for PSS bidi OTC/OSC solution"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 55,
+   "title": "WaveSuite R27.Q4",
+   "inScope": false,
+   "products": [
+    {
+     "name": "WaveSuite R27.Q4 (4Q 2027)",
+     "attributes": {
+      "Manage / New NE: / 1830 PSS R27.Q4 / 1830 GX R10.2 / Platform & Security / K8s Deployment Step2: Orchestration, Elasticity, Usage of Kafka, Zookeeper, DB from cloud / Multi Tenant WS SaaS / Cloud AI Integration / Network configurations  / Spectrum management enhancement:  / from flexGrid to gridless for a set of applications / Introduction of Super-C / OVPM in GMPLS domain / ESM / IEEE 802.1X port authentication, strengthening network access security / Enhanced L2 network reporting capabilities Packet Switch L2 resource calculation and reporting  / Operate / Tomography / Introduction of power profile network tomography use cases / Fiber type detection via tomography  / Synchronization / Extended PTP Profile Version 2.8 support, including Wait-to-Restore timing and additional dataset members / Line-reference switch commands for SyncE services / Integration of T-GM\u00a0and\u00a0alarm visibility into a unified WS-S dashboard": "Optimize / Link Optimization: Integration with planning tools (WS-P)  / Multi-Layer Analysis: enhancement of max failed links in Maintenance analysis  / Spectrum Streamline : Re-routing option introduction / Sensing (GA) / Management of new CSM sensing cards with Automation use cases / AI  / AI \u2013 Fiber Sensing (LTR) / WaveSuite AI recovery runbooks / WS Network Director  / Per-network health statistics (dashboard/reports)"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 61,
+   "title": "1830 OLS R26.3",
+   "inScope": false,
+   "products": [
+    {
+     "name": "OLS R26.3 (April 2026)",
+     "attributes": {
+      "New Hardware / C and L-band Amplified Splitter & combiner introduction:\u200b ASC16 and ASC16L\u200b / Line Characterization Card (LCC) introduction: L-Band pluggable (QDDCO4L) for LCC 400G mode / New Software / Sub-Channel Equalization\u200b / OTDR Enhancements \u200b / gRPC version update\u200b / gRPC mTLS with SPIFFE support\u200b / SSL client certificate installation w/o reboot\u200b / gNMI/gNOI proto file update\u200b / OC YANG model update (v4.4.0)\u200b / TACACS+ Accounting \u200b / Model-driven DCN Management:\u200b / OSPF FRR stack integration\u200b / Loopback for all IP Services (LFAIS) \u2013 Enhancements\u200b / BGP Maximum-Prefix limit support \u200b\u000b(tear-down & restart)\u200b / ACL management \u200b- solution phase #1 / Factory Reset via gRPC/MD-CLI\u200b": "Streaming Telemetry:\u200b /  Subscription mode support\u200b / Fan speed and chassis temperature\u200b / CPU and Memory\u200b / Secure hash function for local user password storage\u200b / TACACS+ server config \u2013 support encrypted shared-secret\u200b / Signed (secure) Software Solution\u200b / Increased Transmission Window\u200b / Display Redundancy Information\u200b / OTS Link Neighbor Discovery\u200b / Support iBurst leaf for NTP config\u200b / OSC AdminState behavior update\u200b / Syslog messages in RFC5424 format\u200b / SSH Public Key Authentication\u200b / OMDCL discontinuation\u200b / Include DSF and TWC fiber types"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 64,
+   "title": "1830LX/S4LX",
+   "inScope": false,
+   "products": [
+    {
+     "name": "S4LX R26.7",
+     "attributes": {
+      "NE management / 1830LX OSC-WC15 and 1830LX OSC-WC12 interworking with 1830PSS\u00a0 / Version attribute shall be provided to Nokia NMS to allow possible NE upgrade in field. / NE Naming / NE name string shall support more than 20 chars and the UTF-8 should be supported / NTP support / The 1830LX NE supports NTP \u2013 the NE can be used as an NTP client, and it can also be disabled. NE will synchronize with the NTP server immediately after being created and then automatically synchronize after every specified number of hours. / Alarm Management / Enable clear traps for any alarm / New Raman type introduction / New 2nd Order Counter Raman(ERP-30)": "New Fiber Introduction / G.654B supported with CHM7 or D6AD2T4H/DMAT6 / New Raman type introduction / New 2nd Order Counter Raman(ERP-30), for G.654B only / New OT / CHM7 introduction / New Configuration / Multi-span for S5AD400H/S13X400 / Enhancement on ROPA design / Position of ROPA could be relaxed a little(reduce the distance) / New Raman type introduction / New 2nd Order Counter Raman(ERP-30)"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 65,
+   "title": "1830LX/S4LX",
+   "inScope": false,
+   "products": [
+    {
+     "name": "S4LX R26.9",
+     "attributes": {
+      "Security Enhancement / Allow the admin to disable/enable SD slot \u00a0 / User identification and user password definition update to harden version / All accesses/activities will be logged instead of only a few items have been recorded / Integration with WS-NOC / Single Sign-On to 1830LX from WS-NOC / New HW support / C+L solution introduction": "New OT with pluggable / ICE-X-800R on CHMQ6, CHMS8 and S2AD800R"
+     }
+    }
+   ],
+   "captions": [
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 66,
+   "title": "1830 PSS & PSI-M Security Certifications",
+   "inScope": true,
+   "products": [
+    {
+     "name": "Products",
+     "attributes": {
+      "R13.1.4.ECE": "PSS-32, PSS-16II, PSS-8,",
+      "R23.3 ECN": "PSS-32, PSS-16II, PSS-8, PSS-24x, PSS-8x, and PSI-8L",
+      "R25.12 ECN": "PSS-32, PSS-16II, PSS-8, PSS-4II, PSI-8L, PSI-4L, and PSI-M",
+      "R26.6 ECN": "PSI-M",
+      "R27.Q1 ECE": "PSS-32, PSS-16II, PSS-8"
+     }
+    },
+    {
+     "name": "Security Certifications Status",
+     "attributes": {
+      "R13.1.4.ECE": "11QPEN4, S13X100E",
+      "R23.3 ECN": "N/A",
+      "R25.12 ECN": "S13x100E (PSS)*\u000bSFM6E (PSI-M)*",
+      "R26.6 ECN": "DFC12E, SFM6E, DMAT6E",
+      "R27.Q1 ECE": "11QPEN4, S13X100E, S6AD600E, S13X400E"
+     }
+    }
+   ],
+   "captions": [
+    "Detailed Certification Roadmap can be found on this SharePoint."
+   ]
+  },
+  {
+   "slide": 67,
+   "title": "1830 PSS / PSI-M DCI Certifications",
+   "inScope": true,
+   "products": [
+    {
+     "name": "Products",
+     "attributes": {
+      "R23.12": "Refer the Brocade Certification Matrix and EMC De-Risk Internal Testing data PDFs.",
+      "R24.12": "1830 PSS-8, PSS-16II\u000b16P200, S2AD200, S6AD600E, S13X100E",
+      "R27.Q1": "1830 PSS-8, PSS-16II\u000bS13X100E, S6AD600E, S13X400E/H, PSD-200"
+     }
+    },
+    {
+     "name": "Protocol/FC Interfaces",
+     "attributes": {
+      "R24.12": "16, 32 Gbps, FC/ISL\u000b10G CE LR\u000b10GbE RoCE Express for SMC-R",
+      "R27.Q1": "16, 32 Gbps, FC/ISL\u000b10G CE LR, 25G CE LR\u000b10GbE RoCE Express for SMC-R"
+     }
+    }
+   ],
+   "captions": [
+    "Detailed Certification Roadmap can be found on this SharePoint.",
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  }
+ ],
+ "narrative": [
+  {
+   "slide": 1,
+   "title": "Roadmap Review\u000b\u000b1830 PSS / PSI / PSD WaveSuite\u000b\u000bAugust 2026",
+   "text": [
+    "Roadmap Review\u000b\u000b1830 PSS / PSI / PSD WaveSuite\u000b\u000bAugust 2026"
+   ]
+  },
+  {
+   "slide": 2,
+   "title": "Nokia Roadmap Disclaimer",
+   "text": [
+    "Nokia Roadmap Disclaimer",
+    "The portfolio product roadmaps referenced throughout this package are for informational purposes only. Each roadmap represents Nokia\u2019s current plan of record for the associated products. Nokia, at its sole discretion, may add or delete features or functionalities from the current product roadmap. Dates in the product roadmap are only indicative of Nokia's current assessment and are subject to change. \nNokia does not commit that any specific features or functionality will ultimately be released, made generally available, or provided under this roadmap proposal or subsequent agreement. The terms and conditions, including pricing, for any features or functionalities described in a product roadmap that are ultimately released, made generally available, or provided under this roadmap proposal or subsequent agreements are subject to future negotiations and future agreement. There are no penalties, liquidated damages, or other remedies associated with changes to the product roadmap including cancellation of any specific feature or functionality or delay in the timing of development.\nThe Optical Networks Division Product Roadmap is classified as \u201cConfidential\u201d following the Nokia Critical Information Protection (CIP) process. Refer to the Nokia Information Security Policy and Incident Management Policies, and Users Security Notification guidelines on how to handle this document in a secured way. For PCs and portable devices disposal ask for IT support.\n The pre-C0/C1/C2 roadmap views shown in this package are provided as the Business Division\u2019s intent and are subject to changes to address market dynamics and resource allocation. Contact Business Division PLM before the features shown in this package are positioned to the customers."
+   ]
+  },
+  {
+   "slide": 3,
+   "title": "1830 PSS: versatile multi-service optical transport",
+   "text": [
+    "1830 PSS: versatile multi-service optical transport",
+    "MULTI-SERVICE",
+    "Carrier Ethernet and MEF services",
+    "ETHERNET",
+    "Aggregate 10G to 400G multi-service x-ponders with 100G, 400G and 800G WDM uplinks",
+    "Integrated P-OTN transport +WDM optimized for edge to core",
+    "PSS",
+    "+WaveSuite",
+    "Simplify life-cycle management while monetizing your network",
+    "+GMPLS",
+    "Protection and Restoration",
+    "400G and 800G pluggable coherent transponders",
+    "1.2T high-performance transponders enabling 800GE over any distance",
+    "PSS",
+    "iR4, iR9, iR20 and iR32 ROADMs with MCS and MxN options (iR32)",
+    "Extended reach with a range of booster, pre- and line EDFA and Raman amplifiers\nOTDR, Protection Switch ect.",
+    "PLUGGABLES",
+    "EMBEDDED",
+    "EXTEND",
+    "OLS (ROADMs)",
+    "PSD",
+    "OTN Switching, Protection, L1 Restoration (GMPLS)",
+    "SWITCH",
+    "ACCESS/EDGE",
+    "Range of CPE\u2019s and NDU\u2019s",
+    "PSS-HC",
+    "PSS-X",
+    "High dense transponder, muxponders, 600mm front to back airflow",
+    "HIGH CAPACITY",
+    "A comprehensive multi-service solution to address terrestrial applications\nwith focus on telecom provider and mission critical enterprise networks"
+   ]
+  },
+  {
+   "slide": 4,
+   "title": "1830 PSS high-level systems roadmap \u2013 L0 to L2 networking\u000b(2026 to 2029)",
+   "text": [
+    "2026",
+    "1830 PSS high-level systems roadmap \u2013 L0 to L2 networking\u000b(2026 to 2029)",
+    "R26.6\n(6/26)",
+    "R26.9\n(10/26)",
+    "R27.Q3\n(7/27)",
+    "R27.Q4\n(12/27)",
+    "R29.x",
+    "LAYER0&GMRE",
+    "LAYER1",
+    "PSS-HC \u2013 HC Telco platform, PSE-6 OT\nPSD-200 100G+ OTN NID",
+    "Metro-optimized CDC-F",
+    "R27.Q1\n(2/27)",
+    "Elastic restoration in GMRE",
+    "PSS-4II Sync\nPSS-HC \u2013 HC Telco platform, sub-100G aggregator\nPSS ICE-X 800G thin transponder",
+    "PSS-HC ICE-X 800G thin transponder\nPSE-6s 800GbE encryption\nPSS-8/32 EC cost reduction\nNG PSS-8",
+    "Dual-carrier protection\nETR ILA\nGX OT GMPLS support",
+    "MCS88/AAR\nETR IR4\nL1 LSP bundle",
+    "PSS-HC Superior 2.4T pluggable OT\n6.4T distributed OTN",
+    "PSS-HC EC cost reduction",
+    "R28.1H",
+    "R28.2H",
+    "Super-C/ Super-L OLS Phase 1\nMCS168\nPSS Terrestrial CSM",
+    "Super-C/ Super-L OLS Phase 3",
+    "Super-C/ Super-L OLS Phase 2",
+    "PSS-HC Huron 1.6T thin transponder",
+    "PSS ICE-X 800G OTN support thin transponder \n800G Mux/NID\nICE-X 800G on PSS-X\nILAICL"
+   ]
+  },
+  {
+   "slide": 5,
+   "title": "WaveSuite roadmap \u2013 network automation\u000b(2026 to 2029)",
+   "text": [
+    "2026",
+    "WaveSuite roadmap \u2013 network automation\u000b(2026 to 2029)",
+    "Autonomous Network\nAI journey\nPlatform\nOpen Networks",
+    "1830 PSS R26.9 \u200b\nS2AD800R\n1830 GX R9.1/R9.1.1\nCHMQ6 / CHM7 L-band\nWS SaaS\nNAD for GMPLS domain\nGX Cluster mngm\nESG \u2013 IP/Opt. Power contr.",
+    "AI - Smart Troubleshooting\nAI - Conversational Planning (Enh)\nA2A Protocol\nIP/Opt. Coherent Plug Mgmt. (LTR)\nNaaS - BoD / BW Calendaring\nElastic restoration \nNetwork Transformation facilities",
+    "AI \u2013 Fiber Sensing (LTR)\nWaveSuite AI recovery runbooks\nNetwork Tomography\nSustainability Optimization\nExternal data ingestion\nSuper-C introduction and Spectrum management enhancements \nCloud AI Integration",
+    "1830 PSS R27.1Q\n1830 GX 9.3\nOTDR Closed Loop over GX\nAI \u2013 Optimization & Forecasting (LTR)\nAI- Smart Dashboard\nK8s \nWS/TNMS Horizontal Integration",
+    "1830GX R8.1\n1830PSS R25.12.3\nAI Network Assistant\nAI Knowledge Search\nAI - Conversational Planning",
+    "R26.6\n(6/26)",
+    "R26.9\n(10/26)",
+    "R27.1Q\n(3/27)",
+    "R27.3Q\n(9/27)",
+    "R29.1H\n(6/29)",
+    "R25.12 FP1 (4/26)",
+    "R26.9 FP1\n(12/26)",
+    "R27.4Q\n(12/27)",
+    "Network slicing in CP\nEnergy - Trail Optimization\nAI - Anomaly Detection enh\nAI - Network Slicing & conn. mng\nMCP Server (NBI/SBI)\nSpectrum Streamline over 3rd PTY \nBoD: Auto fulfillment option\nSynchronize: MV integration\nWS/TNMS Horizontal Integration (LTR)",
+    "AI \u2013 Optimization & Forecasting\nLambda bundling \nFiber Sensing & anomaly det. (LTR)\nFull Agentic Platform\n1830GX support on 1830 SMS\nQuantum safe service virtualization\n1830 SMS CRA/EUCC certification\nGMPLS CP over 1830 GX",
+    "R28.1H\n(6/28)",
+    "R28.2H\n(12/28)",
+    "Autonomy scorecard per TMF\nPolicy/intent-driven autonomous operation\nContinuous self-optimization on margin/spectrum",
+    "AI \u2013 Fiber Sensing pattern Mgmt.\nAI \u2013 Coherent Pluggable Agent\nVisibility foundation\nPredictive assurance\nLifecycle optimization\nSelective L5 in bounded domains\nSuper-L management"
+   ]
+  },
+  {
+   "slide": 6,
+   "title": "Reference Links",
+   "text": [
+    "Reference Links",
+    "Optical Networks OneStore\nRelease Communication\nProduct Communication\nProduct Phase Out Communication\nKnowledge Transfer Sessions"
+   ]
+  },
+  {
+   "slide": 34,
+   "title": "Main Program Summary",
+   "text": [
+    "Main Program Summary"
+   ]
+  },
+  {
+   "slide": 35,
+   "title": "1830 Release 26.6/26.9 What\u2019s New",
+   "text": [
+    "1830 Release 26.6/26.9 What\u2019s New",
+    "Core/Metro/Edge Solution: Platform, Capacity & Performance Enhancements",
+    "WaveSuite",
+    "Key Values and Differentiation\nHigh-capacity 450mm telco shelves extending PSS capacity and scalability for OTs, distributed OTN, HW-ready for high-capacity centralized OTN\n800G thin transponder on PSS\nElastic restoration: on-the-fly capacity change during restoration\nKey New Use Cases\n100G NID solution for CSP/Enterprise\nSmall CDC-F nodes for metro/regional applications\nGX over PSS Photonic Line (Managed Plane)\nKey New Hardware\nPSS-4hc/10hc shelves & 4CP4T8\nS2AD800R\nPSD-200\nIR32L\n1UX500E \n42P800 (R26.9)\nMCS44 \n4EC3C / 4EC3T (R26.9)",
+    "Release Summary",
+    "26.6 Completed; 26.9 CP Planned mid-Oct-2026",
+    "Global Market Release\nAnchor customers: DT, Aramco, Orange Belgium, Vodafone,\u00a0Telefonica, \u00a0Nextloop, Amplivia, Retelit, Proximus, Bouygues, Optus, RJIL, Globe, Bharti, Softbank, KDDI, Google, Charter, SpaceX",
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 43,
+   "title": "1830 SMS",
+   "text": [
+    "1830 SMS",
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 44,
+   "title": "1830 Release 27.Q1 What\u2019s New",
+   "text": [
+    "1830 Release 27.Q1 What\u2019s New",
+    "Core/Metro/Edge Solution: Platform, Capacity & Performance Enhancements",
+    "WaveSuite",
+    "Key Values and Differentiation\n800G thin transponder on PSS-HC\nHigh-capacity encryption (DMAT-6E/LE, D6A2T4E/LE, 4CP4T8, 1UX500E)\n100G encryption at the Edge",
+    "Release Summary",
+    "CP Target: Q1 2027 (Target)",
+    "Global Market Release\nAnchor Customers: Saudi MoD, Globe, TCL, Etislat, Lintasarta, NAM MCE",
+    "Key New Hardware\n16CP12T8\nS2AD800Z\nIR4 & ASGLP ET versions, OMDWB\nNew PSS-8 variant (improved cooling, 2.5GE OAM&P)\nPSS-8/16/32 Compact Controllers",
+    "Key New Use Cases\nGX over PSS Line (Control Plane \u2013 requires GX R10.0)\nAT&T OpenROADM updated MSA\nPSS-24x 400GE Line structure\nDMAT6/D6AD2T4 Seamless swaps\n5x400GE to 2x1T GMPLS\nS13X400x GCC\nETR ILA/FOADM sites",
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 48,
+   "title": "1830 Release 27.Q3 What\u2019s New",
+   "text": [
+    "1830 Release 27.Q3 What\u2019s New",
+    "Core/Metro/Edge Solution: Platform, Capacity & Performance Enhancements",
+    "WaveSuite",
+    "Release Summary",
+    "CP Target: Q3 2027 (July-2027)",
+    "Global Market Release",
+    "Key Values and Differentiation\n800GE LR4 client support on PSE-6s & 16CP12T8\nDigital OPS (for 800GE client protection)\nETSI QKD 0014 \u201cInterface Quantum Key Delivery Networks\u201d",
+    "Key New Hardware\nMCS-88\nAAR\nIR4 ET versions\nUNCx Compact Controllers",
+    "Key New Use Cases\n400GE/800GE Inverse mux on 16CP12T8\n400ZR/800ZR clients on 16CP12T8, 4CP4T8\n3R on 16CP12T8\nOPSCL 3-leg C+L\nControl Plane Slicing\nGMPLS LSP Bundling\nEncryption with 400GE/800GE inverse muxing, & regen\nETR ROADM Sites",
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 52,
+   "title": "1830 Release 27.Q4 What\u2019s New",
+   "text": [
+    "1830 Release 27.Q4 What\u2019s New",
+    "Core/Metro/Edge Solution: Platform, Capacity & Performance Enhancements",
+    "WaveSuite",
+    "Release Summary",
+    "CP Target: Q4 2027 (Dec-2027)",
+    "Global Market Release",
+    "Key Values and Differentiation\n27% C-Band spectrum increase with Super-C\nPrecise event localization",
+    "Key New Hardware\nMCS-168\nSingle-span CSM\nIR32SC, EILASC, RA5PSCL, ASC4SC",
+    "Key New Use Cases\nOTUC4 clients on 4CP12T8, D6A2T4E/LE\nSuper-C introduction for CF configurations",
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 54,
+   "title": "WaveSuite 27.Q4 What\u2019s New",
+   "text": [
+    "WaveSuite 27.Q4 What\u2019s New",
+    "WaveSuite and WS Planner",
+    "WaveSuite",
+    "Release Summary",
+    "CP Target: Q4 2027 (Dec-2027)",
+    "Global Market Release",
+    "Key Values and Differentiation\nAI \u2013 Fiber Sensing (LTR)\nWaveSuite AI recovery runbooks\nTomography\nIntroduction of power profile network tomography use cases\nFiber type detection via tomography \nWaveSuite Planner\nAI Conversational Planning Insights & Reporting\nGNPy 3rd party line system sim\nLSP Bundling \u2013 L1 Support",
+    "Key New Hardware\n1830 PSS 27.Q4\n1830 GX R10.2",
+    "Key New Use Cases\nSpectrum plan & management enhancement (from flexGrid to gridless for a set of applications)\nIntroduction Super-C band\nOptimize - Spectrum Streamline : Re-routing option introduction\nAutomation use cases for new CSM sensing card\nWS-P: Protected multi-hop svc\nWS-P: Bi-directional OSC in single fiber transmission",
+    "Multi-tenant WS SaaS",
+    "Spectrum management : from flexgrid to gridless",
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 56,
+   "title": "WaveSuite Planner R27.Q4",
+   "text": [
+    "WaveSuite Planner R27.Q4",
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 57,
+   "title": "QSN Solutions",
+   "text": [
+    "QSN Solutions",
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 58,
+   "title": "1830 PSS 2028/29 Release Strategy",
+   "text": [
+    "1830 PSS 2028/29 Release Strategy",
+    "Core/Metro/Edge Solution: Platform, Capacity & Performance Enhancements",
+    "WaveSuite",
+    "Release Summary",
+    "Target two(2) yearly releases cadence: mid-2028 and end-2028",
+    "Global Market Release",
+    "Key Values and Differentiation\n28.1H\nOTN clients on 16CP12T8 and S2AD800H\nFlexOSec on 16CP12T8 & S2AD800H\n800G OTN on a blade\n64FC/128FC Client Support\nDenser C+L ILA\n28.2H\nImproved cost/power/bit with 1.6T thin transponder\nAdditional 11.6THz increase spectrum with Super-C + Super-L (+21%)\n2029\nImproved cost/power/bit with 2.4T transponder",
+    "Key New Hardware\n28.1H\nS2AD800H\n2UC1TC\nD20X800\nPSD-800\nILASCL, AARSC, IR32SL, EILASL, ASC4SL\nILAICL\n28.2H\n1.6T PSS-HC thin transponder\nAARSL, ASGSC, RA4PSC\n2029\n2.4T PSS-HC transponder",
+    "Key New Use Cases\n28.1H\nOTU4 clients on 16CP12T8 and S2AD800H\nICE-X 800G on PSS-x\n800G PSS Muxponder\n400G/800G NID/Edge aggregation\nSuper-C CDC-F & Super-L C-F configuration support\n28.2H\n1.6T Line in PSS-HC\nSuper-L CDC-F configuration support\n2029\n2.4T Line in PSS-HC",
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 59,
+   "title": "WaveSuite 2028 Release Strategy",
+   "text": [
+    "WaveSuite 2028 Release Strategy",
+    "WaveSuite and WS Planner",
+    "WaveSuite",
+    "Release Summary",
+    "Target two(2) yearly releases cadence: mid-2028 and end-2028",
+    "Global Market Release",
+    "Key Values and Differentiation\nAI \u2013 Fiber Sensing pattern Mgmt.\nAI \u2013 Coherent Pluggable Agent\nVisibility foundation\nPredictive assurance\nLifecycle optimization\nAI \u2013 Network Design Co-Planner\nSolution Proposals/Analysis\nGuided Solution Improvement",
+    "Key New Hardware\n1830 PSS 28.x\n1830 GX R11.x",
+    "Key New Use Cases\nSuper-C/Super-L management \nConsolidation of tomography solution \nWS-P \u2013 Improved Pluggable Management\nUnsupported & Unspecified Pluggables (Custom & Auto)\nAssociated Client Services and Trails",
+    "Towards Intent management",
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 60,
+   "title": "1830 OLS Line",
+   "text": [
+    "1830 OLS Line",
+    "Long-haul/Core C+L Line System Solution for Hyperscalers",
+    "OpenConfig",
+    "Key Values and Differentiation\nTargeted for hyperscale customers leveraging declarative configurations and OpenConfig support\nOptimized for long and ultra-long haul core networks (>50 span C+L networks deployed)\nKey New Use Cases\nAddition of C-L configuration \nKey New Hardware\nN/A",
+    "Release Summary",
+    "1830 OLS R26.3.1: GA",
+    "Global Market Release",
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 62,
+   "title": "1830 OLS R26.3.1",
+   "text": [
+    "1830 OLS R26.3.1",
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  },
+  {
+   "slide": 63,
+   "title": "1830 LX",
+   "text": [
+    "1830 LX",
+    "Amplification for long unrepeatered fiber spans\nExtend unrepeatered reach up to 550 km\nEDFA booster and Raman amplifiers\nRemote Optical Pumped Amplifiers (ROPA)\nOptical Service Channel (OSC) extension",
+    "* Planned in R27.1Q\n** direct OTU4 link only",
+    "Ultra-long Reach Un-repeated Optical Amplification",
+    "Key Value and Differentiation\nEnables ultra-long un-repeatered optical spans for remote or undersea optical transport applications\nReduces costs by eliminating intermediate ILA or repeater sites, where they are not feasible or practical\nIntegrates with 1830 GX and 1830 PSS transport/WDM systems\nOperates in harsh environments; for example, ROPA modules are passive devices designed for outside plant environments.\nAllows carriers to bring modern, highspeed data services to remote locations\nAllows extended range transparent transport of optical supervisory channel from 1830 GX or PSS platforms\nKey Applications\nUltra-long span optical networking\nAcross long span and remote terrestrial routes such as wilderness or deserts, terrestrial routes\nLong span un-repeatered undersea routes such as channel crossings or connections to ocean based Platforms \nIsland hopping and coastal festoon connections\nROPA, remotely optical pumped amplifier applications\nTemperature hardened environments",
+    "Summary",
+    "26.6 Completed; Next Release Target Q1-2027",
+    "Global Market Release",
+    "Available (CP)\nPlan of Record (C2)\nPlan of Intent (Pre-C2)\nMoved/Changed\nNew item"
+   ]
+  }
+ ]
+}

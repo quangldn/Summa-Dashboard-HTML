@@ -4,7 +4,15 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MOFN — HS OLS Configurator v3 · SUMMA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/theme.css" />
   <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="stylesheet" href="assets/nav-bar.css" />
+  <link rel="stylesheet" href="assets/cmdk.css" />
+  <script src="assets/nav.js" defer></script>
+  <script src="assets/cmdk.js" defer></script>
   <style>
     .mofn-hero { padding: 28px 0 14px 0; }
     .mofn-hero h1 { margin: 0 0 6px 0; font-size: 28px; color: var(--nokia-blue-deep); }
@@ -14,7 +22,7 @@
       background: var(--surface-2); color: var(--text-muted);
       border-radius: 20px; font-size: 12px; letter-spacing: 0.3px;
     }
-    .mofn-hero .meta-pill.v3 { background: #DFF4F1; color: #0A6E62; font-weight: 600; }
+    .mofn-hero .meta-pill.v3 { background: var(--ok-soft); color: var(--ok-ink); font-weight: 600; }
 
     /* ============ Filters ============ */
     .filter-grid {
@@ -43,7 +51,7 @@
     .fp-slider-wrap input[type=range] { flex: 1; accent-color: var(--nokia-blue); height: 4px; }
     .fp-slider-wrap .fp-val {
       min-width: 28px; text-align: center; font-weight: 700;
-      color: var(--nokia-blue-deep); font-size: 16px;
+      color: var(--ink-on-accent); font-size: 16px;
       background: var(--accent); border-radius: 4px; padding: 2px 6px;
     }
 
@@ -103,11 +111,11 @@
       font-size: 13px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
     }
     .span-info .chip-acc {
-      background: var(--accent); color: var(--nokia-blue-deep);
+      background: var(--accent); color: var(--ink-on-accent);
       padding: 2px 9px; border-radius: 4px; font-weight: 700;
       font-size: 12px;
     }
-    .span-info.p2p { background: #8A6700; }
+    .span-info.p2p { background: var(--warn-ink); }
 
     /* BoM */
     .bom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
@@ -144,7 +152,7 @@
     .bom-table .fn { color: var(--text-muted); font-size: 11px; display: block; margin-top: 2px; }
     .bom-table .rel { font-size: 10px; padding: 2px 6px; border-radius: 10px;
       background: var(--surface-2); color: var(--text-muted); font-weight: 600; white-space: nowrap; }
-    .bom-table .rel.roadmap { background: #FFF4D6; color: #8A6700; }
+    .bom-table .rel.roadmap { background: var(--warn-soft); color: var(--warn-ink); }
     .bom-table .qty { font-weight: 700; color: var(--nokia-blue-deep);
       text-align: center; width: 50px; font-size: 14px; }
     .bom-table .per-node {
@@ -152,18 +160,18 @@
       font-weight: 500; margin-top: 1px;
     }
     .bom-table .over { display: inline-block; font-size: 10px;
-      background: #E6F4F2; color: #0A6E62; padding: 1px 6px; border-radius: 8px;
+      background: var(--ok-soft); color: var(--ok-ink); padding: 1px 6px; border-radius: 8px;
       margin-left: 6px; font-weight: 600; }
     .bom-table .dir { display: inline-block; font-size: 10px;
-      background: #FFF4D6; color: #8A6700; padding: 1px 6px; border-radius: 8px;
+      background: var(--warn-soft); color: var(--warn-ink); padding: 1px 6px; border-radius: 8px;
       margin-left: 6px; font-weight: 600; }
 
     .gap-banner {
-      background: #FFF4D6; border: 1px solid #F0D77A; color: #5A4400;
+      background: var(--warn-soft); border: 1px solid var(--warn-soft); color: var(--warn-ink);
       padding: 10px 14px; border-radius: var(--radius); font-size: 13px;
       margin-top: 14px;
     }
-    .gap-banner strong { color: #8A6700; }
+    .gap-banner strong { color: var(--warn-ink); }
 
     .reason-box {
       margin-top: 12px; padding: 10px 14px; background: var(--surface-2);
@@ -177,23 +185,7 @@
 </head>
 <body>
 
-  <header class="topbar">
-    <div class="brand">
-      <span class="dot"></span>
-      SUMMA
-      <span class="sub">Nokia ON · Sales Engineering Workbench</span>
-    </div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="gx-wiki.html">GX Wiki</a>
-      <a href="gx-portfolio.html">GX Portfolio</a>
-      <a href="gx-bom.html">GX BOM</a>
-      <a href="portfolio.html">HS Portfolio</a>
-      <a href="mofn.html" class="active">MOFN Deck</a>
-      <a href="market-insight.html">Market Insight</a>
-    </nav>
-  </header>
+  <header id="summa-nav"></header>
 
   <main class="container">
 
@@ -216,7 +208,7 @@
       </button>
       <button class="xtab" data-tab="xpdr"
         style="background:none;border:0;border-bottom:3px solid transparent;margin-bottom:-2px;padding:10px 18px;font-family:inherit;font-size:14px;font-weight:600;color:var(--text-muted);cursor:pointer">
-        Transponder Advisor <span style="font-size:10px;background:#DFF4F1;color:#0A6E62;padding:1px 6px;border-radius:10px;margin-left:4px;font-weight:700">NEW</span>
+        Transponder Advisor <span style="font-size:10px;background:var(--ok-soft);color:var(--ok-ink);padding:1px 6px;border-radius:10px;margin-left:4px;font-weight:700">NEW</span>
       </button>
     </div>
 
@@ -343,11 +335,11 @@
         </div>
 
         <!-- ILA mix row (some sites EDFA-only, some Raman/Hybrid) -->
-        <div class="distance-row" style="margin-top:8px;background:#F0F4FA">
+        <div class="distance-row" style="margin-top:8px;background:var(--surface-2)">
           <div class="filter-cell">
             <label>Total ILA sites <span style="color:var(--text-faint);font-weight:400;text-transform:none;letter-spacing:0">(computed)</span></label>
             <div class="fp-slider-wrap" style="cursor:default;background:var(--surface-2)">
-              <span class="fp-val" id="ila-total-display" style="background:var(--nokia-blue-deep);color:#fff;width:auto;padding:2px 12px">—</span>
+              <span class="fp-val" id="ila-total-display" style="background:var(--bar-bg);color:#fff;width:auto;padding:2px 12px">—</span>
               <span style="font-size:11px;color:var(--text-muted);flex:1;text-align:right">= spans − 1</span>
             </div>
           </div>
@@ -603,7 +595,7 @@
           band. Reach is derived from an OSNR link budget and a per-format
           required-OSNR ladder calibrated to Nokia/Infinera published figures.
         </p>
-        <span class="meta-pill" style="background:#FFF4D6;color:#8A6700;font-weight:600">⚠ ESTIMATE · pre-sales sizing only · confirm firm reach with WaveLogic/Infinera planning tool</span>
+        <span class="meta-pill" style="background:var(--warn-soft);color:var(--warn-ink);font-weight:600">⚠ ESTIMATE · pre-sales sizing only · confirm firm reach with WaveLogic/Infinera planning tool</span>
       </section>
 
       <section class="section">
@@ -1747,20 +1739,20 @@
       const cells = gate.options.map(o => {
         const ok = o.margin >= 0;
         const isPick = effStrat === o.strat;
-        return `<td style="text-align:center;padding:8px 10px;${isPick?'background:#EAF3FF;':''}border-left:1px solid var(--border)">
+        return `<td style="text-align:center;padding:8px 10px;${isPick?'background:var(--accent-soft);':''}border-left:1px solid var(--border)">
             <div style="font-weight:${isPick?700:600};font-size:12px;color:${isPick?'var(--nokia-blue-deep)':'var(--text)'}">${label[o.strat]}${isPick?' ✔':''}</div>
             <div style="font-size:11px;color:var(--text-faint)">eff NF ${o.nf.toFixed(1)} dB</div>
             <div style="font-size:13px;font-weight:600;margin-top:2px">${o.osnr.toFixed(1)} dB</div>
-            <div style="font-size:11px;font-weight:600;color:${ok?'#0A6E62':'#A02020'}">
+            <div style="font-size:11px;font-weight:600;color:${ok?'var(--ok-ink)':'var(--bad-ink)'}">
               ${ok?'+':''}${o.margin.toFixed(1)} dB ${ok?'margin':'short'}</div>
           </td>`;
       }).join('');
 
       const head = gate.closes
-        ? `<span style="color:#0A6E62;font-weight:700">Link closes</span> on
+        ? `<span style="color:var(--ok-ink);font-weight:700">Link closes</span> on
            <strong>${label[gate.pick.strat]}</strong> at ${f.rate}G/λ with
            ${gate.pick.margin.toFixed(1)} dB margin.`
-        : `<span style="color:#A02020;font-weight:700">Link does not close</span> at ${f.rate}G/λ on any
+        : `<span style="color:var(--bad-ink);font-weight:700">Link does not close</span> at ${f.rate}G/λ on any
            amp strategy — drop the line rate, shorten spans, move to G.654.E, or plan a regen site.`;
 
       $('osnr-panel').innerHTML = `
@@ -1778,7 +1770,7 @@
               ${cells}
             </tr>
           </table>
-          <div style="padding:6px 12px;background:#FFF4D6;color:#8A6700;font-size:10.5px;border-top:1px solid var(--border)">
+          <div style="padding:6px 12px;background:var(--warn-soft);color:var(--warn-ink);font-size:10.5px;border-top:1px solid var(--border)">
             ⚠ ESTIMATE — first-order OSNR only. Raman/hybrid are modelled as a
             ${RAMAN_NF_ADV}/${HYBRID_NF_ADV} dB effective noise-figure advantage over a ${EDFA_NF} dB EDFA span;
             no nonlinear penalty, ROADM cascade or PMD/PDL. Confirm with GNPy / WaveLogic planning before quoting.
@@ -2052,7 +2044,7 @@
         const ru = (p.cat === 'chassis') ? chassisRU(p.n) : null;
         let pwInline = '';
         if (pw.src === 'passive') {
-          pwInline = `<span class="fn" style="color:#0A6E62">passive · 0 W${pw.kg?` · ${pw.kg} kg`:''}</span>`;
+          pwInline = `<span class="fn" style="color:var(--ok-ink)">passive · 0 W${pw.kg?` · ${pw.kg} kg`:''}</span>`;
         } else if (pw.src === 'in-baseline') {
           pwInline = `<span class="fn" style="color:var(--text-faint)">power in chassis aggregate${pw.kg?` · ${pw.kg} kg`:''}</span>`;
         } else if (pw.src === 'unknown') {
@@ -2068,7 +2060,7 @@
           commonHeaderDone = true;
           sep = `<tr><td colspan="3" style="padding:6px 12px;background:var(--surface-2);font-size:10px;text-transform:uppercase;letter-spacing:.6px;font-weight:700;color:var(--text-muted);border-top:2px solid var(--border)">Common equipment</td></tr>`;
         }
-        return `${sep}<tr${isCommon?' style="background:#FBFCFE"':''}>
+        return `${sep}<tr${isCommon?' style="background:var(--surface-2)"':''}>
           <td class="qty">${totalQty}
             <span class="per-node">${perX}/${qtyKey==='qtyPerNode'?'node':'site'} × ${multiplier}</span>
           </td>
@@ -2159,7 +2151,7 @@
           </tr></thead>
           <tbody>${rows}</tbody>
         </table>
-        ${warn.length ? `<div style="padding:8px 12px;background:#FFF4D6;color:#8A6700;font-size:11px;border-top:1px solid var(--border)">
+        ${warn.length ? `<div style="padding:8px 12px;background:var(--warn-soft);color:var(--warn-ink);font-size:11px;border-top:1px solid var(--border)">
             ${warn.map(w=>`⚠ ${w}`).join('<br>')}</div>` : ''}
         <div style="padding:8px 12px;font-size:11px;color:var(--text-faint);border-top:1px solid var(--border)">
           Method mirrors the PowerDraw breaker sheet: I<sub>min</sub> = (P<sub>input</sub> ÷ ${BRK_VMIN} V) ÷ ${BRK_DERATE} ÷ feeds,
@@ -2239,17 +2231,17 @@
       const ilaSpaceExceeded = topo.mode !== 'p2p' && heaviestRu > ilaRackSpaceBudget;
 
       const budgetRow = topo.mode === 'p2p' ? '' : `
-            <tr style="background:#FFF9E6">
+            <tr style="background:var(--warn-soft)">
               <td style="font-size:11px"><strong>Rack budget check (heaviest ILA site)</strong>
                 <span class="fn">${f.rackCount} rack × ${f.rackPower} W = ${fmtKW(siteRackBudget)} max output · ${ilaRackSpaceBudget} U</span>
               </td>
               <td colspan="4" style="font-size:11px;text-align:right">
                 PEM input load: <strong>${fmtKW(perSiteIlaPemInput)}</strong>
                 ${ilaBudgetExceeded
-                  ? ` <span class="dir" style="background:#FFD6D6;color:#A02020">⚠ EXCEEDS BUDGET by ${fmtKW(-ilaBudgetHeadroom)}</span>`
+                  ? ` <span class="dir" style="background:var(--bad-soft);color:var(--bad-ink)">⚠ EXCEEDS BUDGET by ${fmtKW(-ilaBudgetHeadroom)}</span>`
                   : ` <span class="over">headroom ${fmtKW(ilaBudgetHeadroom)}</span>`}
                 ${ilaSpaceExceeded
-                  ? ` <span class="dir" style="background:#FFD6D6;color:#A02020">⚠ RU EXCEEDS</span>`
+                  ? ` <span class="dir" style="background:var(--bad-soft);color:var(--bad-ink)">⚠ RU EXCEEDS</span>`
                   : ''}
               </td>
               <td style="text-align:right;font-size:11px">${fmtRU(heaviestRu)} / ${ilaRackSpaceBudget} U</td>
@@ -2283,7 +2275,7 @@
             </tr>` : '';
 
       const bRows = (perIlaB && nB > 0) ? `
-            <tr style="border-top:2px solid var(--border);background:#F7FBFF">
+            <tr style="border-top:2px solid var(--border);background:var(--accent-soft)">
               <td><strong>Per Route B ILA site</strong></td>
               <td style="text-align:right">${fmtKW(perIlaB.typ)}</td>
               <td style="text-align:right">${fmtKW(perIlaB.m40)}</td>
@@ -2291,7 +2283,7 @@
               <td style="text-align:right">${fmtRU(perIlaB.ru)}</td>
               <td style="text-align:right">${fmtKg(perIlaB.kg)}</td>
             </tr>
-            <tr style="background:#F7FBFF">
+            <tr style="background:var(--accent-soft)">
               <td><strong>Route B ILA side</strong>
                 <span class="fn">× ${nB} sites · OLP 1+1 diverse path</span>
               </td>
@@ -2480,7 +2472,7 @@
         if (!r){
           cardsHTML += `
           <div class="bom-card">
-            <header><h3>${c.name}</h3><span class="count" style="background:#F8D7DA;color:#842029">no reach</span></header>
+            <header><h3>${c.name}</h3><span class="count" style="background:var(--bad-soft);color:var(--bad-ink)">no reach</span></header>
             <div style="padding:14px 16px;font-size:13px;color:var(--text-muted)">
               Link too long for ${c.name} at any rate — RX OSNR ${L.osnr.toFixed(1)} dB is below the
               ${c.ladder[c.ladder.length-1][0]}G floor (${c.ladder[c.ladder.length-1][1]} dB).
@@ -2495,7 +2487,7 @@
         <div class="bom-card">
           <header>
             <h3>${c.name} <span style="font-weight:400;font-size:11px;color:var(--text-faint)">${c.engine}</span></h3>
-            <span class="count" style="background:#DFF4F1;color:#0A6E62">${r.rate}G / λ</span>
+            <span class="count" style="background:var(--ok-soft);color:var(--ok-ink)">${r.rate}G / λ</span>
           </header>
           <div style="padding:12px 16px;font-size:13px">
             <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border)">
@@ -2520,7 +2512,7 @@
       if (cardMode==='both' && results.CHM6 && results.CHM7){
         const win = results.CHM7.total >= results.CHM6.total ? 'CHM7' : 'CHM6';
         const alt = win==='CHM7' ? 'CHM6' : 'CHM7';
-        reco = `<div class="span-info" style="background:#EAF3FF;border-left:3px solid var(--nokia-blue)">
+        reco = `<div class="span-info" style="background:var(--accent-soft);border-left:3px solid var(--nokia-blue)">
           <strong>Recommendation — ${win}</strong>: carries ${results[win].rate}G/λ →
           ${results[win].total.toFixed(1)} Tb/s per fiber vs ${results[alt].rate}G/λ →
           ${results[alt].total.toFixed(1)} Tb/s on ${alt}.
@@ -2531,8 +2523,8 @@
       } else if (cardMode==='both'){
         const ok = results.CHM6 ? 'CHM6' : (results.CHM7 ? 'CHM7' : null);
         reco = ok
-          ? `<div class="span-info" style="background:#EAF3FF;border-left:3px solid var(--nokia-blue)"><strong>Only ${ok} reaches this link.</strong></div>`
-          : `<div class="span-info" style="background:#FDECEA;border-left:3px solid #C0392B"><strong>Neither engine reaches this link unregenerated</strong> — add Raman, use G.654.E, shorten spans, or plan a regen site.</div>`;
+          ? `<div class="span-info" style="background:var(--accent-soft);border-left:3px solid var(--nokia-blue)"><strong>Only ${ok} reaches this link.</strong></div>`
+          : `<div class="span-info" style="background:var(--bad-soft);border-left:3px solid var(--bad)"><strong>Neither engine reaches this link unregenerated</strong> — add Raman, use G.654.E, shorten spans, or plan a regen site.</div>`;
       }
       $('x-reco').innerHTML = reco;
 
@@ -2548,7 +2540,7 @@
           (real cards use continuous probabilistic constellation shaping, so exact formats vary by tier).</p>
         <p style="margin:0 0 8px"><b>Capacity:</b> channels = ⌊band ÷ slot⌋ where slot ≈ baud × 1.15 on the 12.5 GHz flexgrid
           (CHM6 ${slotGHz(96)} GHz, CHM7 ${slotGHz(140)} GHz). Total = channels × per-λ rate. C+L bands assume both halves filled.</p>
-        <p style="margin:0;padding:8px 10px;background:#FFF4D6;border-radius:6px;color:#8A6700">
+        <p style="margin:0;padding:8px 10px;background:var(--warn-soft);border-radius:6px;color:var(--warn-ink)">
           <b>⚠ ESTIMATE — pre-sales sizing only.</b> The reach ladder is calibrated to Nokia/Infinera published anchors
           (ICE-6 800G ~730–1000 km, 600G &gt;1600 km, 400G transoceanic; ICE-7 1.2T short-reach, 800G ~3000 km) but does
           <b>not</b> model Raman gain, nonlinear penalties, ROADM/filter cascade, PMD/PDL, or per-subcarrier tuning.

@@ -3,87 +3,14 @@
    Nokia-flavored, light theme, system fonts only.
    ============================================================ */
 
-:root {
-  --nokia-blue: #124191;
-  --nokia-blue-deep: #001F5F;
-  --nokia-blue-light: #2E5BB8;
-  --accent: #00C4B3;
-  --bg: #F6F7FB;
-  --surface: #FFFFFF;
-  --surface-2: #F0F2F8;
-  --border: #E1E5EE;
-  --text: #1A1F36;
-  --text-muted: #5A6072;
-  --text-faint: #8A92A6;
-  --warn: #E8A317;
-  --shadow-sm: 0 1px 2px rgba(18, 65, 145, 0.06);
-  --shadow-md: 0 4px 12px rgba(18, 65, 145, 0.08);
-  --shadow-lg: 0 10px 30px rgba(18, 65, 145, 0.12);
-  --radius: 10px;
-  --radius-sm: 6px;
-}
+/* Tokens live in assets/theme.css — load it before this file.
+   This sheet is now only the components the older pages use. */
 
 * { box-sizing: border-box; }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-               "Helvetica Neue", Arial, sans-serif;
-  font-size: 15px;
-  line-height: 1.55;
-  -webkit-font-smoothing: antialiased;
-}
 
-a { color: var(--nokia-blue); text-decoration: none; }
-a:hover { text-decoration: underline; }
 
-/* ============================================================
-   Top bar
-   ============================================================ */
-.topbar {
-  background: var(--nokia-blue-deep);
-  color: #fff;
-  padding: 14px 28px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow: var(--shadow-md);
-}
-.topbar .brand {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  font-size: 18px;
-}
-.topbar .brand .dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--accent);
-  display: inline-block;
-  transform: translateY(-1px);
-}
-.topbar .brand .sub {
-  font-weight: 400;
-  color: rgba(255,255,255,0.7);
-  font-size: 13px;
-}
-.topbar nav a {
-  color: rgba(255,255,255,0.85);
-  margin-left: 22px;
-  font-size: 14px;
-  font-weight: 500;
-}
-.topbar nav a:hover { color: #fff; text-decoration: none; }
-.topbar nav a.active {
-  color: #fff;
-  border-bottom: 2px solid var(--accent);
-  padding-bottom: 4px;
-}
-
+/* Top bar and sub bar live in assets/nav-bar.css. */
 /* ============================================================
    Layout
    ============================================================ */
@@ -126,11 +53,17 @@ a:hover { text-decoration: underline; }
 }
 .portal-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 20px;
-  max-width: 900px;
-  margin: 32px auto 0;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 18px;
+  margin: 0;
 }
+/* On a section page the groups carry the rhythm, so the hero and each group
+   heading sit left with the cards rather than centred over them. */
+#summa-section .portal-hero { text-align: left; padding: 26px 0 4px; }
+#summa-section .portal-hero p { margin: 0; max-width: 68ch; }
+#summa-section .section { margin-bottom: 30px; }
+#summa-section .section:first-of-type { margin-top: 22px; }
+#summa-section .section h2 { font-size: 17px; }
 .portal-card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -203,7 +136,7 @@ a:hover { text-decoration: underline; }
 
 /* Callout (Hyperscaler definition) */
 .callout {
-  background: linear-gradient(180deg, #F1F4FB 0%, #E9EEF8 100%);
+  background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface-3) 100%);
   border-left: 4px solid var(--nokia-blue);
   border-radius: var(--radius-sm);
   padding: 16px 18px;
@@ -335,7 +268,7 @@ a:hover { text-decoration: underline; }
   vertical-align: top;
 }
 .portfolio-table th {
-  background: var(--nokia-blue-deep);
+  background: var(--bar-bg);
   color: #fff;
   font-weight: 600;
   font-size: 13px;
@@ -347,7 +280,7 @@ a:hover { text-decoration: underline; }
   color: var(--text);
   min-height: 56px;
 }
-.portfolio-table tr:nth-child(even) td { background: #FBFCFE; }
+.portfolio-table tr:nth-child(even) td { background: var(--surface-2); }
 .portfolio-table tr:last-child td { border-bottom: none; }
 .portfolio-table .placeholder {
   color: var(--text-faint);

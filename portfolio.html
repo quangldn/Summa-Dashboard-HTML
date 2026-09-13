@@ -6,23 +6,23 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
 :root {
-  --nokia-blue: #124191;
-  --nokia-blue-deep: #001F5F;
-  --nokia-blue-light: #2E5BB8;
+  --nokia-blue: var(--accent);
+  --nokia-blue-deep: var(--nokia-blue-deep);
+  --nokia-blue-light: var(--accent-hover);
   --accent: #00C4B3;
-  --bg: #F6F7FB;
-  --surface: #FFFFFF;
-  --surface-2: #F0F2F8;
-  --border: #E1E5EE;
-  --text: #1A1F36;
-  --text-muted: #5A6072;
-  --text-faint: #8A92A6;
-  --ready: #1FA663;
-  --ready-bg: #E6F6EE;
-  --roadmap: #E8A317;
-  --roadmap-bg: #FBF1D9;
-  --passive: #8A92A6;
-  --passive-bg: #ECEEF3;
+  --bg: var(--bg);
+  --surface: var(--surface);
+  --surface-2: var(--surface-2);
+  --border: var(--line);
+  --text: var(--ink);
+  --text-muted: var(--ink-2);
+  --text-faint: var(--ink-3);
+  --ready: var(--ok-ink);
+  --ready-bg: var(--ok-soft);
+  --roadmap: var(--warn);
+  --roadmap-bg: var(--warn-soft);
+  --passive: var(--ink-3);
+  --passive-bg: var(--surface-2);
   --shadow-sm: 0 1px 2px rgba(18,65,145,0.06);
   --shadow-md: 0 4px 12px rgba(18,65,145,0.08);
   --shadow-lg: 0 10px 30px rgba(18,65,145,0.12);
@@ -40,7 +40,7 @@ html, body {
   -webkit-font-smoothing: antialiased;
 }
 .topbar {
-  background: var(--nokia-blue-deep);
+  background: var(--bar-bg);
   color: #fff;
   padding: 12px 28px;
   display: flex; align-items: center; justify-content: space-between;
@@ -57,7 +57,7 @@ html, body {
 /* Hero stats */
 .hero { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 14px; margin-bottom: 22px; align-items: stretch; }
 .hero .title {
-  background: linear-gradient(135deg, var(--nokia-blue-deep) 0%, var(--nokia-blue) 100%);
+  background: linear-gradient(135deg, var(--bar-bg) 0%, var(--nokia-blue) 100%);
   color: #fff; border-radius: var(--radius); padding: 18px 22px;
   box-shadow: var(--shadow-md);
 }
@@ -97,7 +97,7 @@ html, body {
 .searchwrap { position: relative; display: flex; align-items: center; gap: 6px; }
 .searchwrap input {
   font-family: inherit; font-size: 13px; padding: 6px 28px 6px 30px;
-  border: 1px solid var(--border); border-radius: 999px; background: #fff;
+  border: 1px solid var(--border); border-radius: 999px; background: var(--surface);
   min-width: 260px; color: var(--text); outline: none;
 }
 .searchwrap input:focus { border-color: var(--nokia-blue); box-shadow: 0 0 0 3px rgba(0,91,187,0.12); }
@@ -113,12 +113,12 @@ html, body {
 }
 .matchcount { font-size: 12px; color: var(--text-muted); white-space: nowrap; }
 .matchcount b { color: var(--nokia-blue-deep); }
-.matchcount.zero b { color: #A02020; }
-mark.hit { background: #FFF0A8; color: inherit; border-radius: 2px; padding: 0 1px; }
+.matchcount.zero b { color: var(--bad-ink); }
+mark.hit { background: var(--warn-soft); color: inherit; border-radius: 2px; padding: 0 1px; }
 .portfolio-table tbody tr.rowhide { display: none; }
 .port-section.sechide { display: none; }
 .portfolio-table tbody tr.rowflash { animation: rowflash 1.6s ease; }
-@keyframes rowflash { 0%,60% { background: #FFF0A8; } 100% { background: transparent; } }
+@keyframes rowflash { 0%,60% { background: var(--warn-soft); } 100% { background: transparent; } }
 .pn-chip.dim, .pn-dot.dim { opacity: 0.18; }
 .chip.reset {
   background: transparent; border: 1px dashed var(--border); color: var(--text-muted);
@@ -169,7 +169,7 @@ mark.hit { background: #FFF0A8; color: inherit; border-radius: 2px; padding: 0 1
 
 #quadrantWrap {
   width: 100%; border: 1px solid var(--border); border-radius: var(--radius-sm);
-  background: linear-gradient(0deg, #FAFBFD, #FFFFFF);
+  background: linear-gradient(0deg, var(--surface-2), var(--surface));
   overflow: hidden;
   position: relative;
 }
@@ -227,7 +227,7 @@ mark.hit { background: #FFF0A8; color: inherit; border-radius: 2px; padding: 0 1
   background: var(--surface);
 }
 .matrix th {
-  background: var(--nokia-blue-deep); color: #fff;
+  background: var(--bar-bg); color: #fff;
   font-size: 11.5px; font-weight: 600; letter-spacing: 0.4px;
   text-transform: uppercase; text-align: center; vertical-align: middle;
   padding: 10px 8px;
@@ -235,8 +235,8 @@ mark.hit { background: #FFF0A8; color: inherit; border-radius: 2px; padding: 0 1
 .matrix th.row-h { background: var(--surface-2); color: var(--nokia-blue-deep); text-align: left; padding-left: 14px; }
 .matrix th.chassis-col { background: var(--nokia-blue); }
 .matrix td { min-width: 120px; height: 60px; }
-.matrix td.empty { background: #FAFBFD; }
-.matrix td.chassis-cell { background: #F4F7FB; }
+.matrix td.empty { background: var(--surface-2); }
+.matrix td.chassis-cell { background: var(--surface-2); }
 .matrix .pn-chip {
   display: inline-flex; align-items: center; gap: 4px;
   background: var(--ready-bg); color: var(--text); border-radius: 5px;
@@ -255,23 +255,16 @@ mark.hit { background: #FFF0A8; color: inherit; border-radius: 2px; padding: 0 1
   background: var(--text-muted); color: #fff; border-radius: 3px;
   font-size: 9px; padding: 0 3px; font-weight: 700;
 }
+.both-badge {
+  background: var(--accent); color: var(--ink-on-accent); border-radius: 3px;
+  font-size: 9px; padding: 0 3px; font-weight: 700;
+}
 .matrix .pn-chip .both-badge {
-  background: var(--accent); color: #001F5F; border-radius: 3px;
+  background: var(--accent); color: var(--ink-on-accent); border-radius: 3px;
   font-size: 9px; padding: 0 3px; font-weight: 700;
 }
 
-/* Topbar nav (matches other Summa pages) */
-.topbar nav a {
-  color: rgba(255,255,255,0.85);
-  margin-left: 22px; font-size: 14px; font-weight: 500;
-  text-decoration: none;
-}
-.topbar nav a:hover { color: #fff; }
-.topbar nav a.active {
-  color: #fff;
-  border-bottom: 2px solid var(--accent);
-  padding-bottom: 4px;
-}
+/* Topbar and sub bar come from assets/nav-bar.css — see assets/nav.js */
 
 /* Anchor jump nav */
 .anchor-nav {
@@ -323,12 +316,12 @@ section[id] { scroll-margin-top: 80px; }
 .port-section { margin-bottom: 26px; }
 .port-section-head {
   display: flex; align-items: center; gap: 10px;
-  background: var(--nokia-blue-deep); color: #fff;
+  background: var(--bar-bg); color: #fff;
   padding: 10px 16px; border-radius: var(--radius) var(--radius) 0 0;
   font-size: 13px; font-weight: 600; letter-spacing: 0.4px;
 }
 .port-section-count {
-  background: var(--accent); color: var(--nokia-blue-deep);
+  background: var(--accent); color: var(--ink-on-accent);
   padding: 2px 10px; border-radius: 12px;
   font-size: 11px; font-weight: 700;
 }
@@ -351,7 +344,7 @@ section[id] { scroll-margin-top: 80px; }
   vertical-align: middle;
 }
 .portfolio-table tbody tr:last-child td { border-bottom: 0; }
-.portfolio-table tbody tr:hover { background: #FAFBFE; }
+.portfolio-table tbody tr:hover { background: var(--surface-2); }
 .portfolio-table .pn {
   font-family: ui-monospace, Menlo, Consolas, monospace;
   font-size: 12px; color: var(--nokia-blue); font-weight: 600; white-space: nowrap;
@@ -366,18 +359,18 @@ section[id] { scroll-margin-top: 80px; }
 .portfolio-table .cap { font-size: 11px; color: var(--text-muted); }
 .portfolio-table .pw { font-size: 11px; }
 .portfolio-table .pw-typ { color: var(--nokia-blue-deep); font-weight: 600; }
-.portfolio-table .pw-max { color: var(--roadmap); font-weight: 600; }
-.portfolio-table .pw-passive { color: #0A6E62; font-size: 11px; font-style: italic; }
+.portfolio-table .pw-max { color: var(--warn-ink); font-weight: 600; }
+.portfolio-table .pw-passive { color: var(--ok-ink); font-size: 11px; font-style: italic; }
 .pw-tag { display: inline-block; font-size: 9px; padding: 1px 5px; border-radius: 8px; margin-left: 3px; font-weight: 700; vertical-align: middle; }
-.pw-tag.pw-est { background: #FFF4D6; color: #8A6700; }
+.pw-tag.pw-est { background: var(--warn-soft); color: var(--warn-ink); }
 .pw-tag.pw-var { background: var(--surface-2); color: var(--text-muted); }
-.fam-full { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; background: #FFF4D6; color: #8A6700; font-weight: 600; }
-.fam-compact { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; background: #DFF4F1; color: #0A6E62; font-weight: 600; }
+.fam-full { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; background: var(--warn-soft); color: var(--warn-ink); font-weight: 600; }
+.fam-compact { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; background: var(--ok-soft); color: var(--ok-ink); font-weight: 600; }
 .fam-any { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; background: var(--surface-2); color: var(--text-muted); font-weight: 600; }
-.hs-yes { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; background: #E0F4EB; color: #0A6E40; font-weight: 600; }
-.hs-no { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; background: #FBE5E5; color: #8A2020; font-weight: 600; }
-.bidi-yes { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 8px; background: #DFF4F1; color: #0A6E62; font-weight: 600; }
-.bidi-no { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 8px; background: #FFF4D6; color: #8A6700; font-weight: 600; }
+.hs-yes { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; background: var(--ok-soft); color: var(--ok-ink); font-weight: 600; }
+.hs-no { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; background: var(--bad-soft); color: var(--bad-ink); font-weight: 600; }
+.bidi-yes { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 8px; background: var(--ok-soft); color: var(--ok-ink); font-weight: 600; }
+.bidi-no { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 8px; background: var(--warn-soft); color: var(--warn-ink); font-weight: 600; }
 .legend-bar {
   display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px;
   padding: 10px 14px; background: var(--surface-2);
@@ -393,26 +386,18 @@ section[id] { scroll-margin-top: 80px; }
   .hero .title { grid-column: span 2; }
 }
 </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/theme.css">
+<link rel="stylesheet" href="assets/nav-bar.css">
+<link rel="stylesheet" href="assets/cmdk.css">
+<script src="assets/nav.js" defer></script>
+<script src="assets/cmdk.js" defer></script>
 </head>
 <body>
 
-<header class="topbar">
-  <div class="brand">
-    <span class="dot"></span>
-    SUMMA
-    <span class="sub">Nokia ON · Sales Engineering Workbench</span>
-  </div>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="dashboard.html">Dashboard</a>
-    <a href="gx-wiki.html">GX Wiki</a>
-    <a href="gx-portfolio.html">GX Portfolio</a>
-      <a href="gx-bom.html">GX BOM</a>
-    <a href="portfolio.html" class="active">HS Portfolio</a>
-    <a href="mofn.html">MOFN Deck</a>
-    <a href="market-insight.html">Market Insight</a>
-  </nav>
-</header>
+<header id="summa-nav"></header>
 
 <main class="container">
 
@@ -496,32 +481,32 @@ section[id] { scroll-margin-top: 80px; }
     </div>
 
     <div class="legend">
-      <div class="item"><span class="swatch"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="#1FA663"/></svg></span> R9.1 GA</div>
-      <div class="item"><span class="swatch"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="#E8A317"/></svg></span> Roadmap &gt; R9.1</div>
-      <div class="item"><span class="swatch"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="#8A92A6"/></svg></span> Passive / no release</div>
-      <div class="item"><span class="swatch"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="#1FA663" stroke="#001F5F" stroke-width="2"/></svg></span> BIDI</div>
-      <div class="item"><span class="swatch"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="#1FA663" stroke="#001F5F" stroke-width="2" stroke-dasharray="2 1.5"/></svg></span> Uni-directional</div>
-      <div class="item"><span class="swatch"><svg width="22" height="16"><polygon points="11,3 19,13 3,13" fill="#5A6072"/></svg></span> MRA (4 FP)</div>
-      <div class="item"><span class="swatch"><svg width="22" height="16"><circle cx="11" cy="8" r="5.5" fill="#5A6072"/></svg></span> Single Rail (1 FP)</div>
+      <div class="item"><span class="swatch"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="var(--ok-ink)"/></svg></span> R9.1 GA</div>
+      <div class="item"><span class="swatch"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="var(--warn)"/></svg></span> Roadmap &gt; R9.1</div>
+      <div class="item"><span class="swatch"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="var(--ink-3)"/></svg></span> Passive / no release</div>
+      <div class="item"><span class="swatch"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="var(--ok-ink)" stroke="var(--nokia-blue-deep)" stroke-width="2"/></svg></span> BIDI</div>
+      <div class="item"><span class="swatch"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="var(--ok-ink)" stroke="var(--nokia-blue-deep)" stroke-width="2" stroke-dasharray="2 1.5"/></svg></span> Uni-directional</div>
+      <div class="item"><span class="swatch"><svg width="22" height="16"><polygon points="11,3 19,13 3,13" fill="var(--ink-2)"/></svg></span> MRA (4 FP)</div>
+      <div class="item"><span class="swatch"><svg width="22" height="16"><circle cx="11" cy="8" r="5.5" fill="var(--ink-2)"/></svg></span> Single Rail (1 FP)</div>
     </div>
 
     <!-- BAND SHAPE LEGEND -->
     <div class="shape-legend">
       <span class="title">Band shape</span>
-      <span class="item"><span class="swatch"><svg width="22" height="16"><rect x="3" y="3" width="10" height="10" fill="#5A6072" rx="1.5"/></svg></span> ⬛ Shelf (chassis)</span>
-      <span class="item"><span class="swatch"><svg width="22" height="16"><polygon points="11,2 19.5,7 17,15 5,15 2.5,7" fill="#5A6072"/></svg></span> ⬢ Band-agnostic</span>
-      <span class="item"><span class="swatch"><svg width="22" height="16"><circle cx="11" cy="8" r="5.5" fill="#5A6072"/></svg></span> ● Std C (N / C)</span>
-      <span class="item"><span class="swatch"><svg width="22" height="16"><polygon points="11,2 18,14 4,14" fill="#5A6072"/></svg></span> ▲ Super C (W / X)</span>
-      <span class="item"><span class="swatch"><svg width="22" height="16"><polygon points="11,14 18,2 4,2" fill="#5A6072"/></svg></span> ▼ L-band</span>
-      <span class="item"><span class="swatch"><svg width="22" height="16"><polygon points="11,2 18,7 15,14 7,14 4,7" fill="#5A6072"/></svg></span> ⬠ Std C+L (Z)</span>
-      <span class="item"><span class="swatch"><svg width="22" height="16"><polygon points="11,2 13,7 18,7 14,10 16,15 11,12 6,15 8,10 4,7 9,7" fill="#5A6072"/></svg></span> ★ Super C+L (Y)</span>
+      <span class="item"><span class="swatch"><svg width="22" height="16"><rect x="3" y="3" width="10" height="10" fill="var(--ink-2)" rx="1.5"/></svg></span> ⬛ Shelf (chassis)</span>
+      <span class="item"><span class="swatch"><svg width="22" height="16"><polygon points="11,2 19.5,7 17,15 5,15 2.5,7" fill="var(--ink-2)"/></svg></span> ⬢ Band-agnostic</span>
+      <span class="item"><span class="swatch"><svg width="22" height="16"><circle cx="11" cy="8" r="5.5" fill="var(--ink-2)"/></svg></span> ● Std C (N / C)</span>
+      <span class="item"><span class="swatch"><svg width="22" height="16"><polygon points="11,2 18,14 4,14" fill="var(--ink-2)"/></svg></span> ▲ Super C (W / X)</span>
+      <span class="item"><span class="swatch"><svg width="22" height="16"><polygon points="11,14 18,2 4,2" fill="var(--ink-2)"/></svg></span> ▼ L-band</span>
+      <span class="item"><span class="swatch"><svg width="22" height="16"><polygon points="11,2 18,7 15,14 7,14 4,7" fill="var(--ink-2)"/></svg></span> ⬠ Std C+L (Z)</span>
+      <span class="item"><span class="swatch"><svg width="22" height="16"><polygon points="11,2 13,7 18,7 14,10 16,15 11,12 6,15 8,10 4,7 9,7" fill="var(--ink-2)"/></svg></span> ★ Super C+L (Y)</span>
     </div>
   </div>
 
   <!-- Band × Chassis matrix -->
   <div class="panel">
     <h2>Band × Chassis matrix</h2>
-    <div class="sub">Rows = chassis family. Leftmost <strong>Chassis</strong> column groups the shelves themselves; rest of the columns are card bands. PN chips colored by R9.1 readiness · <span style="background:var(--nokia-blue);color:#fff;padding:1px 4px;border-radius:3px;font-size:10px;">MRA</span> = 4-fiber · <span style="background:var(--text-muted);color:#fff;padding:1px 4px;border-radius:3px;font-size:10px;">UNI</span> = uni-directional · <span style="background:var(--accent);color:#001F5F;padding:1px 4px;border-radius:3px;font-size:10px;">T+I</span> = shelf used both Term and ILA-side.</div>
+    <div class="sub">Rows = chassis family. Leftmost <strong>Chassis</strong> column groups the shelves themselves; rest of the columns are card bands. PN chips colored by R9.1 readiness · <span style="background:var(--nokia-blue);color:#fff;padding:1px 4px;border-radius:3px;font-size:10px;">MRA</span> = 4-fiber · <span style="background:var(--text-muted);color:#fff;padding:1px 4px;border-radius:3px;font-size:10px;">UNI</span> = uni-directional · <span style="background:var(--accent);color:var(--nokia-blue-deep);padding:1px 4px;border-radius:3px;font-size:10px;">T+I</span> = shelf used both Term and ILA-side.</div>
     <div class="matrix-wrap">
       <table class="matrix" id="matrix"></table>
     </div>
@@ -745,7 +730,7 @@ function readiness(r) {
   if (r.rel_num <= R91) return 'ready';
   return 'roadmap';
 }
-const COLOR = { ready: '#1FA663', roadmap: '#E8A317', passive: '#8A92A6' };
+const COLOR = { ready: 'var(--ok-ink)', roadmap: 'var(--warn)', passive: 'var(--ink-3)' };
 
 function bandShape(d) {
   if (d.category === 'Chassis') return 'square';
@@ -1016,7 +1001,7 @@ function renderQuadrant(visibleData) {
   const stripBg = document.createElementNS(SVGNS,'rect');
   stripBg.setAttribute('x', PAD.l); stripBg.setAttribute('y', PAD.t);
   stripBg.setAttribute('width', PW); stripBg.setAttribute('height', STRIP_H);
-  stripBg.setAttribute('fill', '#EDF1F8'); stripBg.setAttribute('opacity', '0.55');
+  stripBg.setAttribute('fill', 'var(--surface-2)'); stripBg.setAttribute('opacity', '0.55');
   stripBg.setAttribute('rx', 6);
   svg.appendChild(stripBg);
 
@@ -1052,10 +1037,10 @@ function renderQuadrant(visibleData) {
 
   // ===== Card quadrant zones =====
   const zones = [
-    { x: PAD.l,             y: CARD_TOP,             w: PW/2, h: CARD_H/2, fill: '#FFF7E6', label: 'Compact + MRA' },
-    { x: PAD.l + PW/2,      y: CARD_TOP,             w: PW/2, h: CARD_H/2, fill: '#E6F4FF', label: 'Full + MRA' },
-    { x: PAD.l,             y: CARD_TOP + CARD_H/2,  w: PW/2, h: CARD_H/2, fill: '#F4F7FB', label: 'Compact + Single Rail' },
-    { x: PAD.l + PW/2,      y: CARD_TOP + CARD_H/2,  w: PW/2, h: CARD_H/2, fill: '#F9FAFC', label: 'Full + Single Rail' },
+    { x: PAD.l,             y: CARD_TOP,             w: PW/2, h: CARD_H/2, fill: 'var(--warn-soft)', label: 'Compact + MRA' },
+    { x: PAD.l + PW/2,      y: CARD_TOP,             w: PW/2, h: CARD_H/2, fill: 'var(--accent-soft)', label: 'Full + MRA' },
+    { x: PAD.l,             y: CARD_TOP + CARD_H/2,  w: PW/2, h: CARD_H/2, fill: 'var(--surface-2)', label: 'Compact + Single Rail' },
+    { x: PAD.l + PW/2,      y: CARD_TOP + CARD_H/2,  w: PW/2, h: CARD_H/2, fill: 'var(--surface-2)', label: 'Full + Single Rail' },
   ];
   zones.forEach(z => {
     const r = document.createElementNS(SVGNS,'rect');
@@ -1216,7 +1201,7 @@ function placePN(d, defaultX, defaultY) {
   const el = document.createElementNS(SVGNS, sp.tag);
   Object.entries(sp.attrs).forEach(([k,v]) => el.setAttribute(k,v));
   el.setAttribute('fill', COLOR[d.ready]);
-  el.setAttribute('stroke', '#001F5F');
+  el.setAttribute('stroke', 'var(--nokia-blue-deep)');
   el.setAttribute('stroke-width', '1.6');
   if (!d.is_bidi) el.setAttribute('stroke-dasharray', '2 1.6');
   el.setAttribute('class','pn-dot');

@@ -1,0 +1,205 @@
+/* ============================================================
+   SUMMA — the two-level navigation bar.
+   Its own file because portfolio.html carries its own stylesheet and
+   still needs the same header; one source of truth for both.
+   Rendered by assets/nav.js.
+   ============================================================ */
+
+.topbar {
+  background: var(--bar-bg);
+  color: #fff;
+  padding: 14px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-md);
+}
+.topbar .brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  font-size: 18px;
+}
+.topbar .brand .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent);
+  display: inline-block;
+  transform: translateY(-1px);
+}
+.topbar .brand .sub {
+  font-weight: 400;
+  color: rgba(255,255,255,0.7);
+  font-size: 13px;
+}
+.topbar .brand,
+.topbar .brand:hover { color: #fff; text-decoration: none; }
+.topbar nav {
+  display: flex;
+  gap: 4px;
+}
+.topbar nav a {
+  color: rgba(255,255,255,0.78);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 7px;
+  letter-spacing: 0.2px;
+}
+.topbar nav a:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.10);
+  text-decoration: none;
+}
+/* The active pill reads as "you are here" by being the page's own surface
+   lifted onto the bar — so it takes the ink colour with it, in both themes. */
+.topbar nav a.active {
+  color: var(--ink);
+  background: var(--surface);
+}
+
+/* ------------------------------------------------------------------
+   Sub bar — where you are inside a section, and the siblings you can
+   jump to without going back to the section page.
+   ------------------------------------------------------------------ */
+.subbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 9px 28px;
+  display: flex;
+  align-items: center;
+  gap: 10px 22px;
+  flex-wrap: wrap;
+}
+.subbar .crumbs {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-faint);
+  white-space: nowrap;
+}
+.subbar .crumbs a { color: var(--text-muted); font-weight: 600; }
+.subbar .crumbs .sep { color: var(--border); }
+.subbar .crumbs .grp { font-weight: 600; color: var(--text-faint); }
+.subbar .crumbs .cur { font-weight: 700; color: var(--ink); }
+
+.subbar .sibs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-left: auto;
+}
+.subbar .sibs .glabel {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text-faint);
+  margin: 0 2px 0 6px;
+}
+.subbar .sibs .div {
+  width: 1px;
+  height: 15px;
+  background: var(--border);
+  margin: 0 6px;
+}
+.subbar .sibs a {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 4px 9px;
+  border-radius: 6px;
+}
+.subbar .sibs a:hover {
+  background: var(--surface-2);
+  color: var(--text);
+  text-decoration: none;
+}
+.subbar .sibs a.on {
+  background: var(--accent-soft);
+  color: var(--nokia-blue-deep);
+}
+.subbar .sibs .soon {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-faint);
+  padding: 4px 9px;
+  opacity: 0.6;
+  cursor: default;
+}
+
+@media (max-width: 760px) {
+  .topbar { padding: 12px 16px; flex-wrap: wrap; gap: 10px; }
+  .topbar .brand .sub { display: none; }
+  .subbar { padding: 9px 16px; }
+  .subbar .sibs { margin-left: 0; }
+}
+
+/* A card for something not built yet — visible, but plainly not a link. */
+.portal-card.soon {
+  opacity: 0.62;
+  cursor: default;
+  box-shadow: none;
+  border-style: dashed;
+}
+.portal-card.soon:hover { transform: none; box-shadow: none; }
+
+/* The bar must not depend on a page's own link styling — portfolio.html
+   carries its own stylesheet and underlines every anchor. */
+.topbar a, .subbar a { text-decoration: none; }
+.topbar a:hover, .subbar a:hover { text-decoration: none; }
+
+/* ------------------------------------------------------------------
+   The bar's right-hand end: search cue and theme switch. Present on
+   every page because the bar owns them, not the page.
+   ------------------------------------------------------------------ */
+.topbar .barend { display: flex; align-items: center; gap: 8px; }
+
+.topbar .navcue {
+  display: inline-flex; align-items: center; gap: 8px;
+  font: inherit; font-size: 12.5px; font-weight: 550;
+  color: rgba(255,255,255,.72);
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: var(--r-pill, 999px);
+  padding: 5px 8px 5px 11px;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+.topbar .navcue:hover { background: rgba(255,255,255,.16); color: #fff; }
+.topbar .navcue .mag {
+  width: 13px; height: 13px; flex: none; border-radius: 50%;
+  border: 1.6px solid currentColor;
+  position: relative;
+}
+.topbar .navcue .mag::after {
+  content: ''; position: absolute; right: -4px; bottom: -3px;
+  width: 5px; height: 1.6px; background: currentColor;
+  transform: rotate(45deg); border-radius: 2px;
+}
+.topbar .navcue kbd {
+  font: inherit; font-size: 10.5px; font-weight: 650;
+  background: rgba(255,255,255,.12);
+  border-radius: 4px; padding: 1px 6px; color: inherit;
+}
+
+.topbar .navtheme {
+  width: 30px; height: 30px; flex: none;
+  display: grid; place-items: center;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 8px;
+  color: rgba(255,255,255,.75);
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+.topbar .navtheme:hover { background: rgba(255,255,255,.16); color: #fff; }
+.topbar .navtheme svg { width: 15px; height: 15px; }
+
+@media (max-width: 760px) {
+  .topbar .navcue .lbl, .topbar .navcue kbd { display: none; }
+  .topbar .navcue { padding: 6px 9px; }
+}

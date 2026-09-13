@@ -4,10 +4,18 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>GX Wiki — SUMMA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/theme.css" />
   <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="stylesheet" href="assets/nav-bar.css" />
+  <link rel="stylesheet" href="assets/cmdk.css" />
+  <script src="assets/nav.js" defer></script>
+  <script src="assets/cmdk.js" defer></script>
 <style>
-.gxw { --good:#0ca30c; --warn-s:#fab219; --neutral:#9AA3B7;
-       --good-ink:#066306; --warn-ink:#7A5600; --crit:#d03b3b; --crit-ink:#8E2020; }
+.gxw { --good:var(--ok); --warn-s:var(--warn); --neutral:var(--ink-3);
+       --good-ink:var(--ok-ink); --warn-ink:var(--warn-ink); --crit:var(--bad); --crit-ink:var(--bad-ink); }
 
 .wiki-hero { padding: 22px 0 8px; }
 .wiki-hero h1 { margin: 0 0 5px; font-size: 29px; letter-spacing: -.4px; color: var(--nokia-blue-deep); }
@@ -16,7 +24,7 @@
 .provenance b { color: var(--text-muted); font-weight: 600; }
 
 /* ---------- decoder ---------- */
-.decoder { background: var(--nokia-blue-deep); border-radius: var(--radius); padding: 18px 20px 20px; margin: 18px 0 6px; color: #fff; }
+.decoder { background: var(--bar-bg); border-radius: var(--radius); padding: 18px 20px 20px; margin: 18px 0 6px; color: #fff; }
 .decoder h2 { margin: 0 0 3px; font-size: 16px; color: #fff; }
 .decoder .dsub { font-size: 12.5px; color: rgba(255,255,255,.72); margin-bottom: 13px; }
 .dinput { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -38,12 +46,12 @@
 
 .dout { margin-top: 15px; background: var(--surface); border-radius: var(--radius); overflow: hidden; color: var(--text); }
 .dsegs { display: flex; flex-wrap: wrap; gap: 2px; padding: 14px 14px 4px; background: var(--surface-2); }
-.seg2 { border-radius: var(--radius-sm); padding: 7px 11px; min-width: 54px; border: 1px solid var(--border); background: #fff; }
+.seg2 { border-radius: var(--radius-sm); padding: 7px 11px; min-width: 54px; border: 1px solid var(--border); background: var(--surface); }
 .seg2 .code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 17px; font-weight: 700; color: var(--nokia-blue-deep); letter-spacing: .5px; }
 .seg2 .role { font-size: 9.5px; text-transform: uppercase; letter-spacing: .6px; color: var(--text-faint); margin-top: 1px; }
-.seg2.pad { background: repeating-linear-gradient(45deg,#F4F6FA,#F4F6FA 4px,#EAEEF5 4px,#EAEEF5 8px); }
+.seg2.pad { background: repeating-linear-gradient(45deg,var(--surface-2),var(--surface-2) 4px,var(--surface-3) 4px,var(--surface-3) 8px); }
 .seg2.pad .code { color: var(--text-faint); }
-.seg2.unk { border-color: var(--warn-s); background: #FFF9EA; }
+.seg2.unk { border-color: var(--warn-s); background: var(--warn-soft); }
 .dash2 { align-self: center; font-family: ui-monospace, monospace; font-size: 18px; color: var(--text-faint); padding: 0 2px; }
 .dtable2 { width: 100%; border-collapse: collapse; }
 .dtable2 td { padding: 8px 14px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; }
@@ -52,12 +60,12 @@
 .dtable2 td b { color: var(--nokia-blue-deep); }
 .dtable2 .mono { font-family: ui-monospace, Menlo, Consolas, monospace; font-weight: 700; color: var(--nokia-blue-deep); }
 .srcflag { font-size: 9.5px; border-radius: 3px; padding: 1px 5px; margin-left: 6px; font-weight: 700; }
-.srcflag.deck { background: #E8F7E8; color: var(--good-ink); }
-.srcflag.obs  { background: #FFF6DF; color: var(--warn-ink); }
-.srcflag.leg  { background: #EFF1F6; color: var(--text-muted); }
+.srcflag.deck { background: var(--ok-soft); color: var(--good-ink); }
+.srcflag.obs  { background: var(--warn-soft); color: var(--warn-ink); }
+.srcflag.leg  { background: var(--surface-2); color: var(--text-muted); }
 .dnote { padding: 10px 14px; font-size: 12px; line-height: 1.55; border-top: 1px solid var(--border); }
-.dnote.warn { background: #FFF6DF; color: var(--warn-ink); }
-.dnote.ok { background: #F3F9F3; color: var(--good-ink); }
+.dnote.warn { background: var(--warn-soft); color: var(--warn-ink); }
+.dnote.ok { background: var(--ok-soft); color: var(--good-ink); }
 .dnote a { color: inherit; font-weight: 700; text-decoration: underline; }
 
 /* ---------- nav + sections ---------- */
@@ -70,11 +78,11 @@
   border-left: 2px solid var(--border); text-decoration: none;
 }
 .toc a:hover { color: var(--nokia-blue); border-left-color: var(--nokia-blue-light); background: var(--surface-2); }
-.toc a.on { color: var(--nokia-blue-deep); font-weight: 700; border-left-color: var(--nokia-blue); background: #EAF3FF; }
+.toc a.on { color: var(--nokia-blue-deep); font-weight: 700; border-left-color: var(--nokia-blue); background: var(--accent-soft); }
 .wsearch { margin-bottom: 12px; position: relative; }
 .wsearch input {
   width: 100%; font-family: inherit; font-size: 13px; padding: 7px 12px 7px 28px;
-  border: 1px solid var(--border); border-radius: 999px; background: #fff; outline: none;
+  border: 1px solid var(--border); border-radius: 999px; background: var(--surface); outline: none;
 }
 .wsearch input:focus { border-color: var(--nokia-blue); box-shadow: 0 0 0 3px rgba(18,65,145,.12); }
 .wsearch .si { position: absolute; left: 10px; top: 7px; font-size: 12px; color: var(--text-faint); }
@@ -95,8 +103,8 @@ table.wt tr.hide { display: none; }
 
 .pattern { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
 .prow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 3px; padding: 16px 16px 14px; background: var(--surface-2); }
-.pseg { background: #fff; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 7px 12px; text-align: center; min-width: 56px; }
-.pseg.pfx { background: var(--nokia-blue-deep); border-color: var(--nokia-blue-deep); }
+.pseg { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 7px 12px; text-align: center; min-width: 56px; }
+.pseg.pfx { background: var(--bar-bg); border-color: var(--bar-bg); }
 .pseg.pfx .pc { color: #fff; }
 .pseg.pfx .pr { color: rgba(255,255,255,.62); }
 .pc { display: block; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 17px; font-weight: 700; color: var(--nokia-blue-deep); letter-spacing: .5px; }
@@ -108,8 +116,8 @@ table.wt tr.hide { display: none; }
 
 .callout2 { border-radius: var(--radius); padding: 12px 14px; font-size: 13px; line-height: 1.6; margin: 12px 0; }
 .callout2 b { display: block; margin-bottom: 3px; }
-.callout2.key { background: #EAF3FF; border: 1px solid #CFE0F7; color: var(--nokia-blue-deep); }
-.callout2.warn { background: #FFF6DF; border: 1px solid #F3E2B4; color: var(--warn-ink); }
+.callout2.key { background: var(--accent-soft); border: 1px solid var(--accent-line); color: var(--nokia-blue-deep); }
+.callout2.warn { background: var(--warn-soft); border: 1px solid var(--warn-soft); color: var(--warn-ink); }
 
 .fixcard { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--neutral); border-radius: var(--radius); padding: 12px 14px; margin-bottom: 10px; }
 .fixcard.correction { border-left-color: var(--good); }
@@ -117,18 +125,18 @@ table.wt tr.hide { display: none; }
 .fixcard.gap        { border-left-color: var(--warn-s); }
 .fixcard h4 { margin: 0 0 5px; font-size: 14px; color: var(--nokia-blue-deep); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .sevtag { font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; padding: 2px 7px; border-radius: 4px; }
-.sevtag.correction { background:#E8F7E8; color:var(--good-ink); }
-.sevtag.conflict { background:#FBE9E9; color:var(--crit-ink); }
-.sevtag.gap { background:#FFF6DF; color:var(--warn-ink); }
+.sevtag.correction { background:var(--ok-soft); color:var(--good-ink); }
+.sevtag.conflict { background:var(--bad-soft); color:var(--crit-ink); }
+.sevtag.gap { background:var(--warn-soft); color:var(--warn-ink); }
 .fixcard p { margin: 0 0 7px; font-size: 12.5px; color: var(--text-muted); line-height: 1.6; }
 .fixcard .hits { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 11px; color: var(--text-faint); }
 
 .lifepill { font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; }
-.lifepill.brownfield { background:#EFF1F6; color:var(--text-muted); }
-.lifepill.greenfield { background:#E8F7E8; color:var(--good-ink); }
-.lifepill.both { background:#EAF3FF; color:var(--nokia-blue-deep); }
+.lifepill.brownfield { background:var(--surface-2); color:var(--text-muted); }
+.lifepill.greenfield { background:var(--ok-soft); color:var(--good-ink); }
+.lifepill.both { background:var(--accent-soft); color:var(--nokia-blue-deep); }
 
-mark.hit { background:#FFF0A8; border-radius:2px; padding:0 1px; }
+mark.hit { background:var(--warn-soft); border-radius:2px; padding:0 1px; }
 
 @media (max-width: 880px) {
   .wiki-layout { grid-template-columns: minmax(0,1fr); }
@@ -141,23 +149,7 @@ mark.hit { background:#FFF0A8; border-radius:2px; padding:0 1px; }
 </head>
 <body class="gxw">
 
-  <header class="topbar">
-    <div class="brand">
-      <span class="dot"></span>
-      SUMMA
-      <span class="sub">Nokia ON · Sales Engineering Workbench</span>
-    </div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="gx-wiki.html" class="active">GX Wiki</a>
-      <a href="gx-portfolio.html">GX Portfolio</a>
-      <a href="gx-bom.html">GX BOM</a>
-      <a href="portfolio.html">HS Portfolio</a>
-      <a href="mofn.html">MOFN Deck</a>
-      <a href="market-insight.html">Market Insight</a>
-    </nav>
-  </header>
+  <header id="summa-nav"></header>
 
   <main class="container">
 

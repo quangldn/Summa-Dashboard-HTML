@@ -1,0 +1,304 @@
+/* ==========================================================================
+   SUMMA — theme tokens (prototype)
+   --------------------------------------------------------------------------
+   Three changes from the old stylesheet, and only three:
+
+   1. One depth cue per surface. The old cards carried a fill, a border AND a
+      shadow, so nothing could stand out by being raised. Here a card is a fill
+      and a quiet border; elevation is reserved for things that genuinely float
+      (the drawer, the palette, the tray).
+   2. A real type scale. Six sizes, tighter tracking as they get bigger, and
+      tabular figures wherever numbers line up in a column.
+   3. Dark mode as a chosen palette, not an inversion. The dark steps are picked
+      against the dark surface — the accent lightens, the borders lift, the
+      status hues stay put because they are fixed by meaning.
+
+   The old variable names are kept as aliases at the bottom so the shared nav
+   bar and any page still on styles.css follow the theme without edits.
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* surfaces, lightest to most raised */
+  --bg:            #FBFBFD;
+  --surface:       #FFFFFF;
+  --surface-2:     #F4F5F8;
+  --surface-3:     #EDEFF4;
+  --line:          #E6E8EF;
+  --line-strong:   #D4D8E3;
+
+  /* ink */
+  --ink:           #14161C;
+  --ink-2:         #5B6070;
+  --ink-3:         #8B90A0;
+  --ink-on-accent: #FFFFFF;
+
+  /* brand accent — Nokia blue, plus the steps either side of it */
+  --accent:        #124191;
+  --accent-hover:  #0C3070;
+  --accent-soft:   #E8EEFA;
+  --accent-line:   #C3D3F0;
+
+  /* magnitude fill for the in-card bars: one hue, light to dark */
+  --mag:           #2A78D6;
+  --mag-track:     #EDEFF4;
+
+  /* status — fixed by meaning, never themed. Always paired with a word,
+     because at 1.8:1 on this surface the warning hue cannot carry it alone. */
+  --ok:            #0CA30C;
+  --ok-soft:       #E7F6E7;
+  --ok-ink:        #0A5C12;
+  --warn:          #FAB219;
+  --warn-soft:     #FDF3DF;
+  --warn-ink:      #6B4B06;
+  --bad:           #D03B3B;
+  --bad-soft:      #FBECEC;
+  --bad-ink:       #8A2020;
+
+  /* shape and motion */
+  --r-lg: 14px;
+  --r:    10px;
+  --r-sm: 7px;
+  --r-pill: 999px;
+  --ease: cubic-bezier(.2, 0, 0, 1);
+  --fast: 120ms;
+  --med:  200ms;
+
+  /* the only two shadows in the system */
+  --lift:  0 1px 2px rgba(16, 24, 40, .05);
+  --float: 0 12px 32px -6px rgba(16, 24, 40, .18),
+           0 2px 8px -2px rgba(16, 24, 40, .10);
+
+  --font: "Inter", ui-sans-serif, -apple-system, BlinkMacSystemFont,
+          "Segoe UI Variable Text", "Segoe UI", Roboto, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono",
+          Menlo, Consolas, monospace;
+}
+
+/* Dark: stepped for the dark surface rather than flipped. Declared under both
+   the OS query and the explicit stamp so the toggle wins in both directions. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg:          #0E1014;
+    --surface:     #171A20;
+    --surface-2:   #1E222A;
+    --surface-3:   #262B35;
+    --line:        #272C36;
+    --line-strong: #38404E;
+
+    --ink:         #EDEFF5;
+    --ink-2:       #A2A9B8;
+    --ink-3:       #6E7585;
+
+    --accent:      #5B93F0;
+    --accent-hover:#7BAAF7;
+    --accent-soft: #17233B;
+    --accent-line: #2C4470;
+
+    --mag:         #3987E5;
+    --mag-track:   #242932;
+
+    --ok-soft:     #102A14;
+    --ok-ink:      #6FDB78;
+    --warn-soft:   #2B2310;
+    --warn-ink:    #F3C766;
+    --bad-soft:    #2C1717;
+    --bad-ink:     #F08A8A;
+
+    --lift:  0 1px 2px rgba(0, 0, 0, .40);
+    --float: 0 16px 40px -8px rgba(0, 0, 0, .65),
+             0 2px 10px -2px rgba(0, 0, 0, .45);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg:          #0E1014;
+  --surface:     #171A20;
+  --surface-2:   #1E222A;
+  --surface-3:   #262B35;
+  --line:        #272C36;
+  --line-strong: #38404E;
+
+  --ink:         #EDEFF5;
+  --ink-2:       #A2A9B8;
+  --ink-3:       #6E7585;
+
+  --accent:      #5B93F0;
+  --accent-hover:#7BAAF7;
+  --accent-soft: #17233B;
+  --accent-line: #2C4470;
+
+  --mag:         #3987E5;
+  --mag-track:   #242932;
+
+  --ok-soft:     #102A14;
+  --ok-ink:      #6FDB78;
+  --warn-soft:   #2B2310;
+  --warn-ink:    #F3C766;
+  --bad-soft:    #2C1717;
+  --bad-ink:     #F08A8A;
+
+  --lift:  0 1px 2px rgba(0, 0, 0, .40);
+  --float: 0 16px 40px -8px rgba(0, 0, 0, .65),
+           0 2px 10px -2px rgba(0, 0, 0, .45);
+}
+
+/* ---------------------------------------------------------------- base */
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "cv05" 1, "ss01" 1;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-hover); }
+
+/* The type scale. Tracking tightens as size grows — at 15px and below the
+   default spacing is what keeps small text readable. */
+h1, .t-1 { font-size: 30px; line-height: 1.15; letter-spacing: -.022em; font-weight: 680; margin: 0; }
+h2, .t-2 { font-size: 21px; line-height: 1.25; letter-spacing: -.015em; font-weight: 650; margin: 0; }
+h3, .t-3 { font-size: 16px; line-height: 1.35; letter-spacing: -.008em; font-weight: 640; margin: 0; }
+.t-4     { font-size: 14px; line-height: 1.45; font-weight: 600; }
+.t-body  { font-size: 13.5px; line-height: 1.55; }
+.t-sm    { font-size: 12.5px; line-height: 1.45; }
+.t-xs    { font-size: 11px;   line-height: 1.4; }
+
+/* A label: the small all-caps run used for section and field headings. */
+.t-label {
+  font-size: 10.5px;
+  font-weight: 650;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.num { font-variant-numeric: tabular-nums; }
+.mono { font-family: var(--mono); font-feature-settings: normal;
+        letter-spacing: -.01em; }
+
+::selection { background: var(--accent-soft); color: var(--ink); }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ------------------------------------------------------- shared pieces */
+
+.surface {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+}
+
+.btn {
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-2);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  padding: 5px 11px;
+  cursor: pointer;
+  transition: background var(--fast) var(--ease), color var(--fast) var(--ease),
+              border-color var(--fast) var(--ease);
+}
+.btn:hover { background: var(--surface-2); color: var(--ink); }
+.btn.primary {
+  background: var(--accent); border-color: var(--accent);
+  color: var(--ink-on-accent);
+}
+.btn.primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+.btn.quiet { background: transparent; border-color: transparent; }
+.btn.quiet:hover { background: var(--surface-2); }
+
+input, select, textarea {
+  font: inherit;
+  font-size: 12.5px;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  padding: 6px 9px;
+  transition: border-color var(--fast) var(--ease);
+}
+input:hover, select:hover { border-color: var(--line-strong); }
+input::placeholder { color: var(--ink-3); }
+
+/* Status pill — the hue is a hint, the word is the message. */
+.pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 10.5px; font-weight: 650; letter-spacing: .03em;
+  padding: 2px 8px; border-radius: var(--r-pill);
+  white-space: nowrap;
+}
+.pill.ok   { background: var(--ok-soft);   color: var(--ok-ink); }
+.pill.warn { background: var(--warn-soft); color: var(--warn-ink); }
+.pill.bad  { background: var(--bad-soft);  color: var(--bad-ink); }
+.pill.mute { background: var(--surface-2); color: var(--ink-3); }
+.pill .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+
+/* Magnitude bar — one hue, always beside its own number. */
+.mag { height: 3px; border-radius: 2px; background: var(--mag-track); overflow: hidden; }
+.mag > i { display: block; height: 100%; border-radius: 2px; background: var(--mag); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+/* ------------------------------------------------------------ aliases
+   The shared nav bar and the pages still on styles.css are written against
+   the old variable names. Mapping them here means the whole workbench
+   follows the theme — including dark mode — without touching those files. */
+:root {
+  --bar-bg:           #0A1B3D;
+  --nokia-blue:       var(--accent);
+  --nokia-blue-deep:  #0A1B3D;
+  --nokia-blue-light: var(--accent-hover);
+  --bg-legacy:        var(--bg);
+  --border:           var(--line);
+  --text:             var(--ink);
+  --text-muted:       var(--ink-2);
+  --text-faint:       var(--ink-3);
+  --radius:           var(--r);
+  --radius-sm:        var(--r-sm);
+  --shadow-sm:        var(--lift);
+  --shadow-md:        var(--lift);
+  --shadow-lg:        var(--float);
+  --accent-teal:      #00C4B3;
+}
+/* In dark the old name is read as heading ink, so it follows the ink scale;
+   the bar keeps its own near-black. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bar-bg: #10131A;
+    --nokia-blue-deep: var(--ink);
+  }
+}
+:root[data-theme="dark"] {
+  --bar-bg: #10131A;
+  --nokia-blue-deep: var(--ink);
+}
+
+/* The nav bar reads its colours through the aliases above; these two need to
+   follow the ink scale instead, or the current crumb goes near-black on a
+   dark surface. */
+.subbar .crumbs .cur { color: var(--ink); }
+.subbar .sibs a.on { background: var(--accent-soft); color: var(--accent); }

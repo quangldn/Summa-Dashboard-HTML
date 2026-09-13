@@ -114,3 +114,80 @@ One deliberate divergence: where a row's PN cell holds two parts (`A;B`), this
 extractor indexes the weight and power under *each* PN. The workbook's own
 VLookup matches the joined string and silently finds nothing, so it drops that
 row's weight. Summa counts it.
+
+---
+
+## PSS / PSI — three tools, two sources
+
+The PSS knowledge base is built the same way as the GX one: read the sources,
+never retype them.
+
+```bash
+pip install pdfplumber python-pptx --break-system-packages       # once
+
+python3 tools/extract-pss-guide.py   "3KC-71311-TAAA-HQZZA_Issue_2.pdf"      -o assets/pss-data.json
+python3 tools/extract-pss-roadmap.py "ON Consolidated Roadmap ... PSS .pptx" -o assets/pss-roadmap.json
+python3 tools/build-pss-cards.py     -g assets/pss-data.json -r assets/pss-roadmap.json -o assets/pss-cards.json
+```
+
+`pss-cards.json` is what `pss-portfolio.html` and `pss-wiki.html` read. The two
+intermediate files are kept because they are each faithful to one source; the
+merge is where judgement enters, and keeping it separate makes that judgement
+reviewable.
+
+### `extract-pss-guide.py`
+
+Reads the 1,644-page Product Information and Planning Guide. Four tables carry
+everything a design turns on:
+
+| Table | What |
+|---|---|
+| 5-1, 5-2 | orderable items — abbreviation, description, part number |
+| 5-3, 5-4 | slot ranges per card per shelf — the legality matrix |
+| 7-147, 7-148 | weight and power per component, and per gray pluggable |
+| Glossary | 715 terms, the only place the faceplate mnemonics are spelled out |
+
+Two things in that PDF defeat ordinary text extraction, and `pss_layout.py`
+handles both:
+
+* **Footnote markers are glued to the values.** Flattened, 4KIT's static power
+  reads `342` and its maximum `2503` — that is 34 with footnote 2 and 250 with
+  footnote 3. The markers are set at 5 pt against 8 pt body text, so filtering
+  by character size removes them exactly. No regex could tell 250³ from 2503.
+* **Rows are not separated by blank lines.** Cells are vertically centred and a
+  two-line description is spaced like two one-line rows. CDoc draws a rule
+  under every row, so rows are split on those rules instead.
+
+The same size filter is then used in reverse: notes 7 and 8 of Table 7-147 are
+the only statement anywhere in the guide that a card is two or three slots
+wide, so the marker digits are read back and turned into a `slots` field.
+
+### `extract-pss-roadmap.py`
+
+Every product slide in the roadmap deck is one table: first row the product
+names, remaining rows the attributes. Release wording is kept verbatim — "GA",
+"GA (NG R27.Q1)", "R28.1H" — because the difference between shipping and
+planned is the whole point of the deck, and normalising it would quietly invent
+certainty.
+
+### `build-pss-cards.py`
+
+Merges the two. The guide knows what ships; the deck knows what is coming and
+carries the optical numbers. Each card records which source it came from, so a
+card the deck names and the guide does not is visibly **not yet shipping**
+rather than a suspected extraction failure.
+
+Two judgement calls worth knowing about:
+
+* **Variant names.** The deck writes a family and its variants as one name.
+  `IR9/LP` means IR9 and IR9LP — the suffix appends. `S6AD600H/L/E` means
+  S6AD600H, S6AD600L, S6AD600E — the letter replaces. Where the guide knows one
+  reading, that settles it. Where it knows neither, only the appended form
+  becomes a card and the other is kept as a searchable alias, because guessing
+  would invent part names.
+* **Card type.** The guide's categories only cover the currently orderable
+  list, so two in five cards would be unfilterable. Type is inferred from what
+  names the card — description first, then roadmap group, then the guide's
+  category — and never from roadmap attribute *values*, since nearly every card
+  lists the shelves it supports and that one phrase would type half the
+  catalogue as shelves.

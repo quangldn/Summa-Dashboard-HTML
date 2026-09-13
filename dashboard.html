@@ -4,30 +4,22 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SUMMA Dashboard — Hyperscaler Intel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/theme.css" />
   <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="stylesheet" href="assets/nav-bar.css" />
+  <link rel="stylesheet" href="assets/cmdk.css" />
+  <script src="assets/nav.js" defer></script>
+  <script src="assets/cmdk.js" defer></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
         crossorigin="" />
 </head>
 <body>
 
-  <header class="topbar">
-    <div class="brand">
-      <span class="dot"></span>
-      SUMMA
-      <span class="sub">Nokia ON · Sales Engineering Workbench</span>
-    </div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="dashboard.html" class="active">Dashboard</a>
-      <a href="gx-wiki.html">GX Wiki</a>
-      <a href="gx-portfolio.html">GX Portfolio</a>
-      <a href="gx-bom.html">GX BOM</a>
-      <a href="portfolio.html">HS Portfolio</a>
-      <a href="mofn.html">MOFN Deck</a>
-      <a href="market-insight.html">Market Insight</a>
-    </nav>
-  </header>
+  <header id="summa-nav"></header>
 
   <main class="container">
 

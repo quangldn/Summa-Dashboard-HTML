@@ -4,23 +4,31 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SUMMA — Market Insight</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/theme.css" />
   <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="stylesheet" href="assets/nav-bar.css" />
+  <link rel="stylesheet" href="assets/cmdk.css" />
+  <script src="assets/nav.js" defer></script>
+  <script src="assets/cmdk.js" defer></script>
   <style>
     /* Market Insight — page-local additions on top of shared styles.css */
     .mi-meta { text-align:center; color:var(--text-faint); font-size:13px; margin:-8px auto 0; max-width:640px; }
-    .portal-card .icon.ss { background: linear-gradient(135deg,#0E7C86,#00C4B3); }
+    .portal-card .icon.ss { background: linear-gradient(135deg,var(--ok-ink),#00C4B3); }
     .portal-card .icon.dc { background: linear-gradient(135deg,var(--nokia-blue),var(--nokia-blue-light)); }
     .portal-card .icon.ms { background: linear-gradient(135deg,#4a90ff,#8a6bff); }
-    .portal-card .icon.net { background: linear-gradient(135deg,#2ec16b,#0E7C86); }
+    .portal-card .icon.net { background: linear-gradient(135deg,#2ec16b,var(--ok-ink)); }
     .card-tags { margin-top:14px; display:flex; flex-wrap:wrap; gap:6px; }
     .card-tags span { font-size:10.5px; font-weight:600; letter-spacing:.3px; text-transform:uppercase;
       color:var(--nokia-blue); background:var(--surface-2); border:1px solid var(--border);
       padding:2px 8px; border-radius:20px; }
     .status-badge { float:right; font-size:10.5px; font-weight:700; letter-spacing:.4px; text-transform:uppercase;
-      color:#0E7C6A; background:#E2F6F1; border:1px solid #B7E7DD; padding:2px 9px; border-radius:20px; }
+      color:#0E7C6A; background:var(--ok-soft); border:1px solid var(--ok-soft); padding:2px 9px; border-radius:20px; }
     .portal-card.soon { border-style:dashed; box-shadow:none; cursor:default; background:var(--surface-2); }
     .portal-card.soon:hover { transform:none; box-shadow:none; border-color:var(--border); }
-    .portal-card.soon .icon { background:linear-gradient(135deg,#9AA3B7,#C2C9D6); }
+    .portal-card.soon .icon { background:linear-gradient(135deg,var(--ink-3),var(--line-strong)); }
     .portal-card.soon h3 { color:var(--text-muted); }
     .mi-note { max-width:900px; margin:26px auto 0; background:var(--surface); border:1px solid var(--border);
       border-radius:var(--radius); padding:16px 20px; box-shadow:var(--shadow-sm); color:var(--text-muted); font-size:13.5px; }
@@ -30,23 +38,7 @@
 </head>
 <body>
 
-  <header class="topbar">
-    <div class="brand">
-      <span class="dot"></span>
-      SUMMA
-      <span class="sub">Nokia ON · Sales Engineering Workbench</span>
-    </div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="gx-wiki.html">GX Wiki</a>
-      <a href="gx-portfolio.html">GX Portfolio</a>
-      <a href="gx-bom.html">GX BOM</a>
-      <a href="portfolio.html">HS Portfolio</a>
-      <a href="mofn.html">MOFN Deck</a>
-      <a href="market-insight.html" class="active">Market Insight</a>
-    </nav>
-  </header>
+  <header id="summa-nav"></header>
 
   <main class="container">
 

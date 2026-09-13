@@ -4,99 +4,74 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SUMMA — Quang's Workbench</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/theme.css" />
   <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="stylesheet" href="assets/nav-bar.css" />
+  <link rel="stylesheet" href="assets/cmdk.css" />
+  <script src="assets/nav.js" defer></script>
+  <script src="assets/cmdk.js" defer></script>
+  <style>
+    .sections { display: grid; gap: 18px; grid-template-columns: repeat(2, 1fr);
+                margin-bottom: 34px; }
+    @media (max-width: 860px) { .sections { grid-template-columns: 1fr; } }
+
+    .sec { display: block; background: var(--surface); border: 1px solid var(--border);
+           border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: 22px;
+           transition: box-shadow .14s, border-color .14s, transform .14s; }
+    .sec:hover { border-color: var(--nokia-blue-light); box-shadow: var(--shadow-lg);
+                 transform: translateY(-2px); text-decoration: none; }
+    .sec h2 { margin: 0 0 6px; font-size: 21px; color: var(--nokia-blue-deep); }
+    .sec p { margin: 0 0 16px; font-size: 13.5px; color: var(--text-muted);
+             max-width: 46ch; }
+    .sec .groups { display: flex; flex-wrap: wrap; gap: 6px 8px; }
+    .sec .g { display: flex; align-items: baseline; gap: 6px; font-size: 12px;
+              background: var(--surface-2); border-radius: 999px; padding: 4px 11px; }
+    .sec .g b { color: var(--nokia-blue-deep); font-weight: 700;
+                font-size: 11px; letter-spacing: .05em; text-transform: uppercase; }
+    .sec .g span { color: var(--text-muted); }
+    .sec .go { margin-top: 16px; font-size: 13px; font-weight: 600;
+               color: var(--nokia-blue); }
+
+    .recent h2 { font-size: 15px; color: var(--text-muted); margin: 0 0 12px;
+                 border: none; padding: 0; }
+    .quick { display: grid; gap: 9px;
+             grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); }
+    .q { display: flex; align-items: center; gap: 10px; background: var(--surface);
+         border: 1px solid var(--border); border-radius: var(--radius-sm);
+         padding: 9px 12px; font-size: 13px; font-weight: 600; color: var(--text); }
+    .q:hover { border-color: var(--nokia-blue-light); background: var(--surface-2);
+               text-decoration: none; }
+    .q .ic { width: 26px; height: 26px; border-radius: 6px; flex: none;
+             background: var(--bar-bg); color: #fff; font-size: 10px;
+             font-weight: 700; display: flex; align-items: center;
+             justify-content: center; letter-spacing: .02em; }
+    .q .path { display: block; font-size: 10.5px; font-weight: 600; letter-spacing: .05em;
+               text-transform: uppercase; color: var(--text-faint); }
+  </style>
 </head>
 <body>
 
-  <header class="topbar">
-    <div class="brand">
-      <span class="dot"></span>
-      SUMMA
-      <span class="sub">Nokia ON · Sales Engineering Workbench</span>
-    </div>
-    <nav>
-      <a href="index.html" class="active">Home</a>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="gx-wiki.html">GX Wiki</a>
-      <a href="gx-portfolio.html">GX Portfolio</a>
-      <a href="gx-bom.html">GX BOM</a>
-      <a href="portfolio.html">HS Portfolio</a>
-      <a href="mofn.html">MOFN Deck</a>
-      <a href="market-insight.html">Market Insight</a>
-    </nav>
-  </header>
+  <header id="summa-nav"></header>
 
   <main class="container">
 
     <section class="portal-hero">
       <h1>SUMMA Workbench</h1>
       <p>Personal automation and reference surface for Nokia Optical Networks
-         sales-engineering work — market intel, hyperscaler tracking, and
-         solution decks in one place.</p>
+         sales-engineering work. Two ways in: the <strong>product</strong> —
+         what Nokia sells and how it fits together — and the
+         <strong>hyperscaler</strong> — who is buying, and the tools for the
+         solutions they buy.</p>
     </section>
 
-    <section class="portal-cards">
+    <div class="sections" id="sections"></div>
 
-      <a class="portal-card" href="dashboard.html">
-        <div class="icon">SD</div>
-        <h3>Summa Dashboard</h3>
-        <p>Hyperscaler intel + APAC datacenter map — filtered to Data Center /
-           MOFN / DCI / subsea topics.</p>
-        <div class="arrow">Open dashboard →</div>
-      </a>
-
-      <a class="portal-card" href="gx-wiki.html">
-        <div class="icon">WK</div>
-        <h3>GX Wiki</h3>
-        <p>How to read a GX part number — paste one and it comes apart into form
-           factor, function, ports, variant and band. Plus chassis geometry, slot
-           costs, the acronym dictionary and where the sources disagree.</p>
-        <div class="arrow">Open wiki →</div>
-      </a>
-
-      <a class="portal-card" href="gx-portfolio.html">
-        <div class="icon">GX</div>
-        <h3>GX Portfolio</h3>
-        <p>The whole 1830 GX line — chassis, ROADM, amplifiers, Raman, hybrid,
-           add/drop and transponders. What ships today vs what's on the roadmap,
-           which shelf each card fits, slot cost, and the optical numbers.</p>
-        <div class="arrow">Open portfolio →</div>
-      </a>
-
-      <a class="portal-card" href="gx-bom.html">
-        <div class="icon">BM</div>
-        <h3>GX BOM Configurator</h3>
-        <p>Config → node → network → BOM, on the rules extracted from the GX BOM
-           Configurator workbook. Slot legality, power, weight and part numbers
-           come from that workbook — no macros, no waiting.</p>
-        <div class="arrow">Open configurator →</div>
-      </a>
-
-      <a class="portal-card" href="portfolio.html">
-        <div class="icon">HP</div>
-        <h3>HS Portfolio</h3>
-        <p>Interactive quadrant view of all 55 Nokia 1830 GX OLS parts —
-           bands · MRA vs single-rail · compact vs full · R9.1 readiness.
-           Drag, zoom, filter. Detail table on the same page.</p>
-        <div class="arrow">Open portfolio →</div>
-      </a>
-
-      <a class="portal-card" href="mofn.html">
-        <div class="icon">MO</div>
-        <h3>MOFN Solution Deck</h3>
-        <p>Managed Optical Fiber Network — pitch, positioning, and reference
-           material for customer conversations.</p>
-        <div class="arrow">Open deck →</div>
-      </a>
-
-      <a class="portal-card" href="market-insight.html">
-        <div class="icon">MI</div>
-        <h3>Market Insight</h3>
-        <p>Source-audited market-intelligence reports — data center, DCI, subsea and
-           adjacent markets. Built to brief fast and to talk to Sales / Executive level.</p>
-        <div class="arrow">Open library →</div>
-      </a>
-
+    <section class="recent">
+      <h2>Everything, one click away</h2>
+      <div class="quick" id="quick"></div>
     </section>
 
   </main>
@@ -104,6 +79,61 @@
   <footer class="footer">
     Built for Quang · Nokia ON Sales Engineering · Vietnam (GMT+7)
   </footer>
+
+  <script>
+  (function () {
+    'use strict';
+    function build() {
+      const NAV = window.SUMMA_NAV;
+      if (!NAV) return;
+      const el = (t, a, k) => {
+        const n = document.createElement(t);
+        for (const x in (a || {})) {
+          if (x === 'class') n.className = a[x];
+          else if (x === 'text') n.textContent = a[x];
+          else if (a[x] != null && a[x] !== false) n.setAttribute(x, a[x]);
+        }
+        (k || []).forEach(c => c != null && n.appendChild(
+          typeof c === 'string' ? document.createTextNode(c) : c));
+        return n;
+      };
+
+      const secs = document.getElementById('sections');
+      const quick = document.getElementById('quick');
+
+      NAV.SITE.filter(s => s.children).forEach(sec => {
+        const groups = NAV.groupsOf(sec);
+        const card = el('a', { class: 'sec', href: sec.href }, [
+          el('h2', { text: sec.label }),
+          el('p', { text: sec.blurb }),
+        ]);
+        const gs = el('div', { class: 'groups' });
+        groups.forEach(g => gs.appendChild(el('div', { class: 'g' }, [
+          el('b', { text: g.name }),
+          el('span', { text: g.items.map(i => i.label).join(' · ') }),
+        ])));
+        card.appendChild(gs);
+        card.appendChild(el('div', { class: 'go',
+          text: 'Open ' + sec.label.toLowerCase() + ' →' }));
+        secs.appendChild(card);
+
+        groups.forEach(g => g.items.forEach(i => {
+          if (!i.href) return;
+          quick.appendChild(el('a', { class: 'q', href: i.href }, [
+            el('span', { class: 'ic', text: i.icon || '' }),
+            el('span', {}, [
+              el('span', { class: 'path', text: sec.label + ' · ' + g.name }),
+              document.createTextNode(i.label),
+            ]),
+          ]));
+        }));
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', build);
+    } else { build(); }
+  }());
+  </script>
 
 </body>
 </html>
