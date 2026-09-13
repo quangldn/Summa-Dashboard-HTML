@@ -81,7 +81,10 @@
   white-space: nowrap;
 }
 .subbar .crumbs a { color: var(--text-muted); font-weight: 600; }
-.subbar .crumbs .sep { color: var(--border); }
+/* The crumb separator is a real text node, so it has to be readable rather
+   than the hairline colour — at --border it sat at 1.22:1 and all but
+   vanished. --ink-3 is the faint tier that still clears AA. */
+.subbar .crumbs .sep { color: var(--ink-3); }
 .subbar .crumbs .grp { font-weight: 600; color: var(--text-faint); }
 .subbar .crumbs .cur { font-weight: 700; color: var(--ink); }
 

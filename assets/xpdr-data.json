@@ -1,0 +1,4246 @@
+{
+ "meta": {
+  "generated": "tools/build-xpdr-data.py",
+  "sources": [
+   "GX BOM Configurator V3.0 (decompiled workbook tables)",
+   "1830 PSS / PSI portfolio roadmap, Aug-2026"
+  ],
+  "scope": "GX + PSS transponders. PSI-M sleds, PSS-x and PSS-HC line cards are out of scope for v1.",
+  "curatedRules": [
+   "depthClass",
+   "cascade",
+   "wson"
+  ],
+  "counts": {
+   "xpdr": 58,
+   "gx": 42,
+   "pss": 16,
+   "hosts": 14
+  }
+ },
+ "serviceRateG": {
+  "800GE": 800,
+  "400GE": 400,
+  "400ZR": 400,
+  "OTUC4": 400,
+  "100GE": 100,
+  "OTU4": 100,
+  "100ZR": 100,
+  "40GE": 40,
+  "25GE": 25,
+  "10GE": 10,
+  "OTU2": 10,
+  "OTU2e": 10,
+  "OC-192": 10,
+  "STM64": 10,
+  "FC32G": 32,
+  "FC16G": 16,
+  "FC8G": 8,
+  "FC1200": 12,
+  "FC800": 8,
+  "FC400": 4,
+  "FC200": 2,
+  "FC100": 1,
+  "1GE": 1,
+  "FE": 0.1,
+  "OTU1": 2.7,
+  "OC-48": 2.5,
+  "STM16": 2.5,
+  "OC-12": 0.6,
+  "STM4": 0.6,
+  "OC-3": 0.155,
+  "STM1": 0.155,
+  "HD-SDI": 1.5,
+  "SD-SDI": 0.27,
+  "3G-SDI": 3
+ },
+ "hosts": [
+  {
+   "id": "G31",
+   "platform": "GX",
+   "name": "G31",
+   "ru": 1,
+   "slots": 4,
+   "depthClass": "deep",
+   "depthNote": "Needs more than 600 mm. Open rack, or 700 mm+ depth \u2014 not a closed 600 mm cabinet.",
+   "curated": [
+    "depthClass"
+   ]
+  },
+  {
+   "id": "G32",
+   "platform": "GX",
+   "name": "G32",
+   "ru": 2,
+   "slots": 10,
+   "depthClass": "deep",
+   "depthNote": "Needs more than 600 mm. Open rack, or 700 mm+ depth \u2014 not a closed 600 mm cabinet.",
+   "curated": [
+    "depthClass"
+   ]
+  },
+  {
+   "id": "G34c/G34Xc",
+   "platform": "GX",
+   "name": "G34c/G34Xc",
+   "ru": 4,
+   "slots": 8,
+   "depthClass": "std",
+   "depthNote": "Fits a standard 600 mm cabinet.",
+   "curated": [
+    "depthClass"
+   ]
+  },
+  {
+   "id": "G40",
+   "platform": "GX",
+   "name": "G40",
+   "ru": 3,
+   "slots": 4,
+   "depthClass": "std",
+   "depthNote": "Fits a standard 600 mm cabinet.",
+   "curated": [
+    "depthClass"
+   ]
+  },
+  {
+   "id": "PSS-4II",
+   "platform": "PSS",
+   "name": "PSS-4II",
+   "ru": null,
+   "slots": null,
+   "depthClass": "std",
+   "depthNote": "Fits a standard 600 mm cabinet.",
+   "curated": [
+    "depthClass"
+   ]
+  },
+  {
+   "id": "PSS-8",
+   "platform": "PSS",
+   "name": "PSS-8",
+   "ru": null,
+   "slots": null,
+   "depthClass": "std",
+   "depthNote": "Fits a standard 600 mm cabinet.",
+   "curated": [
+    "depthClass"
+   ]
+  },
+  {
+   "id": "PSS-16II",
+   "platform": "PSS",
+   "name": "PSS-16II",
+   "ru": null,
+   "slots": null,
+   "depthClass": "std",
+   "depthNote": null,
+   "curated": [
+    "depthClass"
+   ]
+  },
+  {
+   "id": "PSS-32",
+   "platform": "PSS",
+   "name": "PSS-32",
+   "ru": null,
+   "slots": null,
+   "depthClass": "std",
+   "depthNote": "Fits a standard 600 mm cabinet.",
+   "curated": [
+    "depthClass"
+   ]
+  },
+  {
+   "id": "PSS-8x",
+   "platform": "PSS",
+   "name": "PSS-8x",
+   "ru": null,
+   "slots": null,
+   "depthClass": "std",
+   "depthNote": null,
+   "curated": [
+    "depthClass"
+   ]
+  },
+  {
+   "id": "PSS-12x",
+   "platform": "PSS",
+   "name": "PSS-12x",
+   "ru": null,
+   "slots": null,
+   "depthClass": "std",
+   "depthNote": null,
+   "curated": [
+    "depthClass"
+   ]
+  },
+  {
+   "id": "PSS-24x",
+   "platform": "PSS",
+   "name": "PSS-24x",
+   "ru": null,
+   "slots": null,
+   "depthClass": "std",
+   "depthNote": null,
+   "curated": [
+    "depthClass"
+   ]
+  },
+  {
+   "id": "PSS-4hc",
+   "platform": "PSS",
+   "name": "PSS-4hc",
+   "ru": null,
+   "slots": null,
+   "depthClass": "std",
+   "depthNote": null,
+   "curated": [
+    "depthClass"
+   ]
+  },
+  {
+   "id": "PSS-10hc",
+   "platform": "PSS",
+   "name": "PSS-10hc",
+   "ru": null,
+   "slots": null,
+   "depthClass": "std",
+   "depthNote": null,
+   "curated": [
+    "depthClass"
+   ]
+  },
+  {
+   "id": "PSS-16",
+   "platform": "PSS",
+   "name": "PSS-16",
+   "ru": null,
+   "slots": null,
+   "depthClass": "std",
+   "depthNote": null,
+   "curated": [
+    "depthClass"
+   ]
+  }
+ ],
+ "cascade": [
+  {
+   "id": "16P200",
+   "platform": "PSS",
+   "label": "16P200",
+   "hosts": [
+    "PSS-4II",
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU",
+    "PSS-32"
+   ],
+   "pairsWith": null,
+   "slots": 1,
+   "takes": [
+    "10GE",
+    "OTU2",
+    "OTU2e",
+    "OC-192",
+    "STM64",
+    "FC8G",
+    "FC16G",
+    "FC32G",
+    "1GE"
+   ],
+   "handsOff": "OTU4 / 100GE",
+   "note": "12x SFP+/SFP28 plus 2x QSFP28 client, 2x QSFP28 line at OTU4. The standard way to land a handful of 10G services next to a coherent card in the same PSS shelf."
+  },
+  {
+   "id": "UCM4",
+   "platform": "GX",
+   "label": "UCM4",
+   "hosts": [
+    "G40"
+   ],
+   "pairsWith": [
+    "CHM6",
+    "CHM7"
+   ],
+   "slots": 1,
+   "takes": [
+    "40GE",
+    "10GE",
+    "OTU2",
+    "OTU2e",
+    "OC-192",
+    "STM64",
+    "100GE"
+   ],
+   "handsOff": "OTU4 / 100GE",
+   "note": "G42 only, and only to feed a CHM6 / CHM7 (or a later G42 card). 10x client cages, 4x 100G line pluggables."
+  },
+  {
+   "id": "UTM2",
+   "platform": "GX",
+   "label": "UTM2",
+   "hosts": [
+    "G31",
+    "G32"
+   ],
+   "pairsWith": null,
+   "slots": 2,
+   "takes": [
+    "10GE",
+    "1GE",
+    "FE",
+    "OC-3",
+    "OC-12",
+    "OC-48",
+    "STM-1",
+    "STM-4",
+    "STM-16",
+    "FC",
+    "OTU2",
+    "OTU2e",
+    "100GE"
+   ],
+   "handsOff": "100G CFP2 (grey LR4 or DWDM DCO)",
+   "note": "The G31/G32 answer. 2x QSFP28 + 12x SFP+ client, 2x CFP2 line. Two slots wide \u2014 on a 4-slot G31 that is half the chassis."
+  }
+ ],
+ "wson": {
+  "lineSystem": "PSS",
+  "note": "L0 GMPLS / WSON restoration requires a PSS photonic line system. The transponder itself stays flexible \u2014 a GX sled can ride a PSS line system as an alien wavelength \u2014 but the ROADM/OLS layer has to be PSS."
+ },
+ "xpdr": [
+  {
+   "id": "GX:CHM6-C4",
+   "platform": "GX",
+   "name": "CHM6-C4",
+   "family": "CHM6",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "lineType": "embedded",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM6-C4"
+    ],
+    "lineTable": "CHM6_MODULES",
+    "clientTables": [
+     "CHM6_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM6-C6",
+   "platform": "GX",
+   "name": "CHM6-C6",
+   "family": "CHM6",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "lineType": "embedded",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM6-C6"
+    ],
+    "lineTable": "CHM6_MODULES",
+    "clientTables": [
+     "CHM6_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM6-C8",
+   "platform": "GX",
+   "name": "CHM6-C8",
+   "family": "CHM6",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "lineType": "embedded",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM6-C8"
+    ],
+    "lineTable": "CHM6_MODULES",
+    "clientTables": [
+     "CHM6_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM6-C9",
+   "platform": "GX",
+   "name": "CHM6-C9",
+   "family": "CHM6",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "lineType": "embedded",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM6-C9"
+    ],
+    "lineTable": "CHM6_MODULES",
+    "clientTables": [
+     "CHM6_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM6S-C13",
+   "platform": "GX",
+   "name": "CHM6S-C13",
+   "family": "CHM6",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "lineType": "embedded",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM6S-C13"
+    ],
+    "lineTable": "CHM6_MODULES",
+    "clientTables": [
+     "CHM6_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM6S-C14",
+   "platform": "GX",
+   "name": "CHM6S-C14",
+   "family": "CHM6",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "lineType": "embedded",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM6S-C14"
+    ],
+    "lineTable": "CHM6_MODULES",
+    "clientTables": [
+     "CHM6_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM6S-C15",
+   "platform": "GX",
+   "name": "CHM6S-C15",
+   "family": "CHM6",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "lineType": "embedded",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM6S-C15"
+    ],
+    "lineTable": "CHM6_MODULES",
+    "clientTables": [
+     "CHM6_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM6-L6",
+   "platform": "GX",
+   "name": "CHM6-L6",
+   "family": "CHM6",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "lineType": "embedded",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 0,
+   "band": [
+    "L"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM6-L6"
+    ],
+    "lineTable": "CHM6_MODULES",
+    "clientTables": [
+     "CHM6_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM6-L8",
+   "platform": "GX",
+   "name": "CHM6-L8",
+   "family": "CHM6",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "lineType": "embedded",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 0,
+   "band": [
+    "L"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM6-L8"
+    ],
+    "lineTable": "CHM6_MODULES",
+    "clientTables": [
+     "CHM6_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM6B-C6",
+   "platform": "GX",
+   "name": "CHM6B-C6",
+   "family": "CHM6",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "lineType": "pluggable",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 1,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM6B-C6"
+    ],
+    "lineTable": "CHM6B_MODULES",
+    "clientTables": [
+     "CHM6_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM6B-C8",
+   "platform": "GX",
+   "name": "CHM6B-C8",
+   "family": "CHM6",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "lineType": "pluggable",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 1,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM6B-C8"
+    ],
+    "lineTable": "CHM6B_MODULES",
+    "clientTables": [
+     "CHM6_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM6B-C9",
+   "platform": "GX",
+   "name": "CHM6B-C9",
+   "family": "CHM6",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "lineType": "pluggable",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 1,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM6B-C9"
+    ],
+    "lineTable": "CHM6B_MODULES",
+    "clientTables": [
+     "CHM6_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM6SB-C13",
+   "platform": "GX",
+   "name": "CHM6SB-C13",
+   "family": "CHM6",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "lineType": "pluggable",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 1,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM6SB-C13"
+    ],
+    "lineTable": "CHM6BS_MODULES",
+    "clientTables": [
+     "CHM6_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM6SB-C14",
+   "platform": "GX",
+   "name": "CHM6SB-C14",
+   "family": "CHM6",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "lineType": "pluggable",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 1,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM6SB-C14"
+    ],
+    "lineTable": "CHM6BS_MODULES",
+    "clientTables": [
+     "CHM6_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM6SB-C15",
+   "platform": "GX",
+   "name": "CHM6SB-C15",
+   "family": "CHM6",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "lineType": "pluggable",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 1,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM6SB-C15"
+    ],
+    "lineTable": "CHM6BS_MODULES",
+    "clientTables": [
+     "CHM6_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM6B-L6",
+   "platform": "GX",
+   "name": "CHM6B-L6",
+   "family": "CHM6",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "lineType": "pluggable",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 1,
+   "band": [
+    "L"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM6B-L6"
+    ],
+    "lineTable": "CHM6B_MODULES",
+    "clientTables": [
+     "CHM6_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM6B-L8",
+   "platform": "GX",
+   "name": "CHM6B-L8",
+   "family": "CHM6",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "lineType": "pluggable",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 1,
+   "band": [
+    "L"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM6B-L8"
+    ],
+    "lineTable": "CHM6B_MODULES",
+    "clientTables": [
+     "CHM6_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM6P-C6",
+   "platform": "GX",
+   "name": "CHM6P-C6",
+   "family": "CHM6",
+   "kind": "muxponder",
+   "lineCarriers": 2,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "lineType": "pluggable",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 2,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM6P-C6"
+    ],
+    "lineTable": "CHM6P_MODULES",
+    "clientTables": [
+     "CHM6_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM6P-C8",
+   "platform": "GX",
+   "name": "CHM6P-C8",
+   "family": "CHM6",
+   "kind": "muxponder",
+   "lineCarriers": 2,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "lineType": "pluggable",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 2,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM6P-C8"
+    ],
+    "lineTable": "CHM6P_MODULES",
+    "clientTables": [
+     "CHM6_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM6P-C9",
+   "platform": "GX",
+   "name": "CHM6P-C9",
+   "family": "CHM6",
+   "kind": "muxponder",
+   "lineCarriers": 2,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "lineType": "pluggable",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 2,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM6P-C9"
+    ],
+    "lineTable": "CHM6P_MODULES",
+    "clientTables": [
+     "CHM6_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM6SP-C13",
+   "platform": "GX",
+   "name": "CHM6SP-C13",
+   "family": "CHM6",
+   "kind": "muxponder",
+   "lineCarriers": 2,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "lineType": "pluggable",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 2,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM6SP-C13"
+    ],
+    "lineTable": "CHM6P_MODULES",
+    "clientTables": [
+     "CHM6_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM6SP-C14",
+   "platform": "GX",
+   "name": "CHM6SP-C14",
+   "family": "CHM6",
+   "kind": "muxponder",
+   "lineCarriers": 2,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "lineType": "pluggable",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 2,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM6SP-C14"
+    ],
+    "lineTable": "CHM6P_MODULES",
+    "clientTables": [
+     "CHM6_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM6SP-C15",
+   "platform": "GX",
+   "name": "CHM6SP-C15",
+   "family": "CHM6",
+   "kind": "muxponder",
+   "lineCarriers": 2,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "lineType": "pluggable",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 2,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM6SP-C15"
+    ],
+    "lineTable": "CHM6P_MODULES",
+    "clientTables": [
+     "CHM6_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM6P-L6",
+   "platform": "GX",
+   "name": "CHM6P-L6",
+   "family": "CHM6",
+   "kind": "muxponder",
+   "lineCarriers": 2,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "lineType": "pluggable",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 2,
+   "band": [
+    "L"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM6P-L6"
+    ],
+    "lineTable": "CHM6P_MODULES",
+    "clientTables": [
+     "CHM6_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM6P-L8",
+   "platform": "GX",
+   "name": "CHM6P-L8",
+   "family": "CHM6",
+   "kind": "muxponder",
+   "lineCarriers": 2,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 800,
+   "lineType": "pluggable",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 2,
+   "band": [
+    "L"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 16
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM6P-L8"
+    ],
+    "lineTable": "CHM6P_MODULES",
+    "clientTables": [
+     "CHM6_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM7-C8",
+   "platform": "GX",
+   "name": "CHM7-C8",
+   "family": "CHM7",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800,
+    900,
+    1000,
+    1100,
+    1200
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 1200,
+   "lineType": "embedded",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP-DD",
+     "qty": 6
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "800GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM7-C8"
+    ],
+    "lineTable": "CHM7_MODULES",
+    "clientTables": [
+     "CHM7_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM7s-C14",
+   "platform": "GX",
+   "name": "CHM7s-C14",
+   "family": "CHM7",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800,
+    900,
+    1000,
+    1100,
+    1200
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 1200,
+   "lineType": "embedded",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP-DD",
+     "qty": 6
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "800GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM7s-C14"
+    ],
+    "lineTable": "CHM7_MODULES",
+    "clientTables": [
+     "CHM7_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM7B-C8",
+   "platform": "GX",
+   "name": "CHM7B-C8",
+   "family": "CHM7",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800,
+    900,
+    1000,
+    1100,
+    1200
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 1200,
+   "lineType": "pluggable",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 1,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP-DD",
+     "qty": 6
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "800GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM7B-C8"
+    ],
+    "lineTable": "CHM7B_MODULES",
+    "clientTables": [
+     "CHM7_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM7SB-C14",
+   "platform": "GX",
+   "name": "CHM7SB-C14",
+   "family": "CHM7",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800,
+    900,
+    1000,
+    1100,
+    1200
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 1200,
+   "lineType": "pluggable",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 1,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP-DD",
+     "qty": 6
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "800GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM7SB-C14"
+    ],
+    "lineTable": "CHM7BS_MODULES",
+    "clientTables": [
+     "CHM7_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM7P-C8",
+   "platform": "GX",
+   "name": "CHM7P-C8",
+   "family": "CHM7",
+   "kind": "muxponder",
+   "lineCarriers": 2,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800,
+    900,
+    1000,
+    1100,
+    1200
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 1200,
+   "lineType": "pluggable",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 2,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP-DD",
+     "qty": 6
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "800GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM7P-C8"
+    ],
+    "lineTable": "CHM7P_MODULES",
+    "clientTables": [
+     "CHM7_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM7SP-C14",
+   "platform": "GX",
+   "name": "CHM7SP-C14",
+   "family": "CHM7",
+   "kind": "muxponder",
+   "lineCarriers": 2,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800,
+    900,
+    1000,
+    1100,
+    1200
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 1200,
+   "lineType": "pluggable",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 2,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP-DD",
+     "qty": 6
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "800GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM7SP-C14"
+    ],
+    "lineTable": "CHM7P_MODULES",
+    "clientTables": [
+     "CHM7_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM7P-C8-1.6T+",
+   "platform": "GX",
+   "name": "CHM7P-C8-1.6T+",
+   "family": "CHM7",
+   "kind": "muxponder",
+   "lineCarriers": 2,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800,
+    900,
+    1000,
+    1100,
+    1200
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 1200,
+   "lineType": "pluggable",
+   "lineModes": [
+    "ER",
+    "IR",
+    "LR",
+    "SR"
+   ],
+   "linePluggableSlots": 2,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP-DD",
+     "qty": 6
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "800GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "CHM7P-C8-1.6T+"
+    ],
+    "lineTable": "CHM7P_MODULES",
+    "clientTables": [
+     "CHM7_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM7X-C6",
+   "platform": "GX",
+   "name": "CHM7X-C6",
+   "family": "CHM7X",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800,
+    900,
+    1000,
+    1100,
+    1200
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 1200,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP-DD",
+     "qty": 6
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE"
+   ],
+   "futureServices": [],
+   "slots": 2,
+   "height": "full",
+   "hosts": [
+    "G31",
+    "G32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "G3S-G2CHM7XC06EF-W0"
+    ],
+    "lineTable": "CHM7X_MODULES",
+    "clientTables": [
+     "CHM7X_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM7X-C8",
+   "platform": "GX",
+   "name": "CHM7X-C8",
+   "family": "CHM7X",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800,
+    900,
+    1000,
+    1100,
+    1200
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 1200,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP-DD",
+     "qty": 6
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE"
+   ],
+   "futureServices": [],
+   "slots": 2,
+   "height": "full",
+   "hosts": [
+    "G31",
+    "G32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "G3S-G2CHM7XC08EF-W0"
+    ],
+    "lineTable": "CHM7X_MODULES",
+    "clientTables": [
+     "CHM7X_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM7X-C14",
+   "platform": "GX",
+   "name": "CHM7X-C14",
+   "family": "CHM7X",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800,
+    900,
+    1000,
+    1100,
+    1200
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 1200,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP-DD",
+     "qty": 6
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE"
+   ],
+   "futureServices": [],
+   "slots": 2,
+   "height": "full",
+   "hosts": [
+    "G31",
+    "G32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 445,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "G3S-G2CHM7XC14EF-W0"
+    ],
+    "lineTable": "CHM7X_MODULES",
+    "clientTables": [
+     "CHM7X_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHMQ6",
+   "platform": "GX",
+   "name": "CHMQ6",
+   "family": "CHMQ6",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 400,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP-DD",
+     "qty": 6
+    }
+   ],
+   "clientServices": [
+    "400GE",
+    "800GE"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G31",
+    "G32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": null,
+   "powerW": null,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "G3S-G1CHMQ6Z-00"
+    ],
+    "lineTable": "CHMQ6_MODULES",
+    "clientTables": [
+     "CHMQ6_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:UCM4",
+   "platform": "GX",
+   "name": "UCM4",
+   "family": "UCM4",
+   "kind": "aggregator",
+   "lineCarriers": 4,
+   "lineRatesG": [
+    100
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 100,
+   "lineType": "pluggable",
+   "lineModes": [],
+   "linePluggableSlots": 4,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP+/QSFP28",
+     "qty": 10
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "10GE",
+    "40GE",
+    "OC-192",
+    "OTU2",
+    "OTU2e",
+    "STM64"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G40"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2,
+   "powerW": 220,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "GX-UCM4"
+    ],
+    "lineTable": "UCM4_MODULES",
+    "clientTables": [
+     "UCM4_S2_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:UTM2",
+   "platform": "GX",
+   "name": "UTM2",
+   "family": "UTM2",
+   "kind": "aggregator",
+   "lineCarriers": 2,
+   "lineRatesG": [
+    100,
+    400
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 400,
+   "lineType": "pluggable",
+   "lineModes": [],
+   "linePluggableSlots": 2,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28",
+     "qty": 2
+    },
+    {
+     "type": "SFP+/SFP28",
+     "qty": 12
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "10GE",
+    "1GE",
+    "40GE",
+    "OC-48",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 2,
+   "height": "full",
+   "hosts": [
+    "G31",
+    "G32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 1.6,
+   "powerW": 135,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "G3S-G30UTM2Z-01"
+    ],
+    "lineTable": "UTM2_MODULES",
+    "clientTables": [
+     "UTM2_S1_CLIENTS",
+     "UTM2_S2_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM1R",
+   "platform": "GX",
+   "name": "CHM1R",
+   "family": "CHM1R",
+   "kind": "muxponder",
+   "lineCarriers": 2,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 400,
+   "lineType": "pluggable",
+   "lineModes": [],
+   "linePluggableSlots": 2,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 4
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "G31",
+    "G32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 1.48,
+   "powerW": 120,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "GLS-G30CHM1R-00"
+    ],
+    "lineTable": "CHM1R_MODULES",
+    "clientTables": [
+     "CHM1R_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:CHM2TX",
+   "platform": "GX",
+   "name": "CHM2TX",
+   "family": "CHM2TX",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400,
+    500
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 500,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 6
+    },
+    {
+     "type": "QSFP28/QSFP-DD",
+     "qty": 6
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "400GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 2,
+   "height": "full",
+   "hosts": [
+    "G31",
+    "G32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 1.3,
+   "powerW": 270,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "GLS-CHM2TMTX-01"
+    ],
+    "lineTable": null,
+    "clientTables": [
+     "CHM2TX_CLIENTS",
+     "CHM2TX_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:SPN2",
+   "platform": "GX",
+   "name": "SPN2",
+   "family": "SPN2",
+   "kind": "muxponder",
+   "lineCarriers": 4,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 400,
+   "lineType": "pluggable",
+   "lineModes": [],
+   "linePluggableSlots": 4,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28/QSFP+",
+     "qty": 6
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "10GE",
+    "400GE",
+    "40GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 2,
+   "height": "full",
+   "hosts": [
+    "G31",
+    "G32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2.96,
+   "powerW": 220,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "G3S-G2SPN2ZZ-00"
+    ],
+    "lineTable": "SPN2_MODULES",
+    "clientTables": [
+     "SPN2_CLIENTS",
+     "SPN2_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "GX:SPN2C",
+   "platform": "GX",
+   "name": "SPN2C",
+   "family": "SPN2C",
+   "kind": "muxponder",
+   "lineCarriers": 4,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 400,
+   "lineType": "pluggable",
+   "lineModes": [],
+   "linePluggableSlots": 4,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28/QSFP+",
+     "qty": 2
+    },
+    {
+     "type": "QSFP28/QSFP+",
+     "qty": 4
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "10GE",
+    "400GE",
+    "40GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 2,
+   "height": "full",
+   "hosts": [
+    "G34c/G34Xc"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 0.27,
+   "powerW": 210,
+   "source": "GX BOM Configurator V3.0",
+   "raw": {
+    "requiredPons": [
+     "G3S-C2SPN2CZ-00"
+    ],
+    "lineTable": "SPN2C_MODULES",
+    "clientTables": [
+     "SPN2C_S1_CLIENTS",
+     "SPN2C_S2_CLIENTS"
+    ]
+   }
+  },
+  {
+   "id": "PSS:12P120S",
+   "platform": "PSS",
+   "name": "12P120S",
+   "family": "LSEO OTN",
+   "kind": "muxponder",
+   "lineCarriers": 6,
+   "lineRatesG": [
+    10
+   ],
+   "lineMinG": 10,
+   "lineMaxG": 10,
+   "lineType": "pluggable",
+   "lineModes": [],
+   "linePluggableSlots": 6,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "SFP+",
+     "qty": 6
+    }
+   ],
+   "clientServices": [
+    "10GE",
+    "OTU2",
+    "OC-192",
+    "STM64",
+    "FC800"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "PSS-4II",
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-32"
+   ],
+   "hostsFromRelease": false,
+   "shipping": true,
+   "release": "GA (PSS-8/16II/32)",
+   "encryption": "N/A",
+   "weightKg": null,
+   "powerW": null,
+   "source": "1830 PSS roadmap, Aug-2026 (slide 21)",
+   "raw": {
+    "asNamed": "12P120S (Full Height, 1-slot)",
+    "lineSide": "6 x SFP+ line ports (L1 \u2013 L6) / OTU2/2e line rates / RSFEC/EFEC/EFEC2/NOFEC / Cross-regen between line ports / B&W, CWDM, DWDM pluggable / VA1 -VA6 ports support VOA to tune line power.",
+    "clientSide": "6 x SFP+ client ports (C1 \u2013 C6) / B&W, CWDM, DWDM pluggable",
+    "clientTypes": "10GE, OC-192/STM64, OTU-2/2e, FC-800/1200"
+   }
+  },
+  {
+   "id": "PSS:16P200",
+   "platform": "PSS",
+   "name": "16P200",
+   "family": "LSEO OTN",
+   "kind": "muxponder",
+   "lineCarriers": 2,
+   "lineRatesG": [
+    100
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 100,
+   "lineType": "pluggable",
+   "lineModes": [],
+   "linePluggableSlots": 2,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "SFP+/SFP28",
+     "qty": 12
+    },
+    {
+     "type": "QSFP+/QSFP28",
+     "qty": 2
+    }
+   ],
+   "clientServices": [
+    "100GE",
+    "10GE",
+    "OTU4",
+    "OTU2",
+    "OC-192",
+    "STM64"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "PSS-4II",
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU",
+    "PSS-32"
+   ],
+   "hostsFromRelease": false,
+   "shipping": true,
+   "release": "GA (PSS-4II/8/16II/32)",
+   "encryption": "N/A",
+   "weightKg": null,
+   "powerW": null,
+   "source": "1830 PSS roadmap, Aug-2026 (slide 21)",
+   "raw": {
+    "asNamed": "16P200 (Full Height, 1-slot)",
+    "lineSide": "2 x QSFP28 line ports (L1, L2) / OTU4 line rate / RSFEC/SCFEC/NOFEC / B&W, CWDM, Coherent 100GZR pluggables.",
+    "clientSide": "12xSFP+/SFP28 client ports (C1-C12) / 2xQSFP+/QSFP28 client ports (C13-16, C17-20) / B&W, CWDM, DWDM pluggables",
+    "clientTypes": "10GE, OTU2/2e, OC-192/STM64, FC-8G/16G/32G, 100GE, OTU4"
+   }
+  },
+  {
+   "id": "PSS:8P20B",
+   "platform": "PSS",
+   "name": "8P20B",
+   "family": "LSEO OTN",
+   "kind": "muxponder",
+   "lineCarriers": 2,
+   "lineRatesG": [
+    10
+   ],
+   "lineMinG": 10,
+   "lineMaxG": 10,
+   "lineType": "pluggable",
+   "lineModes": [],
+   "linePluggableSlots": 2,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "SFP",
+     "qty": 8
+    }
+   ],
+   "clientServices": [
+    "1GE",
+    "FE",
+    "OTU1",
+    "OC-3",
+    "STM1",
+    "FC100",
+    "HD-SDI",
+    "SD-SDI",
+    "3G-SDI"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "half",
+   "hosts": [
+    "PSS-4II",
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-32"
+   ],
+   "hostsFromRelease": false,
+   "shipping": true,
+   "release": "GA (PSS-4II/8/16II/32)",
+   "encryption": "N/A",
+   "weightKg": null,
+   "powerW": null,
+   "source": "1830 PSS roadmap, Aug-2026 (slide 21)",
+   "raw": {
+    "asNamed": "8P20B (Half Height, 1-slot)",
+    "lineSide": "2 x SFP+ line ports (L1, L2) / OTU2/2e line rates / RSFEC/EFEC/NOFEC / B&W, CWDM, DWDM pluggables / VA1 and VA2 ports support VOA to tune line power.",
+    "clientSide": "8xSFP client ports (C1-C8)  / B&W, electrical pluggables / Note: C7 and L1 share one port; C8 and L2 share one port; / C5 and VA1 share one port; C6 and VA2 share one port.",
+    "clientTypes": "FE, 1 GE, OC-3/12/48, STM-1/4/16, FC-100/200/400, 3GSDI, HD-SDI, SD-SDI, OTU1"
+   }
+  },
+  {
+   "id": "PSS:D4AD1T6H",
+   "platform": "PSS",
+   "name": "D4AD1T6H",
+   "family": "HSEO super-coherent",
+   "kind": "muxponder",
+   "lineCarriers": 2,
+   "lineRatesG": [
+    400,
+    500,
+    600,
+    700,
+    800
+   ],
+   "lineMinG": 400,
+   "lineMaxG": 800,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [
+    130.0
+   ],
+   "spacingGHz": [
+    137.5,
+    150.0
+   ],
+   "dsp": "PSE-6s",
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP56-DD",
+     "qty": 4
+    }
+   ],
+   "clientServices": [
+    "400GE",
+    "100GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 2,
+   "height": "full",
+   "hosts": [
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU"
+   ],
+   "hostsFromRelease": false,
+   "shipping": true,
+   "release": "GA (PSS16II)",
+   "encryption": "N/A",
+   "weightKg": null,
+   "powerW": null,
+   "source": "1830 PSS roadmap, Aug-2026 (slide 19)",
+   "raw": {
+    "asNamed": "D4AD1T6H (2W, 2H)",
+    "lineSide": "2xBMDCO8 embedded (PSE6s) / 2 x 400G/500G/600G/700G/800G / 130GBd / 137.5-150GHz / Cband, 4.8THz",
+    "clientSide": "4xQSFP56-DD (2+2)",
+    "clientTypes": "400GE, 100GE, OTU4"
+   }
+  },
+  {
+   "id": "PSS:D6A2T4E",
+   "platform": "PSS",
+   "name": "D6A2T4E",
+   "family": "HSEO super-coherent",
+   "kind": "muxponder",
+   "lineCarriers": 2,
+   "lineRatesG": [
+    400,
+    500,
+    600,
+    700,
+    800,
+    900,
+    1000,
+    1100,
+    1200
+   ],
+   "lineMinG": 400,
+   "lineMaxG": 1200,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [
+    130.0,
+    140.0
+   ],
+   "spacingGHz": [
+    137.5,
+    150.0
+   ],
+   "dsp": "PSE-6s",
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP56-DD",
+     "qty": 4
+    },
+    {
+     "type": "QSFP56-DD/DD800",
+     "qty": 2
+    }
+   ],
+   "clientServices": [
+    "800GE",
+    "400GE",
+    "100GE",
+    "OTUC4",
+    "OTU4"
+   ],
+   "futureServices": [
+    "800GE",
+    "OTUC4"
+   ],
+   "slots": 2,
+   "height": "full",
+   "hosts": [
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU"
+   ],
+   "hostsFromRelease": false,
+   "shipping": true,
+   "release": "R25.12.4 GA (PSS16II)",
+   "encryption": "L1 enc. AES256 (R27.1Q)",
+   "weightKg": null,
+   "powerW": null,
+   "source": "1830 PSS roadmap, Aug-2026 (slide 19)",
+   "raw": {
+    "asNamed": "D6A2T4E/EL (2W, 2H)",
+    "lineSide": "2xBMDCO12E/LE embedded (PSE6s) / 2 x 400G - 1.2T @ 130GBd / 137.5-150GHz / 800G / 1T / 1T2 TC @ 140GBd / 150GHz (C + L) / 900G TC @ 140GBd / 150GHz (L) (26.6 PostCP).  / 900G / 1T1 TC @ 140GBd / 150GHz (R27.1Q) / D6A2T4E : Cband, 4.8THz / D6A2T4EL : Lband, 4.8THz / 3x400GE, 5x400GE (R26.6 PostCP), 800GE combos (Future) dual carrier inv. mux.  / Baud-flexible profiles (C band) (R26.6 PostCP) / Fast SoP tracking mode / 3R single carrier (R26.9), dual carrier (R27.1Q) / Single working fiber (Future)",
+    "clientSide": "4xQSFP56-DD + 2xQSFP56-DD/DD800 (R27.1Q)",
+    "clientTypes": "400GE, 100GE, OTU4, 800GE (R27.1Q), OTUC4 (Future)"
+   }
+  },
+  {
+   "id": "PSS:D6A2T4EEL",
+   "platform": "PSS",
+   "name": "D6A2T4EEL",
+   "family": "HSEO super-coherent",
+   "kind": "muxponder",
+   "lineCarriers": 2,
+   "lineRatesG": [
+    400,
+    500,
+    600,
+    700,
+    800,
+    900,
+    1000,
+    1100,
+    1200
+   ],
+   "lineMinG": 400,
+   "lineMaxG": 1200,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "L"
+   ],
+   "baudGBd": [
+    130.0,
+    140.0
+   ],
+   "spacingGHz": [
+    137.5,
+    150.0
+   ],
+   "dsp": "PSE-6s",
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP56-DD",
+     "qty": 4
+    },
+    {
+     "type": "QSFP56-DD/DD800",
+     "qty": 2
+    }
+   ],
+   "clientServices": [
+    "800GE",
+    "400GE",
+    "100GE",
+    "OTUC4",
+    "OTU4"
+   ],
+   "futureServices": [
+    "800GE",
+    "OTUC4"
+   ],
+   "slots": 2,
+   "height": "full",
+   "hosts": [
+    "PSS-16II DC 8RU"
+   ],
+   "hostsFromRelease": true,
+   "shipping": false,
+   "release": "R25.12.4 GA (PSS16II)",
+   "encryption": "L1 enc. AES256 (R27.1Q)",
+   "weightKg": null,
+   "powerW": null,
+   "source": "1830 PSS roadmap, Aug-2026 (slide 19)",
+   "raw": {
+    "asNamed": "D6A2T4E/EL (2W, 2H)",
+    "lineSide": "2xBMDCO12E/LE embedded (PSE6s) / 2 x 400G - 1.2T @ 130GBd / 137.5-150GHz / 800G / 1T / 1T2 TC @ 140GBd / 150GHz (C + L) / 900G TC @ 140GBd / 150GHz (L) (26.6 PostCP).  / 900G / 1T1 TC @ 140GBd / 150GHz (R27.1Q) / D6A2T4E : Cband, 4.8THz / D6A2T4EL : Lband, 4.8THz / 3x400GE, 5x400GE (R26.6 PostCP), 800GE combos (Future) dual carrier inv. mux.  / Baud-flexible profiles (C band) (R26.6 PostCP) / Fast SoP tracking mode / 3R single carrier (R26.9), dual carrier (R27.1Q) / Single working fiber (Future)",
+    "clientSide": "4xQSFP56-DD + 2xQSFP56-DD/DD800 (R27.1Q)",
+    "clientTypes": "400GE, 100GE, OTU4, 800GE (R27.1Q), OTUC4 (Future)"
+   }
+  },
+  {
+   "id": "PSS:D6AD2T4H",
+   "platform": "PSS",
+   "name": "D6AD2T4H",
+   "family": "HSEO super-coherent",
+   "kind": "muxponder",
+   "lineCarriers": 2,
+   "lineRatesG": [
+    300,
+    400,
+    500,
+    600,
+    700,
+    800,
+    900,
+    1000,
+    1100,
+    1200
+   ],
+   "lineMinG": 300,
+   "lineMaxG": 1200,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [
+    130.0
+   ],
+   "spacingGHz": [
+    137.5,
+    150.0
+   ],
+   "dsp": "PSE-6s",
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP56-DD",
+     "qty": 6
+    }
+   ],
+   "clientServices": [
+    "800GE",
+    "400GE",
+    "100GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 2,
+   "height": "full",
+   "hosts": [
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU"
+   ],
+   "hostsFromRelease": false,
+   "shipping": true,
+   "release": "GA (PSS16II)",
+   "encryption": "N/A",
+   "weightKg": null,
+   "powerW": null,
+   "source": "1830 PSS roadmap, Aug-2026 (slide 19)",
+   "raw": {
+    "asNamed": "D6AD2T4H/L (2W, 2H)",
+    "lineSide": "2xBMDCO12 embedded (PSE6s) / 2 x 300G-1.2T / 130GBd / 137.5-150GHz / D6AD2T4H : Cband, 4.8THz / D6AD2T4L : Lband, 4.8THz / Dual carrier inverse muxing (3x400GE) / Unidirectional 3R mode with recoloring / Baud-flexible profiles / Fast SoP tracking mode",
+    "clientSide": "6xQSFP56-DD (3+3)",
+    "clientTypes": "400GE, 100GE, OTU4, 800GE."
+   }
+  },
+  {
+   "id": "PSS:D6AD2T4L",
+   "platform": "PSS",
+   "name": "D6AD2T4L",
+   "family": "HSEO super-coherent",
+   "kind": "muxponder",
+   "lineCarriers": 2,
+   "lineRatesG": [
+    300,
+    400,
+    500,
+    600,
+    700,
+    800,
+    900,
+    1000,
+    1100,
+    1200
+   ],
+   "lineMinG": 300,
+   "lineMaxG": 1200,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "L"
+   ],
+   "baudGBd": [
+    130.0
+   ],
+   "spacingGHz": [
+    137.5,
+    150.0
+   ],
+   "dsp": "PSE-6s",
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP56-DD",
+     "qty": 6
+    }
+   ],
+   "clientServices": [
+    "800GE",
+    "400GE",
+    "100GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 2,
+   "height": "full",
+   "hosts": [
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU"
+   ],
+   "hostsFromRelease": false,
+   "shipping": true,
+   "release": "GA (PSS16II)",
+   "encryption": "N/A",
+   "weightKg": null,
+   "powerW": null,
+   "source": "1830 PSS roadmap, Aug-2026 (slide 19)",
+   "raw": {
+    "asNamed": "D6AD2T4H/L (2W, 2H)",
+    "lineSide": "2xBMDCO12 embedded (PSE6s) / 2 x 300G-1.2T / 130GBd / 137.5-150GHz / D6AD2T4H : Cband, 4.8THz / D6AD2T4L : Lband, 4.8THz / Dual carrier inverse muxing (3x400GE) / Unidirectional 3R mode with recoloring / Baud-flexible profiles / Fast SoP tracking mode",
+    "clientSide": "6xQSFP56-DD (3+3)",
+    "clientTypes": "400GE, 100GE, OTU4, 800GE."
+   }
+  },
+  {
+   "id": "PSS:S13X400E",
+   "platform": "PSS",
+   "name": "S13X400E",
+   "family": "HSEO compact",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 400,
+   "lineType": "pluggable",
+   "lineModes": [],
+   "linePluggableSlots": 1,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [
+    33.0,
+    62.0,
+    67.0
+   ],
+   "spacingGHz": [
+    50.0,
+    75.0,
+    87.5
+   ],
+   "dsp": "PSEVc",
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "SFP28/+",
+     "qty": 10
+    },
+    {
+     "type": "QSFP28",
+     "qty": 2
+    },
+    {
+     "type": "QSFP56-DD",
+     "qty": 1
+    }
+   ],
+   "clientServices": [
+    "400GE",
+    "100GE",
+    "25GE",
+    "10GE",
+    "OTU4",
+    "OTU2",
+    "100ZR",
+    "FC16G"
+   ],
+   "futureServices": [
+    "100ZR"
+   ],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "PSS-4II",
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU"
+   ],
+   "hostsFromRelease": false,
+   "shipping": true,
+   "release": "GA (PSS4II, PSS8, PSS16II)",
+   "encryption": "S13X400E : L1 encryption. MUX, CAL, ADM",
+   "weightKg": null,
+   "powerW": null,
+   "source": "1830 PSS roadmap, Aug-2026 (slide 20)",
+   "raw": {
+    "asNamed": "S13X400H/E (1W, 2H)",
+    "lineSide": "Muxponder and dual-card add/drop (ADM) : / 1xC2DCO4 (CFP2, PSEVc) / Cband, 4.8THz / 1 x 100G-400G, 33GBd / 50GHz, 62GBd / 75GHz, 67GBd / 87.5GHz / Unidirectional 3R via S5AD400H / Client port-as-line (CAL), 2xQSFP28 lines / 2xQDCO1 (OTU4 mode) / 2xQSFP28 dual-rate black&white",
+    "clientSide": "10xSFP28/+, 2xQSFP28, 1xQSFP56-DD / N+1 mating 18CE300 in MUX and CAL",
+    "clientTypes": "10GE, 25GE, 100GE, 400GE, OTU4, OTU2/2e, FC16/32 (R26.9), 100ZR (R27.Q1)"
+   }
+  },
+  {
+   "id": "PSS:S13X400H",
+   "platform": "PSS",
+   "name": "S13X400H",
+   "family": "HSEO compact",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 400,
+   "lineType": "pluggable",
+   "lineModes": [],
+   "linePluggableSlots": 1,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [
+    33.0,
+    62.0,
+    67.0
+   ],
+   "spacingGHz": [
+    50.0,
+    75.0,
+    87.5
+   ],
+   "dsp": "PSEVc",
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "SFP28/+",
+     "qty": 10
+    },
+    {
+     "type": "QSFP28",
+     "qty": 2
+    },
+    {
+     "type": "QSFP56-DD",
+     "qty": 1
+    }
+   ],
+   "clientServices": [
+    "400GE",
+    "100GE",
+    "25GE",
+    "10GE",
+    "OTU4",
+    "OTU2",
+    "100ZR",
+    "FC16G"
+   ],
+   "futureServices": [
+    "100ZR"
+   ],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "PSS-4II",
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU"
+   ],
+   "hostsFromRelease": false,
+   "shipping": true,
+   "release": "GA (PSS4II, PSS8, PSS16II)",
+   "encryption": "S13X400E : L1 encryption. MUX, CAL, ADM",
+   "weightKg": null,
+   "powerW": null,
+   "source": "1830 PSS roadmap, Aug-2026 (slide 20)",
+   "raw": {
+    "asNamed": "S13X400H/E (1W, 2H)",
+    "lineSide": "Muxponder and dual-card add/drop (ADM) : / 1xC2DCO4 (CFP2, PSEVc) / Cband, 4.8THz / 1 x 100G-400G, 33GBd / 50GHz, 62GBd / 75GHz, 67GBd / 87.5GHz / Unidirectional 3R via S5AD400H / Client port-as-line (CAL), 2xQSFP28 lines / 2xQDCO1 (OTU4 mode) / 2xQSFP28 dual-rate black&white",
+    "clientSide": "10xSFP28/+, 2xQSFP28, 1xQSFP56-DD / N+1 mating 18CE300 in MUX and CAL",
+    "clientTypes": "10GE, 25GE, 100GE, 400GE, OTU4, OTU2/2e, FC16/32 (R26.9), 100ZR (R27.Q1)"
+   }
+  },
+  {
+   "id": "PSS:S2AD800H",
+   "platform": "PSS",
+   "name": "S2AD800H",
+   "family": "HSEO compact",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    400,
+    600,
+    800
+   ],
+   "lineMinG": 400,
+   "lineMaxG": 800,
+   "lineType": "pluggable",
+   "lineModes": [],
+   "linePluggableSlots": 1,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [
+    75.0,
+    137.5,
+    150.0
+   ],
+   "dsp": "Garda DSP",
+   "zr": [
+    "OpenZR+",
+    "400ZR"
+   ],
+   "clientCages": [
+    {
+     "type": "QSFP56-DD/DD-800",
+     "qty": 2
+    },
+    {
+     "type": "QSFP28-DD",
+     "qty": 2
+    }
+   ],
+   "clientServices": [
+    "800GE",
+    "400GE",
+    "100GE",
+    "OTUC4",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "half",
+   "hosts": [
+    "PSS-4II",
+    "PSS-8",
+    "PSS-16II DC 8RU"
+   ],
+   "hostsFromRelease": true,
+   "shipping": false,
+   "release": "R28.1H (PSS4II, PSS8NG, PSS16II)",
+   "encryption": "FlexOSec",
+   "weightKg": null,
+   "powerW": null,
+   "source": "1830 PSS roadmap, Aug-2026 (slide 20)",
+   "raw": {
+    "asNamed": "S2AD800H (1W, 1H)",
+    "lineSide": "1xICE-X 800 pluggable (Garda DSP)  / Cband, 4.8THz / Profiles : parity with S2AD800R. Additional high-performance modes.",
+    "clientSide": "2xQSFP56-DD/DD-800, 2xQSFP28-DD",
+    "clientTypes": "100GE, 400GE, 800GE, OTU4, OTUC4"
+   },
+   "inheritedFrom": "S2AD800R"
+  },
+  {
+   "id": "PSS:S2AD800R",
+   "platform": "PSS",
+   "name": "S2AD800R",
+   "family": "HSEO compact",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    400,
+    600,
+    800
+   ],
+   "lineMinG": 400,
+   "lineMaxG": 800,
+   "lineType": "pluggable",
+   "lineModes": [],
+   "linePluggableSlots": 1,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [
+    75.0,
+    137.5,
+    150.0
+   ],
+   "dsp": "Tahoe DSP",
+   "zr": [
+    "OpenZR+",
+    "400ZR"
+   ],
+   "clientCages": [
+    {
+     "type": "QSFP56-DD/DD-800",
+     "qty": 2
+    },
+    {
+     "type": "QSFP28-DD",
+     "qty": 2
+    }
+   ],
+   "clientServices": [
+    "800GE",
+    "400GE",
+    "100GE"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "half",
+   "hosts": [
+    "PSS-4II",
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU"
+   ],
+   "hostsFromRelease": false,
+   "shipping": true,
+   "release": "R26.9 (PSS4II/16II), 27.Q1 (PSS8NG)",
+   "encryption": "No plans",
+   "weightKg": null,
+   "powerW": null,
+   "source": "1830 PSS roadmap, Aug-2026 (slide 20)",
+   "raw": {
+    "asNamed": "S2AD800R (1W, 1H)",
+    "lineSide": "1xICE-X 800 (Tahoe DSP)  / Cband, 4.8THz / 800G Nokia and OR6.0 / 150GHz / 400G/600G OR6.0 / 137.5 \u2013 150GHz / 600G Nokia / 150GHz (27.Q1) / 400ZR & OpenZR+ / 75GHz (27.Q1)",
+    "clientSide": "2xQSFP56-DD/DD-800, 2xQSFP28-DD (R27.1Q)",
+    "clientTypes": "100GE, 400GE, and 800GE (27.Q1)"
+   }
+  },
+  {
+   "id": "PSS:S5AD400H",
+   "platform": "PSS",
+   "name": "S5AD400H",
+   "family": "HSEO compact",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100,
+    200,
+    300,
+    400
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 400,
+   "lineType": "pluggable",
+   "lineModes": [],
+   "linePluggableSlots": 1,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [
+    33.0,
+    62.0,
+    67.0
+   ],
+   "spacingGHz": [
+    50.0,
+    75.0,
+    87.5
+   ],
+   "dsp": "PSEVc",
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28",
+     "qty": 4
+    },
+    {
+     "type": "QSFP56-DD",
+     "qty": 1
+    }
+   ],
+   "clientServices": [
+    "400GE",
+    "100GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "PSS-4II",
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU",
+    "PSS-32"
+   ],
+   "hostsFromRelease": false,
+   "shipping": true,
+   "release": "GA (PSS4II, PSS8, PSS16II, PSS32)",
+   "encryption": "No plans",
+   "weightKg": null,
+   "powerW": null,
+   "source": "1830 PSS roadmap, Aug-2026 (slide 20)",
+   "raw": {
+    "asNamed": "S5AD400H (1W, 2H)",
+    "lineSide": "1xC2DCO4 (CFP2, PSEVc) / 1 x 100G-400G / 33GBd / 50GHz, 62GBd / 75GHz, 67GBd / 87.5GHz / Cband, 4.8THz / Unidirectional 3R mode including encrypted S13X400E traffic",
+    "clientSide": "4xQSFP28 + 1xQSFP56-DD",
+    "clientTypes": "400GE, 100GE, OTU4"
+   }
+  },
+  {
+   "id": "PSS:S6AD600E",
+   "platform": "PSS",
+   "name": "S6AD600E",
+   "family": "HSEO super-coherent",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    200,
+    300,
+    400,
+    500,
+    600
+   ],
+   "lineMinG": 200,
+   "lineMaxG": 600,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [
+    90.0
+   ],
+   "spacingGHz": [
+    100.0,
+    112.5
+   ],
+   "dsp": "PSEVs",
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28",
+     "qty": 5
+    },
+    {
+     "type": "QSFP28/56-DD",
+     "qty": 1
+    }
+   ],
+   "clientServices": [
+    "400GE",
+    "100GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 2,
+   "height": "half",
+   "hosts": [
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU",
+    "PSS-32"
+   ],
+   "hostsFromRelease": false,
+   "shipping": true,
+   "release": "GA (PSS8, PSS16II, PSS32)",
+   "encryption": "S6AD600E : L1 line encryption",
+   "weightKg": null,
+   "powerW": null,
+   "source": "1830 PSS roadmap, Aug-2026 (slide 19)",
+   "raw": {
+    "asNamed": "S6AD600H/L/E (2W,1H)",
+    "lineSide": "1xBMDCO6/e embedded (PSEVs) / 1 x 200G-600G / 90GBd / 100-112.5GHz / S6AD600H/E : Cband, 4.8THz / S6AD600L : Lband, 4.8THz / Unidirectional 3R mode with recoloring / Baud-flexible profiles / Fast SoP tracking mode",
+    "clientSide": "5xQSFP28 + 1x dual QSFP28/56-DD",
+    "clientTypes": "400GE, 100GE, OTU4"
+   }
+  },
+  {
+   "id": "PSS:S6AD600H",
+   "platform": "PSS",
+   "name": "S6AD600H",
+   "family": "HSEO super-coherent",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    200,
+    300,
+    400,
+    500,
+    600
+   ],
+   "lineMinG": 200,
+   "lineMaxG": 600,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [
+    90.0
+   ],
+   "spacingGHz": [
+    100.0,
+    112.5
+   ],
+   "dsp": "PSEVs",
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28",
+     "qty": 5
+    },
+    {
+     "type": "QSFP28/56-DD",
+     "qty": 1
+    }
+   ],
+   "clientServices": [
+    "400GE",
+    "100GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 2,
+   "height": "half",
+   "hosts": [
+    "PSS-4II",
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU",
+    "PSS-32"
+   ],
+   "hostsFromRelease": false,
+   "shipping": true,
+   "release": "GA (PSS8, PSS16II, PSS32)",
+   "encryption": "S6AD600E : L1 line encryption",
+   "weightKg": null,
+   "powerW": null,
+   "source": "1830 PSS roadmap, Aug-2026 (slide 19)",
+   "raw": {
+    "asNamed": "S6AD600H/L/E (2W,1H)",
+    "lineSide": "1xBMDCO6/e embedded (PSEVs) / 1 x 200G-600G / 90GBd / 100-112.5GHz / S6AD600H/E : Cband, 4.8THz / S6AD600L : Lband, 4.8THz / Unidirectional 3R mode with recoloring / Baud-flexible profiles / Fast SoP tracking mode",
+    "clientSide": "5xQSFP28 + 1x dual QSFP28/56-DD",
+    "clientTypes": "400GE, 100GE, OTU4"
+   }
+  },
+  {
+   "id": "PSS:S6AD600L",
+   "platform": "PSS",
+   "name": "S6AD600L",
+   "family": "HSEO super-coherent",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    200,
+    300,
+    400,
+    500,
+    600
+   ],
+   "lineMinG": 200,
+   "lineMaxG": 600,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "L"
+   ],
+   "baudGBd": [
+    90.0
+   ],
+   "spacingGHz": [
+    100.0,
+    112.5
+   ],
+   "dsp": "PSEVs",
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "QSFP28",
+     "qty": 5
+    },
+    {
+     "type": "QSFP28/56-DD",
+     "qty": 1
+    }
+   ],
+   "clientServices": [
+    "400GE",
+    "100GE",
+    "OTU4"
+   ],
+   "futureServices": [],
+   "slots": 2,
+   "height": "half",
+   "hosts": [
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU",
+    "PSS-32"
+   ],
+   "hostsFromRelease": false,
+   "shipping": true,
+   "release": "GA (PSS8, PSS16II, PSS32)",
+   "encryption": "S6AD600E : L1 line encryption",
+   "weightKg": null,
+   "powerW": null,
+   "source": "1830 PSS roadmap, Aug-2026 (slide 19)",
+   "raw": {
+    "asNamed": "S6AD600H/L/E (2W,1H)",
+    "lineSide": "1xBMDCO6/e embedded (PSEVs) / 1 x 200G-600G / 90GBd / 100-112.5GHz / S6AD600H/E : Cband, 4.8THz / S6AD600L : Lband, 4.8THz / Unidirectional 3R mode with recoloring / Baud-flexible profiles / Fast SoP tracking mode",
+    "clientSide": "5xQSFP28 + 1x dual QSFP28/56-DD",
+    "clientTypes": "400GE, 100GE, OTU4"
+   }
+  }
+ ]
+}

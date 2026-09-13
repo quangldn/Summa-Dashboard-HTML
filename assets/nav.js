@@ -47,6 +47,11 @@
           blurb: 'Shelf geometry and slot ranges, the release timeline through ' +
                  'R27.Q4, the planning guide’s own 715-term glossary, and an ' +
                  'honest list of what the sources do not cover.' },
+        { group: 'Solutions', href: 'dci.html', label: 'DCI Picker', icon: 'DC',
+          blurb: 'Give it the line rate, the client mix and the site, and it ' +
+                 'ranks the GX and PSS transponders that can carry it — naming ' +
+                 'the cascade, the extra slot or the deeper rack each answer ' +
+                 'costs you.' },
       ],
     },
     {

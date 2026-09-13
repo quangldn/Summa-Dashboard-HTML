@@ -1,0 +1,774 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DCI Picker — SUMMA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/theme.css" />
+  <link rel="stylesheet" href="assets/nav-bar.css" />
+  <link rel="stylesheet" href="assets/cmdk.css" />
+  <script src="assets/nav.js" defer></script>
+  <script src="assets/cmdk.js" defer></script>
+  <script src="assets/dci-engine.js" defer></script>
+
+  <style>
+  /* ====================================================================
+     DCI picker — page styles.
+     Everything is a token from theme.css, so the page follows light/dark
+     and the toggle without a second palette living here.
+     ==================================================================== */
+
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 20px 64px; }
+  html { overflow-x: clip; }
+
+  /* ---------------------------------------------------------- masthead */
+  .head { padding: 26px 0 18px; }
+  .head p { margin: 8px 0 0; color: var(--ink-2); font-size: 13.5px;
+            line-height: 1.55; max-width: 66ch; }
+  .head .meta { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+
+  /* ------------------------------------------------------- requirement */
+  .req {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--r-lg); padding: 16px 18px 18px;
+    position: sticky; top: 0; z-index: 30;
+  }
+  @supports (backdrop-filter: blur(8px)) {
+    .req { backdrop-filter: blur(10px); }
+  }
+  .req > .row + .row { margin-top: 14px; padding-top: 14px;
+                       border-top: 1px dashed var(--line); }
+  .row > .t-label { display: block; margin-bottom: 7px; }
+
+  /* segmented control */
+  .seg { display: flex; flex-wrap: wrap; gap: 5px; }
+  .seg button {
+    font: inherit; font-size: 12.5px; font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-2); background: var(--surface-2);
+    border: 1px solid transparent; border-radius: var(--r-sm);
+    padding: 5px 12px; cursor: pointer;
+    transition: background var(--fast) var(--ease), color var(--fast) var(--ease);
+  }
+  .seg button:hover { background: var(--surface-3); color: var(--ink); }
+  .seg button.on {
+    background: var(--accent); border-color: var(--accent);
+    color: var(--ink-on-accent);
+  }
+
+  /* constraint grid */
+  .cons { display: grid; gap: 12px 18px;
+          grid-template-columns: repeat(auto-fit, minmax(168px, 1fr)); }
+  .cons .f { min-width: 0; }
+  .cons .f > .t-label { display: block; margin-bottom: 6px; }
+  .cons select { width: 100%; }
+
+  .toggles { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; }
+  .tg { display: inline-flex; align-items: center; gap: 7px;
+        font-size: 12.5px; font-weight: 600; color: var(--ink-2);
+        cursor: pointer; user-select: none; }
+  .tg input { appearance: none; width: 32px; height: 18px; border-radius: 999px;
+              background: var(--surface-3); border: 1px solid var(--line-strong);
+              position: relative; cursor: pointer; padding: 0; flex: none;
+              transition: background var(--fast) var(--ease); }
+  .tg input::after { content: ''; position: absolute; top: 2px; left: 2px;
+                     width: 12px; height: 12px; border-radius: 50%;
+                     background: var(--surface); box-shadow: var(--lift);
+                     transition: transform var(--fast) var(--ease); }
+  .tg input:checked { background: var(--accent); border-color: var(--accent); }
+  .tg input:checked::after { transform: translateX(14px); background: #fff; }
+  .tg input:checked + span { color: var(--ink); }
+
+  /* client mix rows */
+  .clients { display: flex; flex-direction: column; gap: 7px; }
+  .cl { display: flex; gap: 7px; align-items: center; flex-wrap: wrap; }
+  .cl select { flex: 1 1 170px; min-width: 0; }
+  .qty { display: inline-flex; align-items: stretch; border: 1px solid var(--line);
+         border-radius: var(--r-sm); overflow: hidden; background: var(--surface); }
+  .qty button { font: inherit; font-size: 14px; font-weight: 600; width: 28px;
+                border: 0; background: var(--surface-2); color: var(--ink-2);
+                cursor: pointer; }
+  .qty button:hover { background: var(--surface-3); color: var(--ink); }
+  .qty input { width: 46px; text-align: center; border: 0; border-radius: 0;
+               font-variant-numeric: tabular-nums; font-weight: 600;
+               background: var(--surface); }
+  .cl .rm { font: inherit; font-size: 15px; line-height: 1; width: 28px; height: 28px;
+            border: 1px solid var(--line); border-radius: var(--r-sm);
+            background: var(--surface); color: var(--ink-3); cursor: pointer; }
+  .cl .rm:hover { color: var(--bad-ink); border-color: var(--bad-ink); }
+  .cl .rate { font-size: 11.5px; color: var(--ink-3);
+              font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  /* ------------------------------------------------------------ tally */
+  .tally { display: grid; gap: 1px; background: var(--line);
+           border: 1px solid var(--line); border-radius: var(--r);
+           grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+           overflow: hidden; margin: 18px 0 20px; }
+  .tally .c { background: var(--surface); padding: 11px 14px; }
+  .tally .v { font-size: 20px; font-weight: 650; letter-spacing: -.02em;
+              font-variant-numeric: tabular-nums; margin-top: 1px; }
+  .tally .v small { font-size: 12px; font-weight: 600; color: var(--ink-3);
+                    letter-spacing: 0; }
+
+  /* ---------------------------------------------------------- results */
+  .rank { display: flex; flex-direction: column; gap: 12px; }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--r-lg); overflow: hidden;
+  }
+  .card.top { border-color: var(--accent-line); }
+
+  .card .hd { display: flex; gap: 13px; align-items: flex-start;
+              padding: 15px 17px 13px; }
+  .card .no { flex: none; width: 26px; height: 26px; border-radius: 8px;
+              background: var(--surface-2); color: var(--ink-3);
+              font-size: 12px; font-weight: 700; display: flex;
+              align-items: center; justify-content: center;
+              font-variant-numeric: tabular-nums; }
+  .card.top .no { background: var(--accent); color: var(--ink-on-accent); }
+  .card .id { flex: 1 1 auto; min-width: 0; }
+  .card .id h3 { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .card .id .sub { margin-top: 3px; font-size: 12px; color: var(--ink-2); }
+  .card .sc { flex: none; text-align: right; }
+  .card .sc .n { font-size: 19px; font-weight: 650; letter-spacing: -.02em;
+                 font-variant-numeric: tabular-nums; }
+
+  /* the two meters */
+  .meters { display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+            padding: 0 17px 13px; }
+  @media (max-width: 560px) { .meters { grid-template-columns: 1fr; } }
+  .m .lab { display: flex; justify-content: space-between; align-items: baseline;
+            gap: 8px; margin-bottom: 5px; }
+  .m .lab b { font-size: 12px; font-weight: 650;
+              font-variant-numeric: tabular-nums; }
+
+  /* fit / cost lists */
+  .why { border-top: 1px solid var(--line); padding: 12px 17px 14px;
+         display: grid; gap: 12px 22px; grid-template-columns: 1fr 1fr; }
+  @media (max-width: 700px) { .why { grid-template-columns: 1fr; } }
+  .why ul { list-style: none; margin: 6px 0 0; padding: 0;
+            display: flex; flex-direction: column; gap: 5px; }
+  .why li { font-size: 12.5px; line-height: 1.5; padding-left: 18px;
+            position: relative; color: var(--ink-2); }
+  .why li::before { position: absolute; left: 0; top: 0; font-weight: 700;
+                    font-size: 11px; line-height: 1.65; }
+  .why .fit li::before { content: '+'; color: var(--ok-ink); }
+  .why .cost li::before { content: '–'; color: var(--warn-ink); }
+  .why .none { font-size: 12.5px; color: var(--ink-3); font-style: italic;
+               margin-top: 6px; }
+
+  /* cascade callout */
+  .casc { margin: 0 17px 15px; background: var(--warn-soft);
+          border: 1px solid var(--line); border-radius: var(--r);
+          padding: 11px 13px; }
+  .casc .t { display: flex; align-items: center; gap: 7px;
+             font-size: 12px; font-weight: 650; color: var(--warn-ink); }
+  .casc p { margin: 5px 0 0; font-size: 12.5px; line-height: 1.5;
+            color: var(--ink-2); }
+
+  .card .ft { border-top: 1px solid var(--line); background: var(--surface-2);
+              padding: 9px 17px; display: flex; gap: 14px; flex-wrap: wrap;
+              align-items: center; }
+  .card .ft .k { font-size: 11.5px; color: var(--ink-3); }
+  .card .ft .k b { color: var(--ink-2); font-weight: 600;
+                   font-variant-numeric: tabular-nums; }
+  .card .ft .sp { margin-left: auto; }
+
+  /* ---------------------------------------------------------- ruled out */
+  .out summary { cursor: pointer; font-size: 12.5px; font-weight: 600;
+                 color: var(--ink-2); padding: 10px 0; list-style: none; }
+  .out summary::-webkit-details-marker { display: none; }
+  .out summary::before { content: '▸ '; color: var(--ink-3); }
+  .out[open] summary::before { content: '▾ '; }
+  .outlist { display: grid; gap: 1px; background: var(--line);
+             border: 1px solid var(--line); border-radius: var(--r);
+             overflow: hidden; }
+  .outlist .r { background: var(--surface); padding: 9px 13px;
+                display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+  .outlist .r .n { font-size: 12.5px; font-weight: 650; min-width: 116px; }
+  .outlist .r .y { font-size: 12px; color: var(--ink-2); flex: 1 1 220px; }
+
+  .empty { text-align: center; padding: 46px 20px; color: var(--ink-2); }
+  .empty h3 { color: var(--ink); margin-bottom: 6px; }
+  .empty p { margin: 0 auto; max-width: 48ch; font-size: 13px; line-height: 1.6; }
+
+  /* ------------------------------------------------------------ drawer */
+  .drawer { position: fixed; inset: 0 0 0 auto; width: min(480px, 100%);
+            background: var(--surface); border-left: 1px solid var(--line);
+            box-shadow: var(--float); z-index: 60; display: flex;
+            flex-direction: column; transform: translateX(100%);
+            visibility: hidden;
+            transition: transform var(--med) var(--ease),
+                        visibility var(--med) var(--ease); }
+  .drawer.on { transform: none; visibility: visible; }
+  .drawer .dh { display: flex; align-items: flex-start; gap: 12px;
+                padding: 16px 18px; border-bottom: 1px solid var(--line); }
+  .drawer .db { overflow-y: auto; padding: 16px 18px 40px; }
+  .drawer .db h4 { margin: 20px 0 8px; }
+  .drawer .db h4:first-child { margin-top: 0; }
+  .kv { display: grid; grid-template-columns: 128px 1fr; gap: 6px 14px;
+        font-size: 12.5px; }
+  .kv dt { color: var(--ink-3); }
+  .kv dd { margin: 0; color: var(--ink); }
+  .src { background: var(--surface-2); border: 1px solid var(--line);
+         border-radius: var(--r-sm); padding: 10px 12px; font-size: 12px;
+         line-height: 1.65; color: var(--ink-2); white-space: pre-wrap;
+         word-break: break-word; }
+  .scrim { position: fixed; inset: 0; background: rgba(8, 10, 14, .42);
+           z-index: 55; opacity: 0; visibility: hidden;
+           transition: opacity var(--med) var(--ease),
+                       visibility var(--med) var(--ease); }
+  .scrim.on { opacity: 1; visibility: visible; }
+
+  .foot { border-top: 1px solid var(--line); margin-top: 42px; padding: 18px 0 0;
+          color: var(--ink-3); font-size: 12px; line-height: 1.6; }
+  </style>
+</head>
+<body>
+
+  <header id="summa-nav"></header>
+
+  <main class="wrap">
+
+    <section class="head">
+      <h1>DCI Picker</h1>
+      <p>Describe the DCI requirement — line rate, the client mix and the site
+         it has to live in — and this ranks the GX and PSS transponders that
+         can carry it, with what each one costs you. It will not hide a
+         cascade, an extra slot or a card that has not shipped.</p>
+      <div class="meta" id="meta"></div>
+    </section>
+
+    <section class="req" id="req">
+      <div class="row">
+        <span class="t-label">Line rate per wavelength</span>
+        <div class="seg" id="rates"></div>
+      </div>
+
+      <div class="row">
+        <span class="t-label">Client services</span>
+        <div class="clients" id="clients"></div>
+        <button class="btn" id="addClient" style="margin-top:8px">+ Add client</button>
+      </div>
+
+      <div class="row">
+        <div class="cons">
+          <div class="f">
+            <span class="t-label">Site depth</span>
+            <select id="depth">
+              <option value="any">Any rack</option>
+              <option value="std">600 mm cabinet only</option>
+            </select>
+          </div>
+          <div class="f">
+            <span class="t-label">Band</span>
+            <select id="band">
+              <option value="any">Any</option>
+              <option value="C">C-band</option>
+              <option value="L">L-band</option>
+            </select>
+          </div>
+          <div class="f">
+            <span class="t-label">Platform</span>
+            <select id="platform">
+              <option value="any">GX or PSS</option>
+              <option value="GX">1830 GX only</option>
+              <option value="PSS">1830 PSS only</option>
+            </select>
+          </div>
+          <div class="f" style="align-self:end">
+            <div class="toggles">
+              <label class="tg"><input type="checkbox" id="wson"><span>L0 GMPLS / WSON</span></label>
+              <label class="tg"><input type="checkbox" id="roadmap"><span>Include roadmap</span></label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="tally" id="tally"></div>
+
+    <section id="results"></section>
+
+    <details class="out" id="out" hidden>
+      <summary id="outSum"></summary>
+      <div class="outlist" id="outList"></div>
+    </details>
+
+    <footer class="foot" id="foot"></footer>
+  </main>
+
+  <div class="scrim" id="scrim"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true"></aside>
+
+<script>
+(function () {
+  'use strict';
+
+  var DATA = null, FMT = null;
+  var need = {
+    lineRateG: 400,
+    clients: [{ service: '100GE', qty: 4 }],
+    depth: 'any', band: 'any', platform: 'any',
+    wson: false, includeRoadmap: false,
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  function el(tag, attrs, kids) {
+    var n = document.createElement(tag);
+    for (var k in (attrs || {})) {
+      if (k === 'class') n.className = attrs[k];
+      else if (k === 'text') n.textContent = attrs[k];
+      else if (k === 'html') n.innerHTML = attrs[k];
+      else if (k.slice(0, 2) === 'on') n.addEventListener(k.slice(2), attrs[k]);
+      else if (attrs[k] === true) n.setAttribute(k, '');
+      else if (attrs[k] !== false && attrs[k] != null) n.setAttribute(k, attrs[k]);
+    }
+    (kids || []).forEach(function (c) {
+      if (c != null) n.appendChild(typeof c === 'string' ? document.createTextNode(c) : c);
+    });
+    return n;
+  }
+
+  function pill(cls, text) { return el('span', { class: 'pill ' + cls, text: text }); }
+
+  function meter(label, value, pct, tone) {
+    var bar = el('div', { class: 'mag' }, [
+      el('i', { style: 'width:' + Math.max(0, Math.min(100, pct)) + '%' +
+                       (tone ? ';background:' + tone : '') }),
+    ]);
+    return el('div', { class: 'm' }, [
+      el('div', { class: 'lab' }, [
+        el('span', { class: 't-label', text: label }),
+        el('b', { class: 'num', text: value }),
+      ]),
+      bar,
+    ]);
+  }
+
+  // ----------------------------------------------------------- hash state
+  function toHash() {
+    var p = [];
+    p.push('rate=' + need.lineRateG);
+    p.push('c=' + need.clients.filter(function (c) { return c.service && c.qty > 0; })
+      .map(function (c) { return c.service + ':' + c.qty; }).join(','));
+    if (need.depth !== 'any') p.push('depth=' + need.depth);
+    if (need.band !== 'any') p.push('band=' + need.band);
+    if (need.platform !== 'any') p.push('plat=' + need.platform);
+    if (need.wson) p.push('wson=1');
+    if (need.includeRoadmap) p.push('roadmap=1');
+    var h = '#' + p.join('&');
+    if (location.hash !== h) history.replaceState(null, '', h);
+  }
+
+  function fromHash() {
+    var h = location.hash.replace(/^#/, '');
+    if (!h) return;
+    h.split('&').forEach(function (kv) {
+      var i = kv.indexOf('='); if (i < 0) return;
+      var k = kv.slice(0, i), v = decodeURIComponent(kv.slice(i + 1));
+      if (k === 'rate') need.lineRateG = Number(v) || need.lineRateG;
+      else if (k === 'c' && v) {
+        need.clients = v.split(',').map(function (s) {
+          var p = s.split(':');
+          return { service: p[0], qty: Number(p[1]) || 1 };
+        }).filter(function (c) { return c.service; });
+      }
+      else if (k === 'depth') need.depth = v;
+      else if (k === 'band') need.band = v;
+      else if (k === 'plat') need.platform = v;
+      else if (k === 'wson') need.wson = v === '1';
+      else if (k === 'roadmap') need.includeRoadmap = v === '1';
+    });
+  }
+
+  // ------------------------------------------------------------- controls
+  function paintRates() {
+    var host = $('rates');
+    host.textContent = '';
+    DCI.lineRates(DATA).filter(function (r) { return r >= 100; }).forEach(function (r) {
+      host.appendChild(el('button', {
+        class: need.lineRateG === r ? 'on' : '',
+        text: FMT(r),
+        onclick: function () { need.lineRateG = r; paintRates(); run(); },
+      }));
+    });
+  }
+
+  function paintClients() {
+    var host = $('clients');
+    host.textContent = '';
+    var services = DCI.clientServices(DATA);
+
+    need.clients.forEach(function (c, i) {
+      var sel = el('select', {
+        onchange: function (e) { c.service = e.target.value; run(); paintClients(); },
+      }, services.map(function (s) {
+        return el('option', { value: s, text: s + '  (' + FMT(DATA.serviceRateG[s]) + ')',
+                              selected: s === c.service });
+      }));
+
+      var input = el('input', {
+        type: 'text', inputmode: 'numeric', value: String(c.qty),
+        'aria-label': 'quantity',
+        onchange: function (e) {
+          c.qty = Math.max(1, Math.min(96, parseInt(e.target.value, 10) || 1));
+          e.target.value = c.qty; run(); paintClients();
+        },
+      });
+
+      host.appendChild(el('div', { class: 'cl' }, [
+        sel,
+        el('div', { class: 'qty' }, [
+          el('button', { text: '−', 'aria-label': 'one fewer',
+            onclick: function () { if (c.qty > 1) { c.qty--; run(); paintClients(); } } }),
+          input,
+          el('button', { text: '+', 'aria-label': 'one more',
+            onclick: function () { if (c.qty < 96) { c.qty++; run(); paintClients(); } } }),
+        ]),
+        el('span', { class: 'rate num',
+                     text: FMT((DATA.serviceRateG[c.service] || 0) * c.qty) }),
+        need.clients.length > 1
+          ? el('button', { class: 'rm', text: '×', 'aria-label': 'remove ' + c.service,
+              onclick: function () { need.clients.splice(i, 1); run(); paintClients(); } })
+          : null,
+      ]));
+    });
+  }
+
+  function bindControls() {
+    ['depth', 'band', 'platform'].forEach(function (id) {
+      var k = id === 'platform' ? 'platform' : id;
+      $(id).value = need[k];
+      $(id).addEventListener('change', function (e) { need[k] = e.target.value; run(); });
+    });
+    $('wson').checked = need.wson;
+    $('wson').addEventListener('change', function (e) { need.wson = e.target.checked; run(); });
+    $('roadmap').checked = need.includeRoadmap;
+    $('roadmap').addEventListener('change', function (e) {
+      need.includeRoadmap = e.target.checked; run();
+    });
+    $('addClient').addEventListener('click', function () {
+      need.clients.push({ service: '100GE', qty: 1 });
+      paintClients(); run();
+    });
+  }
+
+  // -------------------------------------------------------------- results
+  function resultCard(r, i) {
+    var x = r.xpdr;
+    var top = i === 0;
+
+    var card = el('div', { class: 'card' + (top ? ' top' : '') });
+
+    card.appendChild(el('div', { class: 'hd' }, [
+      el('div', { class: 'no num', text: String(i + 1) }),
+      el('div', { class: 'id' }, [
+        el('h3', {}, [
+          el('span', { text: x.name }),
+          pill('mute', x.platform),
+          x.shipping ? pill('ok', 'shipping') : pill('warn', 'roadmap'),
+          x.band.length === 1 && x.band[0] === 'L' ? pill('mute', 'L-band') : null,
+        ]),
+        el('div', { class: 'sub', text:
+          [r.host ? r.host.name : '—',
+           x.slots + (x.slots > 1 ? ' slots' : ' slot'),
+           x.lineType === 'embedded' ? 'embedded optics' : 'pluggable line',
+           x.dsp || null].filter(Boolean).join(' · ') }),
+      ]),
+      el('div', { class: 'sc' }, [
+        el('div', { class: 'n', text: String(r.score) }),
+        el('div', { class: 't-label', text: 'score' }),
+      ]),
+    ]));
+
+    var cageUse = r.capacity ? Math.round(r.portsNeeded / r.capacity * 100) : 0;
+    card.appendChild(el('div', { class: 'meters' }, [
+      meter('Line fill', r.lineUtil + '%', r.lineUtil),
+      meter('Client cages', r.portsNeeded + ' of ' + r.capacity, cageUse),
+    ]));
+
+    if (r.cascade && r.cascade.resolved) {
+      var cas = r.cascade.via;
+      card.appendChild(el('div', { class: 'casc' }, [
+        el('div', { class: 't' }, [
+          el('span', { class: 'dot', style:
+            'width:5px;height:5px;border-radius:50%;background:currentColor;display:inline-block' }),
+          el('span', { text: 'Cascade needed — ' + cas.label }),
+        ]),
+        el('p', { text: r.cascade.missing.join(', ') + ' cannot land on ' + x.name +
+          '. A ' + cas.label + ' takes them (' + cas.slots +
+          (cas.slots > 1 ? ' slots' : ' slot') + ') and hands back ' +
+          r.cascadeUplinks + 'x ' + cas.handsOff + ' into this card. ' + cas.note }),
+      ]));
+    }
+
+    var why = el('div', { class: 'why' });
+    [['fit', 'Why it fits', r.fits], ['cost', 'What it costs', r.costs]]
+      .forEach(function (pair) {
+        var box = el('div', {}, [el('span', { class: 't-label', text: pair[1] })]);
+        if (pair[2].length) {
+          box.appendChild(el('ul', { class: pair[0] }, pair[2].map(function (t) {
+            return el('li', { text: t });
+          })));
+        } else {
+          box.appendChild(el('div', { class: 'none',
+            text: pair[0] === 'cost' ? 'Nothing to flag.' : '—' }));
+        }
+        why.appendChild(box);
+      });
+    card.appendChild(why);
+
+    card.appendChild(el('div', { class: 'ft' }, [
+      el('span', { class: 'k', html: 'Line&nbsp;<b>' +
+        FMT(x.lineMinG) + '–' + FMT(x.lineMaxG) + '</b>' }),
+      el('span', { class: 'k', html: 'Carriers&nbsp;<b>' +
+        r.carriersUsed + ' of ' + r.carriersTotal + '</b>' }),
+      el('span', { class: 'k', html: 'Footprint&nbsp;<b>' + r.slots +
+        (r.slots > 1 ? ' slots' : ' slot') + '</b>' }),
+      el('span', { class: 'sp' }),
+      el('button', { class: 'btn', text: 'Details',
+        onclick: function () { openDrawer(r); } }),
+    ]));
+
+    return card;
+  }
+
+  function run() {
+    toHash();
+    var res = DCI.recommend(DATA, need, 6);
+
+    // ---- tally
+    var t = $('tally');
+    t.textContent = '';
+    var lineCap = need.lineRateG * (res.ranked[0] ? res.ranked[0].carriersUsed : 1);
+    [
+      ['Client load', FMT(res.need.totalClientG), res.need.totalPorts + ' ports'],
+      ['Line rate', FMT(need.lineRateG), 'per wavelength'],
+      ['Best fill', res.ranked[0] ? res.ranked[0].lineUtil + '%' : '—',
+       res.ranked[0] ? 'on ' + res.ranked[0].xpdr.name : 'no match'],
+      ['Viable', String(res.counts.viable), 'of ' + res.counts.considered + ' considered'],
+    ].forEach(function (c) {
+      t.appendChild(el('div', { class: 'c' }, [
+        el('span', { class: 't-label', text: c[0] }),
+        el('div', { class: 'v', text: c[1] }, []),
+        el('div', { class: 't-xs', style: 'color:var(--ink-3)', text: c[2] }),
+      ]));
+    });
+
+    // ---- ranked
+    var host = $('results');
+    host.textContent = '';
+    if (!res.ranked.length) {
+      host.appendChild(el('div', { class: 'empty surface' }, [
+        el('h3', { text: 'Nothing carries this requirement' }),
+        el('p', { text: 'Every card in scope was ruled out. The list below says ' +
+          'why — usually the line rate, the client load against the line capacity, ' +
+          'or a site depth that leaves no host chassis. Loosen one constraint and ' +
+          'the answer usually appears.' }),
+      ]));
+    } else {
+      var head = el('div', { style: 'display:flex;align-items:baseline;gap:10px;' +
+                                    'margin:4px 0 12px;flex-wrap:wrap' }, [
+        el('h2', { text: 'Shortlist' }),
+        el('span', { class: 't-sm', style: 'color:var(--ink-3)',
+          text: 'ranked on client fit, line fill, footprint and availability' }),
+      ]);
+      host.appendChild(head);
+      var list = el('div', { class: 'rank' });
+      res.ranked.forEach(function (r, i) { list.appendChild(resultCard(r, i)); });
+      host.appendChild(list);
+    }
+
+    // ---- ruled out
+    var out = $('out'), ol = $('outList');
+    ol.textContent = '';
+    if (res.rejected.length) {
+      out.hidden = false;
+      $('outSum').textContent = res.rejected.length + ' ruled out';
+      res.rejected.slice(0, 40).forEach(function (r) {
+        ol.appendChild(el('div', { class: 'r' }, [
+          el('span', { class: 'n', text: r.xpdr.name }),
+          el('span', { class: 'y', text: r.blockers.join(' · ') }),
+          el('span', { class: 'pill mute', text: r.xpdr.platform }),
+        ]));
+      });
+      if (res.rejected.length > 40) {
+        ol.appendChild(el('div', { class: 'r' }, [
+          el('span', { class: 'y', style: 'font-style:italic',
+            text: '…and ' + (res.rejected.length - 40) + ' more' }),
+        ]));
+      }
+    } else {
+      out.hidden = true;
+    }
+  }
+
+  // --------------------------------------------------------------- drawer
+  function openDrawer(r) {
+    var x = r.xpdr, d = $('drawer');
+    d.textContent = '';
+    d.setAttribute('aria-hidden', 'false');
+
+    d.appendChild(el('div', { class: 'dh' }, [
+      el('div', { style: 'flex:1 1 auto;min-width:0' }, [
+        el('h3', { text: x.name }),
+        el('div', { class: 't-sm', style: 'color:var(--ink-2);margin-top:3px',
+                    text: x.family + ' · ' + x.platform }),
+      ]),
+      el('button', { class: 'btn quiet', text: '✕', 'aria-label': 'close',
+                     onclick: closeDrawer }),
+    ]));
+
+    var body = el('div', { class: 'db' });
+
+    function kv(pairs) {
+      var dl = el('dl', { class: 'kv' });
+      pairs.forEach(function (p) {
+        if (p[1] == null || p[1] === '') return;
+        dl.appendChild(el('dt', { text: p[0] }));
+        dl.appendChild(el('dd', { text: p[1] }));
+      });
+      return dl;
+    }
+
+    body.appendChild(el('h4', { text: 'Line side' }));
+    body.appendChild(kv([
+      ['Rates', x.lineRatesG.map(FMT).join(' · ')],
+      ['Optics', x.lineType === 'embedded' ? 'Embedded' : 'Pluggable' +
+        (x.linePluggableSlots ? ' (' + x.linePluggableSlots + ' module slot' +
+          (x.linePluggableSlots > 1 ? 's' : '') + ')' : '')],
+      ['Carriers', String(x.lineCarriers)],
+      ['DSP', x.dsp],
+      ['Band', x.band.join(' / ')],
+      ['Baud', x.baudGBd.length ? x.baudGBd.join(' / ') + ' GBd' : null],
+      ['Spacing', x.spacingGHz.length ? x.spacingGHz.join(' / ') + ' GHz' : null],
+      ['Profiles', x.lineModes.length ? x.lineModes.join(' · ') : null],
+      ['ZR', x.zr.length ? x.zr.join(' · ') : null],
+    ]));
+
+    body.appendChild(el('h4', { text: 'Client side' }));
+    body.appendChild(kv([
+      ['Cages', x.clientCages.map(function (c) {
+        return c.qty + 'x ' + c.type; }).join('  +  ')],
+      ['Services', x.clientServices.join(', ') || '—'],
+      ['Planned', x.futureServices.length ? x.futureServices.join(', ') : null],
+      ['Encryption', x.encryption],
+    ]));
+
+    body.appendChild(el('h4', { text: 'Placement' }));
+    body.appendChild(kv([
+      ['Footprint', x.slots + (x.slots > 1 ? ' slots' : ' slot') +
+        (x.height ? ', ' + x.height + ' height' : '')],
+      ['Hosts', (r.hosts.length ? r.hosts : []).map(function (h) {
+        return h.name + (h.depthClass === 'deep' ? ' (deep rack)' : '');
+      }).join(', ') || x.hosts.join(', ')],
+      ['Release', x.release],
+      ['Weight', x.weightKg ? x.weightKg + ' kg' : null],
+      ['Power', x.powerW ? x.powerW + ' W (40 °C)' : null],
+    ]));
+
+    if (x.hostsFromRelease) {
+      body.appendChild(el('p', { class: 't-xs',
+        style: 'color:var(--ink-3);margin:8px 0 0',
+        text: 'Host shelves read from the release string — this card has not ' +
+              'shipped, so the planning guide does not list it yet.' }));
+    }
+
+    body.appendChild(el('h4', { text: 'Source' }));
+    body.appendChild(el('div', { class: 't-xs',
+      style: 'color:var(--ink-3);margin-bottom:8px', text: x.source }));
+    if (x.raw && x.raw.lineSide) {
+      body.appendChild(el('div', { class: 'src', text: x.raw.lineSide }));
+      if (x.raw.clientSide) {
+        body.appendChild(el('div', { class: 'src', style: 'margin-top:7px',
+                                     text: x.raw.clientSide }));
+      }
+    } else if (x.raw) {
+      body.appendChild(el('div', { class: 'src', text:
+        'Line table: ' + (x.raw.lineTable || '—') + '\nClient tables: ' +
+        ((x.raw.clientTables || []).join(', ') || '—') + '\nPart numbers: ' +
+        ((x.raw.requiredPons || []).join(', ') || '—') }));
+    }
+
+    d.appendChild(body);
+    d.classList.add('on');
+    $('scrim').classList.add('on');
+  }
+
+  function closeDrawer() {
+    $('drawer').classList.remove('on');
+    $('drawer').setAttribute('aria-hidden', 'true');
+    $('scrim').classList.remove('on');
+  }
+
+  // ----------------------------------------------------------------- init
+  function init() {
+    if (!window.DCI) { return setTimeout(init, 30); }
+    fetch('assets/xpdr-data.json')
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        DATA = d;
+        FMT = DCI.fmtRate;
+        fromHash();
+
+        // masthead counts
+        var m = $('meta');
+        m.appendChild(pill('mute', d.meta.counts.xpdr + ' transponders'));
+        m.appendChild(pill('mute', d.meta.counts.gx + ' GX · ' + d.meta.counts.pss + ' PSS'));
+        m.appendChild(pill('mute', d.cascade.length + ' cascade paths'));
+
+        $('foot').textContent =
+          'Sources: ' + d.meta.sources.join('  ·  ') + '. ' + d.meta.scope +
+          ' Depth classes, the cascade table and the WSON rule are curated field ' +
+          'rules, not parsed from either source — they are listed in one place in ' +
+          'tools/build-xpdr-data.py so they can be corrected there.';
+
+        paintRates();
+        paintClients();
+        bindControls();
+        run();
+
+        $('scrim').addEventListener('click', closeDrawer);
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') closeDrawer();
+        });
+
+        if (window.SUMMA_CMDK) {
+          window.SUMMA_CMDK.register('Transponder', d.xpdr.map(function (x) {
+            return {
+              label: x.name, mono: true,
+              hint: x.platform + ' · ' + FMT(x.lineMinG) + '–' + FMT(x.lineMaxG),
+              keywords: x.family + ' ' + x.clientServices.join(' '),
+              run: function () {
+                var r = DCI.evaluate(x, DATA, DCI.normalise(
+                  { lineRateG: x.lineMaxG, clients: [], depth: 'any',
+                    includeRoadmap: true }, DATA));
+                if (r) openDrawer(r);
+              },
+            };
+          }));
+        }
+      })
+      .catch(function () {
+        $('results').appendChild(el('div', { class: 'empty surface' }, [
+          el('h3', { text: 'Could not load the transponder data' }),
+          el('p', { text: 'assets/xpdr-data.json did not load. If you are ' +
+            'opening this file directly from disk, the browser blocks the ' +
+            'fetch — serve the folder over http instead.' }),
+        ]));
+      });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else { init(); }
+}());
+</script>
+</body>
+</html>

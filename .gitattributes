@@ -1,2 +1,47 @@
-# Auto detect text files and perform LF normalization
+# Line endings
+#
+# This repo is edited from two places: a Linux session that writes LF, and
+# Windows via GitHub Desktop, where core.autocrlf=true converts to CRLF on
+# checkout. `text=auto` alone normalises the *repo* to LF but leaves the
+# working tree converted, which is what raises the "this file uses LF line
+# endings, but Git is configured to convert them to CRLF" notice on every
+# file written from the Linux side.
+#
+# Pinning eol=lf on the source types makes both sides identical, so the
+# notice stops and a file never round-trips through a whole-file diff just
+# because it was last touched on the other machine. Every format here is
+# LF-safe on Windows — browsers, node, python and VS Code all read LF fine.
+
 * text=auto
+
+*.html  text eol=lf
+*.css   text eol=lf
+*.js    text eol=lf
+*.json  text eol=lf
+*.py    text eol=lf
+*.md    text eol=lf
+*.svg   text eol=lf
+*.yml   text eol=lf
+*.yaml  text eol=lf
+
+# Windows-native tooling still expects CRLF in these.
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
+*.ps1   text eol=crlf
+
+# Never touch the Nokia source files — a single byte of line-ending
+# translation would corrupt them.
+*.xlsx  binary
+*.xlsm  binary
+*.pptx  binary
+*.docx  binary
+*.pdf   binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.ico   binary
+*.woff  binary
+*.woff2 binary
+*.zip   binary

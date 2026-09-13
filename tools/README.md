@@ -191,3 +191,95 @@ Two judgement calls worth knowing about:
   category — and never from roadmap attribute *values*, since nearly every card
   lists the shelves it supports and that one phrase would type half the
   catalogue as shelves.
+
+---
+
+## DCI picker — `build-xpdr-data.py`, `dci-cases.js`, `check-dci-page.js`
+
+`dci.html` answers one question: given a DCI requirement, which transponder?
+It runs on `assets/xpdr-data.json`, which unifies the two knowledge bases above
+into one schema.
+
+```bash
+python3 tools/build-xpdr-data.py     # reads gx-rules.json + pss-cards.json
+node    tools/dci-cases.js           # engine regression, 27 assertions
+node    tools/check-dci-page.js      # headless page check (needs a local server)
+```
+
+### Why a third file rather than querying the two directly
+
+The two sources describe a transponder in incompatible shapes. GX is
+structured — cage counts, slot widths and rate licences are table cells the
+configurator itself reads. PSS is prose: the roadmap deck writes the whole line
+side as one slash-separated sentence per card. A picker that has to compare a
+CHM7 against an S13X400H needs them in the same shape, and the reshaping is
+where the mistakes live — so it happens once, in a script, with the original
+string kept beside the parsed values.
+
+Every card keeps its source sentence under `raw`. The page shows it in the
+detail drawer, so a bad parse is visible to whoever is reading the answer rather
+than buried in a build step.
+
+### Three rules that are curated, not parsed
+
+Listed together at the top of `build-xpdr-data.py` so they can be corrected in
+one place. Neither source states any of them:
+
+| Rule | What it says |
+|---|---|
+| `DEPTH` | G31 and G32 need more than 600 mm — open rack or 700 mm+, not a closed cabinet. Everything else fits a standard 600 mm cabinet. |
+| `CASCADE` | Sub-100G behind a high-rate card: 16P200 in PSS, UCM4 in G42 (only feeding a CHM6/CHM7), UTM2 in G31/G32. |
+| `WSON` | L0 GMPLS/WSON restoration requires a PSS photonic line system. The transponder stays flexible — a GX sled can ride it as an alien wavelength. |
+
+### Parser traps worth knowing about
+
+* **`130GBd` is not 130G.** The rate token needs a trailing guard against a
+  following letter, or a baud figure parses as a line rate. The greedy
+  slash-list pattern reads `400G/500G/…/800G / 130GBd` as one list and would
+  otherwise hand back 130.
+* **A roadmap row covers a variant set.** `S6AD600H/E : Cband … / S6AD600L :
+  Lband` expands to three cards, and taking the union of the bands would make
+  every S6AD600 dual-band — wrong in the dangerous direction, since it would
+  offer an L-band card for a C-band line system. The card's own suffix decides.
+* **`clientCages` is positional, not typed.** The workbook stores
+  `[slot1, slot2, slot3]` counts; the form factor has to come from the
+  validation table governing the same position, or UTM2's `[2, 12]` labels both
+  cages with whatever type happens to sit first in a list.
+* **`CHM7P-C8-1.6T+` is 1.6T of aggregate.** Two 800G line pluggables, not a
+  1.6T wavelength. Reading the name as a per-carrier ceiling invented 900G–1.6T
+  line rates that no ROADM would be asked for.
+
+### What the engine reports, and why
+
+`assets/dci-engine.js` does not just filter — it prices each answer in the terms
+a design review uses:
+
+* **Line fill** is measured against the carriers the load actually needs, not
+  every line port the card owns. 240G on a card with two 400G ports is 60% on
+  one wavelength with a spare port, not 15% across both.
+* **A cascade costs cages on the host card.** The aggregator hands its sub-100G
+  back as OTU4/100G, and that handoff lands in a client cage on the
+  transponder — so the uplinks are seated alongside the direct clients.
+* **Nothing is silently dropped.** A client service that cannot land and cannot
+  be cascaded is a blocker, and the card appears under "ruled out" with the
+  reason, rather than vanishing from the list.
+
+### Two settings that change what "matching" means
+
+* **Line technology.** A transponder cannot always be run at its own
+  ceiling — reach, spacing and the OSNR on the day all pull it down — so the
+  rate the design asks for is a *floor on the card's technology*, not a label
+  to match. In the default `class` mode a card qualifies if it has any profile
+  at or above the asked rate, and runs the lowest one that does; picking one
+  higher-class card that covers several rate needs is how a network ends up
+  carrying fewer transponder types. Rounding up is always stated as a cost
+  ("no 500G profile — nearest is 600G"), and an exact native profile earns a
+  fit line, so the two cases never look alike. `exact` mode restores the strict
+  filter.
+* **Multiple wavelengths.** Two 400G ports often beat one 600G port, and that
+  is a line-system decision rather than a property of the card — so it is asked
+  rather than assumed. With it off, a card may only light one carrier and the
+  whole client load has to fit there; cards that would have spanned two
+  wavelengths appear under "ruled out" naming that constraint. With it on, the
+  wavelength count is reported as a cost, because wavelengths are the expensive
+  unit on the line system.

@@ -31,7 +31,10 @@
   /* ink */
   --ink:           #14161C;
   --ink-2:         #5B6070;
-  --ink-3:         #8B90A0;
+  /* ink-3 is the faintest tier, but it carries 10–12px labels, pills and
+     captions — small text, so it has to clear 4.5:1. The earlier value
+     (#8B90A0) read as 3.18:1 on white and 2.77:1 on surface-3. */
+  --ink-3:         #656A79;
   --ink-on-accent: #FFFFFF;
 
   /* brand accent — Nokia blue, plus the steps either side of it */
@@ -90,7 +93,10 @@
 
     --ink:         #EDEFF5;
     --ink-2:       #A2A9B8;
-    --ink-3:       #6E7585;
+    --ink-3:       #9098A8;
+    /* The dark accent is a light blue, so white on it is only 3.05:1.
+       On this palette the accent carries dark ink, not white. */
+    --ink-on-accent: #0E1014;
 
     --accent:      #5B93F0;
     --accent-hover:#7BAAF7;
@@ -123,7 +129,8 @@
 
   --ink:         #EDEFF5;
   --ink-2:       #A2A9B8;
-  --ink-3:       #6E7585;
+  --ink-3:       #9098A8;
+  --ink-on-accent: #0E1014;
 
   --accent:      #5B93F0;
   --accent-hover:#7BAAF7;
