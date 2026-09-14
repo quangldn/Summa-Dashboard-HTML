@@ -12,9 +12,10 @@
    "wson"
   ],
   "counts": {
-   "xpdr": 58,
+   "xpdr": 87,
+   "pssFromGuideOnly": 29,
    "gx": 42,
-   "pss": 16,
+   "pss": 45,
    "hosts": 14
   }
  },
@@ -355,6 +356,7 @@
     "400GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -422,6 +424,7 @@
     "400GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -489,6 +492,7 @@
     "400GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -556,6 +560,7 @@
     "400GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -623,6 +628,7 @@
     "400GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -690,6 +696,7 @@
     "400GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -757,6 +764,7 @@
     "400GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -824,6 +832,7 @@
     "400GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -891,6 +900,7 @@
     "400GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -958,6 +968,7 @@
     "400GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1025,6 +1036,7 @@
     "400GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1092,6 +1104,7 @@
     "400GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1159,6 +1172,7 @@
     "400GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1226,6 +1240,7 @@
     "400GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1293,6 +1308,7 @@
     "400GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1360,6 +1376,7 @@
     "400GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1427,6 +1444,7 @@
     "400GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1494,6 +1512,7 @@
     "400GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1561,6 +1580,7 @@
     "400GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1628,6 +1648,7 @@
     "400GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1695,6 +1716,7 @@
     "400GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1762,6 +1784,7 @@
     "400GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1829,6 +1852,7 @@
     "400GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1896,6 +1920,7 @@
     "400GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1963,6 +1988,7 @@
     "400GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -2035,6 +2061,7 @@
     "800GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -2107,6 +2134,7 @@
     "800GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -2179,6 +2207,7 @@
     "800GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -2251,6 +2280,7 @@
     "800GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -2323,6 +2353,7 @@
     "800GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -2395,6 +2426,7 @@
     "800GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -2467,6 +2499,7 @@
     "800GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -2532,6 +2565,7 @@
     "100GE",
     "400GE"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 2,
    "height": "full",
@@ -2598,6 +2632,7 @@
     "100GE",
     "400GE"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 2,
    "height": "full",
@@ -2664,6 +2699,7 @@
     "100GE",
     "400GE"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 2,
    "height": "full",
@@ -2722,6 +2758,7 @@
     "400GE",
     "800GE"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -2782,6 +2819,7 @@
     "OTU2e",
     "STM64"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -2841,9 +2879,11 @@
     "100GE",
     "10GE",
     "1GE",
-    "40GE",
     "OC-48",
     "OTU4"
+   ],
+   "servicesDenied": [
+    "40GE"
    ],
    "futureServices": [],
    "slots": 2,
@@ -2905,6 +2945,7 @@
     "400GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -2969,6 +3010,7 @@
     "400GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 2,
    "height": "full",
@@ -3031,6 +3073,7 @@
     "40GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 2,
    "height": "full",
@@ -3097,6 +3140,7 @@
     "40GE",
     "OTU4"
    ],
+   "servicesDenied": [],
    "futureServices": [],
    "slots": 2,
    "height": "full",
@@ -4240,6 +4284,1390 @@
     "lineSide": "1xBMDCO6/e embedded (PSEVs) / 1 x 200G-600G / 90GBd / 100-112.5GHz / S6AD600H/E : Cband, 4.8THz / S6AD600L : Lband, 4.8THz / Unidirectional 3R mode with recoloring / Baud-flexible profiles / Fast SoP tracking mode",
     "clientSide": "5xQSFP28 + 1x dual QSFP28/56-DD",
     "clientTypes": "400GE, 100GE, OTU4"
+   }
+  },
+  {
+   "id": "PSS:112SDX11",
+   "platform": "PSS",
+   "name": "112SDX11",
+   "family": "planning guide",
+   "kind": "transponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 100,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [],
+   "clientServices": null,
+   "clientsUnknown": true,
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "PSS-8",
+    "PSS-16 main",
+    "PSS-16 extension",
+    "PSS-16II DC 8RU",
+    "PSS-32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 3.5,
+   "powerW": 110.0,
+   "source": "PSS Product Information and Planning Guide (no roadmap slide \u2014 client side not stated)",
+   "raw": {
+    "description": "112G Data Center Interconnect Ethernet Muxponder - 11 clients",
+    "category": ""
+   }
+  },
+  {
+   "id": "PSS:11DPE12",
+   "platform": "PSS",
+   "name": "11DPE12",
+   "family": "planning guide",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    10
+   ],
+   "lineMinG": 10,
+   "lineMaxG": 10,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "client",
+     "qty": 12
+    }
+   ],
+   "clientServices": null,
+   "clientsUnknown": true,
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "PSS-16 main",
+    "PSS-16 extension",
+    "PSS-32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 1.4,
+   "powerW": 78.0,
+   "source": "PSS Product Information and Planning Guide (no roadmap slide \u2014 client side not stated)",
+   "raw": {
+    "description": "11G Dual Port Pluggable GbE Mux (12 client) - similar to PSS-1 GBE",
+    "category": ""
+   }
+  },
+  {
+   "id": "PSS:11DPE12A",
+   "platform": "PSS",
+   "name": "11DPE12A",
+   "family": "planning guide",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    10
+   ],
+   "lineMinG": 10,
+   "lineMaxG": 10,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "client",
+     "qty": 12
+    }
+   ],
+   "clientServices": null,
+   "clientsUnknown": true,
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "PSS-8",
+    "PSS-16 main",
+    "PSS-16 extension",
+    "PSS-16II DC 8RU",
+    "PSS-32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 1.24,
+   "powerW": 61.0,
+   "source": "PSS Product Information and Planning Guide (no roadmap slide \u2014 client side not stated)",
+   "raw": {
+    "description": "11G Dual Port Pluggable GbE Mux (12 client) - enhanced, 2nd generation",
+    "category": ""
+   }
+  },
+  {
+   "id": "PSS:11DPE12E",
+   "platform": "PSS",
+   "name": "11DPE12E",
+   "family": "planning guide",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    10
+   ],
+   "lineMinG": 10,
+   "lineMaxG": 10,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "client",
+     "qty": 12
+    }
+   ],
+   "clientServices": null,
+   "clientsUnknown": true,
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "PSS-16 main",
+    "PSS-16 extension",
+    "PSS-32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 1.4,
+   "powerW": 64.0,
+   "source": "PSS Product Information and Planning Guide (no roadmap slide \u2014 client side not stated)",
+   "raw": {
+    "description": "11G Dual Port Pluggable GbE Mux (12 client) - enhanced",
+    "category": ""
+   }
+  },
+  {
+   "id": "PSS:11DPM12",
+   "platform": "PSS",
+   "name": "11DPM12",
+   "family": "planning guide",
+   "kind": "transponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    10
+   ],
+   "lineMinG": 10,
+   "lineMaxG": 10,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [],
+   "clientServices": null,
+   "clientsUnknown": true,
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "PSS-8",
+    "PSS-16 main",
+    "PSS-16 extension",
+    "PSS-16II DC 8RU",
+    "PSS-32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 1.5,
+   "powerW": 85.0,
+   "source": "PSS Product Information and Planning Guide (no roadmap slide \u2014 client side not stated)",
+   "raw": {
+    "description": "11G Dual Port Pluggable 12-anyrate Mux OT",
+    "category": ""
+   }
+  },
+  {
+   "id": "PSS:11DPM8",
+   "platform": "PSS",
+   "name": "11DPM8",
+   "family": "planning guide",
+   "kind": "transponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    10
+   ],
+   "lineMinG": 10,
+   "lineMaxG": 10,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [],
+   "clientServices": null,
+   "clientsUnknown": true,
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 1.21,
+   "powerW": 54.0,
+   "source": "PSS Product Information and Planning Guide (no roadmap slide \u2014 client side not stated)",
+   "raw": {
+    "description": "11G Dual Port Pluggable multi-rate ADM Transponder with 8 AnyRate Clients",
+    "category": ""
+   }
+  },
+  {
+   "id": "PSS:11QPA4",
+   "platform": "PSS",
+   "name": "11QPA4",
+   "family": "planning guide",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    10
+   ],
+   "lineMinG": 10,
+   "lineMaxG": 10,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "client",
+     "qty": 4
+    }
+   ],
+   "clientServices": null,
+   "clientsUnknown": true,
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "PSS-8",
+    "PSS-16 main",
+    "PSS-16 extension",
+    "PSS-16II DC 8RU",
+    "PSS-32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 1.24,
+   "powerW": 75.0,
+   "source": "PSS Product Information and Planning Guide (no roadmap slide \u2014 client side not stated)",
+   "raw": {
+    "description": "11G Quad Port Pluggable Anyrate (4 client)",
+    "category": ""
+   }
+  },
+  {
+   "id": "PSS:11QPA4B",
+   "platform": "PSS",
+   "name": "11QPA4B",
+   "family": "Optical transponders",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    10
+   ],
+   "lineMinG": 10,
+   "lineMaxG": 10,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "client",
+     "qty": 4
+    }
+   ],
+   "clientServices": null,
+   "clientsUnknown": true,
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 0.52,
+   "powerW": 53.0,
+   "source": "PSS Product Information and Planning Guide (no roadmap slide \u2014 client side not stated)",
+   "raw": {
+    "description": "11G Quad Port Pluggable AnyRate Transponder (4 clients), Compact Size",
+    "category": "Optical transponders"
+   }
+  },
+  {
+   "id": "PSS:11STAR1",
+   "platform": "PSS",
+   "name": "11STAR1",
+   "family": "planning guide",
+   "kind": "transponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    10
+   ],
+   "lineMinG": 10,
+   "lineMaxG": 10,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [],
+   "clientServices": null,
+   "clientsUnknown": true,
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "PSS-16 main",
+    "PSS-16 extension",
+    "PSS-32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 0.9,
+   "powerW": 40.0,
+   "source": "PSS Product Information and Planning Guide (no roadmap slide \u2014 client side not stated)",
+   "raw": {
+    "description": "10G Transponder",
+    "category": ""
+   }
+  },
+  {
+   "id": "PSS:11STAR1A",
+   "platform": "PSS",
+   "name": "11STAR1A",
+   "family": "planning guide",
+   "kind": "transponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    10
+   ],
+   "lineMinG": 10,
+   "lineMaxG": 10,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [],
+   "clientServices": null,
+   "clientsUnknown": true,
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "PSS-16 main",
+    "PSS-16 extension",
+    "PSS-32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 0.9,
+   "powerW": 29.0,
+   "source": "PSS Product Information and Planning Guide (no roadmap slide \u2014 client side not stated)",
+   "raw": {
+    "description": "10G Transponder, enhanced",
+    "category": ""
+   }
+  },
+  {
+   "id": "PSS:130SCA1",
+   "platform": "PSS",
+   "name": "130SCA1",
+   "family": "planning guide",
+   "kind": "transponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 100,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "client",
+     "qty": 1
+    }
+   ],
+   "clientServices": null,
+   "clientsUnknown": true,
+   "futureServices": [],
+   "slots": 2,
+   "height": "full",
+   "hosts": [
+    "PSS-8",
+    "PSS-32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 3.5,
+   "powerW": 250.0,
+   "source": "PSS Product Information and Planning Guide (no roadmap slide \u2014 client side not stated)",
+   "raw": {
+    "description": "130G Single Port Tunable Coherent AnyRate Transponder (1 client)",
+    "category": ""
+   }
+  },
+  {
+   "id": "PSS:130SCX10",
+   "platform": "PSS",
+   "name": "130SCX10",
+   "family": "planning guide",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 100,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "client",
+     "qty": 10
+    }
+   ],
+   "clientServices": null,
+   "clientsUnknown": true,
+   "futureServices": [],
+   "slots": 2,
+   "height": "full",
+   "hosts": [
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 3.28,
+   "powerW": 273.0,
+   "source": "PSS Product Information and Planning Guide (no roadmap slide \u2014 client side not stated)",
+   "raw": {
+    "description": "130G Single Port Tunable Coherent Mux Transponder with SDFEC (10 clients)",
+    "category": ""
+   }
+  },
+  {
+   "id": "PSS:130SLA1",
+   "platform": "PSS",
+   "name": "130SLA1",
+   "family": "planning guide",
+   "kind": "transponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 100,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "L"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "client",
+     "qty": 1
+    }
+   ],
+   "clientServices": null,
+   "clientsUnknown": true,
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "PSS-16II DC 8RU",
+    "PSS-32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 3.5,
+   "powerW": 212.0,
+   "source": "PSS Product Information and Planning Guide (no roadmap slide \u2014 client side not stated)",
+   "raw": {
+    "description": "130G Single Port Tunable Coherent AnyRate Transponder w/SDFEC (1 client), L-band",
+    "category": ""
+   }
+  },
+  {
+   "id": "PSS:130SLX10",
+   "platform": "PSS",
+   "name": "130SLX10",
+   "family": "planning guide",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 100,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "L"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "client",
+     "qty": 10
+    }
+   ],
+   "clientServices": null,
+   "clientsUnknown": true,
+   "futureServices": [],
+   "slots": 2,
+   "height": "full",
+   "hosts": [
+    "PSS-16II DC 8RU",
+    "PSS-32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 3.28,
+   "powerW": 242.0,
+   "source": "PSS Product Information and Planning Guide (no roadmap slide \u2014 client side not stated)",
+   "raw": {
+    "description": "130G Single Port Tunable Coherent Mux Transponder with SDFEC (10 clients), L-band",
+    "category": ""
+   }
+  },
+  {
+   "id": "PSS:130SNX10",
+   "platform": "PSS",
+   "name": "130SNX10",
+   "family": "planning guide",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 100,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "client",
+     "qty": 10
+    }
+   ],
+   "clientServices": null,
+   "clientsUnknown": true,
+   "futureServices": [],
+   "slots": 2,
+   "height": "full",
+   "hosts": [
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 3.28,
+   "powerW": 273.0,
+   "source": "PSS Product Information and Planning Guide (no roadmap slide \u2014 client side not stated)",
+   "raw": {
+    "description": "100G Mux 10CL, Flex Coherent",
+    "category": ""
+   }
+  },
+  {
+   "id": "PSS:43SCX4",
+   "platform": "PSS",
+   "name": "43SCX4",
+   "family": "planning guide",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    40
+   ],
+   "lineMinG": 40,
+   "lineMaxG": 40,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "client",
+     "qty": 4
+    }
+   ],
+   "clientServices": null,
+   "clientsUnknown": true,
+   "futureServices": [],
+   "slots": 3,
+   "height": "full",
+   "hosts": [
+    "PSS-32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 3.4,
+   "powerW": 174.0,
+   "source": "PSS Product Information and Planning Guide (no roadmap slide \u2014 client side not stated)",
+   "raw": {
+    "description": "40G Single Port Tunable Mux Coherent (4 clients)",
+    "category": ""
+   }
+  },
+  {
+   "id": "PSS:43SCX4E",
+   "platform": "PSS",
+   "name": "43SCX4E",
+   "family": "planning guide",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    40
+   ],
+   "lineMinG": 40,
+   "lineMaxG": 40,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "client",
+     "qty": 4
+    }
+   ],
+   "clientServices": null,
+   "clientsUnknown": true,
+   "futureServices": [],
+   "slots": 2,
+   "height": "full",
+   "hosts": [
+    "PSS-32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 3.0,
+   "powerW": 182.0,
+   "source": "PSS Product Information and Planning Guide (no roadmap slide \u2014 client side not stated)",
+   "raw": {
+    "description": "40G Single Port Tunable Mux Coherent (4 client), 2 slot",
+    "category": ""
+   }
+  },
+  {
+   "id": "PSS:43STA1P",
+   "platform": "PSS",
+   "name": "43STA1P",
+   "family": "planning guide",
+   "kind": "transponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    40
+   ],
+   "lineMinG": 40,
+   "lineMaxG": 40,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "client",
+     "qty": 1
+    }
+   ],
+   "clientServices": null,
+   "clientsUnknown": true,
+   "futureServices": [],
+   "slots": 3,
+   "height": "full",
+   "hosts": [
+    "PSS-32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 3.4,
+   "powerW": 100.0,
+   "source": "PSS Product Information and Planning Guide (no roadmap slide \u2014 client side not stated)",
+   "raw": {
+    "description": "40G single Port Tunable AnyRate (1 client) - optimized for 44 channels, PDPSK",
+    "category": ""
+   }
+  },
+  {
+   "id": "PSS:43STX4P",
+   "platform": "PSS",
+   "name": "43STX4P",
+   "family": "planning guide",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    40
+   ],
+   "lineMinG": 40,
+   "lineMaxG": 40,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "client",
+     "qty": 4
+    }
+   ],
+   "clientServices": null,
+   "clientsUnknown": true,
+   "futureServices": [],
+   "slots": 3,
+   "height": "full",
+   "hosts": [
+    "PSS-32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 3.0,
+   "powerW": 160.0,
+   "source": "PSS Product Information and Planning Guide (no roadmap slide \u2014 client side not stated)",
+   "raw": {
+    "description": "40G Single Port Tunable Mux - optimized for 88 channels, PDPSK (4 client)",
+    "category": ""
+   }
+  },
+  {
+   "id": "PSS:8P20",
+   "platform": "PSS",
+   "name": "8P20",
+   "family": "Optical transponders",
+   "kind": "transponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    10
+   ],
+   "lineMinG": 10,
+   "lineMaxG": 10,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [],
+   "clientServices": null,
+   "clientsUnknown": true,
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 0.8,
+   "powerW": 45.0,
+   "source": "PSS Product Information and Planning Guide (no roadmap slide \u2014 client side not stated)",
+   "raw": {
+    "description": "8xAny 10G Client/6xAny Muxponder (8 ports)",
+    "category": "Optical transponders"
+   }
+  },
+  {
+   "id": "PSS:D5X500L",
+   "platform": "PSS",
+   "name": "D5X500L",
+   "family": "planning guide",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    500
+   ],
+   "lineMinG": 500,
+   "lineMaxG": 500,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "L"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "client",
+     "qty": 5
+    }
+   ],
+   "clientServices": null,
+   "clientsUnknown": true,
+   "futureServices": [],
+   "slots": 2,
+   "height": "full",
+   "hosts": [
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU",
+    "PSS-32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 3.9,
+   "powerW": 402.0,
+   "source": "PSS Product Information and Planning Guide (no roadmap slide \u2014 client side not stated)",
+   "raw": {
+    "description": "500G Single Dual Port Hybrid Mux Transponder/Uplink card (5 clients), L-band",
+    "category": ""
+   }
+  },
+  {
+   "id": "PSS:D5X500Q",
+   "platform": "PSS",
+   "name": "D5X500Q",
+   "family": "Higher Rate Muxponders/Transponders - 200 G and 500 G",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    500
+   ],
+   "lineMinG": 500,
+   "lineMaxG": 500,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "client",
+     "qty": 5
+    }
+   ],
+   "clientServices": null,
+   "clientsUnknown": true,
+   "futureServices": [],
+   "slots": 2,
+   "height": "full",
+   "hosts": [
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU",
+    "PSS-32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 4.21,
+   "powerW": 360.0,
+   "source": "PSS Product Information and Planning Guide (no roadmap slide \u2014 client side not stated)",
+   "raw": {
+    "description": "D5X500Q 500G Mux/UL, 5CL, SUBSEA",
+    "category": "Higher Rate Muxponders/Transponders - 200 G and 500 G"
+   }
+  },
+  {
+   "id": "PSS:S13X100E",
+   "platform": "PSS",
+   "name": "S13X100E",
+   "family": "100 G Muxponders/Transponders",
+   "kind": "transponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 100,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [],
+   "clientServices": null,
+   "clientsUnknown": true,
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "PSS-4II",
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU",
+    "PSS-32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": "L1 encryption",
+   "weightKg": 1.8,
+   "powerW": 171.0,
+   "source": "PSS Product Information and Planning Guide (no roadmap slide \u2014 client side not stated)",
+   "raw": {
+    "description": "S13X100E 100G Mux/Xpdr/Uplink (Encryption)",
+    "category": "100 G Muxponders/Transponders"
+   }
+  },
+  {
+   "id": "PSS:S13X100L",
+   "platform": "PSS",
+   "name": "S13X100L",
+   "family": "planning guide",
+   "kind": "transponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 100,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "L"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [],
+   "clientServices": null,
+   "clientsUnknown": true,
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 1.8,
+   "powerW": 171.0,
+   "source": "PSS Product Information and Planning Guide (no roadmap slide \u2014 client side not stated)",
+   "raw": {
+    "description": "100G Mux/Xpdr/Uplink (L band)",
+    "category": ""
+   }
+  },
+  {
+   "id": "PSS:S13X100R",
+   "platform": "PSS",
+   "name": "S13X100R",
+   "family": "100 G Muxponders/Transponders",
+   "kind": "transponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    100
+   ],
+   "lineMinG": 100,
+   "lineMaxG": 100,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [],
+   "clientServices": null,
+   "clientsUnknown": true,
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "PSS-4II",
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU",
+    "PSS-32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 1.8,
+   "powerW": 171.0,
+   "source": "PSS Product Information and Planning Guide (no roadmap slide \u2014 client side not stated)",
+   "raw": {
+    "description": "S13X100R 100G Mux/Xpdr/Uplink (Regional)",
+    "category": "100 G Muxponders/Transponders"
+   }
+  },
+  {
+   "id": "PSS:S2AD200H",
+   "platform": "PSS",
+   "name": "S2AD200H",
+   "family": "Higher Rate Muxponders/Transponders - 200 G and 500 G",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    200
+   ],
+   "lineMinG": 200,
+   "lineMaxG": 200,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "client",
+     "qty": 2
+    }
+   ],
+   "clientServices": null,
+   "clientsUnknown": true,
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "PSS-4II",
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU",
+    "PSS-32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 0.9,
+   "powerW": 70.0,
+   "source": "PSS Product Information and Planning Guide (no roadmap slide \u2014 client side not stated)",
+   "raw": {
+    "description": "200G Single Port Mux Transponder card (2 clients), High performance",
+    "category": "Higher Rate Muxponders/Transponders - 200 G and 500 G"
+   }
+  },
+  {
+   "id": "PSS:S2AD200R",
+   "platform": "PSS",
+   "name": "S2AD200R",
+   "family": "planning guide",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    200
+   ],
+   "lineMinG": 200,
+   "lineMaxG": 200,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "client",
+     "qty": 2
+    }
+   ],
+   "clientServices": null,
+   "clientsUnknown": true,
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU",
+    "PSS-32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 0.9,
+   "powerW": 70.0,
+   "source": "PSS Product Information and Planning Guide (no roadmap slide \u2014 client side not stated)",
+   "raw": {
+    "description": "200G Single Port Mux Transponder card (2 clients), Reach optimized",
+    "category": ""
+   }
+  },
+  {
+   "id": "PSS:S4X400H",
+   "platform": "PSS",
+   "name": "S4X400H",
+   "family": "Higher Rate Muxponders/Transponders - 200 G and 500 G",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    400
+   ],
+   "lineMinG": 400,
+   "lineMaxG": 400,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "C"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "client",
+     "qty": 4
+    }
+   ],
+   "clientServices": null,
+   "clientsUnknown": true,
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU",
+    "PSS-32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2.3,
+   "powerW": 170.0,
+   "source": "PSS Product Information and Planning Guide (no roadmap slide \u2014 client side not stated)",
+   "raw": {
+    "description": "400G Single Port Mux Transponder card (4 clients), High performance, unlicensed (unrestricted)",
+    "category": "Higher Rate Muxponders/Transponders - 200 G and 500 G"
+   }
+  },
+  {
+   "id": "PSS:S4X400L",
+   "platform": "PSS",
+   "name": "S4X400L",
+   "family": "Higher Rate Muxponders/Transponders - 200 G and 500 G",
+   "kind": "muxponder",
+   "lineCarriers": 1,
+   "lineRatesG": [
+    400
+   ],
+   "lineMinG": 400,
+   "lineMaxG": 400,
+   "lineType": "embedded",
+   "lineModes": [],
+   "linePluggableSlots": 0,
+   "band": [
+    "L"
+   ],
+   "baudGBd": [],
+   "spacingGHz": [],
+   "dsp": null,
+   "zr": [],
+   "clientCages": [
+    {
+     "type": "client",
+     "qty": 4
+    }
+   ],
+   "clientServices": null,
+   "clientsUnknown": true,
+   "futureServices": [],
+   "slots": 1,
+   "height": "full",
+   "hosts": [
+    "PSS-8",
+    "PSS-16II DC 8RU",
+    "PSS-16II AC/DC 9RU",
+    "PSS-32"
+   ],
+   "shipping": true,
+   "release": null,
+   "encryption": null,
+   "weightKg": 2.3,
+   "powerW": 170.0,
+   "source": "PSS Product Information and Planning Guide (no roadmap slide \u2014 client side not stated)",
+   "raw": {
+    "description": "400G Single Port Mux Transponder card (4 clients), L-band",
+    "category": "Higher Rate Muxponders/Transponders - 200 G and 500 G"
    }
   }
  ]

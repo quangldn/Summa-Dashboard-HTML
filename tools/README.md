@@ -403,3 +403,62 @@ Both views carry the same numbers; the table is never a reduced version. The
 shelf comparison runs to 29 columns including the slot composition (service /
 half / full / common / grid total and the grid shape), controller redundancy,
 fan and PSU counts with their schemes, and the full client-service list.
+
+---
+
+## PSS Release 26.6 — `extract-pss-266.py`, `build-pss-266-data.py`
+
+`pss-features.html` is the feature map and wiki for Release 26.6. Two steps,
+because the source is 660 MB of PDF that does not belong in the repo:
+
+```bash
+pip install pdfplumber --break-system-packages
+python3 tools/extract-pss-266.py "G:\...\Nokia Resource\PSS-26.6" -o /tmp/pss266
+python3 tools/build-pss-266-data.py /tmp/pss266        # -> assets/pss-266.json
+```
+
+The first reads the PDFs once and caches a document map, a section index per
+manual and the release delta. The second turns that cache into the page's data.
+Re-run both when a release lands; nothing else changes.
+
+### The document set is the knowledge
+
+24 manuals, 38,766 pages, and the most valuable thing extracted is **which one
+to open**. The two letters before `ZZA` in the CDoc number identify the manual:
+`TQ` is features, `HQ` is hardware, `SQ` is hardware for the PSS-8x/12x/24x
+family, `TW` is GMPLS, `TP` is DCN, `SD` is security, `TN` is the quick
+reference. Everything else — `TG` at 6,362 pages of TL1, `TH` at 11,924 of
+CLI, the nine per-shelf installation guides — is catalogued precisely so it is
+not opened.
+
+**HQ and TQ are one guide in two volumes**, and neither title says so: HQ is
+*Product Information and Planning Guide*, TQ is *Product Information and
+Planning Guide (Feature Information)*. "What is it" goes to HQ; "what can it
+do" goes to TQ.
+
+### Three parsing traps, all silent
+
+* **No space glyphs.** `extract_text()` returns `OpticalChannelProtection(OCHP)`
+  as one run. Everything reads `extract_words(x_tolerance=1.5)` instead —
+  including the contents pages, which was not obvious: a camel-case regex
+  "fixes" the body but still leaves `In-lineamplifier` and
+  `IPREAMPconfigurations` in the section titles.
+* **Printed page ≠ PDF index**, and the offset differs per document — TQ is
+  −1, HQ is +1. It is measured from a few located headings, never assumed.
+* **The glossary has no section number**, so the TOC cannot find it. It is
+  located by its heading in the last 140 pages, and entries are term-line then
+  definition-lines rather than a two-column table.
+
+### A topic filter that reads the title
+
+Sections are tagged by topic so the page filters the way an SE looks rather
+than by chapter number. One trap worth keeping: match `\bMPLS\b`, not `MPLS` —
+without the boundary, "GMPLS CP" files the control-plane section under Carrier
+Ethernet.
+
+### What the page flags
+
+Nokia's own text calls the PSS-4hc a *15RU shelf* in prose and *6RU
+(264.7 mm)* in its spec bullets. 264.7 mm is 6RU; 15RU / 664.7 mm is the
+PSS-10hc in the paragraph below. The page says so rather than passing the
+error on.

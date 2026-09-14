@@ -1,0 +1,1376 @@
+{
+ "meta": {
+  "release": "26.6",
+  "generated": "tools/build-pss-266-data.py",
+  "source": "Nokia 1830 PSS Release 26.6 document set, 24 manuals, 38,766 pages",
+  "featureSource": "3KC-71311-TAAA-TQZZA_Issue_2.pdf",
+  "pageNote": "Page numbers are the PRINTED page. The PDF index is 1 lower in TQ (offset -1).",
+  "scope": "Features and hardware. The provisioning, CLI, TL1, NETCONF, maintenance and safety manuals are catalogued but deliberately not read.",
+  "counts": {
+   "documents": 24,
+   "pages": 38766,
+   "chapters": 8,
+   "sections": 100,
+   "newItems": 54
+  }
+ },
+ "documents": [
+  {
+   "code": "TQ",
+   "series": "71311",
+   "issue": 2,
+   "pages": 980,
+   "title": "Product Information and Planning Guide (Feature Information)",
+   "appliesTo": "PSS (PSS-4II/PSS-8/ PSS-16II/PSS-16/PSS-32/PSI-4L/PSI-8L/ PSS-4hc/PSS-10hc)",
+   "kind": "features",
+   "use": "PRIMARY feature source: node configurations, protection, DCC, Carrier Ethernet, sync, OAM&P, interworking.",
+   "file": "3KC-71311-TAAA-TQZZA_Issue_2.pdf"
+  },
+  {
+   "code": "TW",
+   "series": "71311",
+   "issue": 1,
+   "pages": 402,
+   "title": "GMPLS Control Plane Guide",
+   "appliesTo": "Product Family",
+   "kind": "features",
+   "use": "L0 GMPLS / WSON restoration, ASON, path computation. Read this for anything control-plane.",
+   "file": "3KC-71311-TAAA-TWZZA_Issue_1.pdf"
+  },
+  {
+   "code": "TP",
+   "series": "71311",
+   "issue": 1,
+   "pages": 238,
+   "title": "DCN Planning and Engineering Guide",
+   "appliesTo": "Product Family",
+   "kind": "features",
+   "use": "Management network design — topology options, addressing, scale limits.",
+   "file": "3KC-71311-TAAA-TPZZA_Issue_1.pdf"
+  },
+  {
+   "code": "SD",
+   "series": "71311",
+   "issue": 1,
+   "pages": 82,
+   "title": "Security and Data Privacy Guide",
+   "appliesTo": "PSS (PSS)",
+   "kind": "features",
+   "use": "Security posture, data privacy, hardening.",
+   "file": "3KC-71311-TAAA-SDZZA_Issue_1.pdf"
+  },
+  {
+   "code": "HQ",
+   "series": "71311",
+   "issue": 2,
+   "pages": 1644,
+   "title": "Product Information and Planning Guide",
+   "appliesTo": "PSS (PSS-4II/PSS-8/ PSS-16II/PSS-16/PSS-32/PSI-4L/PSI-8L/ PSS-4hc/PSS-10hc)",
+   "kind": "hardware",
+   "use": "PRIMARY hardware source: shelves, cards, slot ranges, weight, power, glossary. PSS-4II/8/16II/32/PSI.",
+   "file": "3KC-71311-TAAA-HQZZA_Issue_2.pdf"
+  },
+  {
+   "code": "SQ",
+   "series": "71311",
+   "issue": 1,
+   "pages": 842,
+   "title": "Product Information and Planning Guide",
+   "appliesTo": "PSS (PSS-8x/PSS- 12x/PSS-24x)",
+   "kind": "hardware",
+   "use": "Hardware for the packet-optical family: PSS-8x/12x/24x. The only source for those shelves.",
+   "file": "3KC-71311-TAAA-SQZZA_Issue_1.pdf"
+  },
+  {
+   "code": "TN",
+   "series": "71311",
+   "issue": 1,
+   "pages": 140,
+   "title": "Quick Reference Guide",
+   "appliesTo": "PSS (PSS)",
+   "kind": "reference",
+   "use": "Condensed card and faceplate reference — often the fastest path to a mnemonic or LED meaning.",
+   "file": "3KC-71311-TAAA-TNZZA_Issue_1.pdf"
+  },
+  {
+   "code": "TH",
+   "series": "71311",
+   "issue": 1,
+   "pages": 11924,
+   "title": "Command Line Interface Guide",
+   "appliesTo": "PSS (PSS)",
+   "kind": "provisioning",
+   "use": "OUT OF SCOPE — command reference.",
+   "file": "3KC-71311-TAAA-THZZA_Issue_1.pdf"
+  },
+  {
+   "code": "TG",
+   "series": "71311",
+   "issue": 1,
+   "pages": 6362,
+   "title": "TL1 Commands and Messages Guide",
+   "appliesTo": "PSS (PSS)",
+   "kind": "provisioning",
+   "use": "OUT OF SCOPE — command reference.",
+   "file": "3KC-71311-TAAA-TGZZA_Issue_1.pdf"
+  },
+  {
+   "code": "TM",
+   "series": "71311",
+   "issue": 1,
+   "pages": 3202,
+   "title": "Maintenance and Trouble-Clearing Guide",
+   "appliesTo": "PSS (PSS)",
+   "kind": "operations",
+   "use": "OUT OF SCOPE — fault clearing.",
+   "file": "3KC-71311-TAAA-TMZZA_Issue_1.pdf"
+  },
+  {
+   "code": "TA",
+   "series": "71311",
+   "issue": 1,
+   "pages": 2438,
+   "title": "Safety (multilingual)",
+   "appliesTo": "PSS (PSS)",
+   "kind": "safety",
+   "use": "OUT OF SCOPE — regulatory safety text.",
+   "file": "3KC-71311-TAAA-TAZZQ_Issue_1.pdf"
+  },
+  {
+   "code": "TC",
+   "series": "71311",
+   "issue": 1,
+   "pages": 1838,
+   "title": "User Provisioning Guide",
+   "appliesTo": "PSS (PSS-4II/PSS-8/ PSS-16II/PSS-16/PSS-32/PSI-4L/PSI-8L/ PSS-4hc/PSS-10hc)",
+   "kind": "provisioning",
+   "use": "OUT OF SCOPE — provisioning.",
+   "file": "3KC-71311-TAAA-TCZZA_Issue_1.pdf"
+  },
+  {
+   "code": "SF",
+   "series": "71311",
+   "issue": 1,
+   "pages": 962,
+   "title": "Installation and System Turn-Up (PSS-24x, 48T fabric)",
+   "appliesTo": "PSS (PSS-24x and 48T Switch Fabric)",
+   "kind": "install",
+   "use": "Physical install — out of scope unless asked.",
+   "file": "3KC-71311-TAAA-SFZZA_Issue_1.pdf"
+  },
+  {
+   "code": "SC",
+   "series": "71311",
+   "issue": 1,
+   "pages": 908,
+   "title": "User Provisioning Guide (PSS-8x/12x/24x)",
+   "appliesTo": "PSS (PSS-8x/PSS- 12x/PSS-24x)",
+   "kind": "provisioning",
+   "use": "OUT OF SCOPE — provisioning.",
+   "file": "3KC-71311-TAAA-SCZZA_Issue_1.pdf"
+  },
+  {
+   "code": "TJ",
+   "series": "71311",
+   "issue": 1,
+   "pages": 886,
+   "title": "Installation and System Turn-Up (PSS-32)",
+   "appliesTo": "PSS (PSS-32)",
+   "kind": "install",
+   "use": "Physical install — out of scope unless asked.",
+   "file": "3KC-71311-TAAA-TJZZA_Issue_1.pdf"
+  },
+  {
+   "code": "SN",
+   "series": "71311",
+   "issue": 1,
+   "pages": 852,
+   "title": "Installation and System Turn-Up (PSS-12x)",
+   "appliesTo": "PSS (PSS-12x)",
+   "kind": "install",
+   "use": "Physical install — out of scope unless asked.",
+   "file": "3KC-71311-TAAA-SNZZA_Issue_1.pdf"
+  },
+  {
+   "code": "SK",
+   "series": "71311",
+   "issue": 1,
+   "pages": 820,
+   "title": "Installation and System Turn-Up (PSS-8x)",
+   "appliesTo": "PSS (PSS-8x)",
+   "kind": "install",
+   "use": "Physical install — out of scope unless asked.",
+   "file": "3KC-71311-TAAA-SKZZA_Issue_1.pdf"
+  },
+  {
+   "code": "SM",
+   "series": "71311",
+   "issue": 1,
+   "pages": 806,
+   "title": "Installation and System Turn-Up (PSS-16II)",
+   "appliesTo": "PSS (PSS-16II)",
+   "kind": "install",
+   "use": "Physical install — out of scope unless asked.",
+   "file": "3KC-71311-TAAA-SMZZA_Issue_1.pdf"
+  },
+  {
+   "code": "SL",
+   "series": "71311",
+   "issue": 1,
+   "pages": 740,
+   "title": "Installation and System Turn-Up (PSS-8)",
+   "appliesTo": "PSS (PSS-8)",
+   "kind": "install",
+   "use": "Physical install — out of scope unless asked.",
+   "file": "3KC-71311-TAAA-SLZZA_Issue_1.pdf"
+  },
+  {
+   "code": "SH",
+   "series": "71311",
+   "issue": 1,
+   "pages": 724,
+   "title": "Installation and System Turn-Up (PSS-4hc/10hc)",
+   "appliesTo": "PSS (PSS-4hc/PSS- 10hc)",
+   "kind": "install",
+   "use": "Physical install — out of scope unless asked.",
+   "file": "3KC-71311-TAAA-SHZZA_Issue_1.pdf"
+  },
+  {
+   "code": "TL",
+   "series": "71311",
+   "issue": 1,
+   "pages": 682,
+   "title": "Installation and System Turn-Up (PSI-4L/8L)",
+   "appliesTo": "PSS (PSI-4L/PSI-8L)",
+   "kind": "install",
+   "use": "Physical install — out of scope unless asked.",
+   "file": "3KC-71311-TAAA-TLZZA_Issue_1.pdf"
+  },
+  {
+   "code": "TK",
+   "series": "71311",
+   "issue": 1,
+   "pages": 564,
+   "title": "Installation and System Turn-Up (PSS-4II)",
+   "appliesTo": "PSS (PSS-4II)",
+   "kind": "install",
+   "use": "Physical install — out of scope unless asked.",
+   "file": "3KC-71311-TAAA-TKZZA_Issue_1.pdf"
+  },
+  {
+   "code": "TC",
+   "series": "70118",
+   "issue": 1,
+   "pages": 468,
+   "title": "NETCONF/gRPC Interface Guide (PSS-8/16II/32)",
+   "appliesTo": "PSS (PSS-8/PSS-16II/ PSS-32)",
+   "kind": "provisioning",
+   "use": "OUT OF SCOPE — northbound interface.",
+   "file": "3KC-70118-TAAA-TCZZA_Issue_1.pdf"
+  },
+  {
+   "code": "SC",
+   "series": "70118",
+   "issue": 1,
+   "pages": 262,
+   "title": "NETCONF/gRPC Interface Guide (PSS-8x/12x/24x)",
+   "appliesTo": "PSS (PSS-8x/PSS- 12x/PSS-24x)",
+   "kind": "provisioning",
+   "use": "OUT OF SCOPE — northbound interface.",
+   "file": "3KC-70118-TAAA-SCZZA_Issue_1.pdf"
+  }
+ ],
+ "chapters": [
+  {
+   "num": "1",
+   "name": "Features",
+   "blurb": "Overview, and the Release 26.6 delta itself.",
+   "count": 3,
+   "sections": [
+    {
+     "sec": "1.1",
+     "title": "Overview",
+     "page": 39,
+     "topic": "General"
+    },
+    {
+     "sec": "1.2",
+     "title": "New features - WDM",
+     "page": 41,
+     "topic": "General"
+    },
+    {
+     "sec": "1.3",
+     "title": "New features - GMPLS CP",
+     "page": 53,
+     "topic": "Control plane"
+    }
+   ]
+  },
+  {
+   "num": "2",
+   "name": "Configurations",
+   "blurb": "The biggest chapter by far — ILA and OADM through every ROADM flavour, alien wavelengths, Wavelength Tracker, OTDR, all the protection schemes, OpenZR+, subsea and gridless.",
+   "count": 47,
+   "sections": [
+    {
+     "sec": "2.1",
+     "title": "In-line amplifier",
+     "page": 55,
+     "topic": "Amplifier / power"
+    },
+    {
+     "sec": "2.2",
+     "title": "IPREAMP configurations",
+     "page": 60,
+     "topic": "Amplifier / power"
+    },
+    {
+     "sec": "2.3",
+     "title": "Supported LD combinations for OADM and ILA configurations",
+     "page": 67,
+     "topic": "ROADM"
+    },
+    {
+     "sec": "2.4",
+     "title": "LD and OSCT configurations",
+     "page": 87,
+     "topic": "OSC / discovery"
+    },
+    {
+     "sec": "2.5",
+     "title": "OADM Overview",
+     "page": 91,
+     "topic": "ROADM"
+    },
+    {
+     "sec": "2.6",
+     "title": "Inventory configurations",
+     "page": 93,
+     "topic": "System management"
+    },
+    {
+     "sec": "2.7",
+     "title": "FOADM configuration",
+     "page": 105,
+     "topic": "ROADM"
+    },
+    {
+     "sec": "2.8",
+     "title": "TOADM configuration",
+     "page": 134,
+     "topic": "ROADM"
+    },
+    {
+     "sec": "2.9",
+     "title": "ROADM configuration: WR2-88, WR8-88A, WR8-88AF",
+     "page": 141,
+     "topic": "ROADM"
+    },
+    {
+     "sec": "2.10",
+     "title": "ROADM configuration: Anydirection",
+     "page": 158,
+     "topic": "ROADM"
+    },
+    {
+     "sec": "2.11",
+     "title": "ROADM configuration: C-F (WR20-TF)",
+     "page": 167,
+     "topic": "ROADM"
+    },
+    {
+     "sec": "2.12",
+     "title": "ROADM configuration: CDC-F (WR20-TFM/WR20TFML)",
+     "page": 170,
+     "topic": "ROADM"
+    },
+    {
+     "sec": "2.13",
+     "title": "IROADM configuration",
+     "page": 183,
+     "topic": "ROADM"
+    },
+    {
+     "sec": "2.14",
+     "title": "Disjoint optical domain configurations",
+     "page": 279,
+     "topic": "General"
+    },
+    {
+     "sec": "2.15",
+     "title": "Single-fiber bidirectional configuration",
+     "page": 285,
+     "topic": "Line system"
+    },
+    {
+     "sec": "2.16",
+     "title": "EOSCF configuration overview",
+     "page": 294,
+     "topic": "OSC / discovery"
+    },
+    {
+     "sec": "2.17",
+     "title": "OSC fibering and OSCSFP placement",
+     "page": 295,
+     "topic": "OSC / discovery"
+    },
+    {
+     "sec": "2.18",
+     "title": "EOSCF configurations",
+     "page": 296,
+     "topic": "OSC / discovery"
+    },
+    {
+     "sec": "2.19",
+     "title": "Alien wavelengths",
+     "page": 307,
+     "topic": "Line system"
+    },
+    {
+     "sec": "2.20",
+     "title": "SVAC configuration",
+     "page": 308,
+     "topic": "General"
+    },
+    {
+     "sec": "2.21",
+     "title": "MVACF configuration",
+     "page": 309,
+     "topic": "General"
+    },
+    {
+     "sec": "2.22",
+     "title": "DGE configuration",
+     "page": 311,
+     "topic": "Amplifier / power"
+    },
+    {
+     "sec": "2.23",
+     "title": "Wavelength Tracker introduction",
+     "page": 318,
+     "topic": "Monitoring"
+    },
+    {
+     "sec": "2.24",
+     "title": "Long-haul Wavelength Tracker (WTOCM/WTOCMA/WTOCM-F/WTOCM-FL) configurations",
+     "page": 321,
+     "topic": "Monitoring"
+    },
+    {
+     "sec": "2.25",
+     "title": "WTOCMA OSNR measurement function",
+     "page": 330,
+     "topic": "Monitoring"
+    },
+    {
+     "sec": "2.26",
+     "title": "WTD to WTOCM/WTOCMA/WTOCM-F network upgrade",
+     "page": 334,
+     "topic": "Monitoring"
+    },
+    {
+     "sec": "2.27",
+     "title": "Keyed and unkeyed optical channels",
+     "page": 335,
+     "topic": "General"
+    },
+    {
+     "sec": "2.28",
+     "title": "OTDR configuration",
+     "page": 339,
+     "topic": "Monitoring"
+    },
+    {
+     "sec": "2.29",
+     "title": "MON-OTDR configuration",
+     "page": 346,
+     "topic": "Monitoring"
+    },
+    {
+     "sec": "2.30",
+     "title": "Optical protection introduction",
+     "page": 351,
+     "topic": "Protection"
+    },
+    {
+     "sec": "2.31",
+     "title": "Optical Channel Protection (OCHP)",
+     "page": 352,
+     "topic": "Protection"
+    },
+    {
+     "sec": "2.32",
+     "title": "Optical Multiplex Section Protection (OMSP)",
+     "page": 365,
+     "topic": "Protection"
+    },
+    {
+     "sec": "2.33",
+     "title": "Optical Line Protection (OLP)",
+     "page": 374,
+     "topic": "Protection"
+    },
+    {
+     "sec": "2.34",
+     "title": "Y-cable protection",
+     "page": 379,
+     "topic": "Protection"
+    },
+    {
+     "sec": "2.35",
+     "title": "Client-side OPS protection",
+     "page": 403,
+     "topic": "Protection"
+    },
+    {
+     "sec": "2.36",
+     "title": "E-SNCP/ODUk SNCP",
+     "page": 412,
+     "topic": "Protection"
+    },
+    {
+     "sec": "2.37",
+     "title": "Additional information about protection",
+     "page": 434,
+     "topic": "Protection"
+    },
+    {
+     "sec": "2.38",
+     "title": "OpenZR+ 400 GE (–10 dBm and ≥ 0 dBm) node configuration support",
+     "page": 438,
+     "topic": "Line system"
+    },
+    {
+     "sec": "2.39",
+     "title": "Single channel link",
+     "page": 453,
+     "topic": "Line system"
+    },
+    {
+     "sec": "2.40",
+     "title": "Auto power management without OSC",
+     "page": 454,
+     "topic": "Amplifier / power"
+    },
+    {
+     "sec": "2.41",
+     "title": "Automatic power reduction (APR)",
+     "page": 457,
+     "topic": "Amplifier / power"
+    },
+    {
+     "sec": "2.42",
+     "title": "1830 Link Extender (1830 LX)",
+     "page": 497,
+     "topic": "General"
+    },
+    {
+     "sec": "2.43",
+     "title": "Nokia Submarine Line Terminal Equipment (SLTE) for repeatered subsea applications",
+     "page": 505,
+     "topic": "Subsea"
+    },
+    {
+     "sec": "2.44",
+     "title": "Spectrum sharing in subsea environment",
+     "page": 511,
+     "topic": "Monitoring"
+    },
+    {
+     "sec": "2.45",
+     "title": "Gridless",
+     "page": 516,
+     "topic": "Line system"
+    },
+    {
+     "sec": "2.46",
+     "title": "Subsea protection",
+     "page": 518,
+     "topic": "Protection"
+    },
+    {
+     "sec": "2.47",
+     "title": "OSC over OT",
+     "page": 521,
+     "topic": "OSC / discovery"
+    }
+   ]
+  },
+  {
+   "num": "3",
+   "name": "Data Center Connect",
+   "blurb": "DCC features and DCC security — the DCI story in Nokia's own words.",
+   "count": 4,
+   "sections": [
+    {
+     "sec": "3.1",
+     "title": "Overview",
+     "page": 523,
+     "topic": "General"
+    },
+    {
+     "sec": "3.2",
+     "title": "Data Center Connect (DCC)",
+     "page": 524,
+     "topic": "Data Center Connect"
+    },
+    {
+     "sec": "3.3",
+     "title": "DCC features",
+     "page": 529,
+     "topic": "Data Center Connect"
+    },
+    {
+     "sec": "3.4",
+     "title": "DCC security",
+     "page": 530,
+     "topic": "Data Center Connect"
+    }
+   ]
+  },
+  {
+   "num": "4",
+   "name": "Carrier Ethernet",
+   "blurb": "Provider Bridge and MPLS-TP operational modes, Ethernet OAM, SMART SFPs.",
+   "count": 10,
+   "sections": [
+    {
+     "sec": "4.1",
+     "title": "Overview",
+     "page": 533,
+     "topic": "General"
+    },
+    {
+     "sec": "4.2",
+     "title": "Ethernet services",
+     "page": 534,
+     "topic": "Carrier Ethernet"
+    },
+    {
+     "sec": "4.3",
+     "title": "Service configuration models",
+     "page": 544,
+     "topic": "General"
+    },
+    {
+     "sec": "4.4",
+     "title": "Operational modes",
+     "page": 548,
+     "topic": "General"
+    },
+    {
+     "sec": "4.5",
+     "title": "L2 features in Provider Bridge mode",
+     "page": 549,
+     "topic": "Amplifier / power"
+    },
+    {
+     "sec": "4.6",
+     "title": "L2 features in MPLS-TP mode",
+     "page": 573,
+     "topic": "Carrier Ethernet"
+    },
+    {
+     "sec": "4.7",
+     "title": "L2 features common to Provider Bridge and MPLS-TP modes",
+     "page": 606,
+     "topic": "Amplifier / power"
+    },
+    {
+     "sec": "4.8",
+     "title": "Ethernet OAM",
+     "page": 631,
+     "topic": "Carrier Ethernet"
+    },
+    {
+     "sec": "4.9",
+     "title": "Ethernet in-band management for L2 cards",
+     "page": 660,
+     "topic": "Carrier Ethernet"
+    },
+    {
+     "sec": "4.10",
+     "title": "SMART SFPs and Remote Managed Devices (RMDs)",
+     "page": 662,
+     "topic": "Carrier Ethernet"
+    }
+   ]
+  },
+  {
+   "num": "5",
+   "name": "Synchronization",
+   "blurb": "SyncE, IEEE 1588v2 PTP, and which cards can do which.",
+   "count": 5,
+   "sections": [
+    {
+     "sec": "5.1",
+     "title": "Overview",
+     "page": 673,
+     "topic": "General"
+    },
+    {
+     "sec": "5.2",
+     "title": "Synchronous Ethernet (SyncE)",
+     "page": 674,
+     "topic": "Carrier Ethernet"
+    },
+    {
+     "sec": "5.3",
+     "title": "IEEE 1588v2 Precision Time Protocol (PTP)",
+     "page": 689,
+     "topic": "Synchronization"
+    },
+    {
+     "sec": "5.4",
+     "title": "Cards with Ethernet interface and their capabilities for SyncE and IEEE 1588v2",
+     "page": 706,
+     "topic": "Carrier Ethernet"
+    },
+    {
+     "sec": "5.5",
+     "title": "Synchronization configurations for multiple shelves",
+     "page": 712,
+     "topic": "Synchronization"
+    }
+   ]
+  },
+  {
+   "num": "6",
+   "name": "OAM&P",
+   "blurb": "Fault and alarm management, loopbacks, performance monitoring, thresholding, software and database management.",
+   "count": 23,
+   "sections": [
+    {
+     "sec": "6.1",
+     "title": "Overview",
+     "page": 727,
+     "topic": "General"
+    },
+    {
+     "sec": "6.2",
+     "title": "Overview",
+     "page": 729,
+     "topic": "General"
+    },
+    {
+     "sec": "6.3",
+     "title": "Overview of operations interfaces",
+     "page": 730,
+     "topic": "General"
+    },
+    {
+     "sec": "6.4",
+     "title": "System clock monitoring",
+     "page": 731,
+     "topic": "Monitoring"
+    },
+    {
+     "sec": "6.5",
+     "title": "Overview",
+     "page": 733,
+     "topic": "General"
+    },
+    {
+     "sec": "6.6",
+     "title": "Data privacy",
+     "page": 734,
+     "topic": "Security"
+    },
+    {
+     "sec": "6.7",
+     "title": "Security",
+     "page": 753,
+     "topic": "Security"
+    },
+    {
+     "sec": "6.8",
+     "title": "Time of day synchronization",
+     "page": 781,
+     "topic": "Synchronization"
+    },
+    {
+     "sec": "6.9",
+     "title": "Automatic power adjustments",
+     "page": 783,
+     "topic": "Amplifier / power"
+    },
+    {
+     "sec": "6.10",
+     "title": "Anti-theft Protection (ATP)",
+     "page": 791,
+     "topic": "Protection"
+    },
+    {
+     "sec": "6.11",
+     "title": "Overview",
+     "page": 799,
+     "topic": "General"
+    },
+    {
+     "sec": "6.12",
+     "title": "Fault detection and alarm management",
+     "page": 800,
+     "topic": "OAM&P"
+    },
+    {
+     "sec": "6.13",
+     "title": "Loopbacks",
+     "page": 804,
+     "topic": "OAM&P"
+    },
+    {
+     "sec": "6.14",
+     "title": "System diagnostics and tests",
+     "page": 809,
+     "topic": "OAM&P"
+    },
+    {
+     "sec": "6.15",
+     "title": "Performance monitoring",
+     "page": 812,
+     "topic": "Monitoring"
+    },
+    {
+     "sec": "6.16",
+     "title": "Integrated test signal",
+     "page": 846,
+     "topic": "General"
+    },
+    {
+     "sec": "6.17",
+     "title": "Thresholding",
+     "page": 851,
+     "topic": "OAM&P"
+    },
+    {
+     "sec": "6.18",
+     "title": "Software management",
+     "page": 855,
+     "topic": "System management"
+    },
+    {
+     "sec": "6.19",
+     "title": "Configuration database management",
+     "page": 856,
+     "topic": "System management"
+    },
+    {
+     "sec": "6.20",
+     "title": "Reports",
+     "page": 859,
+     "topic": "OAM&P"
+    },
+    {
+     "sec": "6.21",
+     "title": "Overview",
+     "page": 860,
+     "topic": "General"
+    },
+    {
+     "sec": "6.22",
+     "title": "Equipment provisioning",
+     "page": 861,
+     "topic": "System management"
+    },
+    {
+     "sec": "6.23",
+     "title": "Primary and secondary states of system components",
+     "page": 863,
+     "topic": "System management"
+    }
+   ]
+  },
+  {
+   "num": "7",
+   "name": "System planning",
+   "blurb": "WaveSuite Planner, power and grounding, operating environment.",
+   "count": 4,
+   "sections": [
+    {
+     "sec": "7.1",
+     "title": "Overview",
+     "page": 869,
+     "topic": "General"
+    },
+    {
+     "sec": "7.2",
+     "title": "WaveSuite Planner (WS-P)",
+     "page": 870,
+     "topic": "General"
+    },
+    {
+     "sec": "7.3",
+     "title": "Power and grounding",
+     "page": 875,
+     "topic": "Amplifier / power"
+    },
+    {
+     "sec": "7.4",
+     "title": "Operating environment",
+     "page": 883,
+     "topic": "General"
+    }
+   ]
+  },
+  {
+   "num": "8",
+   "name": "Interworking",
+   "blurb": "OCS uplink, DCN interoperability, photonic line interworking.",
+   "count": 4,
+   "sections": [
+    {
+     "sec": "8.1",
+     "title": "Overview",
+     "page": 889,
+     "topic": "General"
+    },
+    {
+     "sec": "8.2",
+     "title": "Optical core switch (OCS) uplink configuration",
+     "page": 892,
+     "topic": "General"
+    },
+    {
+     "sec": "8.3",
+     "title": "DCN interoperability",
+     "page": 894,
+     "topic": "General"
+    },
+    {
+     "sec": "8.4",
+     "title": "Photonic line interworking",
+     "page": 896,
+     "topic": "General"
+    }
+   ]
+  }
+ ],
+ "whatsNew": [
+  {
+   "sec": "1.2.2",
+   "title": "New Release 26.6 hardware",
+   "items": [
+    {
+     "name": "1830 PSS-4hc shelf support",
+     "detail": "1830 PSS-4hc is a rack/cabinet-mounted 15RU shelf for High Capacity applications that can be installed in Central Office (CO) environments. The 6RU 1830 PSS-4hc supports front-to-back airflow and is supported in 600 mm-deep ETSI, 19”, 21”, and 23” racks. PSS-4hc Universal Shelf (4 slots): Integrated power subracks support: Redundant controllers: Redundant fans:",
+     "bullets": [
+      "6RU (264.7mm), ETSI 275mm",
+      "19” x 600mm ETSI and DC footprint fit",
+      "4 I/O card slots",
+      "7 shelves per rack",
+      "front-rear cooling with air filter in front cover",
+      "air filter supervision",
+      "blank presence detection",
+      "front side visibility of shelf status LEDs",
+      "hardware prepared for 1.6kW per slot",
+      "backplane",
+      "ILAN, BEC, TMG",
+      "UNC protection, power, fan control",
+      "PTP engine to be hardware prepared (Growth Controller)",
+      "4 PSU slots",
+      "Variants are LV-DC, HV-DC, lbAC/hbAC",
+      "Option for mixing of LVDC and AC/HVDC PSUs in power Subracks; droop sharing",
+      "1+1 UNC4",
+      "4 UFAN4 modules"
+     ]
+    },
+    {
+     "name": "1830 PSS-10hc shelf support",
+     "detail": "1830 PSS-10hc is a rack/cabinet-mounted 15RU shelf for High Capacity applications that can be installed in Central Office (CO) environments. The 15RU 1830 PSS-10hc supports front-to-back airflow and is supported in 600 mm-deep ETSI, 19”, 21”, and 23” racks. PSS-10hc Universal Shelf (10 slots) Integrated power subracks support: Redundant controllers: Redundant fans:",
+     "bullets": [
+      "15RU (664.7mm), ETSI 650mm",
+      "19” x 600mm ETSI and DC footprint fit",
+      "10 I/O card slots",
+      "3 shelves per rack",
+      "front-to-rear cooling with air filter in front cover",
+      "air filter supervision",
+      "blank presence detection",
+      "front side visibility of shelf status LEDs",
+      "hardware prepared for 1.6kW per slot",
+      "backplane",
+      "ILAN, BEC, TMG",
+      "UNC protection, power, fan control",
+      "PTP engine to be hardware prepared (Growth Controller)",
+      "12 PSU slots",
+      "Variants are LV-DC, HV-DC, lbAC/hbAC",
+      "Option for mixing of LVDC and AC/HVDC PSUs in power Subracks; droop sharing",
+      "1+1 UNC10",
+      "3 UFAN10 modules"
+     ]
+    },
+    {
+     "name": "4T8 ClassicPonder with 4 pluggable line ports, 12 clients (4CP4T8)",
+     "detail": "The 4CP4T8 is a 4.8 Tbps quad-line add/drop muxponder for the PSS-hc platform with 12x pluggable QSFP-DD client ports and 4x pluggable line ports compatible with high-performance PSE6s modules BMDCO12E (C-band) and BMDCO12LE (L-band). The single slot 4CP4T8 leverages high-performance Nokia PSE-6s coherent optical engines to provide up to 4.8 Tb/s coherent line capacity. The PSE-6s supports up to 140 Gbaud and 1.2 Tb/s per wavelength and leverages a comprehensive coherent toolkit including 3rd-generation probabilistic constellation shaping, continuously tuneable baud rate, C-band and L-band support, overhead efficient Ethernet framing mode, high chromatic dispersion tolerance, and encryption. Each 4CP4T8 supports up to four PSE-6s pluggables, enabling pay-as-you-grow scaling and mixing of C-band and L-band pluggables on the same card. The 4CP4T8 supports eight QSFP56-DD clients (400GbE/OTUC4, 4x100GbE/ OTU4) and four QSFP56-DD/QSFP800 clients (800GbE, 400GbE/OTUC4, 4x100GbE/OTU4). Leveraging 2x100G LR4 QSFP-DDs, the 4CP4T8 can support a configuration with 2x1.2 Tb/s coherent interfaces with up to 20x100G LR4 clients. The 4CP4T8 also support client bandwidth sharing into dual carrier configurations (for example, 5x400GbE over 2x1 Tb/s). The 4CP4T8 card is supported in the 1830 PSS-4hc and PSS-10hc shelves.",
+     "bullets": []
+    },
+    {
+     "name": "1830 PSS-4II equipment controller, compact (4EC3C)",
+     "detail": "4EC3C is the compact controller variant of 4EC3, and further optimizes performance/cost ratio for typical access applications. Compared with 4EC3, 4EC3C has less storage (40GB vs. 128GB) and less RAM (8GB vs 16GB) and lower power consumption. 4EC3C continues to support –5°C to +65°C operational temperature in 1830 PSS-4II shelves. The migration from 4EC3 to 4EC3C, and mixing of 4EC3 and 4EC3C in a NE are supported.",
+     "bullets": []
+    },
+    {
+     "name": "1830 PSS-4II 600W AC power card (PMAC600)",
+     "detail": "PMAC600 has 600W power output at the backplane at 110V/220V AC input. PMAC600 provides higher power capacity than PMAC500 by 100W, therefore it can support more high-power configurations in an 1830 PSS-4II shelf. PMAC600 continues to support –5°C to +65°C operational ambient temperature, 1+1 AC power card protection, and no AC/DC mixing in one 1830 PSS-4II shelf. The 1830 PSS-4II system supports mixing of PMAC500 and PMAC600 in one shelf in normal operation status, this helps migration from PMAC500 to PMAC600 in multiple steps. Note: When PMAC500 and PMAC600 are both installed in a single shelf, the total shelf power capacity is limited by the PMAC500 (500W at the backplane).",
+     "bullets": []
+    },
+    {
+     "name": "Integrated Metro ROADM card, 2x32 WSS (IR32L)",
+     "detail": "This feature introduces a new IRDM32L variant, IR32L. The IR32L is used in all configurations where the existing IRDM32L is supported. IR32L is supported on the 1830 PSS-8/16II/32/PSI- 4L/PSI-8L shelves.",
+     "bullets": []
+    },
+    {
+     "name": "OTDR filter card, C+L band (OTDRFCL)",
+     "detail": "The OTDRFCL filter card is introduced to provide OTDR function per fiber direction in C+L OLP configurations. The OTDRFCL is a one-slot width and half-height card with two OTDR filters with three LC ports each. The OTDRFCL connects to the OPSCL card to support OTDR function through OTDRWB. Supported shelves are 1830 PSS-8, PSS-16II/AC, PSS-32, PSI-4L, and PSI-8L.",
+     "bullets": []
+    }
+   ],
+   "kind": "hardware"
+  },
+  {
+   "sec": "1.2.3",
+   "title": "New release pluggables",
+   "items": [
+    {
+     "name": "QSFP28 I-temp 100GbE LR4 pluggable 3AL82219AA",
+     "detail": "The QSFP28 I-temp (case temperature –40°C to +85°C) 100GbE LR4 pluggable (Q28LR4E, PN: 3AL82219AA), is supported on the following cards/ports and shelves for 100GbE applications: range −5°C to +65°C, if not limited by other cards or pluggables in the shelves. limited by other cards or pluggables in the shelves.",
+     "bullets": [
+      "Ports C13 and C17 on 16P200 cards in 1830 PSS-4II/8 shelves in ambient temperature",
+      "Ports 17 and 18 on 18CE300 cards in 1830 PSS-4II shelves in ambient temperature range",
+      "5°C to +65°C and PSS-8 shelves in ambient temperature range −40°C to +65°C, if not"
+     ]
+    }
+   ],
+   "kind": "pluggables"
+  },
+  {
+   "sec": "1.2.4",
+   "title": "New Release 26.6 software features",
+   "items": [
+    {
+     "name": "Key software feature on 8P20B",
+     "detail": "* 4/8/16G FC, 10 km, SMF (16FCLC-L, PN: 1AB390930009) * 4/8/16G FC, 10 km, MMF (16FCSN-I, PN: 1AB390930010)",
+     "bullets": [
+      "The following multi-rate pluggables support FC-400 client interfaces:"
+     ]
+    },
+    {
+     "name": "Key software features on 4CP4T8",
+     "detail": "to insert PCS idle frames during the timer. Only Ethernet clients. BMDCO12E carrier profiles at standard 130GBd/150GHz: * Flex (non BFP): 400G, 500G, 600G, 800G, 1T * TC (non BFP): 800G, 900G, 1T, 1T1, 1T2 * TC BFP: 400G 16SQAM, 400G QPSK, 500G, 600G, 700G, 800G, 900G, 1T * Flex BFP: 300G BMDCO12LE carrier profiles at standard 130GBd/150GHz * Flex (non BFP): 400G, 500G, 600G, 800G, 1T * TC (non BFP): 800G, 1T, 1T2 wave/OTSI. Refer to the supported carrier profiles. Standard mode: default settings Fast mode: improved tolerance against higher rotation speeds depending on system conditions. (5to1 mode). Note: The feature is supported exclusively with the 3AL82277AA pluggable in this release. 3AL82277AA) in 5to1 mode only. 3AL82256AA). 3AL82257AA). 3AL82266AA). 3AL82267AA). detailed specifications. Transcoded) without recreating the digital cross-connections. monitors include OPR/OPT, DGD, CD, FOFF, Qfactor, Qmargin (inc TCA), SoPR, CSR, PDL, EVM/ESNR, OSNR, OCHOPR, and LA. clients.",
+     "bullets": [
+      "Client ports: OTU4, 100GbE, and 400GbE client-type support.",
+      "Client-side 1+1 optical protection switching via OPSB5 for 100GbE and 400GbE.",
+      "Optical 1+1 line protection (OLP) and multiplexed section protection (OMSP).",
+      "Optical 1+1 channel protection (OCHP) through OPSUM (C-band).",
+      "Configurable hold-off timer for client-side consequent action upon dSSF, including the option",
+      "Configurable hold-off timer for client-side consequent action upon dCSF.",
+      "Carrier Profile:",
+      "Flex and Transcoded line structures to enable the combination of client services into a single",
+      "Configurable mode for the state-of-polarization (SoP) tracking speed.",
+      "Configurable mode that enables traffic aggregation from 5 client ports into a single line port",
+      "QSFP28-DD 2x100GBASE-LR4/OTU4 dual-rate pluggable (QDD2LR428GC, PN:",
+      "QSFP56-DD 400G DR4+(4xFR1) single-rate pluggable (Q56DD-400G-4xLR1-DR4+, PN:",
+      "QSFP56-DD 400G DR4++ (4xLR1) single-rate pluggable (Q56DD-400G-4xLR1-DR4+, PN:",
+      "QSFP56-DD 400G DR4+(4xFR1) dual-rate pluggable (Q56DD-400G-4xLR1-DR4+, PN:",
+      "QSFP56-DD 400G DR4++(4xLR1) dual-rate pluggable (Q56DD-400G-4xLR1-DR4++, PN:",
+      "QSFP56-DD FR4 single-rate pluggable (Q56DD-400G-FR4, PN: 3AL82188AB).",
+      "QSFP56-DD LR4 single-rate pluggable (Q56DD-400G-LR4, PN: 3AL82242AB/BA).",
+      "High receiver sensitivity in unamplified link conditions. Profile-dependent performance, review",
+      "Hitless modification of the line structure within the same line carrier profile.",
+      "In-service modification of the line carrier profile within the same line structure type (Flex or",
+      "LLDP snooping on Ethernet client interfaces.",
+      "Digital (ETH/PCS/OTN/FEC) and analog (OCH) monitor groups and alarms. Optical channel",
+      "Path delay measurement",
+      "Integrated test signal (ITS) capabilities including pattern checkers for both Ethernet and OTN"
+     ]
+    },
+    {
+     "name": "Key software features on 16P200",
+     "detail": "In 16P200 ODU SNCP configurations, the traffic disruption time can be measured starting from detection of line-side Signal Failure (SF) or Signal Degrade (SD) to the completion of ODU SNCP switching. The measured traffic disruption time measured by 16P200 maps primarily to the interval starting from “SF or SD trigger” (the start of T2) to “Protection switching operations completed” (the end of T4) which are defined in ITU-T G.808.1. Note the traffic disruption time reported by 16P200 is not the total traffic restoration time starting from “Network impairment” (the start of T1) to “Protected traffic fully restored” (the end of T5) as defined in ITU-T G.808.1 as T1 and T5 are out of detection scope of 16P200. 16P200 ODU SNCP traffic disruption time measurement function can be disabled (default) and enabled through provisioning parameter tdtm-enabled at an egress ODUNIM or ODUPTF facility. The measured time can be retrieved with the parameter tdtm-result, and up to 100 times of measurement (provisionable, 10 as default) can be stored and retrieved. (Q28LR4E, PN: 3AL82219AA).",
+     "bullets": [
+      "16P200 ODU SNCP traffic disruption time measurement.",
+      "Line ports: 100GbE optical interfaces using the QSFP28 I-temp 100GbE LR4 pluggable"
+     ]
+    },
+    {
+     "name": "Key software features on D6A2T4E/EL",
+     "detail": "Provisionable OPSUM/L protection mode based on pre-FEC signal degradation detection. Provisionable OPSB5 protection mode based on ODUk signal degradation (SD) detection per client. Client-side 1+1 optical protection switching via OPSB5 for OTU4, 100GbE, and 400GbE.",
+     "bullets": [
+      "Signal-Degrade OPSUM (dEXCCB)",
+      "Signal degrade (SD) OPSB5 protection",
+      "1+1 optical protection"
+     ]
+    },
+    {
+     "name": "Key software feature on S6AD600H/L",
+     "detail": "dispersion-limited reach.",
+     "bullets": [
+      "100G ZR QSFP28-DCO extended reach support on S6AD600H/L for up to 300 km of"
+     ]
+    },
+    {
+     "name": "Key software features on S13X400E/H",
+     "detail": "Line-side encryption when S13X400E is configured in Client-as-Line (CAL) mode. The work includes 1830 Security Management Server (SMS) support for key management. Line-side encryption when S13X400E is configured in Add-Drop Muxponder (ADM) mode. The work includes 1830 Security Management Server (SMS) support for key management. Client-side 1+1 optical protection switching (OPS) through OPSB5 when S13X400E/H is configured in CAL mode. Photonic Transmission The following are the new photonic transmission-related features in Release 26.6:",
+     "bullets": [
+      "Client port-as-line (CAL) mode on S13X400E with encryption ON",
+      "Add-Drop Muxponder (ADM) mode on S13X400E with encryption ON",
+      "OPSB5 Support in CAL mode"
+     ]
+    },
+    {
+     "name": "Command to clear PCT records and alarms",
+     "detail": "This feature provides an option for the user to clear PCT records and alarms via CLI or WebUI.",
+     "bullets": []
+    },
+    {
+     "name": "Additional OTDR custom profiles",
+     "detail": "This feature introduces three new custom OTDR profiles optimized for fast scanning.",
+     "bullets": []
+    },
+    {
+     "name": "OTS neighbor discovery",
+     "detail": "This feature introduces a new alarm for OTS fiber mismatch. When discovered connectivity through OSC does not match the configured connectivity, the alarm is raised. Supported cards include the OMDCL and AWBILA.",
+     "bullets": []
+    },
+    {
+     "name": "Pump degrade alarm on IRDM20/IROADM9R",
+     "detail": "This feature supports amplifiers pump degrade enhancement on IRDM20 and IROADM9R via new firmware which can be delivered via a utility tool or a software upgrade.",
+     "bullets": []
+    },
+    {
+     "name": "IRDM32L to IR32L seamless swap",
+     "detail": "This feature supports the seamless swap between IRDM32L and IR32L allowing the migration without the need to recreate existing cross-connections.",
+     "bullets": []
+    },
+    {
+     "name": "IR32L configurations",
+     "detail": "The supported configurations for the IR32L card are the same as the IRDM32L card. The supported configurations are:",
+     "bullets": [
+      "C+L",
+      "CDC-F and C-F",
+      "Heterogeneous node with IRDM32L/WR20TFML",
+      "DGE node: C+L EILA/EILAL"
+     ]
+    },
+    {
+     "name": "Seamless ASWG-L to AWBILA migration",
+     "detail": "This feature supports the migration from ASWG-L to AWBILA without the need to re-create existing cross-connections.",
+     "bullets": []
+    },
+    {
+     "name": "Seamless RA2P-96 to RA4P Card migration",
+     "detail": "This feature supports the migration from RA2P-96 to RA4P card without the need to recreate existing cross-connections.",
+     "bullets": []
+    },
+    {
+     "name": "EILA/L support configurable overhead",
+     "detail": "The EILA enhancement feature supports extending the number of EILAs in an OMS section to 26 and adds the ability to configure the EILA overhead for ripple correction.",
+     "bullets": []
+    },
+    {
+     "name": "Cascaded OCHP + OLP using OPSUM/OPSUML and OPSCL",
+     "detail": "This feature supports the OCHP and OLP protection in C-L/C+L configurations. OCHP is configured through OPSUM/L and the OLP through OPSCL.",
+     "bullets": []
+    },
+    {
+     "name": "OPSCL differential switching",
+     "detail": "This feature supports differential switching based on a configured delta between the protection and working paths. Supported with OPSCL based OLP and IOMSP configurations.",
+     "bullets": []
+    },
+    {
+     "name": "Node configuration C+L OLP",
+     "detail": "This feature adds the support of OLP to C-L and C+L configurations. OLP support is added to IROADM, EILA, and ILA (AWBILA) nodes.",
+     "bullets": []
+    },
+    {
+     "name": "APR recovery enhancement",
+     "detail": "This feature adds an enhancement to APR recovery on lines with Raman cards with back reflection monitoring (RA4P, RA5PB). With this feature, during APR recovery the ORL testing will be repeated periodically allowing Raman amplifiers to be activated once ORL testing has passed without the need of user intervention.",
+     "bullets": []
+    },
+    {
+     "name": "OSA spectrum",
+     "detail": "This feature adds an OSA spectrum view on the cards with embedded OCM. System Configuration The following are the new system configuration-related features in Release 26.6:",
+     "bullets": []
+    },
+    {
+     "name": "Secure boot sequence lockdown",
+     "detail": "A new system-wide setting lets you block unauthenticated access to the bootloader over the serial console. When enabled, the system prevents users connected via serial console to interrupt the boot process and access the bootloader. The option can be toggled (enable/disable) via any 1830 PSS management interface, allowing you to keep the lock active in production while still permitting temporary debug or integration access when needed.",
+     "bullets": []
+    },
+    {
+     "name": "USB port lockdown for equipment controllers and shelf panels",
+     "detail": "A single system-wide setting enables or disables the USB ports on equipment controller packs and shelf user panels. When disabled, auto-mount and USB-based scratch-install functions are blocked, preventing USB access to the network element. The feature is available across all supported 1830 PSS management interfaces, including YANG-based APIs, and can be controlled through CLI, NETCONF, or external orchestration systems.",
+     "bullets": []
+    },
+    {
+     "name": "Electrical shelf power-consumption telemetry",
+     "detail": "The input current/voltage, and (for PF units) output current, voltage, and power are retrievable on-demand and streamed on the NETCONF and gRPC management interface using the OpenConfig Platform YANG module. The minimal reporting interval for this data is 60 sec. Any subscription requesting a lower reporting interval for this data than the minimum value will be treated as reporting interval of 60 sec.",
+     "bullets": []
+    },
+    {
+     "name": "LED-based hardware Identification",
+     "detail": "This feature enables on-site technicians to quickly locate a specific shelf, card, or optical module by triggering all LEDs on the selected hardware to blink in a controlled pattern. The blinking helps visually distinguish the target component from surrounding equipment.",
+     "bullets": []
+    },
+    {
+     "name": "SSH host certificate authentication",
+     "detail": "The 1830 PSS now supports OpenSSH host certificate authentication across all SSH-based management interfaces. This allows operators to securely verify the identity of the network element using certificate-based host keys (RSA, ECDSA, ED25519). The system provides the required key pairs, supports multiple certificates, and includes a built-in PKI for certificate provisioning and rotation. Configuration is available via Classic CLI,NETCONF, gRPC, and OpenConfig YANG.",
+     "bullets": []
+    },
+    {
+     "name": "1830 PSS-4hc/10hc reset button",
+     "detail": "The system provides three reset functions using a single hardware reset button, each activated by a simple press pattern and indicated by EPS LED signals. A long press triggers a full controller restart on any controller, while two shorter press-and-release sequences on the main active controller allow customers to clear the configuration database or clear both configuration and IP settings. These reset options offer a quick and reliable way to recover the system without requiring software access. This ensures fast troubleshooting and restores normal operation with minimal effort.",
+     "bullets": []
+    },
+    {
+     "name": "1830 PSS-4hc/10hc power architecture",
+     "detail": "The system supports multiple powering options via dedicated PSUs: tolerance) The power architecture is designed with a power bus bar that allows a flexible number of PSUs to be combined to provide internal −54 V DC power to each slot in the shelf. Each board in the shelf includes a dedicated DC/DC converter to generate board-specific voltages. The power bus bar architecture in the shelf supports: Power management: basis and power consumption support the configured load Synchronization The following are the new synchronization-related features in Release 26.6:",
+     "bullets": [
+      "LVDC (−48 V/−60 V nominal, −36 V to −75 V including tolerance)",
+      "HVDC ETSI (±175 V to ±190 V nominal, ±130 V to ±200 V service range)",
+      "HVDC YD/T China (240 V DC nominal, 192 V to 288 V including tolerance)",
+      "lbAC/hbAC (100 V to 277 V AC, 50/60 Hz nominal; 90 V to 305 V AC, 50/60 Hz including",
+      "A max power consumption of 1.6 kW/slot",
+      "A flexible number of PDUs enabling a growth of the power supply in the shelf as needed",
+      "N+N as well as N+1 PSU protection schemes (HVDC and AC)",
+      "N+N PSU protection scheme for LVDC",
+      "PSS-10hc/4hc requires PSU configuration and threshold settings on a per-shelf and per-slot",
+      "Protection scheme–based PSU configuration is supported",
+      "Monitoring and reporting of bus, feed, and card voltage and current, including I/O card current",
+      "EQM ensures that cards remain powered on; sufficient PSUs must always be provisioned to"
+     ]
+    },
+    {
+     "name": "Support wait-to-restore time and PTP profileVersion 2.8",
+     "detail": "The wait-to-restore (WTR) timer is supported at each PTP port and the WTR time can be configured on a clock base. When a PTP port transitions out of the PTSF state, it must be fault-free for the WTR time before it is again considered as a candidate reference of the PTP clock. The PTP profileVersion supported by 16DC65T, 8DC30T and 8DC30T2 is increased to 2.8, in which the following adjustments of dataset members are made: moved to defaultDS.holdoverWithinSpecificationRemainingDuration. portDS.wtrRemainingTime, defaultDS.timeSinceCurrentClockState.",
+     "bullets": [
+      "Legacy read-only parameter of currentDS.holdoverInSpecificationRemainingDuration is",
+      "Legacy read-only parameter of currentDS.clockState is moved to defaultDS.clockState.",
+      "Add new dataset members: defaultDS.nodeClass, portDS.wtrState,"
+     ]
+    },
+    {
+     "name": "SyncE and PTP insertion/extraction on S13X400E/H",
+     "detail": "This feature provides in-band synchronization (SyncE and PTP insertion/extraction) over the 10GbE/100GbE client interfaces of the S13X400E/S13X400H. Synchronization data carried on the 10GbE/100GbE client signals can be extracted by the card from the customer's data streams received on the client ports and processed by the F-CRU cards of the 1830 PSS-8/16II. Working together with PTPIOC/SYNCTL and the F-CRU cards, the network side separates the synchronization signals from the customer's traffic and transports them through the bi-directional OTC channel. The remaining 10GbE traffic after extracting synchronization data is mapped to an ODU2 payload through GFP-F. The remaining 100GE traffic after extracting synchronization data is mapped to an ODU4 payload through GFP-F and ODUflex. On the client side, the synchronization data is re-inserted into the egress streams, enabling in-band transmission of synchronization information.",
+     "bullets": []
+    },
+    {
+     "name": "SYNCTL card support in 1830 PSI-4L shelves",
+     "detail": "The SYNCTL card is supported on the 1830 PSI-4L shelves with four working modes: local clock mode, local clock extension mode, LambdaConversion mode, and relay mode. Security The following are the new Security-related features in Release 26.6:",
+     "bullets": []
+    },
+    {
+     "name": "OSPFv3 Security Authentication Trailer",
+     "detail": "OSPFv3 Security Authentication Trailer enhances routing security by authenticating OSPFv3 routing updates. It supports modern, stronger cryptographic authentication algorithms from the SHA-2 family (such as SHA-256 and SHA-512), in addition to the available MD5-based protection. Authentication can be enabled or disabled per OSPF interface, giving operators flexibility to meet their security and operational requirements.",
+     "bullets": []
+    },
+    {
+     "name": "Transit BGP routes",
+     "detail": "This feature allows the external DCN to reach a BGP network connected through the 1830 DCN. With this feature, the BGP and OSPF routing protocols policies are implemented to forward traffic from an external Autonomous System (AS) across the 1830 DCN to another external AS. Thus, the 1830 DCN works as a transit network, exchanging routing information at the GNEs to allow traffic to be forwarded through the 1830 DCN. The identification of transit routes within 1830 DCN is based on OSPF tagging. The outgoing BGP routes distributed by GNE to another external AS can be tagged with BGP community tags. BGP IPv4 routes were previously supported; BGP IPv6 routes are supported in this release.",
+     "bullets": []
+    },
+    {
+     "name": "CMPv2 support on NE",
+     "detail": "The 1830 PSS NEs support Certificate Management Protocol (CMP) v2 defined by RFC 4210 toward a Public Key Infrastructure (PKI) CMP server to acquire a Certificate Authority (CA)-signed end-entity (EE) certificate. Only a single signed EE certificate is supported on the NE. New CLI and WebUI commands are available to set CMPv2 server-related configuration parameters (for example: port, IP address, pre-shared key) and send CMP certificate requests. The NE supports the following CMP certificate requests: initialization request, key update request, and polling for status of message requests.",
+     "bullets": []
+    },
+    {
+     "name": "Secure Server-Side File Transfer",
+     "detail": "The 1830 PSS Network Element (NE) can act as a secure file-transfer server, supporting both Secure Copy Protocol (SCP) and Secure File Transfer Protocol (SFTP). This feature can be used to transfer many different types of files (for example, software image files or database files). Therefore, a separate operation is required to either create a file on the NE to transfer out of the NE or to use a file that has been transferred into the NE.",
+     "bullets": []
+    },
+    {
+     "name": "Secure software validation for 1830 PSS-4hc/10hc shelves",
+     "detail": "Software images must be digitally signed. The system verifies the integrity and authenticity of software before installation, ensuring that only trusted software is executed on 1830 PSS-4hc and PSS-10hc platforms. Packet The following packet-related features are available in Release 26.6:",
+     "bullets": []
+    },
+    {
+     "name": "IEEE 802.1X port authentication",
+     "detail": "The IEEE 802.1X port-based Network Access Control (PNAC) protocol is supported on the 18CE300, 12CE121, 12CE120, 1CE100Q packet cards and all the associated functionality (EAP authentication, user validation, etc). The goal is to authenticate end devices connected to client ports and protect against unauthorized access or denial-of-service attacks within active services. With this enhancement, L2 UNIs support standards-based security as defined by IEEE 802.1X and RFC 3748 (EAP), strengthening service security and operational reliability.",
+     "bullets": []
+    },
+    {
+     "name": "Key software features on 18CE300",
+     "detail": "The QSFP28 I-temp (case temperature –40°C to +85°C) 100GbE LR4 pluggable (Q28LR4E, PN: 3AL82219AA), is supported on the following cards/ports and shelves for 100GbE applications: * Ports C13 and C17 on 16P200 cards in 1830 PSS-4II/8 shelves in system ambient temperature range −5°C to +65°C, if not limited by other cards or pluggables in the shelves. * Ports 17 and 18 on 18CE300 cards in 1830 PSS-4II shelves in system ambient temperature range −5°C to +65°C and PSS-8 shelves in system temperature range −40°C to +65°C, if not limited by other cards or pluggables in the shelves. The 100G ZR DWDM Coherent DCO QSFP28 optical module (QDCO1, PN 3AL82265AB) is supported on the 18CE300 card and can be configured to operate in an extended reach mode supporting distances up to 300 km. This is achieved through enhanced chromatic dispersion compensation of up to 6 ns/nm. The pluggable provides full C-band tunability with 50 GHz and 100 GHz channel spacing granularity and guarantees a transmit output power above –8 dBm. Extended reach (300 km) is enabled through a CMIS register configuration command. Modifying this parameter introduces a brief traffic interruption and is therefore recommended during initial installation. When extended reach mode is enabled, module power consumption increases by approximately 0.2 W, up to a maximum of 6.2 W. Maintaining compatibility with grey, WDM, fixed OADM, flexgrid, and route-and-select applications, this enhancement enables standards-based 100G coherent transport over longer distances on the 18CE300 without requiring an uplink card. In the 1830 PSS-32 shelf, the 18CE300 card derives a frequency reference from the SYNCTL synchronization processing card through a 1 GbE connection between a dedicated interworking port on the 18CE300 faceplate (port 12) and an Ethernet port on the SYNCTL card. The 18CE300 card then distributes the frequency reference and the associated ESMC messages to its client Ethernet ports. This functionality enables SyncE distribution to downstream NEs and provides a common frequency reference to the TDM Network Transformation Smart SFP pluggable modules (TPoP, CSoP, TSoP) installed on client ports. ## New features — GMPLS Control Plane 1.3 New features - GMPLS CP",
+     "bullets": [
+      "QSFP28 I-temp 100GbE LR4 pluggable",
+      "100G ZR QSFP28-DCO extended reach support",
+      "Support the SyncE function in the 1830 PSS-32 with 18CE300 and SYNCTL"
+     ]
+    }
+   ],
+   "kind": "software"
+  },
+  {
+   "sec": "1.3.1",
+   "title": "GMPLS CP features in Release 26.6",
+   "items": [
+    {
+     "name": "Support for 4EC3C card on 1830 PSS-4II shelf",
+     "detail": "GMPLS CP supports the 1830 PSS-4II 4EC3C card.",
+     "bullets": []
+    },
+    {
+     "name": "Support for IR32L card on 1830 PSS-8/PSS-16II/PSS-32 and 1830 PSI-4L/PSI-8L shelves",
+     "detail": "GMPLS CP supports node degrees with IR32L cards.",
+     "bullets": []
+    },
+    {
+     "name": "Support for OPSCL card in C-L/C+L configurations",
+     "detail": "GMPLS CP supports the OPSCL card in C-L/C+L configurations.",
+     "bullets": []
+    },
+    {
+     "name": "Support for channel optimization in Elastic Photonic Networking (1830 PSS-16II)",
+     "detail": "The GMPLS CP supports channel optimization as part of the Elastic Photonic Networking (EPN) suite for the following OT cards:",
+     "bullets": [
+      "D6AD2T4H, D6AD2T4L",
+      "S6AD600H, S6AD600L"
+     ]
+    },
+    {
+     "name": "Support for elastic restoration in Elastic Photonic Networking (1830 PSS-8/16II/32)",
+     "detail": "The GMPLS CP supports elastic restoration as part of the Elastic Photonic Networking (EPN) suite for the S6AD600H, S6AD600E, and S6AD600L cards.",
+     "bullets": []
+    },
+    {
+     "name": "Support for elastic restoration in EPN (1830 PSS-16II and 1830 PSS-16II AC)",
+     "detail": "The GMPLS CP supports elastic restoration as part of the EPN suite for the D6A2T4E and D6A2T4EL cards.",
+     "bullets": []
+    },
+    {
+     "name": "Support for OPSUM line protection on D4AD1T6H",
+     "detail": "GMPLS CP supports OPSUM line protection for D4AD1T6H.",
+     "bullets": []
+    },
+    {
+     "name": "Support for D6A2T4E card on 1830 PSS-16II and 1830 PSS-16II AC shelves",
+     "detail": "GMPLS CP supports the enhanced PSE-6s based OT D6A2T4E: * Flex: 300G, 400G, 500G, 600G, 700G, 800G, 1000G * TC: 700G, 800G, 900G, 1000G, 1100G, 1200G * TC: 800G, 1000G, 1200G",
+     "bullets": [
+      "A mix of OTU4, 100GbE, and 400GbE clients",
+      "Cluster configuration",
+      "Line rate: 130Gbd/150GHz",
+      "Line rates: 140Gbd/162.5GHz:",
+      "Inverse Multiplexing (chip-2-chip): 3x400GE over 2x600G",
+      "OPSUM line protection",
+      "Unidirectional 3R"
+     ]
+    },
+    {
+     "name": "Support for D6A2T4EL card on 1830 PSS-16II and 1830 PSS-16II AC shelves",
+     "detail": "GMPLS CP supports the enhanced PSE-6s based L-band OT D6A2T4EL: * Flex: 400G, 500G, 600G, 800G, 1000G * TC: 1000G, 1200G * TC: 800G, 1000G, 1200G",
+     "bullets": [
+      "A mix of OTU4, 100GbE, and 400GbE clients",
+      "Cluster configuration",
+      "Line rates: 130Gbd/150GHz:",
+      "Line rates: 140Gbd/162.5GHz:",
+      "Inverse Multiplexing (chip-2-chip): 3x400GE over 2x600G",
+      "OPSUML line protection",
+      "Unidirectional 3R"
+     ]
+    }
+   ],
+   "kind": "control plane"
+  }
+ ]
+}

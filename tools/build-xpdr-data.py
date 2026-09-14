@@ -315,8 +315,12 @@ def parse_cages(text):
 # Service normalisation. The decks spell the same service several ways.
 SERVICE_ALIASES = [
     (r"\b800\s*GE\b", "800GE"), (r"\b400\s*GE\b", "400GE"),
-    (r"\b100\s*GE\b", "100GE"), (r"\b40\s*GE\b", "40GE"),
-    (r"\b25\s*GE\b", "25GE"), (r"\b10\s*GE\b", "10GE"),
+    # GBE as well as GE: the workbook writes the genuine 40G Ethernet ports as
+    # "QUAD SFP PLUS-40GBE INTERFACE" and "40GBE-10KM", neither of which a
+    # \b40\s*GE\b token reaches, so those cards read as having no 40G client
+    # at all. \bGbE\b on its own still means 1GE and is matched below.
+    (r"\b100\s*GB?E\b", "100GE"), (r"\b40\s*GB?E\b", "40GE"),
+    (r"\b25\s*GB?E\b", "25GE"), (r"\b10\s*GB?E\b", "10GE"),
     (r"\b1\s*GE\b", "1GE"), (r"\bGbE\b", "1GE"), (r"\bFE\b", "FE"),
     (r"\bOTUC4\b", "OTUC4"), (r"\bOTU4\b", "OTU4"),
     (r"\bOTU-?2e\b", "OTU2e"), (r"\bOTU-?2\b", "OTU2"), (r"\bOTU1\b", "OTU1"),
@@ -331,6 +335,25 @@ SERVICE_ALIASES = [
     (r"\bFC-?200\b", "FC200"), (r"\bFC-?100\b", "FC100"),
     (r"\bHD-?SDI\b", "HD-SDI"), (r"\bSD-?SDI\b", "SD-SDI"), (r"\b3GSDI\b", "3G-SDI"),
 ]
+
+# A QSFP+ breakout is a 40G-shaped cage carrying four 10GE services, and its
+# description says so both ways:
+#   "QSFP+ 4 x 10GE/LR4 for 40GE <-> 10GE with breakout fiber"
+#   "QSFP+ 4x 10GE, OTU2, OTU2e, OC-192, & STM-64"
+# The alias pass reads "40GE" out of the first one and the picker then offers
+# the card for a 40GE client it cannot actually carry. What such a module
+# delivers is 10GE, so the 40GE token is dropped for that row only.
+BREAKOUT = re.compile(r"\b4\s*x\s*10\s*GE?\b|breakout", re.I)
+
+# Curated. The client validation tables answer "may this pluggable sit in this
+# cage", not "does the card map this service", and the two part company on
+# UTM2: its S1 list carries 81.71T-Q40GSR4-R6 and -Q40GLR4-R6, whose
+# descriptions say 40GBE, but the card runs those QSFP+ cages as 4x10GE only.
+# UCM4's TOM-40G-Q-SR4 is a real 40GE port and keeps it. Field rule from
+# Quang, Sep-2026 — it contradicts the workbook, so it is flagged in output.
+SERVICE_DENY = {
+    "UTM2": ["40GE"],
+}
 
 # Service -> bit rate in Gb/s, for the sub-100G test and for port maths.
 SERVICE_RATE = {
@@ -473,19 +496,22 @@ def gx_services(rules, sled, tables=None):
     for t in (tables if tables is not None else (sled.get("clientValidationTables") or [])):
         for row in ol.get(t + "_LIST", []) or []:
             d = row.get("description") or ""
+            breakout = bool(BREAKOUT.search(d))
             for pat, name in SERVICE_ALIASES:
                 if re.search(pat, d, re.I):
+                    if breakout and name == "40GE":
+                        continue          # the cage is 40G; the service is 10GE
                     svc.add(name)
             # "QSFP-DD 400G BASE-DR4" style descriptions carry the rate but
             # not the service name, so map the rate to the Ethernet service.
             m = re.search(r"\b(\d+)\s*G(?:BASE)?\b", d, re.I)
             if m and ("BASE" in d.upper() or "GE" in d.upper()):
                 g = int(m.group(1))
-                if g in (800, 400, 100, 40, 25, 10, 1):
+                if g in (800, 400, 100, 40, 25, 10, 1) and not (breakout and g == 40):
                     svc.add("%dGE" % g)
             if re.search(r"\b4\s*x\s*100G", d, re.I):
                 svc.add("100GE")
-            if re.search(r"\b4\s*x\s*10GE", d, re.I):
+            if breakout:
                 svc.add("10GE")
     return sorted(svc)
 
@@ -601,9 +627,12 @@ def build_gx(rules):
         hosts = [full for short, full in chassis_key.items()
                  if name in legal.get(short, set())]
 
-        services = gx_services(rules, sled, all_tables)
         fam = re.match(r"(CHM7X|CHM7|CHM6|CHMQ6|SPN2C|SPN2|CHM1R|CHM2TX|UCM4|UTM2)", name)
         fam = fam.group(1) if fam else name
+
+        services = gx_services(rules, sled, all_tables)
+        denied = [s for s in SERVICE_DENY.get(fam, []) if s in services]
+        services = [s for s in services if s not in denied]
 
         band = ["L"] if re.search(r"-L\d", name) else ["C"]
 
@@ -628,6 +657,7 @@ def build_gx(rules):
             ("zr", []),
             ("clientCages", cages),
             ("clientServices", services),
+            ("servicesDenied", denied),
             ("futureServices", []),
             ("slots", sled.get("slots") or 1),
             ("height", "full"),
@@ -680,6 +710,116 @@ PSS_GROUPS = {
     "1830 PSS HSEO Transponders : Super Coherent (High Perf)": "HSEO super-coherent",
     "1830 PSS LSEO OTN Transponder/Muxponder": "LSEO OTN",
 }
+
+
+# ---------------------------------------------------------------------------
+# Guide-only transponders
+#
+# Taking only the cards that appear on a roadmap slide dropped 46 of the 55
+# PSS transponders the planning guide lists, 36 of them shipping — the whole
+# S13X100, S2AD200 and S4X400 families among them. The roadmap deck covers
+# what Nokia is *talking about*; the guide covers what you can *order*, and a
+# picker has to search the second.
+#
+# A guide-only card brings a description, a shelf list, a slot count and its
+# power figures, but no cage inventory and no client-service list. Those are
+# left null and flagged rather than guessed, so the engine can say "the client
+# side is not in the source, confirm it" instead of silently inventing one.
+# ---------------------------------------------------------------------------
+
+# "100G Mux/Xpdr/Uplink", "200G Single Port Mux Transponder card (2 clients)",
+# "40G Single Port Tunable Mux Coherent (4 client)", "112G Data Center ..."
+GUIDE_RATE = re.compile(r"(?<![\w.])(\d{2,4})\s*G(?![A-Za-z])")
+GUIDE_CLIENTS = re.compile(r"\((\d{1,2})\s*clients?\)|\b(\d{1,2})\s*CL\b", re.I)
+
+# Rates the guide quotes as line-side figures that are really an OTN line rate
+# with FEC overhead — 112G is OTU4, 130G is the old 100G coherent line.
+GUIDE_RATE_NORMALISE = {112: 100, 130: 100, 11: 10, 12: 10, 43: 40}
+
+
+def guide_line_rate(desc, category):
+    rates = set()
+    for m in GUIDE_RATE.finditer(desc or ""):
+        v = int(m.group(1))
+        v = GUIDE_RATE_NORMALISE.get(v, v)
+        if v in (10, 40, 100, 200, 300, 400, 500, 600, 800, 1000, 1200):
+            rates.add(v)
+    if not rates:
+        m = re.search(r"(\d{2,4})\s*G", category or "")
+        if m:
+            v = int(m.group(1))
+            v = GUIDE_RATE_NORMALISE.get(v, v)
+            if v >= 10:
+                rates.add(v)
+    return sorted(rates)
+
+
+def guide_client_count(desc):
+    m = GUIDE_CLIENTS.search(desc or "")
+    if not m:
+        return None
+    return int(m.group(1) or m.group(2))
+
+
+def build_pss_guide_only(cards, guide, already):
+    """Shipping transponders the planning guide lists that no roadmap slide
+    covers. Partial by nature, and marked as such."""
+    power = {}
+    for row in (guide.get("power") or []):
+        if row.get("component"):
+            power[row["component"]] = row
+    parts = {}
+    for row in (guide.get("parts") or []):
+        if row.get("abbrev"):
+            parts.setdefault(row["abbrev"], row)
+
+    out = []
+    for c in cards["cards"]:
+        if c.get("type") != "Transponder" or c["name"] in already:
+            continue
+        if not c.get("shipping") or not c.get("shelfList"):
+            continue
+
+        desc = c.get("description") or ""
+        cat = (parts.get(c["name"]) or {}).get("category") or ""
+        rates = guide_line_rate(desc, cat)
+        if not rates:
+            continue                      # no rate anywhere — not placeable
+
+        pw = power.get(c["name"]) or {}
+        nclients = guide_client_count(desc)
+
+        out.append(OrderedDict([
+            ("id", "PSS:" + c["name"]),
+            ("platform", "PSS"),
+            ("name", c["name"]),
+            ("family", cat or "planning guide"),
+            ("kind", "muxponder" if (nclients or 0) > 1 else "transponder"),
+            ("lineCarriers", 1),
+            ("lineRatesG", rates),
+            ("lineMinG", rates[0]), ("lineMaxG", rates[-1]),
+            ("lineType", "embedded"), ("lineModes", []),
+            ("linePluggableSlots", 0),
+            ("band", ["L"] if re.search(r"L.band|\bL\b$", desc) else ["C"]),
+            ("baudGBd", []), ("spacingGHz", []), ("dsp", None), ("zr", []),
+            # The two things the guide does not carry.
+            ("clientCages", [{"type": "client", "qty": nclients}] if nclients else []),
+            ("clientServices", None),
+            ("clientsUnknown", True),
+            ("futureServices", []),
+            ("slots", pw.get("slots") or 1),
+            ("height", "full"),
+            ("hosts", c.get("shelfList") or []),
+            ("shipping", True),
+            ("release", c.get("release")),
+            ("encryption", "L1 encryption" if re.search(r"encrypt", desc, re.I) else None),
+            ("weightKg", pw.get("weightKg")),
+            ("powerW", pw.get("p100") or pw.get("pMax")),
+            ("source", "PSS Product Information and Planning Guide "
+                       "(no roadmap slide — client side not stated)"),
+            ("raw", {"description": desc, "category": cat}),
+        ]))
+    return out
 
 
 def build_pss(cards):
@@ -794,7 +934,10 @@ def main():
     rules = json.load(open(GX))
     cards = json.load(open(PSS))
 
-    xpdr = build_gx(rules) + build_pss(cards)
+    pss = build_pss(cards)
+    guide = json.load(open(os.path.join(ROOT, "assets", "pss-data.json")))
+    guide_only = build_pss_guide_only(cards, guide, {x["name"] for x in pss})
+    xpdr = build_gx(rules) + pss + guide_only
     hosts = build_hosts(rules, cards)
 
     data = OrderedDict([
@@ -809,6 +952,7 @@ def main():
             "curatedRules": ["depthClass", "cascade", "wson"],
             "counts": {
                 "xpdr": len(xpdr),
+                "pssFromGuideOnly": len(guide_only),
                 "gx": sum(1 for x in xpdr if x["platform"] == "GX"),
                 "pss": sum(1 for x in xpdr if x["platform"] == "PSS"),
                 "hosts": len(hosts),

@@ -279,13 +279,22 @@ console.log('\n[10] Sanity on the data itself');
 check('every card has at least one line rate',
   data.xpdr.every(x => x.lineRatesG.length > 0),
   data.xpdr.filter(x => !x.lineRatesG.length).map(x => x.name).join(','));
+// 40 joins 10 as a legitimate non-century rate: the older PSS muxponders
+// (43SCX4, 43STX4P) are 40G line cards the guide writes as 43G, the OTU3 rate
+// with FEC. The point of this check is that no baud figure — 130GBd, 96GBd —
+// is ever read as a line rate, and none is.
+const OK_RATE = r => r % 100 === 0 || r === 40 || r === 10 || r === 3;
 check('no line rate is a stray baud figure',
-  data.xpdr.every(x => x.lineRatesG.every(r => r % 100 === 0 || r === 10 || r === 3)),
-  data.xpdr.filter(x => x.lineRatesG.some(r => r % 100 && r !== 10 && r !== 3))
+  data.xpdr.every(x => x.lineRatesG.every(OK_RATE)),
+  data.xpdr.filter(x => x.lineRatesG.some(r => !OK_RATE(r)))
       .map(x => x.name + ':' + x.lineRatesG).join(' '));
-check('every card has client cages',
-  data.xpdr.every(x => x.clientCages.length > 0),
-  data.xpdr.filter(x => !x.clientCages.length).map(x => x.name).join(','));
+// Cards sourced only from the planning guide carry no cage inventory. That is
+// the source's gap, not the build's, and they are flagged clientsUnknown so
+// the engine says so instead of inventing a cage count.
+check('every card has client cages, or says it does not know',
+  data.xpdr.every(x => x.clientCages.length > 0 || x.clientsUnknown),
+  data.xpdr.filter(x => !x.clientCages.length && !x.clientsUnknown)
+      .map(x => x.name).join(','));
 check('every card names a host',
   data.xpdr.every(x => x.hosts.length > 0),
   data.xpdr.filter(x => !x.hosts.length).map(x => x.name).join(','));

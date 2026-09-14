@@ -47,6 +47,11 @@
           blurb: 'Shelf geometry and slot ranges, the release timeline through ' +
                  'R27.Q4, the planning guide’s own 715-term glossary, and an ' +
                  'honest list of what the sources do not cover.' },
+        { group: 'PSS', href: 'pss-features.html', label: 'PSS Feature Map',
+          icon: 'FM',
+          blurb: 'Release 26.6 from the 24-manual document set — what the ' +
+                 'platform can do, what changed this release, and which of ' +
+                 'the 38,766 pages to open. Searchable, filtered by topic.' },
         { group: 'Solutions', href: 'portfolio-insight.html',
           label: 'Portfolio Insight', icon: 'PI',
           blurb: 'The optical portfolio at a glance — what each shelf can host, ' +

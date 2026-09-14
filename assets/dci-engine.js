@@ -396,14 +396,24 @@
     var inv = inventory(xpdr);
     var cap = totalCages(inv);
 
+    // A planning-guide-only card brings a shelf list, a slot count, power and
+    // a line rate, but no cage inventory and no client-service list — the
+    // roadmap slide that carries those is the one it does not have. Dropping
+    // such cards hid most of the shipping PSS catalogue (S13X100, S2AD200,
+    // S4X400, 20P200 among them), so instead they stay in the running with the
+    // client side declared unverified: clients are taken as landable, the card
+    // is told to say so, and the score is docked far enough that any card with
+    // a confirmed client side of the same shape outranks it.
+    var clientsUnverified = !!xpdr.clientsUnknown;
+
     // Services the card handles natively.
     var direct = [], viaCascade = [];
     need.clients.forEach(function (c) {
-      if ((xpdr.clientServices || []).indexOf(c.service) >= 0) direct.push(c);
+      if (clientsUnverified || (xpdr.clientServices || []).indexOf(c.service) >= 0) direct.push(c);
       else viaCascade.push(c);
     });
 
-    var cascade = findCascade(xpdr, data, need, hosts);
+    var cascade = clientsUnverified ? null : findCascade(xpdr, data, need, hosts);
 
     var unsupported = viaCascade.filter(function (c) {
       if (!c.sub100) return true;                       // not a cascade case
@@ -434,7 +444,7 @@
     var portsOnCard = direct.reduce(function (s, c) { return s + c.qty; }, 0) + uplinks;
     var seating = seat(demands, inv, { breakout: need.breakout });
 
-    if (!seating.ok) {
+    if (!seating.ok && !(clientsUnverified && !cap)) {
       blockers.push('not enough client cages — needs ' + portsOnCard +
                     ', card has ' + cap);
     }
@@ -485,7 +495,12 @@
     var score = 0;
 
     // 1. Native client coverage beats a cascade, decisively.
-    if (!cascade) {
+    if (clientsUnverified) {
+      score += 6;
+      costs.push('client side not stated in the planning guide — this card has ' +
+                 'no roadmap slide, so the cages and services above are not ' +
+                 'confirmed. Check the card sheet before quoting it.');
+    } else if (!cascade) {
       score += 40;
       fits.push('lands every client directly — no cascade card');
     } else if (cascade.resolved) {
@@ -538,7 +553,10 @@
     //    A wall of idle cages is the same over-spec problem as an idle line
     //    rate: the customer is quoted a card sized for a bigger job.
     var spare = cap - portsOnCard;
-    if (spare >= 1 && spare <= Math.max(2, Math.ceil(portsOnCard / 2))) {
+    if (clientsUnverified && !cap) {
+      // No cage count in the source. Score nothing either way rather than
+      // reading the missing number as zero cages and paying out for it.
+    } else if (spare >= 1 && spare <= Math.max(2, Math.ceil(portsOnCard / 2))) {
       score += 14; fits.push(spare + ' spare client cage' + (spare > 1 ? 's' : '') + ' for growth');
     } else if (spare === 0) {
       score += 11; costs.push('every client cage used — no room to grow');
@@ -619,6 +637,7 @@
       costs: costs,
       blockers: [],
       cascade: cascade,
+      clientsUnverified: clientsUnverified,
       inventory: inv,
       capacity: cap,
       portsNeeded: portsOnCard,

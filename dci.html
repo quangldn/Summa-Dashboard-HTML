@@ -190,6 +190,10 @@
              font-size: 12px; font-weight: 650; color: var(--warn-ink); }
   .casc p { margin: 5px 0 0; font-size: 12.5px; line-height: 1.5;
             color: var(--ink-2); }
+  /* Same callout, different meaning: a cascade is a design consequence, an
+     unverified client side is a gap in the source. Keep them distinguishable. */
+  .casc.unver { background: var(--surface-2); border-style: dashed; }
+  .casc.unver .t { color: var(--ink-2); }
 
   .card .ft { border-top: 1px solid var(--line); background: var(--surface-2);
               padding: 9px 17px; display: flex; gap: 14px; flex-wrap: wrap;
@@ -570,13 +574,29 @@
       ]),
     ]));
 
+    if (r.clientsUnverified) {
+      card.appendChild(el('div', { class: 'casc unver' }, [
+        el('div', { class: 't' }, [
+          el('span', { class: 'dot', style:
+            'width:5px;height:5px;border-radius:50%;background:currentColor;display:inline-block' }),
+          el('span', { text: 'Client side not confirmed' }),
+        ]),
+        el('p', { text: x.name + ' is in the planning guide but has no roadmap ' +
+          'slide, and the slide is what states the cages and the client services. ' +
+          'The line rate, shelf list and slot count below are sourced; the client ' +
+          'side is not. Check the card sheet before you quote it.' }),
+      ]));
+    }
+
     var cageUse = r.capacity ? Math.round(r.portsNeeded / r.capacity * 100) : 0;
     var fillLabel = 'Wavelength fill · ' + r.carriersUsed + ' x ' + FMT(r.effRateG);
     card.appendChild(el('div', { class: 'meters' }, [
       meter(fillLabel, r.lineUtil + '%', r.lineUtil),
       meter('Card used · ' + r.carriersTotal + ' x ' + FMT(r.ceilingRateG),
             r.cardUsePct + '%', r.cardUsePct),
-      meter('Client cages', r.portsNeeded + ' of ' + r.capacity, cageUse),
+      meter('Client cages',
+            r.clientsUnverified && !r.capacity
+              ? 'not stated' : r.portsNeeded + ' of ' + r.capacity, cageUse),
     ]));
 
     if (r.cascade && r.cascade.resolved) {
