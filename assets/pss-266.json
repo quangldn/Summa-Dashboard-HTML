@@ -575,7 +575,7 @@
      "sec": "2.44",
      "title": "Spectrum sharing in subsea environment",
      "page": 511,
-     "topic": "Monitoring"
+     "topic": "Subsea"
     },
     {
      "sec": "2.45",
@@ -587,7 +587,7 @@
      "sec": "2.46",
      "title": "Subsea protection",
      "page": 518,
-     "topic": "Protection"
+     "topic": "Subsea"
     },
     {
      "sec": "2.47",
@@ -663,7 +663,7 @@
      "sec": "4.5",
      "title": "L2 features in Provider Bridge mode",
      "page": 549,
-     "topic": "Amplifier / power"
+     "topic": "Carrier Ethernet"
     },
     {
      "sec": "4.6",
@@ -675,7 +675,7 @@
      "sec": "4.7",
      "title": "L2 features common to Provider Bridge and MPLS-TP modes",
      "page": 606,
-     "topic": "Amplifier / power"
+     "topic": "Carrier Ethernet"
     },
     {
      "sec": "4.8",
@@ -713,7 +713,7 @@
      "sec": "5.2",
      "title": "Synchronous Ethernet (SyncE)",
      "page": 674,
-     "topic": "Carrier Ethernet"
+     "topic": "Synchronization"
     },
     {
      "sec": "5.3",
@@ -725,7 +725,7 @@
      "sec": "5.4",
      "title": "Cards with Ethernet interface and their capabilities for SyncE and IEEE 1588v2",
      "page": 706,
-     "topic": "Carrier Ethernet"
+     "topic": "Synchronization"
     },
     {
      "sec": "5.5",
@@ -799,7 +799,7 @@
      "sec": "6.10",
      "title": "Anti-theft Protection (ATP)",
      "page": 791,
-     "topic": "Protection"
+     "topic": "Security"
     },
     {
      "sec": "6.11",

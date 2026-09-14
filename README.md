@@ -1,25 +1,58 @@
-# SUMMA — HTML Workbench (v1)
+# SUMMA — HTML Workbench
 
 Static HTML companion to **SUMMA** (Quang's Nokia ON Sales Engineering
 automation). Lives in a private GitHub repo, opens directly from a local
 clone — no build step, no server.
 
-> **v4 status** (Sep 2026): the configurator now produces a quotable BoM —
-> chassis kits, fans, PEMs, controllers, fillers and mount kits with real part
-> numbers — plus PEM/breaker sizing and sparing, OLP 1+1 protection with a
-> diverse route B, and an OSNR link budget that picks the amp strategy instead
-> of the user guessing. The portfolio page gained full-text search, field-scoped
-> queries and deep links.
+Version history lives in [`CHANGELOG.md`](CHANGELOG.md). This file describes
+what the workbench *is*; the changelog describes how it got here.
 
 ## Pages
 
-- `index.html` — landing portal with two cards.
-- `dashboard.html` — **Summa Dashboard**: Hyperscaler intel + APAC datacenter
-  map + **full Nokia hyperscaler portfolio (55 PNs across 11 sections)**.
-- `mofn.html` — **HS OLS Configurator**: interactive BoM generator for
-  hyperscaler MOFN deployments. Pick band, FP, distance, amp strategy,
-  rack constraints → get the recommended chassis + cards + power + rack
-  space rollup.
+**Picking and configuring**
+
+- `dci.html` — **DCI Picker**: describe a DCI requirement (client mix, how hard
+  the link is, what constrains the site) and it ranks the GX and PSS
+  transponders that can carry it, scoring for right-sizing rather than
+  capability. Engine in `assets/dci-engine.js`, data in `assets/xpdr-data.json`,
+  regression suite in `tools/dci-cases.js`.
+- `mofn.html` — **HS OLS Configurator**: BoM generator for hyperscaler MOFN
+  deployments. Band, FP, distance, amp strategy and rack constraints in;
+  chassis, cards, power and rack rollup out.
+- `gx-bom.html` — **GX BOM Configurator**: config → node → network → BoM,
+  driven by `assets/gx-rules.json` extracted from the V3.0 workbook.
+
+**Knowing the portfolio**
+
+- `gx-portfolio.html` — the whole 1830 GX line with release status, shelf
+  support, slot cost and optical specs. Data in `assets/gx-data.js`.
+- `pss-portfolio.html` — the same for 1830 PSS / PSI.
+- `portfolio-insight.html` — infographic views across GX, PSS and both
+  combined: shelf reference sheets, transponder insight, optical-layer insight,
+  each with a table view and Copy-as-TSV.
+- `graph.html` — **Knowledge Graph** *(prototype)*: the PSS 26.6 feature set and
+  the transponder catalogue as one force-directed graph — 301 nodes, 547 edges.
+  Answers the questions a list cannot, like which card buys you a given feature
+  and which shelf it then needs. Not linked from the nav yet.
+
+**Knowing the product**
+
+- `gx-wiki.html` — live GX part-number decoder plus naming grammar, chassis
+  geometry, slot costs, acronyms, and a standing list of corrections and source
+  conflicts. Data in `assets/gx-wiki-data.js`.
+- `pss-wiki.html` — the PSS equivalent.
+- `pss-features.html` — **PSS Feature Map**: the Release 26.6 document set
+  catalogued and routed — 24 manuals, 38,766 pages. Feature map, what is new in
+  26.6, and where to look for everything else.
+
+**Intel**
+
+- `index.html` — landing portal.
+- `dashboard.html` — hyperscaler intel, APAC datacenter map, and the full Nokia
+  hyperscaler portfolio.
+- `market-insight.html`, `hyperscaler.html`, `product.html` — section landings.
+- `reports/` — standalone insight reports. See
+  [`HOW-TO-ADD-A-REPORT.md`](HOW-TO-ADD-A-REPORT.md).
 
 ## Reference data
 
@@ -133,79 +166,52 @@ These live in `mofn-configurator-archive.md` in full detail. Highlights:
   `mofn.html`. When PLM ships new cards, update the xlsx first.
 - **Branding** — `assets/styles.css`, `:root` variables for Nokia colors.
 
-## Pushing to GitHub
+## Working on it
 
-```bash
-cd "OUTPUTS/Summa Dashboard HTML"
-git init
-git add .
-git commit -m "v1: full MOFN HS OLS Configurator + populated portfolio"
-git branch -M main
-git remote add origin git@github.com:<you>/<repo>.git
-git push -u origin main
-```
+The repo is already set up; the loop is edit, commit, push from GitHub Desktop.
 
-If you later want a public preview, enable GitHub Pages on the repo
-(Settings → Pages → Branch: `main` → root). Note: this would make the
-private content public, so only do that if you've decoupled anything
-sensitive (no internal Nokia PN data exposure concerns — all PNs are
-publicly catalogued).
+Two rules that matter:
+
+- **Never hand-edit generated data.** Anything in `assets/` ending `.json` or
+  `-data.js` comes from a builder in `tools/`. Edit the builder, re-run it,
+  commit both — otherwise the next run silently discards your change.
+- **Run the checks before committing a page you changed.**
+  `node tools/dci-cases.js` (59 assertions on the picker engine),
+  `node tools/check-dci-page.js`, `tools/check-insight-page.js`,
+  `tools/check-pss-features.js` — the page checkers drive the real page
+  headless and verify contrast, interaction and both themes.
+
+Line endings are pinned in `.gitattributes` (LF for source, CRLF for
+`.bat`/`.cmd`/`.ps1`, explicit `binary` for Office files and images), so
+GitHub Desktop's CRLF warning on a source file means the file arrived from
+somewhere that did not honour it.
 
 ## Folder layout
 
 ```
-Summa Dashboard HTML/
-├── index.html                          ← landing portal
-├── dashboard.html                      ← Summa Dashboard + Portfolio
-├── mofn.html                           ← HS OLS Configurator (v3.x engine)
-├── HS Configurator v3.1.xlsx           ← catalog source of truth
-├── mofn-configurator-archive.md        ← engine logic doc
-├── README.md                           ← this file
-├── .gitignore
-└── assets/
-    ├── styles.css                      ← shared visual styles
-    ├── news.js                         ← Hyperscaler news (Google News RSS)
-    └── map.js                          ← APAC datacenter map (Leaflet)
+Summa-Dashboard-HTML/
+├── *.html                  ← one file per page, no build step
+├── assets/
+│   ├── theme.css           ← the token system (light + dark)
+│   ├── nav-bar.css nav.js  ← shared nav, used by every page
+│   ├── cmdk.css cmdk.js    ← Ctrl-K command palette
+│   ├── *-engine.js         ← the logic behind a configurator
+│   ├── *-charts.js         ← chart forms
+│   └── *.json *-data.js    ← generated data, never hand-edited
+├── tools/                  ← extractors and builders, see tools/README.md
+│   ├── extract-*.py        ← source document → cached JSON
+│   ├── build-*.py          ← cached JSON → the data a page loads
+│   └── *-cases.js check-*.js ← regression suites and page checkers
+├── reports/                ← standalone insight reports
+├── CHANGELOG.md            ← version history
+└── README.md               ← this file
 ```
+
+Anything in `assets/` ending `.json` or `-data.js` is **generated**. Change the
+builder in `tools/`, re-run it, commit both. `tools/README.md` says which
+builder owns which file and what source each reads.
 
 ## Changelog
 
-- **v4 (Sep 2026)** — *Complete BoM, redundancy & protection, OSNR gating.*
-  - **Common equipment**: every chassis now ships its real FRU list (chassis,
-    fans, controller, I/O panel, PEMs, slot/PSU/controller fillers, mounting
-    kit) sourced from the PowerDraw R9.0 per-FRU sheets, with weights. Power
-    stays on PowerDraw's measured chassis aggregate; only equipment beyond the
-    base build adds to it.
-  - **Redundancy**: controllers per chassis (1 / 1+1) and PEM feed
-    (non-redundant / 1+1 / 1:N), both feeding the BoM and the power budget.
-  - **PEM & breaker plan**: a new panel reproducing PowerDraw's own sizing —
-    input load at 0.90 efficiency, PEM count against a 1300 W module, and
-    minimum breaker current at 40.5 V with 0.85 derate. Matches the
-    spreadsheet to 0.01 A on the canonical G34c ILA site.
-  - **Protection**: OLP 1+1 adds an OPS module per fiber pair per term node and
-    a full diverse route B with its own ILA chain, rolled into power, space,
-    weight, PEM plan and spares.
-  - **Sparing**: percentage of deployed quantity per PN with an optional
-    minimum of one, excluding blanks and brackets.
-  - **OSNR gating**: fiber type, target transponder and line rate, launch power
-    and margin drive a link budget that walks EDFA → EDFA+Raman → Hybrid and
-    picks the first that closes — or says plainly that nothing does. The reach
-    model is now shared with the Transponder Advisor rather than duplicated.
-  - **Portfolio search**: free-text and field-scoped (`cat:`, `band:`, `rel:`…)
-    search across the quadrant, matrix and detail table, with live match counts,
-    highlighted hits, collapsing empty sections, `#pn=` / `#q=` deep links,
-    click-to-jump from the matrix, and `/` `Esc` `Enter` shortcuts.
-  - **Fixes**: duplicate OTDR line at the term node; G34c max@55 °C reported as
-    134 W instead of 381 W; chassis rows wrongly tagged `over-prov`; 9,521
-    trailing NUL bytes in `portfolio.html`.
-
-- **v1 (May 2026)** — Dashboard portfolio populated (55 PNs × 11 sections).
-  MOFN page replaced with full interactive HS OLS Configurator. Engine
-  refactored across v2 (capability rules) → v3 (distance-driven topology,
-  BIDI/uni-dir, ROADM degree, slot-based chassis, family rules) →
-  v3.1 (RD32TH-L0 R10.0, Super C+L X+L combo, hybrid→EDFA+Raman fallback,
-  mixed-ILA split, RPBL exclusion, OTDR toggle). PowerDraw R9.0 integrated.
-  HS Configurator v3.1.xlsx and archive .md included in repo.
-
-- **v0.1 (May 2026, draft)** — Static dashboard with hyperscaler news,
-  APAC datacenter map, empty portfolio table. MOFN page was a placeholder.
+Moved to [`CHANGELOG.md`](CHANGELOG.md), so there is one place to look rather
+than two that drift apart.

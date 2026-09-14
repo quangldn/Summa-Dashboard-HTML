@@ -11,3 +11,7 @@ desktop.ini
 
 # Logs
 *.log
+
+# Python bytecode from the extractor tools
+__pycache__/
+*.pyc

@@ -1,0 +1,844 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Knowledge Graph — SUMMA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/theme.css" />
+  <link rel="stylesheet" href="assets/nav-bar.css" />
+  <link rel="stylesheet" href="assets/cmdk.css" />
+  <script src="assets/nav.js" defer></script>
+  <script src="assets/cmdk.js" defer></script>
+
+  <style>
+  .wrap { max-width: 1400px; margin: 0 auto; padding: 0 20px 40px; }
+  html { overflow-x: clip; }
+  [hidden] { display: none !important; }
+
+  .head { padding: 24px 0 12px; }
+  .head h1 { margin: 0; }
+  .head p { margin: 8px 0 0; color: var(--ink-2); font-size: 13.5px;
+            line-height: 1.55; max-width: 70ch; }
+  .head .proto { display: inline-flex; align-items: center; gap: 6px;
+                 margin-left: 10px; vertical-align: 5px;
+                 font-size: 11px; font-weight: 700; letter-spacing: .04em;
+                 text-transform: uppercase; color: var(--warn-ink);
+                 background: var(--warn-soft); border: 1px solid var(--line);
+                 border-radius: var(--r-pill); padding: 3px 9px; }
+
+  /* ------------------------------------------------------------ toolbar */
+  .bar { display: flex; gap: 10px 16px; align-items: center; flex-wrap: wrap;
+         padding: 12px 0 13px; border-bottom: 1px solid var(--line); }
+  .bar .grow { flex: 1 1 200px; min-width: 160px; }
+  .search { position: relative; display: block; }
+  .search input { width: 100%; font: inherit; font-size: 13px;
+    padding: 8px 11px 8px 31px; color: var(--ink);
+    background: var(--surface); border: 1px solid var(--line-strong);
+    border-radius: var(--r); }
+  .search input:focus { outline: 2px solid var(--accent); outline-offset: 1px;
+                        border-color: transparent; }
+  .search svg { position: absolute; left: 10px; top: 50%; margin-top: -7px;
+                color: var(--ink-3); pointer-events: none; }
+
+  .seg { display: inline-flex; gap: 3px; background: var(--surface-2);
+         border: 1px solid var(--line); border-radius: var(--r-sm); padding: 2px; }
+  .seg button { font: inherit; font-size: 12px; font-weight: 600;
+    padding: 5px 10px; border: 0; border-radius: 5px; cursor: pointer;
+    background: none; color: var(--ink-2); }
+  .seg button:hover { color: var(--ink); }
+  .seg button[aria-pressed="true"] { background: var(--surface);
+    color: var(--ink); box-shadow: var(--lift); }
+
+  .btn { font: inherit; font-size: 12.5px; font-weight: 600; cursor: pointer;
+    padding: 7px 12px; color: var(--ink-2); background: var(--surface);
+    border: 1px solid var(--line-strong); border-radius: var(--r-sm); }
+  .btn:hover { color: var(--ink); background: var(--surface-2); }
+
+  /* ------------------------------------------------------------- legend */
+  .legend { display: flex; flex-wrap: wrap; gap: 4px; padding: 11px 0 0; }
+  .legend button { font: inherit; font-size: 11.5px; font-weight: 600;
+    display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+    padding: 4px 10px 4px 7px; border-radius: var(--r-pill);
+    border: 1px solid var(--line); background: var(--surface);
+    color: var(--ink-2); }
+  .legend button:hover { border-color: var(--line-strong); color: var(--ink); }
+  .legend button[aria-pressed="false"] { opacity: .42; }
+  .legend .sw { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+  .legend .n { color: var(--ink-3); font-variant-numeric: tabular-nums; }
+
+  /* --------------------------------------------------------------- stage */
+  .stage { display: grid; grid-template-columns: 1fr 316px; gap: 14px;
+           margin-top: 13px; }
+  @media (max-width: 900px) { .stage { grid-template-columns: 1fr; } }
+
+  .canvaswrap { position: relative; background: var(--surface);
+    border: 1px solid var(--line); border-radius: var(--r-lg);
+    overflow: hidden; height: min(74vh, 760px); min-height: 420px; }
+  @media (max-width: 900px) { .canvaswrap { height: 62vh; } }
+  #cv { display: block; width: 100%; height: 100%; cursor: grab;
+        touch-action: none; }
+  #cv.drag { cursor: grabbing; }
+
+  .hint { position: absolute; left: 12px; bottom: 10px; z-index: 3;
+    font-size: 11.5px; color: var(--ink-3); background: var(--surface);
+    border: 1px solid var(--line); border-radius: var(--r-pill);
+    padding: 4px 11px; pointer-events: none; }
+  /* On a narrow screen the hint runs under the zoom buttons. The zoom
+     buttons are the useful half — a phone has no scroll wheel. */
+  @media (max-width: 640px) { .hint { display: none; } }
+  .zoomui { position: absolute; right: 12px; bottom: 10px; z-index: 3;
+            display: flex; gap: 4px; }
+  .zoomui button { font: inherit; font-size: 13px; font-weight: 650;
+    width: 28px; height: 28px; cursor: pointer; color: var(--ink-2);
+    background: var(--surface); border: 1px solid var(--line-strong);
+    border-radius: var(--r-sm); }
+  .zoomui button:hover { color: var(--ink); background: var(--surface-2); }
+
+  .tip { position: absolute; z-index: 4; pointer-events: none;
+    max-width: 270px; font-size: 12px; line-height: 1.45;
+    background: var(--surface); color: var(--ink);
+    border: 1px solid var(--line-strong); border-radius: var(--r-sm);
+    box-shadow: var(--float); padding: 7px 10px; }
+  .tip b { display: block; font-weight: 650; }
+  .tip span { color: var(--ink-3); font-size: 11.5px; }
+
+  /* --------------------------------------------------------------- panel */
+  .panel { background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--r-lg); padding: 15px 16px; align-self: start;
+    max-height: min(74vh, 760px); overflow: auto; }
+  @media (max-width: 900px) { .panel { max-height: none; } }
+  .panel .kind { display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 700; letter-spacing: .04em;
+    text-transform: uppercase; color: var(--ink-3); }
+  .panel .kind .sw { width: 9px; height: 9px; border-radius: 50%; }
+  .panel h2 { margin: 7px 0 0; font-size: 16px; line-height: 1.3;
+              letter-spacing: -.01em; }
+  .panel .sub { margin: 5px 0 0; font-size: 12.5px; color: var(--ink-2);
+                line-height: 1.5; }
+  .panel dl { margin: 13px 0 0; display: grid; grid-template-columns: auto 1fr;
+              gap: 5px 12px; font-size: 12.5px; }
+  .panel dt { color: var(--ink-3); }
+  .panel dd { margin: 0; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .panel .t-label { display: block; margin: 16px 0 7px; }
+  .panel .links { display: flex; flex-direction: column; gap: 2px; }
+  .panel .links button { font: inherit; font-size: 12.5px; text-align: left;
+    display: flex; align-items: center; gap: 8px; width: 100%; cursor: pointer;
+    padding: 5px 7px; border: 0; border-radius: var(--r-sm);
+    background: none; color: var(--ink-2); }
+  .panel .links button:hover { background: var(--surface-2); color: var(--ink); }
+  .panel .links .sw { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+  .panel .links .l { overflow: hidden; text-overflow: ellipsis;
+                     white-space: nowrap; }
+  .panel .empty { font-size: 12.5px; color: var(--ink-3); line-height: 1.55; }
+
+  .foot { margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--line);
+          font-size: 12px; color: var(--ink-3); line-height: 1.6; max-width: 88ch; }
+  </style>
+</head>
+<body>
+  <header id="summa-nav"></header>
+
+  <main class="wrap">
+    <section class="head">
+      <h1>Knowledge Graph<span class="proto">Prototype</span></h1>
+      <p>The PSS 26.6 feature set and the transponder catalogue drawn as one
+         graph. A feature list tells you OpenZR+ exists and a card list tells
+         you S2AD800R exists; only the edge between them tells you that
+         S2AD800R is how you buy it and which shelf it needs. Drag to move,
+         scroll to zoom, click a node to follow it.</p>
+    </section>
+
+    <div class="bar">
+      <div class="grow">
+        <label class="search">
+          <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+            <circle cx="7" cy="7" r="4.6" fill="none" stroke="currentColor" stroke-width="1.6"/>
+            <path d="m10.6 10.6 3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          <input type="search" id="q" placeholder="Search nodes — S2AD800R, encryption, ROADM…"
+                 autocomplete="off" aria-label="Search nodes">
+        </label>
+      </div>
+
+      <div class="seg" role="group" aria-label="How much of the graph to show">
+        <button type="button" data-depth="0">Whole graph</button>
+        <button type="button" data-depth="1">1 hop</button>
+        <button type="button" data-depth="2">2 hops</button>
+      </div>
+
+      <button type="button" class="btn" id="relayout">Re-layout</button>
+      <button type="button" class="btn" id="reset">Reset view</button>
+    </div>
+
+    <div class="legend" id="legend"></div>
+
+    <div class="stage">
+      <div class="canvaswrap">
+        <canvas id="cv"></canvas>
+        <div class="hint" id="hint">301 nodes · 583 edges</div>
+        <div class="zoomui">
+          <button type="button" id="zout" aria-label="Zoom out">−</button>
+          <button type="button" id="zin" aria-label="Zoom in">+</button>
+        </div>
+        <div class="tip" id="tip" hidden></div>
+      </div>
+
+      <aside class="panel" id="panel"></aside>
+    </div>
+
+    <p class="foot" id="foot"></p>
+  </main>
+
+<script>
+(function () {
+  'use strict';
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  // ------------------------------------------------------------- palette
+  // Eight node kinds, eight hues, each one readable as a filled dot against
+  // both page backgrounds (>= 3:1, the non-text graphical minimum). The dark
+  // set is not the light set brightened: on #0E1014 the light blues collapse
+  // toward each other, so the dark hues are re-picked for separation.
+  var PALETTE = {
+    light: {
+      chapter: '#124191', topic: '#6D3BB5', section: '#2A78D6',
+      doc:     '#9A6212', newgroup: '#0A6E63', 'new': '#0A5C12',
+      card:    '#B33A2B', shelf: '#4A5568',
+    },
+    dark: {
+      chapter: '#6EA8FF', topic: '#B18CF0', section: '#4C9BEE',
+      doc:     '#E0A73C', newgroup: '#3FC0AE', 'new': '#5FC46A',
+      card:    '#F07A63', shelf: '#9AA5B8',
+    },
+  };
+
+  var KIND_LABEL = {
+    chapter: 'Chapter', topic: 'Topic', section: 'Feature section',
+    doc: 'Manual', newgroup: 'New in 26.6', 'new': 'New feature',
+    card: 'Transponder', shelf: 'Shelf',
+  };
+
+  // Reading order for the legend and the panel's link list: the structural
+  // spine first, then what hangs off it, then the hardware.
+  var KIND_ORDER = ['chapter', 'topic', 'section', 'doc',
+                    'newgroup', 'new', 'card', 'shelf'];
+
+  var REL_LABEL = {
+    contains: 'Contains', about: 'Topic', documents: 'Documented in',
+    seats: 'Seats in', implements: 'Implements', cascades: 'Cascades to',
+  };
+
+  function theme() {
+    var t = document.documentElement.getAttribute('data-theme');
+    if (t === 'dark' || t === 'light') return t;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  function colour(kind) { return PALETTE[theme()][kind] || '#888'; }
+  function cssVar(n) {
+    return getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  }
+
+  // ---------------------------------------------------------------- state
+  var N = [], E = [], byId = {}, adj = {};
+  var view = { x: 0, y: 0, k: 1 };
+  var sel = null, hov = null, depth = 0, query = '';
+  var off = {};                       // kind -> hidden
+  var alpha = 1, running = true, raf = null;
+
+  var cv = $('cv'), ctx = cv.getContext('2d'), W = 0, H = 0, DPR = 1;
+
+  // ------------------------------------------------------------- geometry
+  function radius(n) {
+    // Degree drives size, but on a square root: a hub with 58 links should
+    // read as bigger than one with 6, not ten times bigger.
+    var base = n.kind === 'chapter' ? 7 : n.kind === 'topic' ? 6 :
+               n.kind === 'shelf' ? 6.5 : n.kind === 'newgroup' ? 5.5 : 4;
+    return base + Math.sqrt(n.deg || 1) * 1.15;
+  }
+
+  function resize() {
+    var r = cv.parentNode.getBoundingClientRect();
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = r.width; H = r.height;
+    cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    draw();
+  }
+
+  // ------------------------------------------------------------ simulation
+  // A plain spring/repulsion model. At ~300 nodes the all-pairs repulsion is
+  // ~45k distance checks a frame, which is cheap enough that a quadtree would
+  // add code without adding frames.
+  function step() {
+    var i, j, a, b, dx, dy, d2, d, f;
+
+    for (i = 0; i < N.length; i++) {
+      a = N[i];
+      for (j = i + 1; j < N.length; j++) {
+        b = N[j];
+        dx = b.x - a.x; dy = b.y - a.y;
+        d2 = dx * dx + dy * dy;
+        // The cutoff has to be wider than a cluster, or clusters stop
+        // pushing each other apart and the whole graph packs into one blob
+        // with empty margins around it.
+        if (d2 > 640000 || d2 === 0) continue;
+        d = Math.sqrt(d2);
+        f = (1500 * (a.r + b.r) / 11) / d2;
+        dx /= d; dy /= d;
+        a.vx -= dx * f; a.vy -= dy * f;
+        b.vx += dx * f; b.vy += dy * f;
+      }
+    }
+
+    for (i = 0; i < E.length; i++) {
+      a = E[i].a; b = E[i].b;
+      dx = b.x - a.x; dy = b.y - a.y;
+      d = Math.sqrt(dx * dx + dy * dy) || 1;
+      // Rest length grows with how busy both ends are, so hubs get room
+      // instead of strangling their own neighbourhood.
+      f = (d - (40 + (a.r + b.r) * 1.6)) * 0.0125;
+      dx = dx / d * f; dy = dy / d * f;
+      a.vx += dx; a.vy += dy;
+      b.vx -= dx; b.vy -= dy;
+    }
+
+    for (i = 0; i < N.length; i++) {
+      a = N[i];
+      // Gravity does double duty: it keeps the picture centred, and it stops
+      // a weakly-held leaf drifting so far that the auto-fit has to zoom out
+      // for one stray and crush everything else.
+      a.vx -= a.x * 0.0026; a.vy -= a.y * 0.0026;
+      if (a.fixed) { a.vx = a.vy = 0; continue; }
+      a.vx *= 0.86; a.vy *= 0.86;
+      a.x += a.vx * alpha; a.y += a.vy * alpha;
+    }
+
+    alpha *= 0.991;
+    if (alpha < 0.012) { alpha = 0.012; running = false; }
+  }
+
+  function tick() {
+    // Displacement is scaled by alpha, so a cooling layout moves in ever
+    // smaller increments and a node that started on the wrong side of the
+    // graph never arrives — it freezes in transit, trailing one long edge
+    // and dragging the auto-fit out with it. Spend the early frames on extra
+    // iterations instead, while movement is still worth something.
+    if (running) {
+      var iters = alpha > 0.45 ? 4 : alpha > 0.15 ? 2 : 1;
+      while (iters--) step();
+    }
+    // The force model has no idea how big the canvas is, so the layout is
+    // whatever size it wants to be and spills out of frame on a wide screen.
+    // While it is still spreading out, and only until the reader touches
+    // something, keep the frame around it — so you watch it settle instead of
+    // watching it crawl off the edge. The first touch hands the view over.
+    if (!touched && (running || !fitted)) { fitted = !running; fitView(); }
+    draw();
+    raf = requestAnimationFrame(tick);
+  }
+  function reheat(v) { alpha = v || 0.7; running = true; }
+
+  var fitted = false, touched = false;
+  function fitView(pad) {
+    var scope = inScope();
+    var vis = N.filter(function (n) { return visible(n, scope) && matches(n); });
+    if (!vis.length) return;
+    var x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    vis.forEach(function (n) {
+      x0 = Math.min(x0, n.x - n.r); y0 = Math.min(y0, n.y - n.r);
+      x1 = Math.max(x1, n.x + n.r); y1 = Math.max(y1, n.y + n.r);
+    });
+    // Extra room at the bottom: labels hang below their node, and a node
+    // sitting exactly on the frame edge loses its label off-canvas.
+    var m = pad == null ? 46 : pad;
+    view.k = Math.max(0.25, Math.min(2.2,
+      Math.min((W - m * 2) / Math.max(1, x1 - x0),
+               (H - m * 2 - 16) / Math.max(1, y1 - y0))));
+    view.x = -(x0 + x1) / 2;
+    view.y = -(y0 + y1) / 2 - 8 / view.k;
+  }
+
+  // ------------------------------------------------------------- visibility
+  function kindOn(k) { return !off[k]; }
+
+  function matches(n) {
+    if (!query) return true;
+    return n.search.indexOf(query) >= 0;
+  }
+
+  // Which nodes the current focus admits. Depth 0 is everything; 1 and 2 walk
+  // out from the selected node, which is what makes a 300-node graph legible
+  // — you look at one neighbourhood at a time, the way you would in Obsidian.
+  function inScope() {
+    if (!depth || !sel) return null;
+    var keep = {}, frontier = [sel.id], next, i, e;
+    keep[sel.id] = true;
+    for (var d = 0; d < depth; d++) {
+      next = [];
+      for (i = 0; i < frontier.length; i++) {
+        (adj[frontier[i]] || []).forEach(function (lk) {
+          if (!keep[lk.other.id]) { keep[lk.other.id] = true; next.push(lk.other.id); }
+        });
+      }
+      frontier = next;
+    }
+    return keep;
+  }
+
+  function visible(n, scope) {
+    if (!kindOn(n.kind)) return false;
+    if (scope && !scope[n.id]) return false;
+    return true;
+  }
+
+  // ------------------------------------------------------------------ draw
+  function toScreen(p) {
+    return { x: (p.x + view.x) * view.k + W / 2, y: (p.y + view.y) * view.k + H / 2 };
+  }
+  function toWorld(sx, sy) {
+    return { x: (sx - W / 2) / view.k - view.x, y: (sy - H / 2) / view.k - view.y };
+  }
+
+  function draw() {
+    if (!W) return;
+    var ink = cssVar('--ink'), ink3 = cssVar('--ink-3'), line = cssVar('--line-strong');
+    ctx.clearRect(0, 0, W, H);
+
+    var scope = inScope();
+    var focus = hov || sel;
+    var near = {};
+    if (focus) {
+      near[focus.id] = true;
+      (adj[focus.id] || []).forEach(function (lk) { near[lk.other.id] = true; });
+    }
+
+    // --- edges
+    ctx.lineWidth = 1;
+    for (var i = 0; i < E.length; i++) {
+      var e = E[i];
+      if (!visible(e.a, scope) || !visible(e.b, scope)) continue;
+      var lit = focus && near[e.a.id] && near[e.b.id];
+      var dim = focus && !lit;
+      if (dim && depth) continue;
+      ctx.globalAlpha = lit ? 0.75 : dim ? 0.06 : 0.20;
+      ctx.strokeStyle = lit ? colour(e.b.kind === 'section' ? e.a.kind : e.b.kind) : line;
+      ctx.lineWidth = lit ? 1.5 : 1;
+      var p = toScreen(e.a), q = toScreen(e.b);
+      ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke();
+    }
+
+    // --- nodes
+    var labels = [];
+    for (i = 0; i < N.length; i++) {
+      var n = N[i];
+      if (!visible(n, scope)) continue;
+      var s = toScreen(n), r = n.r * Math.max(0.55, Math.min(view.k, 1.6));
+      var hit = matches(n);
+      var lit2 = focus ? !!near[n.id] : true;
+
+      ctx.globalAlpha = !hit ? 0.10 : lit2 ? 1 : 0.22;
+      ctx.fillStyle = colour(n.kind);
+      ctx.beginPath(); ctx.arc(s.x, s.y, r, 0, 6.2832); ctx.fill();
+
+      if (sel && sel.id === n.id) {
+        ctx.globalAlpha = 1; ctx.strokeStyle = ink; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.arc(s.x, s.y, r + 3.5, 0, 6.2832); ctx.stroke();
+      }
+
+      // Labelling every node at every zoom is how a graph becomes a smear.
+      // A label appears when the node is worth one: it is the focus or its
+      // neighbour, it is a structural hub, it matched the search, or you have
+      // zoomed in far enough to be reading rather than scanning.
+      var wants = (focus && near[n.id]) || (query && hit) ||
+                  n.kind === 'chapter' || n.kind === 'topic' ||
+                  view.k > 1.45 || (view.k > 0.95 && n.deg >= 12);
+      if (wants && hit) {
+        // Priority decides who keeps their label when two want the same
+        // patch of canvas: whatever you are pointing at first, then whatever
+        // you searched for, then the busiest node.
+        var pri = (focus && near[n.id] ? 3000 : 0) +
+                  (query && hit ? 2000 : 0) + (n.deg || 0);
+        labels.push({ n: n, s: s, r: r, lit: lit2, pri: pri });
+      }
+    }
+
+    // --- labels, drawn last so nothing overprints them
+    ctx.font = '600 11.5px ' + (cssVar('--font') || 'system-ui');
+    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+
+    // Two labels in the same place are worse than one label: the pair is
+    // unreadable and you cannot tell which node either belongs to. Place them
+    // best-first and drop any that would land on one already placed.
+    labels.sort(function (p, q) { return q.pri - p.pri; });
+    var placed = [];
+    for (i = 0; i < labels.length; i++) {
+      var L = labels[i], txt = L.n.label;
+      if (txt.length > 34) txt = txt.slice(0, 32) + '…';
+      var w = ctx.measureText(txt).width;
+      var box = { x: L.s.x - w / 2 - 3, y: L.s.y + L.r + 3, w: w + 6, h: 14 };
+      if (box.x + box.w < -40 || box.x > W + 40 ||
+          box.y + box.h < -20 || box.y > H + 20) continue;
+
+      var clash = false;
+      for (var j = 0; j < placed.length; j++) {
+        var o = placed[j];
+        if (box.x < o.x + o.w && box.x + box.w > o.x &&
+            box.y < o.y + o.h && box.y + box.h > o.y) { clash = true; break; }
+      }
+      if (clash) continue;
+      placed.push(box);
+
+      ctx.globalAlpha = (L.lit ? 1 : 0.35) * 0.82;
+      ctx.fillStyle = cssVar('--surface');
+      ctx.fillRect(box.x, box.y, box.w, box.h);
+      ctx.globalAlpha = L.lit ? 1 : 0.4;
+      ctx.fillStyle = L.lit ? ink : ink3;
+      ctx.fillText(txt, L.s.x, L.s.y + L.r + 4);
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  // ------------------------------------------------------------- hit test
+  function pick(sx, sy) {
+    var scope = inScope(), best = null, bd = Infinity;
+    for (var i = 0; i < N.length; i++) {
+      var n = N[i];
+      if (!visible(n, scope) || !matches(n)) continue;
+      var s = toScreen(n);
+      var dx = s.x - sx, dy = s.y - sy, d = dx * dx + dy * dy;
+      var r = n.r * Math.max(0.55, Math.min(view.k, 1.6)) + 4;
+      if (d < r * r && d < bd) { bd = d; best = n; }
+    }
+    return best;
+  }
+
+  // ----------------------------------------------------------------- panel
+  function el(tag, attrs, kids) {
+    var n = document.createElement(tag);
+    for (var k in (attrs || {})) {
+      if (k === 'class') n.className = attrs[k];
+      else if (k === 'text') n.textContent = attrs[k];
+      else if (k.slice(0, 2) === 'on') n.addEventListener(k.slice(2), attrs[k]);
+      else if (attrs[k] != null && attrs[k] !== false) n.setAttribute(k, attrs[k]);
+    }
+    (kids || []).forEach(function (c) { if (c) n.appendChild(c); });
+    return n;
+  }
+  function sw(kind) {
+    return el('span', { class: 'sw', style: 'background:' + colour(kind) });
+  }
+
+  function fmtRate(g) {
+    return g == null ? '—' : (g >= 1000 ? (g / 1000).toFixed(g % 1000 ? 1 : 0) + 'T' : g + 'G');
+  }
+
+  function facts(n) {
+    var rows = [];
+    if (n.kind === 'section') {
+      rows.push(['Section', n.sec], ['Printed page', String(n.page)],
+                ['Chapter', n.chapter]);
+    } else if (n.kind === 'card') {
+      rows.push(['Platform', n.platform], ['Type', n.cardKind],
+                ['Line rate', n.lineRatesG ? n.lineRatesG.map(fmtRate).join(' / ') : '—'],
+                ['Slots', String(n.slots)],
+                ['Status', n.shipping ? 'Shipping' : 'Roadmap']);
+      if (n.encryption) rows.push(['Encryption', n.encryption]);
+      if (n.clientServices) rows.push(['Clients', n.clientServices.join(', ')]);
+    } else if (n.kind === 'shelf') {
+      rows.push(['Platform', n.platform]);
+      if (n.ru) rows.push(['Height', n.ru + ' RU']);
+      if (n.slots) rows.push(['Slots', String(n.slots)]);
+      if (n.depthClass) rows.push(['Depth', n.depthClass === 'deep'
+        ? 'needs a deep rack' : 'fits 600 mm']);
+    } else if (n.kind === 'doc') {
+      rows.push(['Pages', n.pages.toLocaleString()], ['Kind', n.docKind]);
+      if (n.appliesTo) rows.push(['Applies to', n.appliesTo]);
+    } else if (n.kind === 'chapter') {
+      rows.push(['Sections', String(n.count)]);
+    }
+    return rows;
+  }
+
+  function paintPanel() {
+    var p = $('panel');
+    p.textContent = '';
+
+    if (!sel) {
+      p.appendChild(el('span', { class: 'kind', text: 'Nothing selected' }));
+      p.appendChild(el('p', { class: 'empty', text:
+        'Click any node to see what it is and everything it connects to. ' +
+        'Switch to 1 hop or 2 hops to hide the rest of the graph and read ' +
+        'one neighbourhood at a time.' }));
+      p.appendChild(el('span', { class: 't-label', text: 'Try' }));
+      var seeds = ['S2AD800R', 'OpenZR+ 400 GE', 'Data Center Connect', 'PSS-32'];
+      var box = el('div', { class: 'links' });
+      seeds.forEach(function (s) {
+        var n = N.filter(function (x) { return x.label.indexOf(s) === 0; })[0];
+        if (!n) return;
+        box.appendChild(el('button', { type: 'button',
+          onclick: function () { select(n, true); } },
+          [sw(n.kind), el('span', { class: 'l', text: n.label })]));
+      });
+      p.appendChild(box);
+      return;
+    }
+
+    p.appendChild(el('span', { class: 'kind' },
+      [sw(sel.kind), el('span', { text: KIND_LABEL[sel.kind] || sel.kind })]));
+    p.appendChild(el('h2', { text: sel.label }));
+
+    var sub = sel.blurb || sel.use || sel.detail || sel.family || null;
+    if (sub) p.appendChild(el('p', { class: 'sub', text: sub }));
+
+    if (sel.clientsUnknown) {
+      p.appendChild(el('p', { class: 'sub', text:
+        'Client side not stated in the source — this card has no roadmap ' +
+        'slide, so its cages and services are unconfirmed.' }));
+    }
+
+    var rows = facts(sel);
+    if (rows.length) {
+      var dl = el('dl');
+      rows.forEach(function (r) {
+        dl.appendChild(el('dt', { text: r[0] }));
+        dl.appendChild(el('dd', { text: r[1] }));
+      });
+      p.appendChild(dl);
+    }
+
+    if (sel.bullets && sel.bullets.length) {
+      p.appendChild(el('span', { class: 't-label', text: 'Detail' }));
+      var ul = el('ul', { class: 'sub', style: 'padding-left:17px;margin:0' });
+      sel.bullets.forEach(function (b) { ul.appendChild(el('li', { text: b })); });
+      p.appendChild(ul);
+    }
+
+    // Neighbours, grouped by relationship then sorted into reading order, so
+    // the list answers "what is this connected to, and how" rather than
+    // dumping edges in whatever order the file had them.
+    var groups = {};
+    (adj[sel.id] || []).forEach(function (lk) {
+      var key = lk.rel + (lk.dir < 0 ? '←' : '');
+      (groups[key] = groups[key] || []).push(lk);
+    });
+    Object.keys(groups).sort().forEach(function (key) {
+      var list = groups[key].slice().sort(function (a, b) {
+        var ka = KIND_ORDER.indexOf(a.other.kind), kb = KIND_ORDER.indexOf(b.other.kind);
+        return ka - kb || a.other.label.localeCompare(b.other.label);
+      });
+      var rel = key.replace('←', '');
+      var head = REL_LABEL[rel] || rel;
+      if (key.indexOf('←') >= 0) {
+        head = rel === 'contains' ? 'Part of' : rel === 'seats' ? 'Seats'
+             : rel === 'documents' ? 'Documents' : rel === 'implements' ? 'Implemented by'
+             : rel === 'about' ? 'Sections' : head;
+      }
+      p.appendChild(el('span', { class: 't-label',
+                                 text: head + ' · ' + list.length }));
+      var b2 = el('div', { class: 'links' });
+      list.forEach(function (lk) {
+        b2.appendChild(el('button', {
+          type: 'button', title: lk.note || lk.other.label,
+          onclick: function () { select(lk.other, true); },
+        }, [sw(lk.other.kind), el('span', { class: 'l', text: lk.other.label })]));
+      });
+      p.appendChild(b2);
+    });
+  }
+
+  function select(n, centre) {
+    sel = n;
+    if (n && centre) {
+      view.x = -n.x; view.y = -n.y;
+      if (view.k < 1) view.k = 1;
+    }
+    if (n && depth) reheat(0.35);
+    paintPanel();
+    draw();
+  }
+
+  // -------------------------------------------------------------- controls
+  function paintLegend(counts) {
+    var box = $('legend');
+    box.textContent = '';
+    KIND_ORDER.forEach(function (k) {
+      if (!counts[k]) return;
+      var b = el('button', {
+        type: 'button', 'aria-pressed': String(!off[k]),
+        onclick: function () {
+          off[k] = !off[k];
+          b.setAttribute('aria-pressed', String(!off[k]));
+          reheat(0.4); draw();
+        },
+      }, [sw(k), el('span', { text: KIND_LABEL[k] }),
+          el('span', { class: 'n', text: String(counts[k]) })]);
+      box.appendChild(b);
+    });
+  }
+
+  function bind() {
+    var dragNode = null, panning = false, last = null, moved = false;
+
+    cv.addEventListener('pointerdown', function (e) {
+      cv.setPointerCapture(e.pointerId); touched = true;
+      last = { x: e.offsetX, y: e.offsetY }; moved = false;
+      var n = pick(e.offsetX, e.offsetY);
+      if (n) { dragNode = n; n.fixed = true; reheat(0.45); }
+      else { panning = true; cv.classList.add('drag'); }
+    });
+
+    cv.addEventListener('pointermove', function (e) {
+      if (dragNode) {
+        var w = toWorld(e.offsetX, e.offsetY);
+        dragNode.x = w.x; dragNode.y = w.y; moved = true;
+        reheat(0.45); return;
+      }
+      if (panning) {
+        view.x += (e.offsetX - last.x) / view.k;
+        view.y += (e.offsetY - last.y) / view.k;
+        last = { x: e.offsetX, y: e.offsetY }; moved = true; draw(); return;
+      }
+      var n = pick(e.offsetX, e.offsetY);
+      if (n !== hov) { hov = n; draw(); }
+      var tip = $('tip');
+      if (n) {
+        tip.textContent = '';
+        tip.appendChild(el('b', { text: n.label }));
+        tip.appendChild(el('span', { text: KIND_LABEL[n.kind] + ' · ' +
+          n.deg + (n.deg === 1 ? ' link' : ' links') }));
+        tip.hidden = false;
+        var tx = Math.min(e.offsetX + 14, W - tip.offsetWidth - 8);
+        var ty = Math.min(e.offsetY + 14, H - tip.offsetHeight - 8);
+        tip.style.left = Math.max(8, tx) + 'px';
+        tip.style.top = Math.max(8, ty) + 'px';
+      } else { tip.hidden = true; }
+    });
+
+    function release(e) {
+      if (dragNode) { dragNode.fixed = false; if (!moved) select(dragNode); }
+      else if (panning && !moved) { select(null); }
+      dragNode = null; panning = false; cv.classList.remove('drag');
+    }
+    cv.addEventListener('pointerup', release);
+    cv.addEventListener('pointercancel', release);
+    cv.addEventListener('pointerleave', function () {
+      if (hov) { hov = null; draw(); }
+      $('tip').hidden = true;
+    });
+
+    cv.addEventListener('wheel', function (e) {
+      e.preventDefault(); touched = true;
+      var before = toWorld(e.offsetX, e.offsetY);
+      view.k = Math.max(0.25, Math.min(4, view.k * (e.deltaY < 0 ? 1.12 : 0.893)));
+      var after = toWorld(e.offsetX, e.offsetY);
+      view.x += after.x - before.x; view.y += after.y - before.y;
+      draw();
+    }, { passive: false });
+
+    $('zin').onclick = function () { touched = true; view.k = Math.min(4, view.k * 1.25); draw(); };
+    $('zout').onclick = function () { touched = true; view.k = Math.max(0.25, view.k / 1.25); draw(); };
+    $('reset').onclick = function () {
+      sel = null; hov = null; query = ''; $('q').value = '';
+      touched = false; fitView(); paintPanel(); draw();
+    };
+    $('relayout').onclick = function () {
+      N.forEach(function (n) {
+        n.x = (Math.random() - 0.5) * 600; n.y = (Math.random() - 0.5) * 400;
+        n.vx = n.vy = 0;
+      });
+      fitted = false; touched = false; reheat(1);
+    };
+
+    $('q').addEventListener('input', function (e) {
+      query = e.target.value.trim().toLowerCase();
+      draw();
+    });
+
+    [].forEach.call(document.querySelectorAll('[data-depth]'), function (b) {
+      b.addEventListener('click', function () {
+        depth = Number(b.dataset.depth);
+        [].forEach.call(document.querySelectorAll('[data-depth]'), function (o) {
+          o.setAttribute('aria-pressed', String(Number(o.dataset.depth) === depth));
+        });
+        reheat(0.5);
+        // A 1-hop view of six nodes framed for 300 is a speck in the middle.
+        setTimeout(function () { fitView(depth ? 80 : 46); draw(); }, 260);
+        draw();
+      });
+      b.setAttribute('aria-pressed', String(Number(b.dataset.depth) === depth));
+    });
+
+    // A resize changes how much fits, so re-fit rather than leaving the user
+    // looking at a crop of a layout that was framed for a different window.
+    var rt = null;
+    window.addEventListener('resize', function () {
+      clearTimeout(rt);
+      rt = setTimeout(function () { resize(); fitView(); draw(); }, 120);
+    });
+    new MutationObserver(function () { draw(); })
+      .observe(document.documentElement, { attributes: true,
+                                           attributeFilter: ['data-theme'] });
+    window.matchMedia('(prefers-color-scheme: dark)')
+          .addEventListener('change', function () { draw(); });
+  }
+
+  // ------------------------------------------------------------------ boot
+  fetch('assets/graph-data.json')
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      var counts = {};
+      N = d.nodes.map(function (n, i) {
+        var o = Object.assign({}, n);
+        // Seeded ring start rather than pure random: the layout settles in
+        // about a second instead of untangling a knot for ten.
+        var a = i / d.nodes.length * 6.2832;
+        o.x = Math.cos(a) * 260 + (Math.random() - 0.5) * 40;
+        o.y = Math.sin(a) * 200 + (Math.random() - 0.5) * 40;
+        o.vx = o.vy = 0;
+        o.r = radius(n);
+        o.search = (n.label + ' ' + (n.sec || '') + ' ' + (n.family || '') + ' ' +
+                    (n.platform || '') + ' ' + KIND_LABEL[n.kind]).toLowerCase();
+        byId[o.id] = o;
+        counts[o.kind] = (counts[o.kind] || 0) + 1;
+        return o;
+      });
+
+      E = d.edges.map(function (e) {
+        var a = byId[e.s], b = byId[e.t];
+        if (!a || !b) return null;
+        (adj[a.id] = adj[a.id] || []).push({ other: b, rel: e.rel, dir: 1, note: e.note });
+        (adj[b.id] = adj[b.id] || []).push({ other: a, rel: e.rel, dir: -1, note: e.note });
+        return { a: a, b: b, rel: e.rel };
+      }).filter(Boolean);
+
+      $('hint').textContent = N.length + ' nodes · ' + E.length + ' edges · ' +
+                              'drag, scroll to zoom, click to focus';
+      $('foot').textContent =
+        'Prototype. ' + d.meta.note + ' Built by tools/build-graph-data.py from ' +
+        d.meta.sources.join(' and ') + '. Feature sections carry the printed ' +
+        'page in the TQ feature guide; the PDF index is one lower.';
+
+      paintLegend(counts);
+      paintPanel();
+      bind();
+      resize();
+      tick();
+
+      if (window.SUMMA_CMDK) {
+        window.SUMMA_CMDK.register('Graph', N.map(function (n) {
+          return { label: n.label, hint: KIND_LABEL[n.kind],
+                   run: function () { select(n, true); } };
+        }));
+      }
+    })
+    .catch(function (err) {
+      $('panel').textContent = 'Could not load assets/graph-data.json — ' + err.message;
+    });
+})();
+</script>
+</body>
+</html>

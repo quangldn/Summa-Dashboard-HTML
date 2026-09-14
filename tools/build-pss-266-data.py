@@ -49,23 +49,43 @@ CHAPTERS = OrderedDict([
 
 # A section's topic, inferred from its title, so the page can filter by the
 # thing an SE is actually looking for rather than by chapter number.
+# Order matters: the first pattern that matches wins, so the more specific
+# subject has to come before the more general one it shares vocabulary with.
+# Every acronym is anchored with \b — an unanchored one matches inside an
+# unrelated word and files the section under the wrong subject. Three did:
+# MPLS inside GMPLS, DGE inside "Provider Bridge", ATP inside no word but
+# ahead of nothing useful. Each guard below is there because a real section
+# landed in the wrong place without it.
 TOPICS = [
-    (r"GMPLS|control plane|restoration|ASON", "Control plane"),
-    (r"protection|OCHP|OMSP|OLP|Y-cable|SNCP|OPS", "Protection"),
-    (r"ROADM|OADM|WSS|WR\d|CDC|colourless|colorless", "ROADM"),
-    (r"amplif|ILA|IPREAMP|Raman|gain|DGE|APR|power", "Amplifier / power"),
-    (r"OTDR|monitor|OCM|Wavelength\s*Tracker|WTOCM|OSA|spectrum", "Monitoring"),
-    (r"subsea|SLTE|repeater", "Subsea"),
+    (r"GMPLS|control plane|restoration|\bASON\b", "Control plane"),
+    # Before Security *and* Protection: "Anti-theft Protection (ATP)" is a
+    # security feature that happens to have Protection in its name.
+    (r"anti-?theft|\bATP\b", "Security"),
+    # Before Carrier Ethernet: "Synchronous Ethernet (SyncE)" is a
+    # synchronization section, and Ethernet would otherwise claim it.
+    (r"SyncE|1588|\bPTP\b|synchroni|time of day", "Synchronization"),
+    # Before Monitoring: "Spectrum sharing in subsea environment" is subsea,
+    # and 'spectrum' would otherwise claim it.
+    (r"subsea|\bSLTE\b|repeater", "Subsea"),
+    (r"protection|\bOCHP\b|\bOMSP\b|\bOLP\b|Y-cable|\bSNCP\b|\bOPS\b", "Protection"),
+    (r"ROADM|OADM|\bWSS\b|\bWR\d|\bCDC\b|colourless|colorless", "ROADM"),
+    # \bDGE\b, not DGE: without the boundary "Provider Bridge" matches on the
+    # dge in Bridge and two Carrier Ethernet sections become amplifier ones.
+    (r"amplif|\bILA\b|\bIPREAMP\b|Raman|\bgain\b|\bDGE\b|\bAPR\b|power",
+     "Amplifier / power"),
+    (r"\bOTDR\b|monitor|\bOCM\b|Wavelength\s*Tracker|WTOCM|\bOSA\b|spectrum",
+     "Monitoring"),
     (r"alien|OpenZR|gridless|single.?fiber|single channel", "Line system"),
-    (r"DCC|Data Center", "Data Center Connect"),
+    (r"\bDCC\b|Data Center", "Data Center Connect"),
     # \bMPLS\b, not MPLS: without the boundary "GMPLS CP" matches and the
     # control-plane section gets filed under Carrier Ethernet.
     (r"Ethernet|\bMPLS\b|MPLS-TP|Provider Bridge|SMART SFP|\bL2\b",
      "Carrier Ethernet"),
-    (r"SyncE|1588|PTP|synchroni", "Synchronization"),
-    (r"secur|privacy|theft|ATP", "Security"),
+    (r"secur|privacy", "Security"),
     (r"alarm|fault|loopback|diagnostic|performance|threshold|report", "OAM&P"),
-    (r"OSC|EOSCF|neighbor|discovery", "OSC / discovery"),
+    # \bOSC, not \bOSC\b: OSCT and OSCSFP are OSC hardware and a closing
+    # boundary drops "LD and OSCT configurations" into General.
+    (r"\bOSC|\bEOSCF\b|neighbor|discovery", "OSC / discovery"),
     (r"software|database|provision|inventory|state", "System management"),
 ]
 

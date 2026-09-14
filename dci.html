@@ -39,8 +39,48 @@
   @supports (backdrop-filter: blur(8px)) {
     .req { backdrop-filter: blur(10px); }
   }
-  .req > .row + .row { margin-top: 14px; padding-top: 14px;
+  .req > #reqBody > .row + .row { margin-top: 14px; padding-top: 14px;
                        border-top: 1px dashed var(--line); }
+
+  /* Collapsed state. The panel is sticky, so once it pins it would otherwise
+     hold a third of the viewport hostage while you read the results. Pinning
+     is the cue to fold it down to one line; clicking the line brings it back
+     and keeps it back until you scroll away again. */
+  .reqsum {
+    display: none; width: 100%; font: inherit; text-align: left;
+    background: none; border: 0; padding: 0; cursor: pointer;
+    align-items: center; gap: 12px; color: var(--ink-2);
+  }
+  .reqsum .s { font-size: 12.5px; line-height: 1.45; min-width: 0;
+               overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .reqsum .s b { color: var(--ink); font-weight: 650;
+                 font-variant-numeric: tabular-nums; }
+  .reqsum .s i { font-style: normal; color: var(--ink-3); padding: 0 6px; }
+  .reqsum .e { margin-left: auto; display: inline-flex; align-items: center;
+               gap: 4px; flex: none; font-size: 11.5px; font-weight: 650;
+               color: var(--accent-ink); }
+  .reqsum:hover .e { text-decoration: underline; }
+
+  /* Once folded the panel floats over the result cards, so it needs an edge
+     of its own — without the shadow the cards scroll up under a translucent
+     strip and the two read as one broken card. */
+  .req.is-collapsed { padding: 10px 18px;
+                      box-shadow: 0 6px 16px -10px rgba(0,0,0,.35); }
+
+  /* Folded is not gone. Reading down a shortlist, even a 40px strip sits on
+     top of the card you are reading, so scrolling further down takes the bar
+     off screen entirely and scrolling back up returns it — the requirement is
+     never more than one flick away, and it is never in the way. */
+  .req { transition: transform var(--med) var(--ease),
+                     padding var(--fast) var(--ease); will-change: transform; }
+  .req.is-away { transform: translateY(calc(-100% - 14px)); }
+  @media (prefers-reduced-motion: reduce) { .req { transition: none; } }
+  .req.is-collapsed > #reqBody { display: none; }
+  .req.is-collapsed > .reqsum { display: flex; }
+
+  @media (max-width: 560px) {
+    .reqsum .s { white-space: normal; }
+  }
   .row > .t-label { display: block; margin-bottom: 7px; }
 
   /* segmented control */
@@ -270,6 +310,18 @@
 
     <section class="req" id="req">
 
+      <!-- Shown only while collapsed: the whole requirement on one line, so
+           you can still see what you asked for without it eating the screen. -->
+      <button type="button" class="reqsum" id="reqSum" aria-expanded="false"
+              aria-controls="reqBody">
+        <span class="s" id="reqSumText"></span>
+        <span class="e">Edit<svg viewBox="0 0 16 16" width="11" height="11"
+          aria-hidden="true"><path d="M4 6.5 8 10.5 12 6.5" fill="none"
+          stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+          stroke-linejoin="round"/></svg></span>
+      </button>
+
+      <div id="reqBody">
       <div class="row">
         <span class="step"><i>1</i> How much traffic?</span>
         <div class="clients" id="clients"></div>
@@ -334,7 +386,19 @@
           </div>
         </div>
       </div>
+      </div><!-- /reqBody -->
     </section>
+
+    <!-- The sentinel marks the BOTTOM of the panel's normal-flow box, not the
+         top. Watching the top meant the panel folded the moment its first
+         pixel touched the viewport edge — while it was still legitimately the
+         thing you were looking at — and folding it there took ~440px out of
+         the document from a point the reader had not yet passed, so the
+         browser's scroll anchoring yanked the page back to the top. Fold only
+         once the whole panel is above the fold: the shrink then happens
+         entirely in content already scrolled past, which is a shift the
+         browser absorbs without moving what you are reading. -->
+    <div id="reqTop" aria-hidden="true"></div>
 
     <div class="tally" id="tally"></div>
 
@@ -646,9 +710,130 @@
     return card;
   }
 
+  // ------------------------------------------------- collapsed requirement
+  // What the one-line summary says. Everything that changes the answer, in
+  // the order you set it: the clients, the link, then only those constraints
+  // actually narrowed from their defaults — a line that repeats the defaults
+  // back is noise, and the point of collapsing is to buy back screen.
+  function paintReqSum(res) {
+    var box = $('reqSumText');
+    box.textContent = '';
+    var parts = [];
+
+    var cl = need.clients.filter(function (c) { return c.service && c.qty > 0; });
+    parts.push(cl.length
+      ? cl.map(function (c) { return c.qty + ' x ' + c.service; }).join(' + ') +
+        ' = ' + FMT(res.need.totalClientG)
+      : 'no clients yet');
+
+    var lvl = DCI.challengeOf(need.challenge);
+    parts.push(need.challenge === 5
+      ? 'known rate ' + FMT(need.lineRateG) +
+        (need.rateMatch === 'exact' ? ' exact' : '')
+      : 'link ' + lvl.level + ' · ' + lvl.label);
+
+    if (!need.multiLambda) parts.push('single wavelength');
+    if (need.depth !== 'any') parts.push('600 mm');
+    if (need.band !== 'any') parts.push(need.band + '-band');
+    if (need.platform !== 'any') parts.push(need.platform + ' only');
+    if (need.wson) parts.push('WSON');
+    if (need.includeRoadmap) parts.push('+ roadmap');
+
+    parts.forEach(function (p, i) {
+      if (i) box.appendChild(el('i', { text: '·' }));
+      box.appendChild(el(i === 0 ? 'b' : 'span', { text: p }));
+    });
+  }
+
+  // Collapse when the panel pins, expand on click. `held` is what stops the
+  // panel snapping shut again the instant you reach for a control while
+  // scrolled down: once you open it deliberately it stays open until you
+  // scroll back up past it.
+  var held = false, pinned = false, settleUntil = 0;
+  function setCollapsed(on) {
+    var r = $('req');
+    if (r.classList.contains('is-collapsed') === !!on) return;
+    r.classList.toggle('is-collapsed', !!on);
+    $('reqSum').setAttribute('aria-expanded', on ? 'false' : 'true');
+    // Folding the panel takes ~450px out of the document and the browser
+    // adjusts the scroll position to match. That adjustment arrives as a
+    // scroll event with a big negative delta, which reads as "the reader
+    // scrolled up" and brings the bar straight back — the exact bug this
+    // machinery exists to prevent. Ignore deltas for a moment afterwards;
+    // they are the page moving, not the reader.
+    settleUntil = (window.performance ? performance.now() : Date.now()) + 300;
+  }
+  function initCollapse() {
+    var sentinel = $('reqTop');
+    if (!sentinel) return;
+
+    // Pinned means the panel has reached the top of the window and is now
+    // floating over the results. Measured from the sentinel's own position
+    // rather than an IntersectionObserver on a zero-height element, which
+    // some browsers never fire for.
+    function measure() {
+      var was = pinned;
+      pinned = sentinel.getBoundingClientRect().top <= 0;
+      if (!pinned) { held = false; $('req').classList.remove('is-away'); }
+      if (pinned !== was || !pinned) setCollapsed(pinned && !held);
+      return pinned;
+    }
+
+    // Scrolling down means you are reading the shortlist, so the bar leaves.
+    // Scrolling up means you are coming back for the requirement, so it
+    // returns.
+    //
+    // Reacting to each scroll event's own direction does not work: a wheel
+    // notch is a smooth animation that overshoots and settles back a few
+    // pixels, so the last event of a downward flick points UP and the bar
+    // reappears the instant it left. Accumulate instead, reset the total
+    // whenever the direction changes, and only act once the reader has
+    // committed 30px one way — larger than any settle, smaller than a flick.
+    var lastY = window.scrollY, accum = 0, ticking = false;
+    var COMMIT = 30;
+
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        ticking = false;
+        var y = window.scrollY, dy = y - lastY;
+        lastY = y;
+
+        var now = window.performance ? performance.now() : Date.now();
+        if (now < settleUntil) { accum = 0; measure(); return; }
+
+        if (!dy) return;
+        if ((dy > 0) !== (accum > 0)) accum = 0;   // turned around
+        accum += dy;
+        if (!measure()) { accum = 0; return; }
+        if (held) return;                          // deliberately opened
+        if (Math.abs(accum) < COMMIT) return;
+        $('req').classList.toggle('is-away', accum > 0);
+        accum = 0;
+      });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    measure();
+
+    $('reqSum').addEventListener('click', function () {
+      held = true;
+      setCollapsed(false);
+      $('req').classList.remove('is-away');
+    });
+
+    // Reaching a control by keyboard while collapsed must open the panel too,
+    // or focus lands on something display:none and the tab order dead-ends.
+    $('reqBody').addEventListener('focusin', function () {
+      $('req').classList.remove('is-away');
+      if ($('req').classList.contains('is-collapsed')) { held = true; setCollapsed(false); }
+    });
+  }
+
   function run() {
     toHash();
     var res = DCI.recommend(DATA, need, 6);
+    paintReqSum(res);
 
     // ---- tally
     var t = $('tally');
@@ -846,6 +1031,7 @@
         paintClients();
         bindControls();
         run();
+        initCollapse();
 
         $('scrim').addEventListener('click', closeDrawer);
         document.addEventListener('keydown', function (e) {
