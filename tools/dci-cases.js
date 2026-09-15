@@ -364,5 +364,63 @@ check('the over-sized dual-port card is only half used',
 check('both fully-used cards report 100%',
   one800 && two400 && one800.cardUsePct === 100 && two400.cardUsePct === 100);
 
+// ----------------------------------------------------------------
+console.log('\n[16] A card is limited by its fabric, not just its optics');
+
+// SPN2 carries four 400G line ports over a 600G switch. Port count times
+// line rate says 1.6T; the card can carry 600G. Both halves matter: a design
+// above 600G has to be refused with the real reason, and the card has to be
+// measured against 600G rather than reading as 6% used when it is 15%.
+const spn2At = g => {
+  const r = DCI.recommend(data, { clients: [{ service: '400GE', qty: g / 400 }],
+                                  challenge: 1, multiWave: true }, 60);
+  return r.rankedAll.concat(r.rejected).find(c => c.xpdr.name === 'SPN2');
+};
+const at400 = spn2At(400), at800 = spn2At(800);
+console.log('    400G -> %s', at400.disqualified ? 'blocked' :
+  'viable, ' + at400.cardUsePct + '% of ' + DCI.fmtRate(at400.cardCapacityG));
+console.log('    800G -> %s', at800.disqualified ? 'blocked: ' + at800.blockers[0]
+  : 'viable (WRONG)');
+check('400G fits inside the 600G fabric', at400 && !at400.disqualified);
+check('the card is measured against the fabric, not the optics',
+  at400 && at400.cardCapacityG === 600, at400 && String(at400.cardCapacityG));
+check('800G is refused', at800 && at800.disqualified);
+check('and the refusal names the fabric, not the port count',
+  at800 && /switching capacity/.test(at800.blockers.join(' ')),
+  at800 && at800.blockers.join(' '));
+
+// A cage is defined by the widest module it accepts. SPN2's option list is
+// mostly QSFP28, but it includes four QSFP-DD 400G rows — and those are the
+// whole reason the cage can land a 400GE client.
+const spn2 = data.xpdr.find(x => x.name === 'SPN2');
+const utm2 = data.xpdr.find(x => x.name === 'UTM2');
+check('SPN2 cages are typed by their widest module (QSFP-DD)',
+  spn2 && /QSFP-DD/.test(spn2.clientCages.map(c => c.type).join(' ')),
+  spn2 && spn2.clientCages.map(c => c.type).join(' '));
+check('UTM2 SFP+ cages are not widened by an InfiniBand QDR description',
+  utm2 && !/QSFP-DD/.test(utm2.clientCages.map(c => c.type).join(' ')),
+  utm2 && utm2.clientCages.map(c => c.type).join(' '));
+
+// ----------------------------------------------------------------
+console.log('\n[17] Utilisation outranks client-side confidence');
+
+// A planning-guide-only card carries no cage list, so it is scored with its
+// client side unconfirmed. That uncertainty should lose a close race and win
+// a lopsided one: 90% used beats 6% used even unconfirmed, because a card
+// that wastes 94% of itself loses the bid on price whatever the paperwork.
+const mix = DCI.recommend(data, { clients: [{ service: '40GE', qty: 2 },
+                                            { service: '10GE', qty: 1 }],
+                                  challenge: 1, multiWave: true }, 60);
+const best = mix.ranked[0];
+const bigSpn = mix.rankedAll.find(c => c.xpdr.name === 'SPN2');
+console.log('    top pick %s — %d%% used, score %d%s', best.xpdr.name,
+  best.cardUsePct, best.score, best.clientsUnverified ? ' [unverified]' : '');
+console.log('    SPN2     — %d%% used, score %d', bigSpn.cardUsePct, bigSpn.score);
+check('90G of traffic picks a 100G card, not a 600G one',
+  best.cardCapacityG <= 200, String(best.cardCapacityG));
+check('the well-used card wins despite an unconfirmed client side',
+  bigSpn && best.score > bigSpn.score);
+check('the winner is nearly full', best.cardUsePct >= 85, String(best.cardUsePct));
+
 console.log('\n%d passed, %d failed\n', pass, fail);
 process.exit(fail ? 1 : 0);

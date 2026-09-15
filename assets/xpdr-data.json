@@ -9,7 +9,8 @@
   "curatedRules": [
    "depthClass",
    "cascade",
-   "wson"
+   "wson",
+   "switchingCapacityG"
   ],
   "counts": {
    "xpdr": 87,
@@ -347,7 +348,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28/QSFP-DD",
+     "type": "QSFP-DD/QSFP28",
      "qty": 16
     }
    ],
@@ -357,6 +358,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -415,7 +417,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28/QSFP-DD",
+     "type": "QSFP-DD/QSFP28",
      "qty": 16
     }
    ],
@@ -425,6 +427,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -483,7 +486,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28/QSFP-DD",
+     "type": "QSFP-DD/QSFP28",
      "qty": 16
     }
    ],
@@ -493,6 +496,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -551,7 +555,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28/QSFP-DD",
+     "type": "QSFP-DD/QSFP28",
      "qty": 16
     }
    ],
@@ -561,6 +565,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -619,7 +624,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28/QSFP-DD",
+     "type": "QSFP-DD/QSFP28",
      "qty": 16
     }
    ],
@@ -629,6 +634,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -687,7 +693,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28/QSFP-DD",
+     "type": "QSFP-DD/QSFP28",
      "qty": 16
     }
    ],
@@ -697,6 +703,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -755,7 +762,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28/QSFP-DD",
+     "type": "QSFP-DD/QSFP28",
      "qty": 16
     }
    ],
@@ -765,6 +772,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -823,7 +831,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28/QSFP-DD",
+     "type": "QSFP-DD/QSFP28",
      "qty": 16
     }
    ],
@@ -833,6 +841,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -891,7 +900,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28/QSFP-DD",
+     "type": "QSFP-DD/QSFP28",
      "qty": 16
     }
    ],
@@ -901,6 +910,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -959,7 +969,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28/QSFP-DD",
+     "type": "QSFP-DD/QSFP28",
      "qty": 16
     }
    ],
@@ -969,6 +979,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1027,7 +1038,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28/QSFP-DD",
+     "type": "QSFP-DD/QSFP28",
      "qty": 16
     }
    ],
@@ -1037,6 +1048,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1095,7 +1107,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28/QSFP-DD",
+     "type": "QSFP-DD/QSFP28",
      "qty": 16
     }
    ],
@@ -1105,6 +1117,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1163,7 +1176,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28/QSFP-DD",
+     "type": "QSFP-DD/QSFP28",
      "qty": 16
     }
    ],
@@ -1173,6 +1186,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1231,7 +1245,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28/QSFP-DD",
+     "type": "QSFP-DD/QSFP28",
      "qty": 16
     }
    ],
@@ -1241,6 +1255,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1299,7 +1314,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28/QSFP-DD",
+     "type": "QSFP-DD/QSFP28",
      "qty": 16
     }
    ],
@@ -1309,6 +1324,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1367,7 +1383,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28/QSFP-DD",
+     "type": "QSFP-DD/QSFP28",
      "qty": 16
     }
    ],
@@ -1377,6 +1393,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1435,7 +1452,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28/QSFP-DD",
+     "type": "QSFP-DD/QSFP28",
      "qty": 16
     }
    ],
@@ -1445,6 +1462,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1503,7 +1521,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28/QSFP-DD",
+     "type": "QSFP-DD/QSFP28",
      "qty": 16
     }
    ],
@@ -1513,6 +1531,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1571,7 +1590,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28/QSFP-DD",
+     "type": "QSFP-DD/QSFP28",
      "qty": 16
     }
    ],
@@ -1581,6 +1600,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1639,7 +1659,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28/QSFP-DD",
+     "type": "QSFP-DD/QSFP28",
      "qty": 16
     }
    ],
@@ -1649,6 +1669,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1707,7 +1728,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28/QSFP-DD",
+     "type": "QSFP-DD/QSFP28",
      "qty": 16
     }
    ],
@@ -1717,6 +1738,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1775,7 +1797,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28/QSFP-DD",
+     "type": "QSFP-DD/QSFP28",
      "qty": 16
     }
    ],
@@ -1785,6 +1807,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1843,7 +1866,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28/QSFP-DD",
+     "type": "QSFP-DD/QSFP28",
      "qty": 16
     }
    ],
@@ -1853,6 +1876,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1911,7 +1935,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28/QSFP-DD",
+     "type": "QSFP-DD/QSFP28",
      "qty": 16
     }
    ],
@@ -1921,6 +1945,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -1979,7 +2004,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28/QSFP-DD",
+     "type": "QSFP-DD/QSFP28",
      "qty": 16
     }
    ],
@@ -1989,6 +2014,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -2062,6 +2088,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -2135,6 +2162,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -2208,6 +2236,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -2281,6 +2310,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -2354,6 +2384,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -2427,6 +2458,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -2500,6 +2532,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -2566,6 +2599,7 @@
     "400GE"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 2,
    "height": "full",
@@ -2633,6 +2667,7 @@
     "400GE"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 2,
    "height": "full",
@@ -2700,6 +2735,7 @@
     "400GE"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 2,
    "height": "full",
@@ -2759,6 +2795,7 @@
     "800GE"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -2806,7 +2843,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP+/QSFP28",
+     "type": "QSFP28/QSFP+",
      "qty": 10
     }
    ],
@@ -2820,6 +2857,7 @@
     "STM64"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -2867,7 +2905,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28",
+     "type": "QSFP28/QSFP+",
      "qty": 2
     },
     {
@@ -2885,6 +2923,7 @@
    "servicesDenied": [
     "40GE"
    ],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 2,
    "height": "full",
@@ -2936,7 +2975,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28/QSFP-DD",
+     "type": "QSFP-DD/QSFP28",
      "qty": 4
     }
    ],
@@ -2946,6 +2985,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -2997,11 +3037,11 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28/QSFP-DD",
+     "type": "QSFP-DD/QSFP28",
      "qty": 6
     },
     {
-     "type": "QSFP28/QSFP-DD",
+     "type": "QSFP-DD/QSFP28",
      "qty": 6
     }
    ],
@@ -3011,6 +3051,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 2,
    "height": "full",
@@ -3040,7 +3081,7 @@
    "platform": "GX",
    "name": "SPN2",
    "family": "SPN2",
-   "kind": "muxponder",
+   "kind": "switchponder",
    "lineCarriers": 4,
    "lineRatesG": [
     100,
@@ -3062,7 +3103,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28/QSFP+",
+     "type": "QSFP-DD/QSFP28",
      "qty": 6
     }
    ],
@@ -3074,6 +3115,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": 600,
    "futureServices": [],
    "slots": 2,
    "height": "full",
@@ -3125,7 +3167,7 @@
    "zr": [],
    "clientCages": [
     {
-     "type": "QSFP28/QSFP+",
+     "type": "QSFP-DD/QSFP28",
      "qty": 2
     },
     {
@@ -3141,6 +3183,7 @@
     "OTU4"
    ],
    "servicesDenied": [],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 2,
    "height": "full",
@@ -3199,6 +3242,7 @@
     "STM64",
     "FC800"
    ],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -3262,6 +3306,7 @@
     "OC-192",
     "STM64"
    ],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -3325,6 +3370,7 @@
     "SD-SDI",
     "3G-SDI"
    ],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "half",
@@ -3390,6 +3436,7 @@
     "100GE",
     "OTU4"
    ],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 2,
    "height": "full",
@@ -3464,6 +3511,7 @@
     "OTUC4",
     "OTU4"
    ],
+   "switchingCapacityG": null,
    "futureServices": [
     "800GE",
     "OTUC4"
@@ -3541,6 +3589,7 @@
     "OTUC4",
     "OTU4"
    ],
+   "switchingCapacityG": null,
    "futureServices": [
     "800GE",
     "OTUC4"
@@ -3612,6 +3661,7 @@
     "100GE",
     "OTU4"
    ],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 2,
    "height": "full",
@@ -3681,6 +3731,7 @@
     "100GE",
     "OTU4"
    ],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 2,
    "height": "full",
@@ -3759,6 +3810,7 @@
     "100ZR",
     "FC16G"
    ],
+   "switchingCapacityG": null,
    "futureServices": [
     "100ZR"
    ],
@@ -3841,6 +3893,7 @@
     "100ZR",
     "FC16G"
    ],
+   "switchingCapacityG": null,
    "futureServices": [
     "100ZR"
    ],
@@ -3914,6 +3967,7 @@
     "OTUC4",
     "OTU4"
    ],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "half",
@@ -3983,6 +4037,7 @@
     "400GE",
     "100GE"
    ],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "half",
@@ -4054,6 +4109,7 @@
     "100GE",
     "OTU4"
    ],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -4124,6 +4180,7 @@
     "100GE",
     "OTU4"
    ],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 2,
    "height": "half",
@@ -4193,6 +4250,7 @@
     "100GE",
     "OTU4"
    ],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 2,
    "height": "half",
@@ -4263,6 +4321,7 @@
     "100GE",
     "OTU4"
    ],
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 2,
    "height": "half",
@@ -4311,6 +4370,7 @@
    "clientCages": [],
    "clientServices": null,
    "clientsUnknown": true,
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -4362,6 +4422,7 @@
    ],
    "clientServices": null,
    "clientsUnknown": true,
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -4411,6 +4472,7 @@
    ],
    "clientServices": null,
    "clientsUnknown": true,
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -4462,6 +4524,7 @@
    ],
    "clientServices": null,
    "clientsUnknown": true,
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -4506,6 +4569,7 @@
    "clientCages": [],
    "clientServices": null,
    "clientsUnknown": true,
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -4552,6 +4616,7 @@
    "clientCages": [],
    "clientServices": null,
    "clientsUnknown": true,
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -4601,6 +4666,7 @@
    ],
    "clientServices": null,
    "clientsUnknown": true,
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -4652,6 +4718,7 @@
    ],
    "clientServices": null,
    "clientsUnknown": true,
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -4696,6 +4763,7 @@
    "clientCages": [],
    "clientServices": null,
    "clientsUnknown": true,
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -4740,6 +4808,7 @@
    "clientCages": [],
    "clientServices": null,
    "clientsUnknown": true,
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -4789,6 +4858,7 @@
    ],
    "clientServices": null,
    "clientsUnknown": true,
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 2,
    "height": "full",
@@ -4837,6 +4907,7 @@
    ],
    "clientServices": null,
    "clientsUnknown": true,
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 2,
    "height": "full",
@@ -4886,6 +4957,7 @@
    ],
    "clientServices": null,
    "clientsUnknown": true,
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -4934,6 +5006,7 @@
    ],
    "clientServices": null,
    "clientsUnknown": true,
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 2,
    "height": "full",
@@ -4982,6 +5055,7 @@
    ],
    "clientServices": null,
    "clientsUnknown": true,
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 2,
    "height": "full",
@@ -5031,6 +5105,7 @@
    ],
    "clientServices": null,
    "clientsUnknown": true,
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 3,
    "height": "full",
@@ -5078,6 +5153,7 @@
    ],
    "clientServices": null,
    "clientsUnknown": true,
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 2,
    "height": "full",
@@ -5125,6 +5201,7 @@
    ],
    "clientServices": null,
    "clientsUnknown": true,
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 3,
    "height": "full",
@@ -5172,6 +5249,7 @@
    ],
    "clientServices": null,
    "clientsUnknown": true,
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 3,
    "height": "full",
@@ -5214,6 +5292,7 @@
    "clientCages": [],
    "clientServices": null,
    "clientsUnknown": true,
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -5263,6 +5342,7 @@
    ],
    "clientServices": null,
    "clientsUnknown": true,
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 2,
    "height": "full",
@@ -5313,6 +5393,7 @@
    ],
    "clientServices": null,
    "clientsUnknown": true,
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 2,
    "height": "full",
@@ -5358,6 +5439,7 @@
    "clientCages": [],
    "clientServices": null,
    "clientsUnknown": true,
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -5404,6 +5486,7 @@
    "clientCages": [],
    "clientServices": null,
    "clientsUnknown": true,
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -5448,6 +5531,7 @@
    "clientCages": [],
    "clientServices": null,
    "clientsUnknown": true,
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -5499,6 +5583,7 @@
    ],
    "clientServices": null,
    "clientsUnknown": true,
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -5550,6 +5635,7 @@
    ],
    "clientServices": null,
    "clientsUnknown": true,
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -5600,6 +5686,7 @@
    ],
    "clientServices": null,
    "clientsUnknown": true,
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",
@@ -5650,6 +5737,7 @@
    ],
    "clientServices": null,
    "clientsUnknown": true,
+   "switchingCapacityG": null,
    "futureServices": [],
    "slots": 1,
    "height": "full",

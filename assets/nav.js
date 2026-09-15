@@ -89,9 +89,13 @@
           blurb: 'Interactive quadrant view of the 1830 GX OLS parts a ' +
                  'hyperscaler deal draws on — bands, MRA vs single-rail, ' +
                  'compact vs full, R9.1 readiness.' },
-        { group: 'Subsea', href: null, label: 'Subsea', icon: 'SB',
-          blurb: 'Nothing here yet — the place for subsea line terminal and ' +
-                 'landing-station material when it lands.' },
+        { group: 'Subsea', href: 'subsea-silicon.html',
+          label: 'Subsea & Silicon', icon: 'SS',
+          blurb: 'Every submarine cable on record — 707 systems, 1,925 landing ' +
+                 'points — mapped against the data-centre power it has to feed. ' +
+                 'Routes, fibre pairs and design capacity, DC power by market, ' +
+                 'the 69 landing-station to metro backhaul gaps, chokepoints, ' +
+                 'and a Vietnam drill-down.' },
       ],
     },
   ];

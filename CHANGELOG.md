@@ -10,6 +10,27 @@ missing page.
 
 ---
 
+## v17 — 2026-09-15
+
+**Subsea & Silicon moves out of the report library and into Hyperscaler.**
+`reports/Subsea_and_Silicon_Insight.html` → `subsea-silicon.html`, and it now
+sits under Hyperscaler → Subsea instead of as a fifth card in Market Insight.
+
+It shipped in v16 as a report because that is the shelf it was built on, but it
+does not behave like one. The other four are read once and filed; this one has
+seven views, a map you pan and zoom, a year scrubber and sortable tables — you
+go back to it with a question. Market Insight stays what it says it is: source-
+audited briefings. Tools live with the section whose deals they serve.
+
+The Subsea group under Hyperscaler had been an empty placeholder since the nav
+was built — "nothing here yet, the place for subsea material when it lands."
+This is what lands in it.
+
+Its back-link changes with it, from Market Insight to Hyperscaler, so the way
+out of the page matches the way in.
+
+---
+
 ## v16 — 2026-09-15
 
 **Subsea &amp; Silicon — the fifth Market Insight report, and the first interactive

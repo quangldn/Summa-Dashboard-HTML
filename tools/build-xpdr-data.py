@@ -114,6 +114,25 @@ WSON = {
             "to be PSS.",
 }
 
+# Switching capacity — and why exactly one card is in this table.
+#
+# Quang's rule, Sep-2026: "only SPN2 now, the rest is pure fabric from client
+# to line. SPN is a switchponder, that's why it needs more port."
+#
+# That is the whole distinction. Every other card in the catalogue maps client
+# to line straight through: whatever the client cages can take, the line side
+# can carry, so ports x line rate IS the card's capacity and there is no second
+# number to know. SPN2 has a switch stage in the middle. The switch is what
+# lets it groom and aggregate, it is why the card carries more client ports
+# than a straight mapping would need — and it is a capacity ceiling of its own.
+# Four 400G line ports is 1.6T of optics over a fabric that moves 600G.
+#
+# So this table is not "cards we have not measured yet". A card absent from it
+# is a card with nothing to measure. Add an entry only for another switchponder.
+SWITCHING_G = {
+    "SPN2": 600,
+}
+
 # --------------------------------------------------------------------------
 # Line-side prose parser (PSS)
 # --------------------------------------------------------------------------
@@ -418,9 +437,17 @@ def parse_footprint(as_named):
 # is the family ceiling.
 GX_FAMILY_CEILING = {"CHM6": 800, "CHM7": 1200, "CHM7X": 1200, "CHMQ6": 400}
 
+# What the card IS, where the parsed cage/port counts do not say it.
+# 'switchponder' is not decoration: it is why SPN2 carries client ports beyond
+# what its line side needs, so its spare cages are the product rather than the
+# over-spec the picker otherwise reads them as.
 GX_KIND = {
     "UCM4": "aggregator",
     "UTM2": "aggregator",
+    # SPN2 only. Quang put "the rest" — SPN2C included — in the pure
+    # client-to-line group, so labelling the C variant a switchponder would
+    # be inventing a claim he did not make.
+    "SPN2": "switchponder",
 }
 
 
@@ -547,29 +574,63 @@ def gx_cage_type(rules, table):
     rows = []
     for t in (table if isinstance(table, list) else [table]):
         rows += rules["optionLists"].get((t or "") + "_LIST", []) or []
+    # Two different vocabularies, so they get two different pattern sets. The
+    # description is prose and names the form factor in words; the PON is a
+    # code where the form factor is a two-letter stem. Running the PON stems
+    # against the prose is what made "IB-QDR" — InfiniBand Quad Data Rate, a
+    # 10GE SFP+ module — register as a QSFP-DD cage, and with the widest-wins
+    # rule below that mislabelled all twelve of UTM2's SFP+ cages.
+    BY_DESC = (
+        (r"QSFP-?DD|QSFP56-DD", "QSFP-DD"),
+        # 100G in a quad cage is QSFP28; 40G in a quad cage is QSFP+.
+        (r"QSFP28|100GBASE", "QSFP28"),
+        (r"QSFP\+|QUAD SFP PLUS", "QSFP+"),
+        (r"CFP2", "CFP2"),
+        (r"SFP\+|SFP28", "SFP+/SFP28"),
+        (r"\bSFP\b", "SFP"),
+    )
+    BY_PON = (
+        (r"-QD[A-Z0-9]|\bQDD", "QSFP-DD"),
+        # The PON spellings differ only by the rate (TOM-100G-Q-SR4 vs
+        # TOM-40G-Q-SR4), so the rate has to do the deciding.
+        (r"-Q8[A-Z0-9]|100G[A-Z]*-Q-", "QSFP28"),
+        (r"-QP[A-Z0-9]|40G[A-Z]*-Q-", "QSFP+"),
+        (r"-C2[A-Z0-9]", "CFP2"),
+        (r"-SP[A-Z0-9]", "SFP+/SFP28"),
+        (r"\bS1GBE|\bSOC48", "SFP"),
+    )
     for row in rows:
-        d = (row.get("description") or "") + " " + (row.get("pon") or "")
-        for pat, name in (
-                (r"QSFP-?DD|QSFP56-DD|QDD|\bQD[A-Z0-9]", "QSFP-DD"),
-                # 100G in a quad cage is QSFP28; 40G in a quad cage is QSFP+.
-                # The PON spellings differ only by the rate (TOM-100G-Q-SR4
-                # vs TOM-40G-Q-SR4), so the rate has to do the deciding.
-                (r"QSFP28|\bQ8[A-Z0-9]|100GBASE|100G[A-Z]*-Q-", "QSFP28"),
-                (r"QSFP\+|\bQP[A-Z0-9]|QUAD SFP PLUS|40G[A-Z]*-Q-", "QSFP+"),
-                (r"CFP2|\bC2[A-Z0-9]", "CFP2"),
-                (r"SFP\+|SFP28|\bSP[A-Z0-9]", "SFP+/SFP28"),
-                (r"\bSFP\b|\bS1GBE|\bSOC48", "SFP"),
-        ):
-            if re.search(pat, d, re.I):
-                counts[name] = counts.get(name, 0) + 1
+        desc = row.get("description") or ""
+        pon = row.get("pon") or ""
+        hit = None
+        for pat, name in BY_DESC:
+            if re.search(pat, desc, re.I):
+                hit = name
                 break
+        if hit is None:
+            for pat, name in BY_PON:
+                if re.search(pat, pon, re.I):
+                    hit = name
+                    break
+        if hit:
+            counts[hit] = counts.get(hit, 0) + 1
     if not counts:
         return "client"
-    # A cage often takes two form factors — UCM4's client cages accept both
-    # QSFP28 and QSFP+ — so name both rather than hiding the smaller one.
-    ranked = sorted(counts.items(), key=lambda kv: -kv[1])
-    keep = [k for k, n in ranked if n >= max(1, ranked[0][1] * 0.25)][:2]
-    return "/".join(keep)
+    # A cage is defined by the WIDEST module it accepts, not by the one that
+    # appears most often in the option list. Ranking by frequency labelled
+    # SPN2's cages "QSFP28/QSFP+" because 15 of its 21 legal modules are
+    # QSFP28 — and dropped the four QSFP-DD 400G rows that are the whole
+    # reason the cage can carry a 400GE client at all. The picker then read
+    # SPN2 as having no QSFP-DD cage and refused every 400GE design on a card
+    # that takes them.
+    #
+    # So: widest first, then the rest by frequency, and never drop the widest.
+    WIDTH = ["QSFP-DD", "CFP2", "QSFP28", "QSFP+", "SFP+/SFP28", "SFP"]
+    present = sorted(counts, key=lambda k: WIDTH.index(k) if k in WIDTH else 99)
+    widest = present[0]
+    others = [k for k, n in sorted(counts.items(), key=lambda kv: -kv[1])
+              if k != widest and n >= max(1, max(counts.values()) * 0.25)]
+    return "/".join([widest] + others[:1])
 
 
 # Line rates the workbook does not model, because the sled has no line
@@ -658,6 +719,7 @@ def build_gx(rules):
             ("clientCages", cages),
             ("clientServices", services),
             ("servicesDenied", denied),
+            ("switchingCapacityG", SWITCHING_G.get(fam) or SWITCHING_G.get(name)),
             ("futureServices", []),
             ("slots", sled.get("slots") or 1),
             ("height", "full"),
@@ -806,6 +868,7 @@ def build_pss_guide_only(cards, guide, already):
             ("clientCages", [{"type": "client", "qty": nclients}] if nclients else []),
             ("clientServices", None),
             ("clientsUnknown", True),
+            ("switchingCapacityG", SWITCHING_G.get(c["name"])),
             ("futureServices", []),
             ("slots", pw.get("slots") or 1),
             ("height", "full"),
@@ -860,6 +923,7 @@ def build_pss(cards):
             ("zr", parse_zr(line)),
             ("clientCages", cages),
             ("clientServices", services),
+            ("switchingCapacityG", SWITCHING_G.get(c["name"])),
             ("futureServices", parse_future_services(ctypes)),
             ("slots", slots or 1),
             ("height", height or "full"),
@@ -949,7 +1013,7 @@ def main():
             ],
             "scope": "GX + PSS transponders. PSI-M sleds, PSS-x and PSS-HC "
                      "line cards are out of scope for v1.",
-            "curatedRules": ["depthClass", "cascade", "wson"],
+            "curatedRules": ["depthClass", "cascade", "wson", "switchingCapacityG"],
             "counts": {
                 "xpdr": len(xpdr),
                 "pssFromGuideOnly": len(guide_only),

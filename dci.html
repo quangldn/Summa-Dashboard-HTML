@@ -656,7 +656,13 @@
     var fillLabel = 'Wavelength fill · ' + r.carriersUsed + ' x ' + FMT(r.effRateG);
     card.appendChild(el('div', { class: 'meters' }, [
       meter(fillLabel, r.lineUtil + '%', r.lineUtil),
-      meter('Card used · ' + r.carriersTotal + ' x ' + FMT(r.ceilingRateG),
+      // Where the fabric is the binding limit, the meter has to say so —
+      // "4 x 400G" invites the reader to size a design the card cannot carry.
+      meter('Card used · ' + (r.xpdr.switchingCapacityG &&
+              r.xpdr.switchingCapacityG < r.ceilingRateG * r.carriersTotal
+            ? FMT(r.xpdr.switchingCapacityG) + ' fabric (' + r.carriersTotal +
+              ' x ' + FMT(r.ceilingRateG) + ' optics)'
+            : r.carriersTotal + ' x ' + FMT(r.ceilingRateG)),
             r.cardUsePct + '%', r.cardUsePct),
       meter('Client cages',
             r.clientsUnverified && !r.capacity

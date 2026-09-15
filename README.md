@@ -50,8 +50,13 @@ what the workbench *is*; the changelog describes how it got here.
 - `index.html` — landing portal.
 - `dashboard.html` — hyperscaler intel, APAC datacenter map, and the full Nokia
   hyperscaler portfolio.
+- `subsea-silicon.html` — **Subsea & Silicon**: every submarine cable on record
+  (707 systems, 1,925 landing points) mapped against the data-centre power it
+  has to feed. Seven interactive views over one canvas map. Lives under
+  Hyperscaler rather than in `reports/` — it is a tool you work in, not a
+  briefing you read once.
 - `market-insight.html`, `hyperscaler.html`, `product.html` — section landings.
-- `reports/` — standalone insight reports. See
+- `reports/` — standalone insight reports, read once and filed. See
   [`HOW-TO-ADD-A-REPORT.md`](HOW-TO-ADD-A-REPORT.md).
 
 ## Reference data

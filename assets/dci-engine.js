@@ -392,6 +392,19 @@
                  'would ride it as an alien wavelength');
     }
 
+    // A switchponder's spare client cages are not over-spec, they are the
+    // product: the switch stage in the middle is what lets it groom many
+    // clients onto fewer wavelengths, and it needs the ports to do that. Say
+    // so, because the cage and port notes below read as criticism otherwise —
+    // and the fabric, not the cage count, is what actually caps the card.
+    if (xpdr.kind === 'switchponder') {
+      costs.push('switchponder — the client ports are there for grooming, and ' +
+        (xpdr.switchingCapacityG
+          ? 'the ' + fmtRate(xpdr.switchingCapacityG) + ' switch fabric is the ' +
+            'real ceiling, not the line optics'
+          : 'the switch fabric, not the port count, is the real ceiling'));
+    }
+
     // --- client side --------------------------------------------------
     var inv = inventory(xpdr);
     var cap = totalCages(inv);
@@ -461,12 +474,29 @@
     var lineCap = rate * carriersUsed;
     var util = lineCap ? Math.round(need.totalClientG / lineCap * 100) : 0;
 
+    // A card has two capacity limits and they are not the same number: the
+    // optics it can plug, and the fabric behind them. SPN2 is four 400G line
+    // ports — 1.6T of optics — over a switch that moves 600G. Where the fabric
+    // is the smaller of the two it is the real limit, so it caps what the card
+    // can carry and it is what the card is measured against.
+    var fabric = xpdr.switchingCapacityG || 0;
+
     // What the whole card could carry on this link, versus what it is asked
     // to. This is the number that separates a 2x400G card from a 2x800G card
     // for the same 800G of traffic — both light their ports, but only one of
     // them is being paid for at the rate it is used.
     var cardCap = (ceilingRate || rate) * ports;
+    if (fabric && fabric < cardCap) cardCap = fabric;
     var cardUse = cardCap ? need.totalClientG / cardCap : 0;
+
+    // Blocked by the fabric, not the optics — worth saying in those words,
+    // because "it has four 400G ports" is the answer that gets the bid wrong.
+    if (fabric && need.totalClientG > fabric && !blockers.length) {
+      blockers.push('client load ' + fmtRate(need.totalClientG) + ' exceeds the ' +
+        fmtRate(fabric) + ' switching capacity — the card has ' + ports + ' x ' +
+        fmtRate(ceilingRate || rate) + ' of line optics, but the fabric behind ' +
+        'them moves only ' + fmtRate(fabric));
+    }
 
     if (lineCap && need.totalClientG > rate * maxCarriers && !blockers.length) {
       blockers.push('client load ' + fmtRate(need.totalClientG) + ' exceeds ' +
@@ -496,7 +526,11 @@
 
     // 1. Native client coverage beats a cascade, decisively.
     if (clientsUnverified) {
-      score += 6;
+      // 26 against native's 40. The gap has to be small enough that a large
+      // fit advantage can overcome it — an unconfirmed card that is 90% used
+      // should beat a confirmed one that is 6% used — and large enough that
+      // between two cards of equal fit, the confirmed one wins.
+      score += 26;
       costs.push('client side not stated in the planning guide — this card has ' +
                  'no roadmap slide, so the cages and services above are not ' +
                  'confirmed. Check the card sheet before quoting it.');
@@ -593,17 +627,29 @@
     if (cardCap) {
       var pct = Math.round(cardUse * 100);
       var shape = ports + ' x ' + fmtRate(ceilingRate || rate);
+      if (fabric && fabric < (ceilingRate || rate) * ports) {
+        shape += ' behind a ' + fmtRate(fabric) + ' fabric';
+      }
+      // This band used to run 0..+22, which made it narrower than the
+      // confidence penalty sitting beside it — so a card using 6% of itself
+      // outranked one using 90%, which is the opposite of the whole point.
+      // Waste now costs real points rather than merely failing to earn them.
       if (cardUse >= 0.9) {
-        score += 22;
+        score += 26;
         fits.push('card fully used — ' + shape + ' on this link, ' + pct + '% taken');
       } else if (cardUse >= 0.7) {
-        score += 15;
+        score += 18;
         fits.push('card ' + pct + '% used (' + shape + ' on this link)');
       } else if (cardUse >= 0.5) {
-        score += 6;
+        score += 8;
         costs.push('card only ' + pct + '% used — ' + shape +
                    ' on this link, so it is priced above what the design carries');
+      } else if (cardUse >= 0.3) {
+        score -= 6;
+        costs.push('card only ' + pct + '% used — ' + shape + ' on this link ' +
+                   'against ' + fmtRate(need.totalClientG) + ' of traffic');
       } else {
+        score -= 14;
         costs.push('card only ' + pct + '% used — ' + shape + ' on this link ' +
                    'against ' + fmtRate(need.totalClientG) + ' of traffic; a ' +
                    'smaller card carries this service for less');
