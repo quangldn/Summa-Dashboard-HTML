@@ -10,6 +10,52 @@ missing page.
 
 ---
 
+## v16 — 2026-09-15
+
+**Subsea &amp; Silicon — the fifth Market Insight report, and the first interactive
+one.** `reports/Subsea_and_Silicon_Insight.html`. The whole TeleGeography public
+inventory — 707 submarine systems, 1,925 landing points, 186 countries — drawn on a
+canvas map and cross-referenced against data-centre power in 67 markets and 30 metros.
+
+Seven views over one pan/zoom map, each with its own sortable tables: **Routes** (all
+707 systems, status-coloured, with a ready-for-service scrubber from 1989 to 2030),
+**Fibre &amp; capacity** (line weight by design Tbps, plus the per-fibre-pair plateau
+chart), **DC power** (country choropleth with four metrics, top-30 metro bubbles),
+**Landing &rarr; DC** (69 landing stations connected to the metro they actually serve,
+coloured by distance class, dashed where there is no diverse second path),
+**Chokepoints** (16 corridors sized by systems transiting, plus 27 terrestrial bypass
+projects), **Vietnam &amp; APAC**, and **Where the money is** (five sales theses and two
+ranked call lists).
+
+Three findings worth carrying into a meeting:
+
+| Finding | Number |
+|---|---|
+| Capacity per fibre pair has been flat since 2018 | 13–26 Tbps across every era since; systems grew 90 &rarr; 350 Tbps by adding pairs, not spectrum |
+| Landing stations far from the compute they feed | 42 of 69 over 100 km; 20 with no diverse second path |
+| Landed design capacity vs. DC load | 6.7 Pbps lit against 126.5 GW live; 3.5 Pbps and 302 GW in build |
+
+The per-pair plateau is the one that changes a pitch. The shore-end power feed is
+capped, so spreading it across 16 or 24 pairs means less pump power on each — Marea
+(2018, 8 FP) still holds the highest per-pair figure ever demonstrated transatlantic at
+26.2 Tbps. Google's own FCC filings show the same constraint: Taihei at 7,000 km
+declares 19 Tbps/FP, Halaihai at 17,483 km declares 14.5. Growth is spatial now, which
+makes every fibre pair a separate terminal decision under open-cable architecture.
+
+**Departures from the report convention, deliberately.** This one is interactive rather
+than a set of tabbed infographics, and it carries both themes rather than dark only —
+it opens dark like its siblings, with a toggle in the masthead. It is still a single
+self-contained file (1.6 MB, all data inline), so `reports/` stays a drop-in folder.
+
+**Data provenance.** Container egress to submarinecablemap.com is blocked by policy, so
+the dataset was pulled through the in-app browser, gzip+base64 compressed in-page and
+transferred in SHA-256-verified chunks. Raw JSON is archived beside the report in
+`OUTPUTS\Subsea and Silicon\` on the G: drive. Capacity figures cover 82 of the 707
+systems — country "landed Tbps" totals are floors, not totals. Design capacity is not
+lit capacity, and CLS&rarr;DC distances are road-route estimates.
+
+---
+
 ## v15 — 2026-09-14
 
 **The DCI requirement panel now actually gets out of the way.** The v14
